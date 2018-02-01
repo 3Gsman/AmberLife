@@ -8,3 +8,6 @@ GuillermoCastilla;tecnico;g#Casti11a@uem.es
 MariaJoTerron;tecnico;mJ#T3rr0n@uem.es
 VictorPadron;tecnico;v#Padr0n@uem.es
 JuanAPinuela;admin;jA#Pinu31a@uem.es
+1;medico;1
+2;tecnico;2
+3;admin;3
