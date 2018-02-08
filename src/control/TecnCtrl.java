@@ -3,6 +3,7 @@ package control;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
@@ -13,7 +14,7 @@ import view.*;
 import control.*;
 import model.Fichero;
 
-public class TecnCtrl implements ActionListener{
+public class TecnCtrl implements ActionListener, KeyListener{
 
 	TecnFr tf;
 	String name;
@@ -50,6 +51,32 @@ public class TecnCtrl implements ActionListener{
         }
         
        */
+		
+	}
+	
+    @Override
+    public void keyPressed(KeyEvent e) {
+    	System.out.println("Key pressed");
+    	if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+				buscarPaciente();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        } else if (e.getKeyCode() == KeyEvent.VK_F1) {
+        	
+        }
+    }
+    
+    @Override
+    public void keyReleased(KeyEvent e) {
+    	
+    }
+     
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 	
