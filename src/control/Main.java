@@ -113,7 +113,7 @@ public class Main implements ActionListener, KeyListener {
 
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
         TecnFr vm = new TecnFr();
-        TecnCtrl tc = new TecnCtrl(vm);
+        TecnCtrl tc = new TecnCtrl(usuario, vm);
         vm.addController(tc);
         vm.initialize();
         vm.setVisible(true);

@@ -1,22 +1,27 @@
 package control;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import view.*;
 import control.*;
+import model.Fichero;
 
 public class TecnCtrl implements ActionListener{
 
 	TecnFr tf;
+	String name;
 	private JTextField textField;
 	
-	public TecnCtrl(TecnFr vm) {
+	public TecnCtrl(String user, TecnFr vm) {
 		tf = vm;
+		name = user;
 	}
 
 	@Override
@@ -24,7 +29,12 @@ public class TecnCtrl implements ActionListener{
 		System.out.println("Action received: ");
 		 if (e.getActionCommand().equals("SEARCH")){
 			System.out.println(" Search");
-			buscarPaciente();
+			try {
+				buscarPaciente();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 				 
 		
 			 }else System.out.println(" Null");
@@ -43,8 +53,24 @@ public class TecnCtrl implements ActionListener{
 		
 	}
 	
-	public void buscarPaciente() {
-		System.out.println(tf.getID());
+	public void buscarPaciente() throws IOException {
+		String dni = tf.getID();
+		Fichero id = new Fichero();
+		String resultado[] = id.comprobarId(dni);
+		if(resultado[0] == "true") {
+			System.out.println("Patient found.\n");
+			System.out.println("Technician: " + getName());
+			//PONER LO QUE SE HAGA CUANDO ENCUENTRA A UN PACIENTE. NUEVA VENTANA?
+		}else {
+			Object frame = null;	//crea un objeto ventana
+            JOptionPane.showMessageDialog((Component) frame, "Patient not found.", "Error", JOptionPane.ERROR_MESSAGE);	//sale una ventana de diálogo para alertar de un error
+
+		}
+
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	
