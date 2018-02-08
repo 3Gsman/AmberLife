@@ -112,7 +112,11 @@ public class Main implements ActionListener, KeyListener {
     public void openTecnico(String usuario) throws IOException {
 
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
-        TecnFr vm = new TecnFr();	//crea nueva ventana
+        TecnFr vm = new TecnFr();
+        TecnCtrl tc = new TecnCtrl();
+        vm.addController(tc);
+        vm.initialize();
+        vm.setVisible(true);
 
     }
 
