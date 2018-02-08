@@ -45,7 +45,7 @@ import view.LoginFr.JPanelWithBackground;
 	
 	public class TecnFr extends JFrame {
 	
-		private JTextField textField;
+		public JTextField textField;
 		TecnCtrl controller;
 		
 	
@@ -102,6 +102,10 @@ import view.LoginFr.JPanelWithBackground;
 		
 		public TecnFr() {
 			
+		}
+		
+		public String getID() {
+			return textField.getText();
 		}
 		
 		public void addController(TecnCtrl controlador){
@@ -215,6 +219,8 @@ import view.LoginFr.JPanelWithBackground;
 			
 			JButton btnNewButton_1 = new JButton("search");
 			btnNewButton_1.setBackground(Color.DARK_GRAY);
+			btnNewButton_1.addActionListener(controller);
+			btnNewButton_1.setActionCommand("SEARCH");
 			sf = font.deriveFont(28f);
 			btnNewButton_1.setFont(sf);
 			btnNewButton_1.setForeground(Color.WHITE);
