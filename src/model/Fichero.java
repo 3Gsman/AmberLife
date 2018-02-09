@@ -65,7 +65,7 @@ public class Fichero {
     	return paciente;	
     }
     
-    public String[] leerTecnico(String dni) throws IOException{
+    public String[] leerTecnico(String username) throws IOException{
     	Boolean busqueda = false;
     	lector=new BufferedReader(new FileReader("src/resources/Tecnicos.txt"));
     	String tecnico[] = new String[5];
@@ -73,7 +73,7 @@ public class Fichero {
     	
     	while((linea=lector.readLine())!=null &&(!busqueda)){
     		String[] lineatxt=linea.split(";");	
-    		if(lineatxt[4].equals(dni)){ //equalsIgnoreCases
+    		if(lineatxt[4].equals(username)){ //equalsIgnoreCases
     				busqueda=true;
     				tecnico = lineatxt;
     		}
