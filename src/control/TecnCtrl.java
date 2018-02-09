@@ -114,6 +114,10 @@ public class TecnCtrl implements ActionListener, KeyListener{
 		return name;
 	}
 	
+	public Tecnico getTecnico() {
+		return tecnico;
+	}
+	
 	
 		 
 
