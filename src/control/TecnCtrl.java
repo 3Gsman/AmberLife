@@ -13,17 +13,22 @@ import javax.swing.JTextField;
 import view.*;
 import control.*;
 import model.Fichero;
+import model.Tecnico;
 
 public class TecnCtrl implements ActionListener, KeyListener{
 
 	TecnFr tf;
 	String name;
+	Tecnico tecnico;
 	private JTextField textField;
 	
-	public TecnCtrl(String user, TecnFr vm) {
+	public TecnCtrl(String user, TecnFr vm) throws IOException {
 		tf = vm;
 		name = user;
+		tecnico = new Tecnico(user);
+	
 	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -83,10 +88,19 @@ public class TecnCtrl implements ActionListener, KeyListener{
 	public void buscarPaciente() throws IOException {
 		String dni = tf.getID();
 		Fichero id = new Fichero();
+		int i;
 		String resultado[] = id.comprobarId(dni);
+		Tecnico[] test = id.obtenerTecnicos();
 		if(resultado[0] == "true") {
 			System.out.println("Patient found.\n");
 			System.out.println("Technician: " + getName());
+
+
+			for(i = 0; i < 6;i++) {
+				System.out.println("DNI de tecnico: " + test[i].getId());
+				
+			}
+			
 			//PONER LO QUE SE HAGA CUANDO ENCUENTRA A UN PACIENTE. NUEVA VENTANA?
 		}else {
 			Object frame = null;	//crea un objeto ventana

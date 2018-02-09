@@ -64,6 +64,42 @@ public class Fichero {
             lector.close();
     	return paciente;	
     }
+    
+    public String[] leerTecnico(String dni) throws IOException{
+    	Boolean busqueda = false;
+    	lector=new BufferedReader(new FileReader("src/resources/Tecnicos.txt"));
+    	String tecnico[] = new String[5];
+    	String linea;
+    	
+    	while((linea=lector.readLine())!=null &&(!busqueda)){
+    		String[] lineatxt=linea.split(";");	
+    		if(lineatxt[4].equals(dni)){ //equalsIgnoreCases
+    				busqueda=true;
+    				tecnico = lineatxt;
+    		}
+    	}
+    	
+
+    	
+    	
+    	lector.close();
+    	return tecnico;
+    }
+    
+    public Tecnico[] obtenerTecnicos() throws IOException {
+    	lector = new BufferedReader(new FileReader("src/resources/Tecnicos.txt"));
+    	Tecnico[] lista = new Tecnico[6];
+    	String linea;
+    	int i = 0;
+    	
+    	while((linea=lector.readLine())!=null){
+    		String[] lineatxt=linea.split(";");	
+    		lista[i] = new Tecnico(lineatxt[0],lineatxt[1],lineatxt[2],lineatxt[3],lineatxt[4]);
+    		i++;
+    	}
+    	
+    	return lista;
+    }
 
     
     }

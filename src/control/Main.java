@@ -124,6 +124,7 @@ public class Main implements ActionListener, KeyListener {
 
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
         AdminFr vm = new AdminFr();	//crea nueva ventana
+        AdminCtrl ac = new AdminCtrl(vm);
 
     }
     
