@@ -94,14 +94,13 @@ public class TecnCtrl implements ActionListener, KeyListener{
 		if(resultado[0] == "true") {
 			System.out.println("Patient found.\n");
 			System.out.println("Technician: " + getName());
-
-
-			for(i = 0; i < 6;i++) {
-				System.out.println("DNI de tecnico: " + test[i].getId());
-				
-			}
 			
-			//PONER LO QUE SE HAGA CUANDO ENCUENTRA A UN PACIENTE. NUEVA VENTANA?
+			String pname = resultado[2];
+			String psurname = resultado[3];
+			
+			
+			openPatientTecn(dni,pname,psurname,name);
+			
 		}else {
 			Object frame = null;	//crea un objeto ventana
             JOptionPane.showMessageDialog((Component) frame, "Patient not found.", "Error", JOptionPane.ERROR_MESSAGE);	//sale una ventana de diálogo para alertar de un error
@@ -110,6 +109,18 @@ public class TecnCtrl implements ActionListener, KeyListener{
 
 	}
 	
+	public void openPatientTecn(String dni, String pname, String psurname, String user) throws IOException {
+
+    	//TecnFr.setVisible(false); 
+        TecnPatientFr vm = new TecnPatientFr(dni, pname, psurname, name);
+        TecnPatientCtrl tc = new TecnPatientCtrl();
+        vm.addController(tc);
+        vm.initialize(dni, pname, psurname, name);
+        vm.setVisible(true);
+
+    }
+
+
 	public String getName() {
 		return name;
 	}
