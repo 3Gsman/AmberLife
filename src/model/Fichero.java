@@ -12,6 +12,7 @@ public class Fichero {
 	
     BufferedWriter escritor;
     BufferedReader lector;
+    BufferedReader lectorm;
     File ficheroUsuario = new File("FicheroUsuarios.txt");
     String p = ";";
 
@@ -98,6 +99,54 @@ public class Fichero {
     		i++;
     	}
     	
+    	lector.close();
+    	return lista;
+    }
+    
+    public Medico leerMedico(String username) throws IOException{
+    	lectorm = new BufferedReader(new FileReader("src/resources/" + username + ".txt"));
+    	String linea;
+    	String[] listapacientes = new String[20];
+    	int i = 0;
+    	
+    	linea = lectorm.readLine();
+    	String[] lineatxt = linea.split(";");
+    	Medico medico = new Medico(lineatxt[0],lineatxt[1],lineatxt[2],lineatxt[3],lineatxt[4],lineatxt[5]);
+    	
+    	while((linea=lectorm.readLine())!=null){
+    		
+
+    		listapacientes[i] = linea;    		
+    		i++;
+    	}
+    	
+    	medico.setListapacientes(listapacientes);
+    	
+    	lectorm.close();
+    	return medico;
+    	
+    }
+    
+    public Medico[] obtenerMedicos() throws IOException{
+    	lector = new BufferedReader(new FileReader("src/resources/Users.txt"));
+    	Medico[] lista = new Medico[5];
+    	String linea;
+    	int i = 0;
+    	
+    	
+    	while((linea=lector.readLine())!=null){
+
+    		
+    		String[] lineatxt=linea.split(";");	
+    		if(lineatxt[1].equals("medico")){ //equalsIgnoreCases
+    			lista[i] = leerMedico(lineatxt[0]);
+    			i++;
+    		}
+
+    	}
+    	
+    	
+    	lector.close();
     	return lista;
     }
 
