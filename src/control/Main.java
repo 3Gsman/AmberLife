@@ -6,6 +6,8 @@
 package control;
 
 import model.Fichero;
+import model.Medico;
+import model.Tecnico;
 import view.*;
 
 import java.awt.Component;
@@ -75,17 +77,17 @@ public class Main implements ActionListener, KeyListener {
                 switch (resultado[1]) {
                     case "medico":
                         //Abre ventana DoctorFr
-                        System.out.print("Opening Doctor Console");
+                        System.out.print("Opening Doctor Console\n");
                         openMedico(usuario);
                         break;
                     case "tecnico":
                         //Abre ventana TecnFr
-                        System.out.print("Opening Assistant Console");
+                        System.out.print("Opening Assistant Console\n");
                         openTecnico(usuario);
                         break;
                     case "admin":
                         //Abre ventana admin
-                        System.out.print("Opening Admin Console");
+                        System.out.print("Opening Admin Console\n");
                         openAdmin(usuario);
                         break;
                     default:
@@ -125,6 +127,8 @@ public class Main implements ActionListener, KeyListener {
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
         AdminFr vm = new AdminFr();	//crea nueva ventana
         AdminCtrl ac = new AdminCtrl(vm);
+        
+        System.out.println(ac.listamedicos[2].getHospital());
 
     }
     
