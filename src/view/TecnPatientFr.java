@@ -101,7 +101,7 @@ public class TecnPatientFr extends JFrame {
 	 * @throws IOException 
 	 */
 	public void initialize(String dni, String pname, String psurname, String user) throws IOException {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 619, 632);
 		Dimension d = new Dimension(800, 620);
 		this.setMinimumSize(d);

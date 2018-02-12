@@ -12,7 +12,8 @@ import javax.swing.JTextField;
 
 import view.*;
 import control.*;
-import model.FIleManager;
+import model.FileManager;
+import model.Patient;
 import model.Assistant;
 
 public class TecnCtrl implements ActionListener, KeyListener{
@@ -36,7 +37,7 @@ public class TecnCtrl implements ActionListener, KeyListener{
 		 if (e.getActionCommand().equals("SEARCH")){
 			System.out.println(" Search");
 			try {
-				buscarPaciente();
+				searchPatient();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -64,7 +65,7 @@ public class TecnCtrl implements ActionListener, KeyListener{
     	System.out.println("Key pressed");
     	if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
-				buscarPaciente();
+				searchPatient();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -85,18 +86,18 @@ public class TecnCtrl implements ActionListener, KeyListener{
 		
 	}
 	
-	public void buscarPaciente() throws IOException {
+	public void searchPatient() throws IOException {
 		String dni = tf.getID();
-		FIleManager id = new FIleManager();
+		FileManager id = new FileManager();
 		int i;
-		String resultado[] = id.comprobarId(dni);
-		Assistant[] test = id.obtenerTecnicos();
-		if(resultado[0] == "true") {
+		Patient resultado = id.checkId(dni);
+		Assistant[] test = id.getAssistants();
+		if(resultado.getNumber() != "null") {
 			System.out.println("Patient found.\n");
 			System.out.println("Technician: " + getName());
 			
-			String pname = resultado[2];
-			String psurname = resultado[3];
+			String pname = resultado.getName();
+			String psurname = resultado.getLastname();
 			
 			
 			openPatientTecn(dni,pname,psurname,name);
