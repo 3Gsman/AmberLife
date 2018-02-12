@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Fichero {
+public class FIleManager {
 	
     BufferedWriter escritor;
     BufferedReader lector;
@@ -87,15 +87,15 @@ public class Fichero {
     	return tecnico;
     }
     
-    public Tecnico[] obtenerTecnicos() throws IOException {
+    public Assistant[] obtenerTecnicos() throws IOException {
     	lector = new BufferedReader(new FileReader("src/resources/Tecnicos.txt"));
-    	Tecnico[] lista = new Tecnico[6];
+    	Assistant[] lista = new Assistant[6];
     	String linea;
     	int i = 0;
     	
     	while((linea=lector.readLine())!=null){
     		String[] lineatxt=linea.split(";");	
-    		lista[i] = new Tecnico(lineatxt[0],lineatxt[1],lineatxt[2],lineatxt[3],lineatxt[4]);
+    		lista[i] = new Assistant(lineatxt[0],lineatxt[1],lineatxt[2],lineatxt[3],lineatxt[4]);
     		i++;
     	}
     	
@@ -103,7 +103,7 @@ public class Fichero {
     	return lista;
     }
     
-    public Medico leerMedico(String username) throws IOException{
+    public Doctor leerMedico(String username) throws IOException{
     	lectorm = new BufferedReader(new FileReader("src/resources/" + username + ".txt"));
     	String linea;
     	String[] listapacientes = new String[20];
@@ -111,7 +111,7 @@ public class Fichero {
     	
     	linea = lectorm.readLine();
     	String[] lineatxt = linea.split(";");
-    	Medico medico = new Medico(lineatxt[0],lineatxt[1],lineatxt[2],lineatxt[3],lineatxt[4],lineatxt[5]);
+    	Doctor medico = new Doctor(lineatxt[0],lineatxt[1],lineatxt[2],lineatxt[3],lineatxt[4],lineatxt[5]);
     	
     	while((linea=lectorm.readLine())!=null){
     		
@@ -127,9 +127,9 @@ public class Fichero {
     	
     }
     
-    public Medico[] obtenerMedicos() throws IOException{
+    public Doctor[] obtenerMedicos() throws IOException{
     	lector = new BufferedReader(new FileReader("src/resources/Users.txt"));
-    	Medico[] lista = new Medico[5];
+    	Doctor[] lista = new Doctor[5];
     	String linea;
     	int i = 0;
     	

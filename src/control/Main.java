@@ -5,9 +5,9 @@
  */
 package control;
 
-import model.Fichero;
-import model.Medico;
-import model.Tecnico;
+import model.FIleManager;
+import model.Doctor;
+import model.Assistant;
 import view.*;
 
 import java.awt.Component;
@@ -70,7 +70,7 @@ public class Main implements ActionListener, KeyListener {
         String usuario = vistaLogin.getUsername();	//recoge el contenido del JTextField
         char caracteres[] = vistaLogin.getPassword();	//array de caracteres que coge los elementos que se encuentran en el JPasswordField
         String Password = String.valueOf(caracteres);	//Convierte los elementos del array en un String
-        Fichero comprobar = new Fichero();	//crea un nuevo gestor de ficheros
+        FIleManager comprobar = new FIleManager();	//crea un nuevo gestor de ficheros
         try {
             String resultado[] = comprobar.comprobarUsuario(usuario, Password);
             if (resultado[0] == "true") {

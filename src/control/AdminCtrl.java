@@ -2,19 +2,19 @@ package control;
 
 import java.io.IOException;
 
-import model.Fichero;
-import model.Medico;
-import model.Tecnico;
+import model.FIleManager;
+import model.Doctor;
+import model.Assistant;
 import view.AdminFr;
 
 public class AdminCtrl {
 
 	AdminFr af;
-	Tecnico[] listatecnicos;
-	Medico[] listamedicos;
+	Assistant[] listatecnicos;
+	Doctor[] listamedicos;
 	
 	public AdminCtrl(AdminFr vm) throws IOException {
-		Fichero conseguirListas = new Fichero();
+		FIleManager conseguirListas = new FIleManager();
 		
 		af = vm;
 		listatecnicos = conseguirListas.obtenerTecnicos();

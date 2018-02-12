@@ -12,20 +12,20 @@ import javax.swing.JTextField;
 
 import view.*;
 import control.*;
-import model.Fichero;
-import model.Tecnico;
+import model.FIleManager;
+import model.Assistant;
 
 public class TecnCtrl implements ActionListener, KeyListener{
 
 	TecnFr tf;
 	String name;
-	Tecnico tecnico;
+	Assistant tecnico;
 	private JTextField textField;
 	
 	public TecnCtrl(String user, TecnFr vm) throws IOException {
 		tf = vm;
 		name = user;
-		tecnico = new Tecnico(user);
+		tecnico = new Assistant(user);
 	
 	}
 
@@ -87,10 +87,10 @@ public class TecnCtrl implements ActionListener, KeyListener{
 	
 	public void buscarPaciente() throws IOException {
 		String dni = tf.getID();
-		Fichero id = new Fichero();
+		FIleManager id = new FIleManager();
 		int i;
 		String resultado[] = id.comprobarId(dni);
-		Tecnico[] test = id.obtenerTecnicos();
+		Assistant[] test = id.obtenerTecnicos();
 		if(resultado[0] == "true") {
 			System.out.println("Patient found.\n");
 			System.out.println("Technician: " + getName());
@@ -125,7 +125,7 @@ public class TecnCtrl implements ActionListener, KeyListener{
 		return name;
 	}
 	
-	public Tecnico getTecnico() {
+	public Assistant getTecnico() {
 		return tecnico;
 	}
 	
