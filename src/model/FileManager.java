@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
+import java.util.Vector;
 
 public class FileManager {
 	
@@ -143,6 +145,30 @@ public class FileManager {
     	
     	lector.close();
     	return lista;
+    }
+    
+    public Vector<Double> readECG() throws IOException{
+    	lector = new BufferedReader(new FileReader("src/resources/ECG.txt"));
+    	Vector<Double> ecg = new Vector<>() ;
+
+    	
+    	String linea = null;
+    	String [] numeros = null;
+    	int i = 0;
+    	
+    	linea = lector.readLine();
+    	
+    	while((linea = lector.readLine()) != null) {
+    		numeros = linea.split(";");
+    		for(i = 0; i<numeros.length;i++) {
+    			ecg.add(Double.valueOf(numeros[i]));
+    		}
+    	}
+    	
+    	lector.close();
+    	return ecg;
+    	
+    	
     }
 
     
