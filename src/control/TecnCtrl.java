@@ -20,7 +20,6 @@ public class TecnCtrl implements ActionListener, KeyListener{
 	TecnFr tf;
 	String name;
 	Assistant tecnico;
-	private JTextField textField;
 	
 	public TecnCtrl(String user, TecnFr vm) throws IOException {
 		tf = vm;
