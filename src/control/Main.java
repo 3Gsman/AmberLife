@@ -5,7 +5,9 @@
  */
 package control;
 
-import model.Fichero;
+import model.FileManager;
+import model.Doctor;
+import model.Assistant;
 import view.*;
 
 import java.awt.Component;
@@ -68,24 +70,24 @@ public class Main implements ActionListener, KeyListener {
         String usuario = vistaLogin.getUsername();	//recoge el contenido del JTextField
         char caracteres[] = vistaLogin.getPassword();	//array de caracteres que coge los elementos que se encuentran en el JPasswordField
         String Password = String.valueOf(caracteres);	//Convierte los elementos del array en un String
-        Fichero comprobar = new Fichero();	//crea un nuevo gestor de ficheros
+        FileManager comprobar = new FileManager();	//crea un nuevo gestor de ficheros
         try {
-            String resultado[] = comprobar.comprobarUsuario(usuario, Password);
+            String resultado[] = comprobar.checkUser(usuario, Password);
             if (resultado[0] == "true") {
                 switch (resultado[1]) {
                     case "medico":
                         //Abre ventana DoctorFr
-                        System.out.print("Opening Doctor Console");
+                        System.out.print("Opening Doctor Console\n");
                         openMedico(usuario);
                         break;
                     case "tecnico":
                         //Abre ventana TecnFr
-                        System.out.print("Opening Assistant Console");
+                        System.out.print("Opening Assistant Console\n");
                         openTecnico(usuario);
                         break;
                     case "admin":
                         //Abre ventana admin
-                        System.out.print("Opening Admin Console");
+                        System.out.print("Opening Admin Console\n");
                         openAdmin(usuario);
                         break;
                     default:
@@ -124,6 +126,9 @@ public class Main implements ActionListener, KeyListener {
 
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
         AdminFr vm = new AdminFr();	//crea nueva ventana
+        AdminCtrl ac = new AdminCtrl(vm);
+        
+        System.out.println(ac.listamedicos[2].getPatientlist()[2].getNumber());
 
     }
     

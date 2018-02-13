@@ -7,11 +7,11 @@ package view;
 
 import javax.swing.*;
 
-import model.Fichero;
+import model.FileManager;
 
 public class AdminFr extends JFrame {
 
-    Fichero fichero;
+    FileManager fichero;
 
     public AdminFr() {
 

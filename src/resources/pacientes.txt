@@ -20,3 +20,4 @@ paciente19;Antonio;Rodriguez Perez;04684757W
 paciente20;Celsa;Eyre Lamas;15223933A
 paciente21;Eugenia;Canella Rico;18656344D
 paciente22;Juan;Otero Rosende;14787132H
+2;2;2;2

@@ -206,6 +206,7 @@ import view.LoginFr.JPanelWithBackground;
 			
 			
 			textField = new JTextField();
+			textField.addKeyListener(controller);
 			textField.setBorder(null);
 			textField.setFont(new Font("Verdana", Font.PLAIN, 26));
 			GridBagConstraints gbc_textField = new GridBagConstraints();
