@@ -20,8 +20,8 @@ public class Assistant {
 	}
 	
 	public Assistant(String un) throws IOException {
-		FIleManager t = new FIleManager();
-		String t2[] = t.leerTecnico(un);
+		FileManager t = new FileManager();
+		String t2[] = t.readAssistant(un);
 		name = t2[0];
 		lastname = t2[1];
 		id = t2[2];

@@ -5,7 +5,7 @@
  */
 package control;
 
-import model.FIleManager;
+import model.FileManager;
 import model.Doctor;
 import model.Assistant;
 import view.*;
@@ -70,9 +70,9 @@ public class Main implements ActionListener, KeyListener {
         String usuario = vistaLogin.getUsername();	//recoge el contenido del JTextField
         char caracteres[] = vistaLogin.getPassword();	//array de caracteres que coge los elementos que se encuentran en el JPasswordField
         String Password = String.valueOf(caracteres);	//Convierte los elementos del array en un String
-        FIleManager comprobar = new FIleManager();	//crea un nuevo gestor de ficheros
+        FileManager comprobar = new FileManager();	//crea un nuevo gestor de ficheros
         try {
-            String resultado[] = comprobar.comprobarUsuario(usuario, Password);
+            String resultado[] = comprobar.checkUser(usuario, Password);
             if (resultado[0] == "true") {
                 switch (resultado[1]) {
                     case "medico":
@@ -127,6 +127,8 @@ public class Main implements ActionListener, KeyListener {
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
         AdminFr vm = new AdminFr();	//crea nueva ventana
         AdminCtrl ac = new AdminCtrl(vm);
+        
+        System.out.println(ac.listamedicos[2].getPatientlist()[2].getNumber());
 
     }
     

@@ -7,8 +7,7 @@ public class Doctor {
 	String number;
 	String hospital;
 	String phone;
-	/*Paciente[]*/
-	String[] listapacientes;
+	Patient[] patientlist;
 	
 	public Doctor(String n, String ln, String dni, String num, String h, String p) {
 		setName(n);
@@ -17,7 +16,7 @@ public class Doctor {
 		setNumber(num);
 		setHospital(h);
 		setPhone(p);
-		setListapacientes(null);		
+		setPatientlist(null);		
 	}
 	
 	
@@ -58,11 +57,11 @@ public class Doctor {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String[] getListapacientes() {
-		return listapacientes;
+	public Patient[] getPatientlist() {
+		return patientlist;
 	}
-	public void setListapacientes(String[] listapacientes) {
-		this.listapacientes = listapacientes;
+	public void setPatientlist(Patient[] listapacientes) {
+		this.patientlist = listapacientes;
 	}
 	
 	

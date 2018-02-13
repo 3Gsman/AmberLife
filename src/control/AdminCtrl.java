@@ -2,7 +2,7 @@ package control;
 
 import java.io.IOException;
 
-import model.FIleManager;
+import model.FileManager;
 import model.Doctor;
 import model.Assistant;
 import view.AdminFr;
@@ -14,11 +14,11 @@ public class AdminCtrl {
 	Doctor[] listamedicos;
 	
 	public AdminCtrl(AdminFr vm) throws IOException {
-		FIleManager conseguirListas = new FIleManager();
+		FileManager conseguirListas = new FileManager();
 		
 		af = vm;
-		listatecnicos = conseguirListas.obtenerTecnicos();
-		listamedicos = conseguirListas.obtenerMedicos();
+		listatecnicos = conseguirListas.getAssistants();
+		listamedicos = conseguirListas.getDoctors();
 	}
 	
 	
