@@ -151,7 +151,6 @@ public class LoginFr extends JFrame {
 		Dimension d = new Dimension(900, 820);
 		this.setMinimumSize(d);
 		this.setSize(d);
-		
 		//Get PROMETHEUS font
 		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
