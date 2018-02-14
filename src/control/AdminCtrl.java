@@ -1,9 +1,12 @@
 package control;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Vector;
+
+import javax.swing.JFrame;
 
 import model.FileManager;
 import model.Doctor;
@@ -30,7 +33,10 @@ public class AdminCtrl implements ActionListener {
     	if (e.getActionCommand().equals("DOCTORS")){
     		if(af.getMode() != true) {
     			try {
-					af.initialize(true, listamedicos);
+    				boolean max = false;
+    				if (af.getExtendedState() == JFrame.MAXIMIZED_BOTH) max = true;
+					af.initialize(true, listamedicos,new Dimension(af.getWidth(),af.getHeight()));
+					if (max)af.setExtendedState( af.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -40,7 +46,10 @@ public class AdminCtrl implements ActionListener {
     	else if (e.getActionCommand().equals("ASSISTANTS")){
     		if(af.getMode() != false) {
     			try {
-					af.initialize(false, listatecnicos);
+    				boolean max = false;
+    				if (af.getExtendedState() == JFrame.MAXIMIZED_BOTH) max = true;
+					af.initialize(false, listatecnicos, new Dimension(af.getWidth(),af.getHeight()));
+					if (max)af.setExtendedState( af.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

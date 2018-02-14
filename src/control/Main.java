@@ -11,6 +11,7 @@ import model.Assistant;
 import view.*;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -128,7 +129,7 @@ public class Main implements ActionListener, KeyListener {
         AdminFr vm = new AdminFr();	//crea nueva ventana
         AdminCtrl ac = new AdminCtrl(vm);
         vm.addController(ac);
-        vm.initialize(true, ac.getDoctorList());
+        vm.initialize(true, ac.getDoctorList(),new Dimension(0,0));
         vm.setVisible(true);
         
         System.out.println("Opened the admin panel");

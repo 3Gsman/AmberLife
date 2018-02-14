@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 
@@ -38,9 +39,6 @@ public class AdminFr extends JFrame {
 	private ActionListener controller;
 	private boolean mode = true;
 
-	/**
-	 * Launch the application.
-	 */
 
 	public AdminFr() {
 		
@@ -68,7 +66,8 @@ public class AdminFr extends JFrame {
 	 * @return 
 	 * @throws IOException 
 	 */
-	public void initialize(boolean doctors, Vector<? extends User> users) throws IOException {
+	public void initialize(boolean doctors, Vector<? extends User> users, Dimension d) throws IOException {
+		this.mode = doctors;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 722);
 		contentPane = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
@@ -80,6 +79,9 @@ public class AdminFr extends JFrame {
 		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
+		if(d.getHeight()==0 || d.getWidth() == 0) d = new Dimension(600,400);
+		this.setMinimumSize(new Dimension(800,600));
+		this.setSize(d);
 		
 		
 		//Get PROMETHEUS font
@@ -111,6 +113,8 @@ public class AdminFr extends JFrame {
 			btnNewButton.setFont(sf);
 			btnNewButton.setOpaque(false);
 			btnNewButton.setBorderPainted(false);
+			btnNewButton.setContentAreaFilled(false);
+			btnNewButton.setBorder(null);
 			sf = font.deriveFont(Font.BOLD, 28f);
 			btnNewButton.setFont(sf);
 			btnNewButton.setForeground(Color.WHITE);
@@ -140,6 +144,8 @@ public class AdminFr extends JFrame {
 			btnAssistants.setFont(sf);
 			btnAssistants.setOpaque(false);
 			btnAssistants.setBorderPainted(false);
+			btnAssistants.setContentAreaFilled(false);
+			btnAssistants.setBorder(null);
 			sf = font.deriveFont(Font.BOLD, 28f);
 			btnAssistants.setFont(sf);
 			btnAssistants.setForeground(Color.WHITE);
@@ -153,7 +159,7 @@ public class AdminFr extends JFrame {
 		contentPane.add(btnAssistants, gbc_btnAssistants);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
+		panel.setBackground( new Color(0, 0, 0, 0));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridheight = 14;
 		gbc_panel.gridwidth = 21;
@@ -165,6 +171,7 @@ public class AdminFr extends JFrame {
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBackground( new Color(0, 0, 0, 0) );
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		panel.add(scrollPane, BorderLayout.CENTER);
@@ -173,14 +180,14 @@ public class AdminFr extends JFrame {
 		JPanel viewport = new JPanel();
 		viewport.setBackground(Color.WHITE);	
 		viewport.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
-		
+		viewport.setBackground( new Color(255, 255, 255, 140) );
 		//Contents go here
 		//Si el bool es true, se inicia con doctores, si no, con assistants
 		loadUserPane(users, viewport);
 		
 		scrollPane.setViewportView(viewport);
 		
-		
+		this.setVisible(true);
 
 	}
 	

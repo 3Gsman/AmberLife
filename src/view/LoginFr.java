@@ -238,6 +238,7 @@ public class LoginFr extends JFrame {
 		btnNewButton_1.setForeground(new Color(0, 0, 0));
 		btnNewButton_1.setBackground(Color.DARK_GRAY);
 		btnNewButton_1.addActionListener(controller);
+		btnNewButton_1.addKeyListener(controller);
 		btnNewButton_1.setActionCommand("LOGIN");
 		btnNewButton_1.setBorderPainted(false);
 		sf = font.deriveFont(Font.BOLD, 32f);

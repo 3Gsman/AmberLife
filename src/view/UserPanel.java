@@ -69,7 +69,7 @@ public class UserPanel extends JPanel {
 		label_1.setBackground(Color.DARK_GRAY);
 		panel.add(label_1);
 		
-		JLabel lblJohnDoe = new JLabel("john doe");
+		JLabel lblJohnDoe = new JLabel(name);
 		lblJohnDoe.setForeground(Color.DARK_GRAY);
 		lblJohnDoe.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
 		lblJohnDoe.setBackground(Color.DARK_GRAY);
@@ -101,7 +101,7 @@ public class UserPanel extends JPanel {
 		label_2.setBackground(Color.DARK_GRAY);
 		panel_1.add(label_2);
 		
-		JLabel label = new JLabel("21441x");
+		JLabel label = new JLabel(id);
 		label.setVerticalAlignment(SwingConstants.BOTTOM);
 		label.setForeground(Color.DARK_GRAY);
 		label.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
