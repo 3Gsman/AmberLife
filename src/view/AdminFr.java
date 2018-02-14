@@ -193,7 +193,7 @@ public class AdminFr extends JFrame {
 	
 	public void loadUserPane(Vector<? extends User> v, JPanel viewport) {		
 		
-		for(User d : v) viewport.add(new UserPanel(d.getName(),d.getId()));
+		for(User d : v) viewport.add(new UserPanel(d.getName() + " " + d.getLastname(),d.getId()));
 	}
 
 	//For test only
