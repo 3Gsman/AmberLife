@@ -41,18 +41,6 @@ public class AdminFr extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AdminFr frame = new AdminFr();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public AdminFr() {
 		
@@ -156,8 +144,8 @@ public class AdminFr extends JFrame {
 			btnAssistants.setFont(sf);
 			btnAssistants.setForeground(Color.WHITE);
 		}
-		btnNewButton.setActionCommand("ASSISTANTS");
-		btnNewButton.addActionListener(controller);
+		btnAssistants.setActionCommand("ASSISTANTS");
+		btnAssistants.addActionListener(controller);
 		GridBagConstraints gbc_btnAssistants = new GridBagConstraints();
 		gbc_btnAssistants.fill = GridBagConstraints.BOTH;
 		gbc_btnAssistants.gridx = 2;
