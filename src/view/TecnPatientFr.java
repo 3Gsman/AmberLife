@@ -99,7 +99,7 @@ public class TecnPatientFr extends JFrame {
 		panel_5.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		//lblNewLabel_1.setIcon(new ImageIcon(TecnPatientFr.class.getResource("/resources/user.png")));
+		lblNewLabel_1.setIcon(new ImageIcon(TecnPatientFr.class.getResource("/resources/user.png")));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_5.add(lblNewLabel_1, BorderLayout.CENTER);
 		
@@ -191,7 +191,7 @@ public class TecnPatientFr extends JFrame {
 		btnNewButton.setBorder(null);
 		btnNewButton.setMargin(new Insets(0, 0, 0, 0));
 		btnNewButton.setContentAreaFilled(false);
-		//btnNewButton.setIcon(new ImageIcon(getClass().getResource("/resources/Backbutton.png")));
+		btnNewButton.setIcon(new ImageIcon(getClass().getResource("/resources/Backbutton.png")));
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton.gridx = 0;
