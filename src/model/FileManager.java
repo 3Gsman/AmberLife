@@ -84,7 +84,7 @@ public class FileManager {
     	return tecnico;
     }
     
-    public Assistant[] getAssistants() throws IOException {
+    public Vector<Assistant> getAssistants() throws IOException {
     	lector = new BufferedReader(new FileReader("src/resources/Tecnicos.txt"));
     	Assistant[] lista = new Assistant[6];
     	String linea;
@@ -97,7 +97,13 @@ public class FileManager {
     	}
     	
     	lector.close();
-    	return lista;
+    	
+    	Vector<Assistant> v = new Vector<>();
+    	for(Assistant a : lista) {
+    		v.add(a);
+    	}
+    	
+    	return v;
     }
     
     public Doctor readDoctor(String username) throws IOException{
@@ -124,7 +130,7 @@ public class FileManager {
     	
     }
     
-    public Doctor[] getDoctors() throws IOException{
+    public Vector<Doctor> getDoctors() throws IOException{
     	lector = new BufferedReader(new FileReader("src/resources/Users.txt"));
     	Doctor[] lista = new Doctor[5];
     	String linea;
@@ -141,10 +147,14 @@ public class FileManager {
     		}
 
     	}
-    	
-    	
     	lector.close();
-    	return lista;
+    	
+    	Vector<Doctor> v = new Vector<>();
+    	for(Doctor d : lista) {
+    		v.add(d);
+    	}
+    	
+    	return v;
     }
     
     public Vector<Double> readECG() throws IOException{

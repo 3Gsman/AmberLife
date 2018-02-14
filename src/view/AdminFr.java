@@ -83,7 +83,7 @@ public class AdminFr extends JFrame {
 	public void initialize(boolean doctors, Vector<? extends User> users) throws IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 722);
-		contentPane = new JPanel();
+		contentPane = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
@@ -95,21 +95,22 @@ public class AdminFr extends JFrame {
 		
 		
 		//Get PROMETHEUS font
-				java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
-				Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
-				Font sf = font; // will use sf to change the style;
-				try {
-					font = Font.createFont(Font.TRUETYPE_FONT, is);
-					sf = font;
-				} catch (FontFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
+		Font sf = font; // will use sf to change the style;
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT, is);
+			sf = font;
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 			
 		
 		JButton btnNewButton = new JButton("doctors");
 		if(mode) {
-			btnNewButton.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			sf = font.deriveFont(22f);
+			btnNewButton.setFont(sf);
 			btnNewButton.setOpaque(true);
 			btnNewButton.setBackground(Color.WHITE);
 			btnNewButton.setBorderPainted(false);
@@ -118,7 +119,8 @@ public class AdminFr extends JFrame {
 			btnNewButton.setForeground(Color.DARK_GRAY);
 		}
 		else {
-			btnNewButton.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			sf = font.deriveFont(22f);
+			btnNewButton.setFont(sf);
 			btnNewButton.setOpaque(false);
 			btnNewButton.setBorderPainted(false);
 			sf = font.deriveFont(Font.BOLD, 28f);
@@ -136,7 +138,8 @@ public class AdminFr extends JFrame {
 		
 		JButton btnAssistants = new JButton("assistants");
 		if(!mode) {
-			btnAssistants.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			sf = font.deriveFont(22f);
+			btnAssistants.setFont(sf);
 			btnAssistants.setOpaque(true);
 			btnAssistants.setBackground(Color.WHITE);
 			btnAssistants.setBorderPainted(false);
@@ -145,7 +148,8 @@ public class AdminFr extends JFrame {
 			btnAssistants.setForeground(Color.DARK_GRAY);
 		}
 		else {
-			btnAssistants.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			sf = font.deriveFont(22f);
+			btnAssistants.setFont(sf);
 			btnAssistants.setOpaque(false);
 			btnAssistants.setBorderPainted(false);
 			sf = font.deriveFont(Font.BOLD, 28f);

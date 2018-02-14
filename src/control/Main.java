@@ -127,8 +127,11 @@ public class Main implements ActionListener, KeyListener {
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
         AdminFr vm = new AdminFr();	//crea nueva ventana
         AdminCtrl ac = new AdminCtrl(vm);
+        vm.addController(ac);
+        vm.initialize(true, ac.getDoctorList());
+        vm.setVisible(true);
         
-        System.out.println(ac.listamedicos[2].getPatientlist()[2].getNumber());
+        System.out.println("Opened the admin panel");
 
     }
     

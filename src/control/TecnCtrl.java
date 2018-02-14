@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -90,7 +91,7 @@ public class TecnCtrl implements ActionListener, KeyListener{
 		FileManager id = new FileManager();
 		int i;
 		Patient resultado = id.checkId(dni);
-		Assistant[] test = id.getAssistants();
+		Vector<Assistant> test = id.getAssistants();
 		if(resultado.getNumber() != "null") {
 			System.out.println("Patient found.\n");
 			System.out.println("Technician: " + getName());
