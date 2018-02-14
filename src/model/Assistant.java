@@ -4,10 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Assistant {
-	String name;
-	String lastname;
-	String id;
+public class Assistant extends User {
 	String city;
 	String username;
 	
@@ -29,18 +26,7 @@ public class Assistant {
 		username = t2[4];
 		
 	}
-	
 
-	
-	public String getName() {
-		return name;
-	}
-	public String getLastName() {
-		return lastname;
-	}
-	public String getId() {
-		return id;
-	}
 	public String getCity() {
 		return city;
 	}
