@@ -37,7 +37,7 @@ public class AdminFr extends JFrame {
 
 	private JPanel contentPane;
 	private ActionListener controller;
-	private boolean mode = true;
+	private boolean mode;
 
 
 

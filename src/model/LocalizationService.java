@@ -103,5 +103,9 @@ public  class LocalizationService {
 			appLanguage = "ENGLISH";
 		}
 	}
+
+	public static String getLanguage() {
+		return appLanguage;
+	}
 	
 }

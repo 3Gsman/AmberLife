@@ -35,6 +35,9 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener {
     			try {
     				boolean max = false;
     				if (af.getExtendedState() == JFrame.MAXIMIZED_BOTH) max = true;
+    				af.dispose();
+    				af = new AdminFr();
+    				af.addController(this);
 					af.initialize(true, listamedicos,new Dimension(af.getWidth(),af.getHeight()));
 					if (max)af.setExtendedState( af.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 				} catch (IOException e1) {
@@ -48,6 +51,9 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener {
     			try {
     				boolean max = false;
     				if (af.getExtendedState() == JFrame.MAXIMIZED_BOTH) max = true;
+    				af.dispose();
+    				af = new AdminFr();
+    				af.addController(this);
 					af.initialize(false, listatecnicos, new Dimension(af.getWidth(),af.getHeight()));
 					if (max)af.setExtendedState( af.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 				} catch (IOException e1) {

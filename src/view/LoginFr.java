@@ -273,7 +273,12 @@ public class LoginFr extends JFrame {
 		btnNewButton.setBorder(null);
 		btnNewButton.setMargin(new Insets(0, 0, 0, 0));
 		btnNewButton.setContentAreaFilled(false);
-		btnNewButton.setIcon(new ImageIcon(getClass().getResource("/resources/Flag.png")));
+		ImageIcon flag;
+		if(LocalizationService.getLanguage() == "ENGLISH") flag = new ImageIcon(getClass().getResource("/resources/Flag.png"));
+		else if(LocalizationService.getLanguage() == "SPANISH") flag = new ImageIcon(getClass().getResource("/resources/FlagSpain.png"));
+		else if (LocalizationService.getLanguage() == "GALICIAN") flag = new ImageIcon(getClass().getResource("/resources/FlagGalicia.png"));
+		else flag = new ImageIcon(getClass().getResource("/resources/Flag.png"));
+		btnNewButton.setIcon(flag);
 		btnNewButton.setActionCommand("LANGUAGE");
 		btnNewButton.addActionListener(controller);
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
