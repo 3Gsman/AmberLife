@@ -39,10 +39,23 @@ public class Main implements ActionListener, KeyListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-    	System.out.print("Action received: ");
+    	System.out.print("Action received: " + e.getActionCommand());
     	if (e.getActionCommand().equals("LOGIN")){
     		System.out.println(" Login");
     		aceptarVentana();
+    	}
+    	else if (e.getActionCommand().equals("LANGUAGE")){
+    		LocalizationService.rotate();
+    		try {
+				vistaLogin = new LoginFr();
+				vistaLogin.addController(this);
+				vistaLogin.initialize();
+				vistaLogin.setVisible(true);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+    		vistaLogin.setVisible(true);
     	}
     	else System.out.println(" Null");
     }

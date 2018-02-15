@@ -93,5 +93,15 @@ public  class LocalizationService {
 			return english.get(word);
 		}
 	}
+
+	public static void rotate() {
+		if(appLanguage == "ENGLISH") appLanguage = "SPANISH";
+		else if(appLanguage == "SPANISH") appLanguage = "GALICIAN";
+		else if(appLanguage == "GALICIAN") appLanguage = "ENGLISH";
+		else {
+			System.out.println("ERROR RORATING LANGUAGE: Defaulting to ENGLISH");
+			appLanguage = "ENGLISH";
+		}
+	}
 	
 }
