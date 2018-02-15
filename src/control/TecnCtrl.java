@@ -18,7 +18,7 @@ import model.FileManager;
 import model.Patient;
 import model.Assistant;
 
-public class TecnCtrl extends PreviousFrame implements ActionListener, KeyListener{
+public class TecnCtrl extends ReturnsToFrame implements ActionListener, KeyListener{
 
 	TecnFr tf;
 	String name;

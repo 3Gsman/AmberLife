@@ -12,7 +12,7 @@ import view.DoctorFr;
 import view.TecnFr;
 import view.TecnMeasureFr;
 
-public class TecnPatientCtrl extends PreviousFrame implements ActionListener, KeyListener{
+public class TecnPatientCtrl extends ReturnsToFrame implements ActionListener, KeyListener{
 	
 	JFrame patient;
 	

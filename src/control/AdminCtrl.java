@@ -13,7 +13,7 @@ import model.Doctor;
 import model.Assistant;
 import view.AdminFr;
 
-public class AdminCtrl extends PreviousFrame implements ActionListener {
+public class AdminCtrl extends ReturnsToFrame implements ActionListener {
 
 	public AdminFr af;
 	private Vector<Assistant> listatecnicos;

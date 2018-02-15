@@ -2,7 +2,7 @@ package control;
 
 import javax.swing.JFrame;
 
-public class PreviousFrame {
+public class ReturnsToFrame {
 
 	JFrame previousWindow;
 	
