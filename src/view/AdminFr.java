@@ -85,6 +85,7 @@ public class AdminFr extends JFrame {
 		this.setSize(d);
 		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
 		this.setIconImage(img.getImage());
+		this.setTitle("Administrator Console");
 		
 		
 		//Get PROMETHEUS font

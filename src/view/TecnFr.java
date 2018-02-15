@@ -195,12 +195,38 @@
 			gbc_btnNewButton_1.gridy = 10;
 			panel.add(btnNewButton_1, gbc_btnNewButton_1);
 			
-			JPanel panel_2 = new JPanel();
-			panel_2.setOpaque(false);
-			FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
+			//User label
+			//Breaks the layout for some reason.
+			/*JPanel panel_u = new JPanel();
+			panel_u.setOpaque(false);
+			FlowLayout flowLayout = (FlowLayout) panel_u.getLayout();
 			flowLayout.setVgap(1);
 			flowLayout.setHgap(1);
-			flowLayout.setAlignment(FlowLayout.LEFT);
+			flowLayout.setAlignment(FlowLayout.RIGHT);
+			GridBagConstraints gbc_panel_u = new GridBagConstraints();
+			gbc_panel_u.gridheight = 1;
+			gbc_panel_u.gridwidth = 1;
+			gbc_panel_u.insets = new Insets(0, 0, 0, 5);
+			gbc_panel_u.fill = GridBagConstraints.BOTH;
+			gbc_panel_u.gridx = 2;
+			gbc_panel_u.gridy = 1;
+			panel.add(panel_u, gbc_panel_u);
+			
+			JLabel lblUser = new JLabel("user: ");
+			sf = font.deriveFont(24f);
+			lblUser.setFont(sf);
+			lblUser.setForeground(new Color(255, 255, 255, 255));
+			lblUser.setVerticalAlignment(SwingConstants.TOP);
+			lblUser.setHorizontalAlignment(SwingConstants.CENTER);
+			panel_u.add(lblNewLabel);*/
+			
+			//Back button
+			JPanel panel_2 = new JPanel();
+			panel_2.setOpaque(false);
+			FlowLayout flowLayout2 = (FlowLayout) panel_2.getLayout();
+			flowLayout2.setVgap(1);
+			flowLayout2.setHgap(1);
+			flowLayout2.setAlignment(FlowLayout.LEFT);
 			GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 			gbc_panel_2.gridwidth = 11;
 			gbc_panel_2.insets = new Insets(0, 0, 0, 5);
