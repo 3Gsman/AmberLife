@@ -11,6 +11,7 @@ import model.Assistant;
 import view.*;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -116,6 +117,7 @@ public class Main implements ActionListener, KeyListener {
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
         TecnFr vm = new TecnFr();
         TecnCtrl tc = new TecnCtrl(usuario, vm);
+        tc.setPreviousWindow(vistaLogin);
         vm.addController(tc);
         vm.initialize();
         vm.setVisible(true);
@@ -127,8 +129,12 @@ public class Main implements ActionListener, KeyListener {
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
         AdminFr vm = new AdminFr();	//crea nueva ventana
         AdminCtrl ac = new AdminCtrl(vm);
+        ac.setPreviousWindow(vistaLogin);
+        vm.addController(ac);
+        vm.initialize(true, ac.getDoctorList(),new Dimension(0,0));
+        vm.setVisible(true);
         
-        System.out.println(ac.listamedicos[2].getPatientlist()[2].getNumber());
+        System.out.println("Opened the admin panel");
 
     }
     

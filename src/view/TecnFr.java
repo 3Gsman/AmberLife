@@ -30,8 +30,7 @@
 	
 	import org.omg.CORBA.portable.InputStream;
 
-import control.TecnCtrl;
-import view.LoginFr.JPanelWithBackground;
+	import control.TecnCtrl;
 	
 	import javax.swing.JComboBox;
 	import javax.swing.ImageIcon;
@@ -54,46 +53,6 @@ import view.LoginFr.JPanelWithBackground;
 		 */
 		
 		//Create a panel that allows for background
-		public class JPanelWithBackground extends JPanel {
-	
-			  private Image backgroundImage;
-	
-			  // Some code to initialize the background image.
-			  // Here, we use the constructor to load the image. This
-			  // can vary depending on the use case of the panel.
-			  public JPanelWithBackground(String fileName) throws IOException {
-			    backgroundImage = ImageIO.read(new File(fileName));
-			  }
-			  
-			  public JPanelWithBackground(URL url) throws IOException {
-				    backgroundImage = ImageIO.read(url);
-				  }
-			  
-	
-			  public void paintComponent(Graphics g) {
-			    super.paintComponent(g);
-			    // Draw the background image.
-			     
-			    if(this.getWidth() > backgroundImage.getWidth(null) && this.getWidth() > this.getHeight()){
-			    	Image newImage = backgroundImage.getScaledInstance(this.getWidth(),
-			    	(int)(((float)this.getWidth()/backgroundImage.getWidth(null))*(float)backgroundImage.getHeight(null)), Image.SCALE_DEFAULT);
-			    	g.drawImage(newImage, this.getWidth()/2-newImage.getWidth(null)/2,
-					    		this.getHeight()/2-newImage.getHeight(null)/2, this);
-			    }
-			    else if(this.getHeight() > backgroundImage.getHeight(null)){
-			    	Image newImage = backgroundImage.getScaledInstance(
-			    			(int)(((float)this.getHeight()/backgroundImage.getHeight(null) *(float)backgroundImage.getWidth(null))),
-			    			this.getHeight(), Image.SCALE_DEFAULT);
-					g.drawImage(newImage, this.getWidth()/2-newImage.getWidth(null)/2,
-							this.getHeight()/2-newImage.getHeight(null)/2, this);
-			    }
-			    else {
-			    	g.drawImage(backgroundImage, this.getWidth()/2-backgroundImage.getWidth(null)/2,
-				    		this.getHeight()/2-backgroundImage.getHeight(null)/2, this);
-			    }
-			    
-			  }
-			}
 		
 		
 		/**
@@ -125,6 +84,9 @@ import view.LoginFr.JPanelWithBackground;
 			this.setTitle("AmberLife");
 			ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
 			this.setIconImage(img.getImage());
+			Dimension d = new Dimension(1280,720);
+			this.setMinimumSize(d);
+			this.setSize(d);
 			
 			//Get PROMETHEUS font
 				
@@ -168,7 +130,7 @@ import view.LoginFr.JPanelWithBackground;
 			lblNewLabel.setForeground(Color.WHITE);
 			lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			sf = font.deriveFont(148f);
+			sf = font.deriveFont(124f);
 			lblNewLabel.setFont(sf);
 			lblNewLabel.setOpaque(false);
 			panel_1.add(lblNewLabel, BorderLayout.CENTER);
@@ -233,12 +195,38 @@ import view.LoginFr.JPanelWithBackground;
 			gbc_btnNewButton_1.gridy = 10;
 			panel.add(btnNewButton_1, gbc_btnNewButton_1);
 			
-			JPanel panel_2 = new JPanel();
-			panel_2.setOpaque(false);
-			FlowLayout flowLayout = (FlowLayout) panel_2.getLayout();
+			//User label
+			//Breaks the layout for some reason.
+			/*JPanel panel_u = new JPanel();
+			panel_u.setOpaque(false);
+			FlowLayout flowLayout = (FlowLayout) panel_u.getLayout();
 			flowLayout.setVgap(1);
 			flowLayout.setHgap(1);
-			flowLayout.setAlignment(FlowLayout.LEFT);
+			flowLayout.setAlignment(FlowLayout.RIGHT);
+			GridBagConstraints gbc_panel_u = new GridBagConstraints();
+			gbc_panel_u.gridheight = 1;
+			gbc_panel_u.gridwidth = 1;
+			gbc_panel_u.insets = new Insets(0, 0, 0, 5);
+			gbc_panel_u.fill = GridBagConstraints.BOTH;
+			gbc_panel_u.gridx = 2;
+			gbc_panel_u.gridy = 1;
+			panel.add(panel_u, gbc_panel_u);
+			
+			JLabel lblUser = new JLabel("user: ");
+			sf = font.deriveFont(24f);
+			lblUser.setFont(sf);
+			lblUser.setForeground(new Color(255, 255, 255, 255));
+			lblUser.setVerticalAlignment(SwingConstants.TOP);
+			lblUser.setHorizontalAlignment(SwingConstants.CENTER);
+			panel_u.add(lblNewLabel);*/
+			
+			//Back button
+			JPanel panel_2 = new JPanel();
+			panel_2.setOpaque(false);
+			FlowLayout flowLayout2 = (FlowLayout) panel_2.getLayout();
+			flowLayout2.setVgap(1);
+			flowLayout2.setHgap(1);
+			flowLayout2.setAlignment(FlowLayout.LEFT);
 			GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 			gbc_panel_2.gridwidth = 11;
 			gbc_panel_2.insets = new Insets(0, 0, 0, 5);
@@ -246,6 +234,18 @@ import view.LoginFr.JPanelWithBackground;
 			gbc_panel_2.gridx = 0;
 			gbc_panel_2.gridy = 13;
 			panel.add(panel_2, gbc_panel_2);
+			
+			JButton btnLogout = new JButton("");
+			btnLogout.setBorderPainted(false);
+			btnLogout.setBorder(null);
+			btnLogout.setMargin(new Insets(0, 0, 0, 0));
+			btnLogout.setContentAreaFilled(false);
+			btnLogout.setActionCommand("BACK");
+			btnLogout.addActionListener(controller);
+			btnLogout.setIcon(new ImageIcon(getClass().getResource("/resources/Backbutton.png")));
+			panel_2.add(btnLogout);
+			
+			
 		}
 	
 	}

@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
+import java.util.Vector;
 
 public class FileManager {
 	
@@ -82,7 +84,7 @@ public class FileManager {
     	return tecnico;
     }
     
-    public Assistant[] getAssistants() throws IOException {
+    public Vector<Assistant> getAssistants() throws IOException {
     	lector = new BufferedReader(new FileReader("src/resources/Tecnicos.txt"));
     	Assistant[] lista = new Assistant[6];
     	String linea;
@@ -95,7 +97,13 @@ public class FileManager {
     	}
     	
     	lector.close();
-    	return lista;
+    	
+    	Vector<Assistant> v = new Vector<>();
+    	for(Assistant a : lista) {
+    		v.add(a);
+    	}
+    	
+    	return v;
     }
     
     public Doctor readDoctor(String username) throws IOException{
@@ -122,7 +130,7 @@ public class FileManager {
     	
     }
     
-    public Doctor[] getDoctors() throws IOException{
+    public Vector<Doctor> getDoctors() throws IOException{
     	lector = new BufferedReader(new FileReader("src/resources/Users.txt"));
     	Doctor[] lista = new Doctor[5];
     	String linea;
@@ -139,10 +147,47 @@ public class FileManager {
     		}
 
     	}
+    	lector.close();
     	
+    	Vector<Doctor> v = new Vector<>();
+    	for(Doctor d : lista) {
+    		v.add(d);
+    	}
+    	
+    	return v;
+    }
+    
+     public Double[] readECG() throws IOException{
+    	lector = new BufferedReader(new FileReader("src/resources/ECG2.txt"));
+    	Vector<Double> ecg = new Vector<>() ;
+
+    	
+    	String linea = null;
+    	String [] numeros = null;
+    	int i = 0;
+    	
+    	linea = lector.readLine();
+    	
+    	while((linea = lector.readLine()) != null) {
+    		numeros = linea.split(";");
+    		for(i = 0; i<numeros.length;i++) {
+    			ecg.add(Double.valueOf(numeros[i]));
+    		}
+    	}
     	
     	lector.close();
-    	return lista;
+    	
+    	
+    	Double[] ecgArr = ecg.toArray(new Double[ecg.size()]);
+    	
+    	//Check the reading of the ecgs
+		//System.out.print(ecg.toString());
+		
+		
+    	
+    	return ecgArr;
+    	
+    	
     }
 
     

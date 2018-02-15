@@ -6,8 +6,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
-public class TecnPatientCtrl implements ActionListener, KeyListener{
+import javax.swing.JFrame;
+
+import view.DoctorFr;
+import view.TecnFr;
+import view.TecnMeasureFr;
+
+public class TecnPatientCtrl extends ReturnsToFrame implements ActionListener, KeyListener{
 	
+	JFrame patient;
+	
+	public TecnPatientCtrl(JFrame f) {
+		patient = f;
+	}
 	
 	
 	@Override
@@ -32,8 +43,19 @@ public class TecnPatientCtrl implements ActionListener, KeyListener{
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Action received: ");
 		 if (e.getActionCommand().equals("MEASURE")){
-			System.out.println("Pantalla ECG");
-			 }else System.out.println(" Null");
+			
+			 	//.setVisible(false);	/
+		        TecnMeasureFr tmf = new TecnMeasureFr();
+		        TecnMeasureCtrl tmc = new TecnMeasureCtrl();
+		        tmf.addController(tmc);
+		        //tmf.setVisible(true);
+		        
+			 System.out.println("Pantalla ECG");
+		}else  if (e.getActionCommand().equals("BACK")){ 
+			returnToPrevious();
+			patient.dispose();
+			
+		}
 		
 	}
 
