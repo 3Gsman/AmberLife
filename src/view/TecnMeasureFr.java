@@ -36,7 +36,6 @@ public class TecnMeasureFr{
     gr.setOpaque(true);
     f.add(gr);
     f.setVisible(true);
-    
 	}
 	public void addController(TecnMeasureCtrl tmc) {
 		// TODO Auto-generated method stub

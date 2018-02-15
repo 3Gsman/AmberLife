@@ -154,7 +154,6 @@ public class Main implements ActionListener, KeyListener {
 
     }
     
-    //ESTO NO SE MUY BIEN QUE HACE
 
     public static void main(String[] args) {
     	LocalizationService.initialize();
