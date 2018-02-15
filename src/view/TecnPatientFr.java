@@ -184,7 +184,7 @@ public class TecnPatientFr extends JFrame {
 		contentPane.add(panel_2, gbc_panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomeasures"));
+		JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomessages"));
 		sf = font.deriveFont(28f);
 		lblNewLabel_2.setFont(sf);
 		lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
