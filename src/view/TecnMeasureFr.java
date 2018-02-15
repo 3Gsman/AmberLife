@@ -32,7 +32,8 @@ public class TecnMeasureFr{
     
     
     gr = new GraphFr();
-    
+    gr.setBackground(Color.DARK_GRAY.darker());
+    gr.setOpaque(true);
     f.add(gr);
     f.setVisible(true);
     

@@ -25,6 +25,8 @@ public class GraphFr extends JPanel{
     /**
 	 * 
 	 */
+	
+	
 	private static final long serialVersionUID = 1L;
 		FileManager fichero;
    
@@ -67,8 +69,9 @@ public class GraphFr extends JPanel{
 	        Graphics2D g2 = (Graphics2D)g;
 	        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 	                            RenderingHints.VALUE_ANTIALIAS_ON);
-	        int w = getWidth();
-	        int h = getHeight()/2;
+	        //g2.setBackground(Color.DARK_GRAY);
+	        int w = getWidth()*20;
+	        double h = getHeight()/1.1;
 	
 	        Font font = g2.getFont();
 	        FontRenderContext frc = g2.getFontRenderContext();
@@ -79,7 +82,9 @@ public class GraphFr extends JPanel{
 	        double xInc = (double)(w - 2*PAD)/(data.length-1);
 	        double scale = ((double)(h - 2*PAD)/getMax());
 	        //double scale2 = ((double)(h - 2*PAD)/getMin());
-	        g2.setPaint(Color.red.darker());
+	       // g.drawRect (10, 10, 200, 200);
+	        
+	       g2.setPaint(new Color(255,191,0,255));
 	        for(int i = 0; i < data.length-1; i++) {
 	            double x1 = PAD + i*xInc;
 	            double y1 = h - PAD - scale*data[i];
