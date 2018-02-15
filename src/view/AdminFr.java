@@ -40,6 +40,7 @@ public class AdminFr extends JFrame {
 	private boolean mode = true;
 
 
+
 	public AdminFr() {
 		
 	}
@@ -188,6 +189,20 @@ public class AdminFr extends JFrame {
 		loadUserPane(users, viewport);
 		
 		scrollPane.setViewportView(viewport);
+		
+		JButton btnLogout = new JButton("");
+		btnLogout.setBorderPainted(false);
+		btnLogout.setBorder(null);
+		btnLogout.setMargin(new Insets(0, 0, 0, 0));
+		btnLogout.setContentAreaFilled(false);
+		btnLogout.setActionCommand("BACK");
+		btnLogout.addActionListener(controller);
+		btnLogout.setIcon(new ImageIcon(getClass().getResource("/resources/Backbutton.png")));
+		GridBagConstraints gbc_btnLogout = new GridBagConstraints();
+		gbc_btnLogout.fill = GridBagConstraints.BOTH;
+		gbc_btnLogout.gridx = 0;
+		gbc_btnLogout.gridy = 18;
+		contentPane.add(btnLogout, gbc_btnLogout);
 		
 		this.setVisible(true);
 

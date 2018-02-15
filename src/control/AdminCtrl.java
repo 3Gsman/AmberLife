@@ -13,7 +13,7 @@ import model.Doctor;
 import model.Assistant;
 import view.AdminFr;
 
-public class AdminCtrl implements ActionListener {
+public class AdminCtrl extends PreviousFrame implements ActionListener {
 
 	public AdminFr af;
 	private Vector<Assistant> listatecnicos;
@@ -56,6 +56,11 @@ public class AdminCtrl implements ActionListener {
 				}
     		}
     	}
+    	else if (e.getActionCommand().equals("BACK")){
+    		af.dispose();
+    		returnToPrevious();  		
+    	}
+    
     	
     }
 	

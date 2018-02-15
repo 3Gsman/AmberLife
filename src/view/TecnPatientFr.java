@@ -76,6 +76,7 @@ public class TecnPatientFr extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
 		this.setIconImage(img.getImage());
+		this.setTitle("Patient: " + pname + " " + psurname);
 		
 		//Get PROMETHEUS font
 		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
@@ -193,6 +194,8 @@ public class TecnPatientFr extends JFrame {
 		btnNewButton.setBorder(null);
 		btnNewButton.setMargin(new Insets(0, 0, 0, 0));
 		btnNewButton.setContentAreaFilled(false);
+		btnNewButton.setActionCommand("BACK");
+		btnNewButton.addActionListener(controller);
 		btnNewButton.setIcon(new ImageIcon(getClass().getResource("/resources/Backbutton.png")));
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;

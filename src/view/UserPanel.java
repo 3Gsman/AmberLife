@@ -69,7 +69,7 @@ public class UserPanel extends JPanel {
 		label_1.setBackground(Color.DARK_GRAY);
 		panel.add(label_1);
 		
-		JLabel lblJohnDoe = new JLabel(name);
+		JLabel lblJohnDoe = new JLabel(name.toLowerCase());
 		lblJohnDoe.setForeground(Color.DARK_GRAY);
 		lblJohnDoe.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
 		lblJohnDoe.setBackground(Color.DARK_GRAY);

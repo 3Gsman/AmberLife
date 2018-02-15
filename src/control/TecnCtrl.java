@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.Vector;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -17,7 +18,7 @@ import model.FileManager;
 import model.Patient;
 import model.Assistant;
 
-public class TecnCtrl implements ActionListener, KeyListener{
+public class TecnCtrl extends PreviousFrame implements ActionListener, KeyListener{
 
 	TecnFr tf;
 	String name;
@@ -29,8 +30,7 @@ public class TecnCtrl implements ActionListener, KeyListener{
 		tecnico = new Assistant(user);
 	
 	}
-
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Action received: ");
@@ -44,7 +44,11 @@ public class TecnCtrl implements ActionListener, KeyListener{
 			}
 				 
 		
-			 }else System.out.println(" Null");
+		 }else if (e.getActionCommand().equals("BACK")) {
+			 tf.dispose();
+			 returnToPrevious();
+		 
+		 }else System.out.println(" Null");
 			/* try {
 				volverLogin();
 			} catch (IOException e1) {
@@ -114,10 +118,12 @@ public class TecnCtrl implements ActionListener, KeyListener{
 
     	//TecnFr.setVisible(false); 
         TecnPatientFr vm = new TecnPatientFr(dni, pname, psurname, name);
-        TecnPatientCtrl tc = new TecnPatientCtrl();
+        TecnPatientCtrl tc = new TecnPatientCtrl(vm);
+        tc.setPreviousWindow(tf);
         vm.addController(tc);
         vm.initialize(dni, pname, psurname, name);
         vm.setVisible(true);
+        tf.setVisible(false);
 
     }
 
@@ -133,13 +139,13 @@ public class TecnCtrl implements ActionListener, KeyListener{
 	
 		 
 
-
-	public void volverLogin() throws IOException {
-        tf.dispose();  //Cierra la ventana de tecnico
+	//en desuso
+	/*public void volverLogin() throws IOException {
+        tf.setVisible(false);  //Cierra la ventana de tecnico
         LoginFr login = new LoginFr(); //crea nueva ventana
         Main mc = new Main (login);    //crea nuevo controlador de ventana
         login.addController(mc);   //asigna el controlador a la ventana creada
         login.initialize();
 		
-	}
+	}*/
 }

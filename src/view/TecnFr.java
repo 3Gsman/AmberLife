@@ -208,6 +208,18 @@
 			gbc_panel_2.gridx = 0;
 			gbc_panel_2.gridy = 13;
 			panel.add(panel_2, gbc_panel_2);
+			
+			JButton btnLogout = new JButton("");
+			btnLogout.setBorderPainted(false);
+			btnLogout.setBorder(null);
+			btnLogout.setMargin(new Insets(0, 0, 0, 0));
+			btnLogout.setContentAreaFilled(false);
+			btnLogout.setActionCommand("BACK");
+			btnLogout.addActionListener(controller);
+			btnLogout.setIcon(new ImageIcon(getClass().getResource("/resources/Backbutton.png")));
+			panel_2.add(btnLogout);
+			
+			
 		}
 	
 	}

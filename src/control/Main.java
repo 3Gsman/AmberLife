@@ -117,6 +117,7 @@ public class Main implements ActionListener, KeyListener {
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
         TecnFr vm = new TecnFr();
         TecnCtrl tc = new TecnCtrl(usuario, vm);
+        tc.setPreviousWindow(vistaLogin);
         vm.addController(tc);
         vm.initialize();
         vm.setVisible(true);
@@ -128,6 +129,7 @@ public class Main implements ActionListener, KeyListener {
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
         AdminFr vm = new AdminFr();	//crea nueva ventana
         AdminCtrl ac = new AdminCtrl(vm);
+        ac.setPreviousWindow(vistaLogin);
         vm.addController(ac);
         vm.initialize(true, ac.getDoctorList(),new Dimension(0,0));
         vm.setVisible(true);

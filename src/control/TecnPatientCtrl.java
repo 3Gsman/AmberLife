@@ -6,12 +6,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
+import javax.swing.JFrame;
+
 import view.DoctorFr;
 import view.TecnFr;
 import view.TecnMeasureFr;
 
-public class TecnPatientCtrl implements ActionListener, KeyListener{
+public class TecnPatientCtrl extends PreviousFrame implements ActionListener, KeyListener{
 	
+	JFrame patient;
+	
+	public TecnPatientCtrl(JFrame f) {
+		patient = f;
+	}
 	
 	
 	@Override
@@ -44,7 +51,11 @@ public class TecnPatientCtrl implements ActionListener, KeyListener{
 		        //tmf.setVisible(true);
 		        
 			 System.out.println("Pantalla ECG");
-			 }else System.out.println(" Null");
+		}else  if (e.getActionCommand().equals("BACK")){ 
+			returnToPrevious();
+			patient.dispose();
+			
+		}
 		
 	}
 
