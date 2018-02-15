@@ -1,5 +1,6 @@
 package view;
 import control.Main;
+import model.LocalizationService;
 
 import java.awt.EventQueue;
 
@@ -138,7 +139,7 @@ public class LoginFr extends JFrame {
 		panel.setLayout(gbl_panel);
 
 		
-		JLabel lblNewLabel_3 = new JLabel("V0.1");
+		JLabel lblNewLabel_3 = new JLabel("V0.2");
 		sf = font.deriveFont(Font.BOLD, 11f);
 		lblNewLabel_3.setFont(sf);
 		lblNewLabel_3.setForeground(Color.WHITE);
@@ -183,7 +184,7 @@ public class LoginFr extends JFrame {
 		lblNewLabel.setOpaque(false);
 		panel_1.add(lblNewLabel, BorderLayout.CENTER);
 		
-		JLabel lblNewLabel_2 = new JLabel("username");
+		JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("username"));
 		sf = font.deriveFont(28f);
 		lblNewLabel_2.setFont(sf);
 		lblNewLabel_2.setForeground(Color.WHITE);
@@ -209,7 +210,7 @@ public class LoginFr extends JFrame {
 		panel.add(textField, gbc_textField);
 		textField.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("password");
+		JLabel lblNewLabel_1 = new JLabel(LocalizationService.getWord("password"));
 		lblNewLabel_1.setForeground(Color.WHITE);
 		sf = font.deriveFont(28f);
 		lblNewLabel_1.setFont(sf);
@@ -234,7 +235,7 @@ public class LoginFr extends JFrame {
 		gbc_passwordField.gridy = 10;
 		panel.add(passwordField, gbc_passwordField);
 		
-		JButton btnNewButton_1 = new JButton("login");
+		JButton btnNewButton_1 = new JButton(LocalizationService.getWord("login"));
 		btnNewButton_1.setForeground(new Color(0, 0, 0));
 		btnNewButton_1.setBackground(Color.DARK_GRAY);
 		btnNewButton_1.addActionListener(controller);

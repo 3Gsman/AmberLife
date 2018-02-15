@@ -6,6 +6,7 @@
 package control;
 
 import model.FileManager;
+import model.LocalizationService;
 import model.Doctor;
 import model.Assistant;
 import view.*;
@@ -141,6 +142,7 @@ public class Main implements ActionListener, KeyListener {
     //ESTO NO SE MUY BIEN QUE HACE
 
     public static void main(String[] args) {
+    	LocalizationService.initialize();
 
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName()); 

@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.LocalizationService;
+
 import javax.swing.JSplitPane;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
@@ -123,7 +125,7 @@ public class TecnPatientFr extends JFrame {
 		label.setFont(sf);
 		panel_1.add(label);
 		
-		JLabel lblNameXxxxx = new JLabel(" name : " + pname);
+		JLabel lblNameXxxxx = new JLabel(" " +LocalizationService.getWord("name") +": " + pname);
 		sf = font.deriveFont(22f);
 		lblNameXxxxx.setFont(sf);
 		lblNameXxxxx.setForeground(new Color(80, 77, 77, 255));
@@ -134,7 +136,7 @@ public class TecnPatientFr extends JFrame {
 		lblNewLabel_4.setFont(sf);
 		panel_1.add(lblNewLabel_4);
 		
-		JLabel lblSsnXxxxx = new JLabel(" surname : " + psurname);
+		JLabel lblSsnXxxxx = new JLabel(" " +LocalizationService.getWord("surname") +": " + psurname);
 		sf = font.deriveFont(22f);
 		lblSsnXxxxx.setForeground(new Color(80, 77, 77, 255));
 		lblSsnXxxxx.setFont(sf);
@@ -145,7 +147,7 @@ public class TecnPatientFr extends JFrame {
 		label_2.setFont(sf);
 		panel_1.add(label_2);
 		
-		JLabel lblPhoneXxxxx = new JLabel(" i.d : " + dni);
+		JLabel lblPhoneXxxxx = new JLabel(" " +LocalizationService.getWord("id") +": " + dni);
 		sf = font.deriveFont(22f);
 		lblPhoneXxxxx.setForeground(new Color(80, 77, 77, 255));
 		lblPhoneXxxxx.setFont(sf);
@@ -162,7 +164,7 @@ public class TecnPatientFr extends JFrame {
 		contentPane.add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("user: " + user);
+		JLabel lblNewLabel = new JLabel(" " + LocalizationService.getWord("user") + ": "+ user);
 		sf = font.deriveFont(24f);
 		lblNewLabel.setFont(sf);
 		lblNewLabel.setForeground(new Color(255, 255, 255, 255));
@@ -182,7 +184,7 @@ public class TecnPatientFr extends JFrame {
 		contentPane.add(panel_2, gbc_panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel_2 = new JLabel("no messages");
+		JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomeasures"));
 		sf = font.deriveFont(28f);
 		lblNewLabel_2.setFont(sf);
 		lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
@@ -213,7 +215,7 @@ public class TecnPatientFr extends JFrame {
 		gbc_panel_3.gridy = 18;
 		contentPane.add(panel_3, gbc_panel_3);
 		
-		JButton btnMeasure = new JButton("measure");
+		JButton btnMeasure = new JButton(LocalizationService.getWord("measure"));
 		btnMeasure.addActionListener(controller);
 		btnMeasure.setActionCommand("MEASURE");
 		sf = font.deriveFont(32f);

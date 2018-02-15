@@ -31,8 +31,9 @@
 	import org.omg.CORBA.portable.InputStream;
 
 	import control.TecnCtrl;
-	
-	import javax.swing.JComboBox;
+import model.LocalizationService;
+
+import javax.swing.JComboBox;
 	import javax.swing.ImageIcon;
 	import javax.swing.JTextField;
 	import javax.swing.SwingConstants;
@@ -126,7 +127,7 @@
 			panel.add(panel_1, gbc_panel_1);
 			panel_1.setLayout(new BorderLayout(0, 0));
 			
-			JLabel lblNewLabel = new JLabel("search patient");
+			JLabel lblNewLabel = new JLabel(LocalizationService.getWord("searchpatient"));
 			lblNewLabel.setForeground(Color.WHITE);
 			lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -137,7 +138,7 @@
 			sf = font.deriveFont(28f);
 			sf = font.deriveFont(28f);
 			
-			JButton btnNewButton = new JButton("i.d.");
+			JButton btnNewButton = new JButton(LocalizationService.getWord("id"));
 			btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 			sf = font.deriveFont(28f);
 			btnNewButton.setFont(sf);
@@ -150,7 +151,7 @@
 			gbc_btnNewButton.gridy = 7;
 			panel.add(btnNewButton, gbc_btnNewButton);
 			
-			JButton button = new JButton("s.s.n.");
+			JButton button = new JButton(LocalizationService.getWord("ssn"));
 			sf = font.deriveFont(28f);
 			button.setFont(sf);
 			button.setBorderPainted(false);
@@ -180,7 +181,7 @@
 			panel.add(textField, gbc_textField);
 			textField.setColumns(10);
 			
-			JButton btnNewButton_1 = new JButton("search");
+			JButton btnNewButton_1 = new JButton(LocalizationService.getWord("search"));
 			btnNewButton_1.setBackground(Color.DARK_GRAY);
 			btnNewButton_1.addActionListener(controller);
 			btnNewButton_1.setActionCommand("SEARCH");

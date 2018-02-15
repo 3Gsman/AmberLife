@@ -85,7 +85,7 @@ public class AdminFr extends JFrame {
 		this.setSize(d);
 		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
 		this.setIconImage(img.getImage());
-		this.setTitle("Administrator Console");
+		this.setTitle(LocalizationService.getWord("adminconsole"));
 		
 		
 		//Get PROMETHEUS font
@@ -101,7 +101,7 @@ public class AdminFr extends JFrame {
 		}
 			
 		
-		JButton btnNewButton = new JButton("doctors");
+		JButton btnNewButton = new JButton(LocalizationService.getWord("doctors"));
 		if(mode) {
 			sf = font.deriveFont(22f);
 			btnNewButton.setFont(sf);
@@ -132,7 +132,7 @@ public class AdminFr extends JFrame {
 		gbc_btnNewButton.gridy = 2;
 		contentPane.add(btnNewButton, gbc_btnNewButton);
 		
-		JButton btnAssistants = new JButton("assistants");
+		JButton btnAssistants = new JButton(LocalizationService.getWord("assistants"));
 		if(!mode) {
 			sf = font.deriveFont(22f);
 			btnAssistants.setFont(sf);
