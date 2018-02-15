@@ -47,6 +47,8 @@ public class Main implements ActionListener, KeyListener {
     	else if (e.getActionCommand().equals("LANGUAGE")){
     		LocalizationService.rotate();
     		try {
+    			vistaLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    			vistaLogin.dispose();
 				vistaLogin = new LoginFr();
 				vistaLogin.addController(this);
 				vistaLogin.initialize();
