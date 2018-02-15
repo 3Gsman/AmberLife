@@ -157,8 +157,8 @@ public class FileManager {
     	return v;
     }
     
-    public Vector<Double> readECG() throws IOException{
-    	lector = new BufferedReader(new FileReader("src/resources/ECG.txt"));
+     public Double[] readECG() throws IOException{
+    	lector = new BufferedReader(new FileReader("src/resources/ECG2.txt"));
     	Vector<Double> ecg = new Vector<>() ;
 
     	
@@ -176,7 +176,16 @@ public class FileManager {
     	}
     	
     	lector.close();
-    	return ecg;
+    	
+    	
+    	Double[] ecgArr = ecg.toArray(new Double[ecg.size()]);
+    	
+    	//Check the reading of the ecgs
+		//System.out.print(ecg.toString());
+		
+		
+    	
+    	return ecgArr;
     	
     	
     }
