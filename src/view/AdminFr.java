@@ -82,6 +82,8 @@ public class AdminFr extends JFrame {
 		if(d.getHeight()==0 || d.getWidth() == 0) d = new Dimension(600,400);
 		this.setMinimumSize(new Dimension(800,600));
 		this.setSize(d);
+		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
+		this.setIconImage(img.getImage());
 		
 		
 		//Get PROMETHEUS font

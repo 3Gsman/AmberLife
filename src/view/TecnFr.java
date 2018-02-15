@@ -84,6 +84,9 @@
 			this.setTitle("AmberLife");
 			ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
 			this.setIconImage(img.getImage());
+			Dimension d = new Dimension(1280,720);
+			this.setMinimumSize(d);
+			this.setSize(d);
 			
 			//Get PROMETHEUS font
 				
@@ -127,7 +130,7 @@
 			lblNewLabel.setForeground(Color.WHITE);
 			lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			sf = font.deriveFont(148f);
+			sf = font.deriveFont(124f);
 			lblNewLabel.setFont(sf);
 			lblNewLabel.setOpaque(false);
 			panel_1.add(lblNewLabel, BorderLayout.CENTER);

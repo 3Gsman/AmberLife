@@ -74,6 +74,8 @@ public class TecnPatientFr extends JFrame {
 		gbl_contentPane.columnWeights = new double[]{0.2, 0.2, 0.2, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
+		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
+		this.setIconImage(img.getImage());
 		
 		//Get PROMETHEUS font
 		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
