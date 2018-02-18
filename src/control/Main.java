@@ -92,12 +92,12 @@ public class Main implements ActionListener, KeyListener {
                     case "medico":
                         //Abre ventana DoctorFr
                         System.out.print("Opening Doctor Console\n");
-                        openMedico(usuario);
+                        openDoctor(usuario);
                         break;
                     case "tecnico":
                         //Abre ventana TecnFr
                         System.out.print("Opening Assistant Console\n");
-                        openTecnico(usuario);
+                        openAssistant(usuario);
                         break;
                     case "admin":
                         //Abre ventana admin
@@ -118,18 +118,17 @@ public class Main implements ActionListener, KeyListener {
         }
     }
 
-    public void openMedico(String usuario) throws IOException {
+    public void openDoctor(String usuario) throws IOException {
 
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
         DoctorFr vp = new DoctorFr();	//crea nueva ventana
-        vp.setVisible(true);
     }
 
-    public void openTecnico(String usuario) throws IOException {
+    public void openAssistant(String usuario) throws IOException {
 
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
-        TecnFr vm = new TecnFr();
-        TecnCtrl tc = new TecnCtrl(usuario, vm);
+        AssistFr vm = new AssistFr();
+        AssistCtrl tc = new AssistCtrl(usuario, vm);
         tc.setPreviousWindow(vistaLogin);
         vm.addController(tc);
         vm.initialize();

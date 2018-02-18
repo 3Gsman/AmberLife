@@ -30,7 +30,7 @@
 	
 	import org.omg.CORBA.portable.InputStream;
 
-	import control.TecnCtrl;
+	import control.AssistCtrl;
 import model.LocalizationService;
 
 import javax.swing.JComboBox;
@@ -43,10 +43,10 @@ import javax.swing.JComboBox;
 	import java.awt.Graphics;
 	import java.awt.GraphicsEnvironment;
 	
-	public class TecnFr extends JFrame {
+	public class AssistFr extends JFrame {
 	
 		public JTextField textField;
-		TecnCtrl controller;
+		AssistCtrl controller;
 		
 	
 		/**
@@ -60,7 +60,7 @@ import javax.swing.JComboBox;
 		 * Create the application.
 		 */
 		
-		public TecnFr() {
+		public AssistFr() {
 			
 		}
 		
@@ -68,7 +68,7 @@ import javax.swing.JComboBox;
 			return textField.getText();
 		}
 		
-		public void addController(TecnCtrl controlador){
+		public void addController(AssistCtrl controlador){
 			this.controller = controlador;
 		}
 		
@@ -195,6 +195,8 @@ import javax.swing.JComboBox;
 			gbc_btnNewButton_1.gridx = 10;
 			gbc_btnNewButton_1.gridy = 10;
 			panel.add(btnNewButton_1, gbc_btnNewButton_1);
+			
+			
 			
 			//User label
 			//Breaks the layout for some reason.
