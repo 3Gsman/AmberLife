@@ -7,13 +7,10 @@ package control;
 
 import model.FileManager;
 import model.LocalizationService;
-import model.Doctor;
-import model.Assistant;
 import view.*;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -125,7 +122,7 @@ public class Main implements ActionListener, KeyListener {
 
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
         DoctorFr vp = new DoctorFr();	//crea nueva ventana
-
+        vp.setVisible(true);
     }
 
     public void openTecnico(String usuario) throws IOException {
