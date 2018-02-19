@@ -42,7 +42,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.awt.event.ActionEvent;
 
-public class TecnPatientFr extends JFrame {
+public class AssistPatientFr extends JFrame {
 
 	private JPanelWithBackground contentPane;
 	public ActionListener controller;
@@ -53,7 +53,7 @@ public class TecnPatientFr extends JFrame {
 	}
 	
 	
-	public TecnPatientFr(String dni, String pname, String psurname, String user) {
+	public AssistPatientFr(String dni, String pname, String psurname, String user) {
 		
 	}
 	
@@ -104,7 +104,7 @@ public class TecnPatientFr extends JFrame {
 		panel_5.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(TecnPatientFr.class.getResource("/resources/user.png")));
+		lblNewLabel_1.setIcon(new ImageIcon(AssistPatientFr.class.getResource("/resources/user.png")));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_5.add(lblNewLabel_1, BorderLayout.CENTER);
 		

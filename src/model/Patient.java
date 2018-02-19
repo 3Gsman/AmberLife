@@ -1,10 +1,19 @@
 package model;
 
 public class Patient {
+	
+	
 	String number;
 	String name;
 	String lastname;
 	String id;
+	String ssn;
+	String municipality;
+	String address;
+	
+	public Patient(String num) {
+		setNumber(num);
+	}
 	
 	public Patient(String num, String n, String ln, String dni) {
 		setNumber(num);

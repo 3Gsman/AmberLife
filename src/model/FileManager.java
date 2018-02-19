@@ -117,7 +117,7 @@ public class FileManager {
     	Doctor medico = new Doctor(lineatxt[0],lineatxt[1],lineatxt[2],lineatxt[3],lineatxt[4],lineatxt[5]);
     	
     	while((linea=lectorm.readLine())!=null){
-    		Patient p = new Patient(linea, "null", "null", "null");
+    		Patient p = new Patient(linea);
     		
     		listapacientes[i] = p;
     		i++;
