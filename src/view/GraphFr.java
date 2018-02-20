@@ -42,7 +42,7 @@ public class GraphFr extends JPanel{
 		//String v;
 		//System.out.print(ecg.toString(v));
 		
-		Double[] grapgArr = nums.readECG(file);
+		Double[] grapgArr = nums.readECG(file).getData().toArray(new Double[nums.readECG(file).getData().size()]);
 		
 		return grapgArr;
 		

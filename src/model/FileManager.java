@@ -157,9 +157,10 @@ public class FileManager {
     	return v;
     }
     
-     public Double[] readECG(String filename) throws IOException{
+     public ECG readECG(String filename) throws IOException{
     	lector = new BufferedReader(new FileReader("src/resources/" + filename));
-    	Vector<Double> ecg = new Vector<>() ;
+    	ECG ecg = new ECG();
+    	Vector<Double> num = new Vector<>() ;
 
     	
     	String linea = null;
@@ -171,7 +172,7 @@ public class FileManager {
     	linea = lector.readLine();
     		numeros = linea.split(";");
     		for(i = 0; i<numeros.length;i++) {
-    			ecg.add(Double.valueOf(numeros[i]));
+    			num.add(Double.valueOf(numeros[i]));
     		}
 
     	
@@ -183,15 +184,18 @@ public class FileManager {
     	if(info == null)
     		info = "";
     	
-    	System.out.println(info);
-    	Double[] ecgArr = ecg.toArray(new Double[ecg.size()]);
+    	
+    	ecg.setData(num);
+    	ecg.setName(filename);
+    	ecg.setFrequency(Integer.parseInt(frequency));
+    	ecg.setReport(info);
     	
     	//Check the reading of the ecgs
 		//System.out.print(ecg.toString());
 		
 		
     	
-    	return ecgArr;
+    	return ecg;
     	
     	
     }
