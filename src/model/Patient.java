@@ -10,6 +10,7 @@ public class Patient {
 	String ssn;
 	String municipality;
 	String address;
+	ECG[] ecgs;
 	
 	public Patient(String num) {
 		setNumber(num);
@@ -20,6 +21,15 @@ public class Patient {
 		setName(n);
 		setLastname(ln);
 		setId(dni);
+	}
+	
+	
+	public ECG[] getECGs() {
+		return ecgs;
+	}
+	
+	public void setECGs(ECG[] ecgs) {
+		this.ecgs = ecgs;
 	}
 	
 	public String getNumber() {
@@ -47,5 +57,25 @@ public class Patient {
 		this.id = id;
 	}
 	
+	public String getSsn() {
+		return ssn;
+	}
+	public void setSsn(String ssn) {
+		this.ssn = ssn;
+	}
+	
+	public String getMunicipality() {
+		return municipality;
+	}
+	public void setMunicipality(String municipality) {
+		this.municipality = municipality;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	
 }
