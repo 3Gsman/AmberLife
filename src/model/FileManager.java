@@ -166,18 +166,24 @@ public class FileManager {
     	String [] numeros = null;
     	int i = 0;
     	
-    	linea = lector.readLine();
+    	String frequency = lector.readLine();
     	
-    	while((linea = lector.readLine()) != null) {
+    	linea = lector.readLine();
     		numeros = linea.split(";");
     		for(i = 0; i<numeros.length;i++) {
     			ecg.add(Double.valueOf(numeros[i]));
     		}
-    	}
+
+    	
+    	lector.readLine();
+    	String info = lector.readLine();
     	
     	lector.close();
     	
+    	if(info == null)
+    		info = "";
     	
+    	System.out.println(info);
     	Double[] ecgArr = ecg.toArray(new Double[ecg.size()]);
     	
     	//Check the reading of the ecgs
