@@ -157,8 +157,8 @@ public class FileManager {
     	return v;
     }
     
-     public Double[] readECG() throws IOException{
-    	lector = new BufferedReader(new FileReader("src/resources/ECG2.txt"));
+     public Double[] readECG(String filename) throws IOException{
+    	lector = new BufferedReader(new FileReader("src/resources/" + filename));
     	Vector<Double> ecg = new Vector<>() ;
 
     	

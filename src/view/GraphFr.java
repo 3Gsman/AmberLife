@@ -25,20 +25,24 @@ public class GraphFr extends JPanel{
     /**
 	 * 
 	 */
-	
+	String file;
 	
 	private static final long serialVersionUID = 1L;
 		FileManager fichero;
    
 		
+	public GraphFr(String filename) {
+		file = filename;
+	}
+		
 	public Double[] addData() throws IOException{
 		FileManager nums = new FileManager();
 		
-		nums.readECG();
+		nums.readECG(file);
 		//String v;
 		//System.out.print(ecg.toString(v));
 		
-		Double[] grapgArr = nums.readECG();
+		Double[] grapgArr = nums.readECG(file);
 		
 		return grapgArr;
 		
