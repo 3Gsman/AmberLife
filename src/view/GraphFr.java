@@ -70,7 +70,7 @@ public class GraphFr extends JPanel{
 	        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 	                            RenderingHints.VALUE_ANTIALIAS_ON);
 	        //g2.setBackground(Color.DARK_GRAY);
-	        int w = getWidth()*20;
+	        int w = getWidth();
 	        double h = getHeight()/1.1;
 	
 	        Font font = g2.getFont();
