@@ -8,6 +8,16 @@ public class ECG {
 	Vector<Double> data;
 	String report;
 	
+	public ECG(String n, int f, String r) {
+		name = n;
+		frequency = f;
+		report = r;
+	}
+
+	public ECG() {
+		
+	}
+	
 	public String getName() {
 		return name;
 	}

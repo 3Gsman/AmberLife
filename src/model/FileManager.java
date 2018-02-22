@@ -206,6 +206,9 @@ public class FileManager {
     	 lectorp = new BufferedReader(new FileReader("src/resources/" + username + ".txt"));
      	 String linea = lectorp.readLine();
      	 String[] lineatxt = linea.split(";");
+     	 ECG ecg = new ECG();
+     	 Vector<ECG> vector = new Vector<>();
+     	 
      	 p.setName(lineatxt[0]);
      	 p.setLastname(lineatxt[1]);
      	 p.setId(lineatxt[2]);
@@ -215,7 +218,16 @@ public class FileManager {
      	 p.setGender(lectorp.readLine());
      	 p.setStatus(lectorp.readLine());
      	 p.setMessage(lectorp.readLine());
+     	 
+     	while((linea=lectorp.readLine())!=null){
+
+     		 ecg = readECG(linea + ".txt");
+
+     		 vector.add(ecg);
+
+     	 }
      
+     	p.setECGs(vector);
     	 
     	 
     	 lectorp.close();

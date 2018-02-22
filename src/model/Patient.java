@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Vector;
+
 public class Patient {
 	
 	
@@ -13,7 +15,7 @@ public class Patient {
 	String gender;
 	String status;
 	String message;
-	ECG[] ecgs;
+	Vector<ECG> ecgs;
 	
 	public Patient(String num) {
 		setNumber(num);
@@ -27,11 +29,11 @@ public class Patient {
 	}
 	
 	
-	public ECG[] getECGs() {
+	public Vector<ECG> getECGs() {
 		return ecgs;
 	}
 	
-	public void setECGs(ECG[] ecgs) {
+	public void setECGs(Vector<ECG> ecgs) {
 		this.ecgs = ecgs;
 	}
 	
