@@ -17,7 +17,7 @@ import java.awt.geom.*;
 import javax.swing.*;
 
 
-import control.TecnMeasureCtrl;
+import control.AssistMeasureCtrl;
 import model.FileManager;
 
 public class GraphFr extends JPanel{

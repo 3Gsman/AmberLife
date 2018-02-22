@@ -1,0 +1,59 @@
+package control;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.JFrame;
+
+import view.AssistMeasureFr;
+
+public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener, KeyListener{
+	
+	JFrame patient;
+	
+	public AssistPatientCtrl(JFrame f) {
+		patient = f;
+	}
+	
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		System.out.println("Action received: ");
+		 if (e.getActionCommand().equals("MEASURE")){
+			
+			 	//.setVisible(false);	/
+		        AssistMeasureFr tmf = new AssistMeasureFr();
+		        AssistMeasureCtrl tmc = new AssistMeasureCtrl();
+		        tmf.addController(tmc);
+		        //tmf.setVisible(true);
+		        
+			 System.out.println("Pantalla ECG");
+		}else  if (e.getActionCommand().equals("BACK")){ 
+			returnToPrevious();
+			patient.dispose();
+			
+		}
+		
+	}
+
+}
