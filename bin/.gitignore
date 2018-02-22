@@ -1,4 +1,8 @@
-/model/
 /control/
+/model/
+<<<<<<< HEAD
+/control/
+=======
+>>>>>>> 43fe0fb634b0a219901b7afe76c9226cb472a4b1
 /resources/
 /view/

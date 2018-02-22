@@ -19,6 +19,14 @@ public class DoctorCtrl {
 		name = user;
 		doctor = file.readDoctor(name);
 		
+		int i = 0;
+		FileManager getpatients = new FileManager();
+		for(i = 0; i < doctor.getPatientlist().size(); i ++) {
+			
+			doctor.getPatientlist().set(i,getpatients.readPatient(doctor.getPatientlist().get(i).getNumber()));
+
+		}
+		
 	}
 	
 }
