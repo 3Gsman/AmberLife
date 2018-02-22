@@ -110,7 +110,7 @@ public class FileManager {
     public Doctor readDoctor(String username) throws IOException{
     	lectorm = new BufferedReader(new FileReader("src/resources/" + username + ".txt"));
     	String linea;
-    	Patient[] listapacientes = new Patient[20];
+    	Vector<Patient> listapacientes = new Vector<Patient>();
     	int i = 0;
     	
     	linea = lectorm.readLine();
@@ -120,7 +120,7 @@ public class FileManager {
     	while((linea=lectorm.readLine())!=null){
     		Patient p = new Patient(linea);
     		
-    		listapacientes[i] = p;
+    		listapacientes.add(p);
     		i++;
     	}
     	

@@ -124,7 +124,6 @@ public class Main implements ActionListener, KeyListener {
         DoctorFr vp = new DoctorFr();	//crea nueva ventana
         DoctorCtrl dc = new DoctorCtrl(usuario,vp);
         
-        //System.out.println(dc.doctor.getPatientlist()[0].getMessage());
     }
 
     public void openAssistant(String usuario) throws IOException {
