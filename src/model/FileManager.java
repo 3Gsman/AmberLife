@@ -15,6 +15,7 @@ public class FileManager {
     BufferedWriter escritor;
     BufferedReader lector;
     BufferedReader lectorm;
+    BufferedReader lectorp;
     File ficheroUsuario = new File("FicheroUsuarios.txt");
     String p = ";";
 
@@ -199,6 +200,27 @@ public class FileManager {
     	
     	
     }
+     
+     public Patient readPatient(String username) throws IOException{
+    	 Patient p = new Patient(username);
+    	 lectorp = new BufferedReader(new FileReader("src/resources/" + username + ".txt"));
+     	 String linea = lectorp.readLine();
+     	 String[] lineatxt = linea.split(";");
+     	 p.setName(lineatxt[0]);
+     	 p.setLastname(lineatxt[1]);
+     	 p.setId(lineatxt[2]);
+     	 p.setSsn(lineatxt[3]);
+     	 p.setMunicipality(lineatxt[4]);
+     	 p.setAddress(lineatxt[5]);
+     	 p.setGender(lectorp.readLine());
+     	 p.setStatus(lectorp.readLine());
+     	 p.setMessage(lectorp.readLine());
+     
+    	 
+    	 
+    	 lectorp.close();
+    	 return p;
+     }
 
     
     }

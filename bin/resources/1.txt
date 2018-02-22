@@ -6,6 +6,3 @@ paciente7
 paciente9
 paciente10
 paciente11
-paciente14
-paciente15
-paciente18

@@ -122,6 +122,12 @@ public class Main implements ActionListener, KeyListener {
 
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
         DoctorFr vp = new DoctorFr();	//crea nueva ventana
+        DoctorCtrl dc = new DoctorCtrl(usuario,vp);
+        
+        FileManager test = new FileManager();
+        System.out.println(test.readPatient("paciente1").getMessage());
+        
+        //System.out.println(dc.doctor.getPatientlist()[0].getMessage());
     }
 
     public void openAssistant(String usuario) throws IOException {

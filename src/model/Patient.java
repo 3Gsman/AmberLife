@@ -10,6 +10,9 @@ public class Patient {
 	String ssn;
 	String municipality;
 	String address;
+	String gender;
+	String status;
+	String message;
 	ECG[] ecgs;
 	
 	public Patient(String num) {
@@ -76,6 +79,24 @@ public class Patient {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
 	}
 	
 }
