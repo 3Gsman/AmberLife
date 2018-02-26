@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
@@ -91,6 +92,7 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 		FileManager id = new FileManager();
 		
 		Patient resultado = id.checkId(dni);
+		Vector<Assistant> test = id.getAssistants();
 		if(resultado.getNumber() != "null") {
 			System.out.println("Patient found.\n");
 			System.out.println("Technician: " + getName());
