@@ -63,9 +63,13 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 	@Override
 	//ONLY PATIENTPANELS ARE MEANT TO BE LISTENED TO.
 	public void mouseClicked(MouseEvent e) {
+		try {
 		PatientPanel p = (PatientPanel) e.getSource();
 		System.out.println(p.getPatient().getName());
-		
+		}
+		catch(ClassCastException cce){
+			System.out.println("BAD CAST at DoctorCtrl");
+		}
 	}
 
 	@Override
