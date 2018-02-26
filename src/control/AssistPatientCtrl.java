@@ -52,16 +52,17 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 		    int returnVal = chooser.showOpenDialog(null);
 		    if(returnVal == JFileChooser.APPROVE_OPTION) {
 		       System.out.println("You chose to open this file: " +
-		            chooser.getSelectedFile().getName());
+		       chooser.getSelectedFile().getName());
+		    
+		
+		       AssistMeasureFr tmf = new AssistMeasureFr(chooser.getSelectedFile().getName());
+		       AssistMeasureCtrl tmc = new AssistMeasureCtrl();
+		       tmf.addController(tmc);
+		        
+		       System.out.println("Pantalla ECG");
 		    }
 			 
-			 	//.setVisible(false);	/
-		        AssistMeasureFr tmf = new AssistMeasureFr(chooser.getSelectedFile().getName());
-		        AssistMeasureCtrl tmc = new AssistMeasureCtrl();
-		        tmf.addController(tmc);
-		        //tmf.setVisible(true);
-		        
-			 System.out.println("Pantalla ECG");
+
 		}else  if (e.getActionCommand().equals("BACK")){ 
 			returnToPrevious();
 			patient.dispose();

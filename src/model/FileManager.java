@@ -4,10 +4,8 @@ package model;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.Vector;
 
 public class FileManager {
@@ -111,7 +109,6 @@ public class FileManager {
     	lectorm = new BufferedReader(new FileReader("src/resources/" + username + ".txt"));
     	String linea;
     	Vector<Patient> listapacientes = new Vector<Patient>();
-    	int i = 0;
     	
     	linea = lectorm.readLine();
     	String[] lineatxt = linea.split(";");
@@ -121,7 +118,7 @@ public class FileManager {
     		Patient p = new Patient(linea);
     		
     		listapacientes.add(p);
-    		i++;
+
     	}
     	
     	medico.setPatientlist(listapacientes);
