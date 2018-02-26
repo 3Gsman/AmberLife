@@ -1,5 +1,5 @@
 Florentina;Bermejo Gutierrez;40738914A;271258649926;Villalba;Rua Bispo Rouco Varela 7
-Mujer.jpg
+Mujer.png
 Leve
 Monitorizacion normal de manera mensual
 ECG4

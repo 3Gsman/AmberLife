@@ -1,5 +1,5 @@
 Segismundo;Lamas Vila;46510922T;151258640123;Oleiro;Rua Pablo Picasso 2
-Hombre.jpg
+Hombre.png
 Leve
 Monitorizacion normal de manera mensual
 ECG1
