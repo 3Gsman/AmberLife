@@ -123,6 +123,10 @@ public class Main implements ActionListener, KeyListener {
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
         DoctorFr vp = new DoctorFr();	//crea nueva ventana
         DoctorCtrl dc = new DoctorCtrl(usuario,vp);
+        dc.setPreviousWindow(vistaLogin);
+        vp.addController(dc);
+        vp.initialize(dc.doctor.getPatientlist());
+        vp.setVisible(true);
         
     }
 

@@ -79,6 +79,12 @@ public  class LocalizationService {
 		spanish.put("search", "buscar");
 		galician.put("search", "buscar");
 		
+		english.put("patients", "patients");
+		spanish.put("patients", "pacientes");
+		galician.put("patients", "pacientes");
+		
+		
+		
 	}
 	
 	public static String getWord(String word) {

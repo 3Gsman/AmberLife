@@ -184,7 +184,7 @@ public class AdminFr extends JFrame {
 		JPanel viewport = new JPanel();
 		viewport.setBackground(Color.WHITE);	
 		viewport.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
-		viewport.setBackground( new Color(255, 255, 255, 140) );
+		viewport.setBackground( new Color(255, 255, 255, 255) );
 		//Contents go here
 		//Si el bool es true, se inicia con doctores, si no, con assistants
 		loadUserPane(users, viewport);

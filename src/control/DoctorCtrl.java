@@ -1,5 +1,9 @@
 package control;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 
 import javax.swing.JComboBox;
@@ -10,8 +14,10 @@ import javax.swing.JTextField;
 import model.Doctor;
 import model.FileManager;
 import view.DoctorFr;
+import view.PatientDialog;
+import view.PatientPanel;
 
-public class DoctorCtrl {
+public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseListener{
 
 	String name;
 	DoctorFr df;
@@ -34,29 +40,55 @@ public class DoctorCtrl {
 	}
 	
 	public void registerPatient() {
-		JTextField nombre = new JTextField();
-		JTextField lastname = new JTextField();
-		JTextField id = new JTextField();
-		JTextField ssn = new JTextField();
-		JTextField municipality = new JTextField();
-		JTextField address = new JTextField();
-		Object[] genders = {"Male", "Female"};
-		JComboBox boxgenders = new JComboBox(genders);
-		Object[] status = {"Low", "Mild", "Moderate", "Critical"};
-		JComboBox boxstatus = new JComboBox(status);
-		JTextField message = new JTextField();
+		//Pasar a MCV
+		PatientDialog pd = new PatientDialog(df);
 		
-		Object[] inputFields = {"Name:", nombre,
-								"Last Name:", lastname,
-								"ID:", id,
-								"SSN:", ssn,
-								"Municipality:", municipality,
-								"Address:", address, 
-								"Gender: ", boxgenders,
-								"Status: ", boxstatus,
-								"Message: ", message};
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("BACK")){ 
+			returnToPrevious();
+			df.dispose();
+		}
+		else if (e.getActionCommand().equals("NEW")) {
+			registerPatient();
+		}
+	}
+	
+	public Doctor getDoctor() {
+		return doctor;
+	}
+
+	@Override
+	//ONLY PATIENTPANELS ARE MEANT TO BE LISTENED TO.
+	public void mouseClicked(MouseEvent e) {
+		PatientPanel p = (PatientPanel) e.getSource();
+		System.out.println(p.getPatient().getName());
 		
-		JOptionPane.showConfirmDialog(df, inputFields, "New Patient", JOptionPane.OK_CANCEL_OPTION);
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 
