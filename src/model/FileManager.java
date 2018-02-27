@@ -4,10 +4,8 @@ package model;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.Vector;
 
 public class FileManager {
@@ -15,6 +13,7 @@ public class FileManager {
     BufferedWriter escritor;
     BufferedReader lector;
     BufferedReader lectorm;
+    BufferedReader lectorp;
     File ficheroUsuario = new File("FicheroUsuarios.txt");
     String p = ";";
 
@@ -109,8 +108,7 @@ public class FileManager {
     public Doctor readDoctor(String username) throws IOException{
     	lectorm = new BufferedReader(new FileReader("src/resources/" + username + ".txt"));
     	String linea;
-    	Patient[] listapacientes = new Patient[20];
-    	int i = 0;
+    	Vector<Patient> listapacientes = new Vector<Patient>();
     	
     	linea = lectorm.readLine();
     	String[] lineatxt = linea.split(";");
@@ -119,8 +117,8 @@ public class FileManager {
     	while((linea=lectorm.readLine())!=null){
     		Patient p = new Patient(linea);
     		
-    		listapacientes[i] = p;
-    		i++;
+    		listapacientes.add(p);
+
     	}
     	
     	medico.setPatientlist(listapacientes);
@@ -157,38 +155,81 @@ public class FileManager {
     	return v;
     }
     
-     public Double[] readECG() throws IOException{
-    	lector = new BufferedReader(new FileReader("src/resources/ECG2.txt"));
-    	Vector<Double> ecg = new Vector<>() ;
+     public ECG readECG(String filename) throws IOException{
+    	lector = new BufferedReader(new FileReader("src/resources/" + filename));
+    	ECG ecg = new ECG();
+    	Vector<Double> num = new Vector<>() ;
 
     	
     	String linea = null;
     	String [] numeros = null;
     	int i = 0;
     	
-    	linea = lector.readLine();
+    	String frequency = lector.readLine();
     	
-    	while((linea = lector.readLine()) != null) {
+    	linea = lector.readLine();
     		numeros = linea.split(";");
     		for(i = 0; i<numeros.length;i++) {
-    			ecg.add(Double.valueOf(numeros[i]));
+    			num.add(Double.valueOf(numeros[i]));
     		}
-    	}
+
+    	
+    	lector.readLine();
+    	String info = lector.readLine();
     	
     	lector.close();
     	
+    	if(info == null)
+    		info = "";
     	
-    	Double[] ecgArr = ecg.toArray(new Double[ecg.size()]);
+    	
+    	ecg.setData(num);
+    	ecg.setName(filename);
+    	ecg.setFrequency(Integer.parseInt(frequency));
+    	ecg.setReport(info);
     	
     	//Check the reading of the ecgs
 		//System.out.print(ecg.toString());
 		
 		
     	
-    	return ecgArr;
+    	return ecg;
     	
     	
     }
+     
+     public Patient readPatient(String username) throws IOException{
+    	 Patient p = new Patient(username);
+    	 lectorp = new BufferedReader(new FileReader("src/resources/" + username + ".txt"));
+     	 String linea = lectorp.readLine();
+     	 String[] lineatxt = linea.split(";");
+     	 ECG ecg = new ECG();
+     	 Vector<ECG> vector = new Vector<>();
+     	 
+     	 p.setName(lineatxt[0]);
+     	 p.setLastname(lineatxt[1]);
+     	 p.setId(lineatxt[2]);
+     	 p.setSsn(lineatxt[3]);
+     	 p.setMunicipality(lineatxt[4]);
+     	 p.setAddress(lineatxt[5]);
+     	 p.setGender(lectorp.readLine());
+     	 p.setStatus(lectorp.readLine());
+     	 p.setMessage(lectorp.readLine());
+     	 
+     	while((linea=lectorp.readLine())!=null){
+
+     		 ecg = readECG(linea + ".txt");
+
+     		 vector.add(ecg);
+
+     	 }
+     
+     	p.setECGs(vector);
+    	 
+    	 
+    	 lectorp.close();
+    	 return p;
+     }
 
     
     }

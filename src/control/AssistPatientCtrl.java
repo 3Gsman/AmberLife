@@ -5,7 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import view.AssistMeasureFr;
 
@@ -41,13 +43,26 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 		System.out.println("Action received: ");
 		 if (e.getActionCommand().equals("MEASURE")){
 			
-			 	//.setVisible(false);	/
-		        AssistMeasureFr tmf = new AssistMeasureFr();
-		        AssistMeasureCtrl tmc = new AssistMeasureCtrl();
-		        tmf.addController(tmc);
-		        //tmf.setVisible(true);
+			 
+			 JFileChooser chooser = new JFileChooser();
+			 FileNameExtensionFilter filter = new FileNameExtensionFilter(
+				        "ECGs", "txt");
+			chooser.setFileFilter(filter);
+			chooser.setCurrentDirectory(new java.io.File("./src/resources"));
+		    int returnVal = chooser.showOpenDialog(null);
+		    if(returnVal == JFileChooser.APPROVE_OPTION) {
+		       System.out.println("You chose to open this file: " +
+		       chooser.getSelectedFile().getName());
+		    
+		
+		       AssistMeasureFr tmf = new AssistMeasureFr(chooser.getSelectedFile().getName());
+		       AssistMeasureCtrl tmc = new AssistMeasureCtrl();
+		       tmf.addController(tmc);
 		        
-			 System.out.println("Pantalla ECG");
+		       System.out.println("Pantalla ECG");
+		    }
+			 
+
 		}else  if (e.getActionCommand().equals("BACK")){ 
 			returnToPrevious();
 			patient.dispose();

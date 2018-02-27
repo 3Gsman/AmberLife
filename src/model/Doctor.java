@@ -1,10 +1,12 @@
 package model;
 
+import java.util.Vector;
+
 public class Doctor extends User {
 	String number;
 	String hospital;
 	String phone;
-	Patient[] patientlist;
+	Vector<Patient> patientlist;
 	
 	public Doctor(String n, String ln, String dni, String num, String h, String p) {	
 		super.setName(n);
@@ -36,10 +38,10 @@ public class Doctor extends User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Patient[] getPatientlist() {
+	public Vector<Patient> getPatientlist() {
 		return patientlist;
 	}
-	public void setPatientlist(Patient[] listapacientes) {
+	public void setPatientlist(Vector<Patient> listapacientes) {
 		this.patientlist = listapacientes;
 	}
 	

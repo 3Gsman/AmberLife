@@ -1,0 +1,8 @@
+Adela;Pazo Ulloa;20580166L;159942551076;Ortigueira;Rua Madalena 2
+Mujer.png
+Bajo
+Una prueba cada 6 meses es suficiente para monitorizar a la paciente
+ECG2
+ECG4
+ECG6
+ECG8

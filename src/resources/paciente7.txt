@@ -1,0 +1,7 @@
+Antonio;Blanco Marquez;40282503G;157100067423;Culleredo;Rua Manuel Reboredo 9
+Hombre.png
+Leve
+Nada nuevo
+ECG3
+ECG5
+ECG7

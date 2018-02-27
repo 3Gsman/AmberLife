@@ -1,75 +1,46 @@
 package view;
 
-import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.FontFormatException;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.MouseListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import model.LocalizationService;
+import model.Patient;
 
-import java.awt.FlowLayout;
-import javax.swing.ImageIcon;
-
-public class UserPanel extends JPanel {
+public class PatientPanel extends JPanel {
 	
-	
-	private String name;
-	private String id;
-	
+	private Patient p;
 	/**
 	 * Create the panel.
 	 */
 	
 	
-	public UserPanel() {
-		try {
-			initialize("John Doe", "XXXXXXX");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public PatientPanel() {
+		initialize(new Patient("1","John","Doe","2222X"), null);
 	}
 	
-	public UserPanel(String name, String id) {
-		try {
-			initialize(name, id);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public PatientPanel(Patient p, MouseListener con) {
+		this.p = p;
+		initialize(p,con);
 	}
 	
-	public void initialize(String name, String id) throws IOException {
+	public void initialize(Patient p, MouseListener con) {
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{10, 60, 180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 60, 10, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 10, 40, 0, 15, 60, 10, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
-		
-		//Get PROMETHEUS font
-				java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
-				Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
-				Font sf = font; // will use sf to change the style;
-				try {
-					font = Font.createFont(Font.TRUETYPE_FONT, is);
-					sf = font;
-				} catch (FontFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 		
 		JPanel panel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
@@ -88,21 +59,20 @@ public class UserPanel extends JPanel {
 		flowLayout_2.setAlignment(FlowLayout.LEADING);
 		panel.add(panel_2);
 		
-		JLabel lblNewLabel = new JLabel(LocalizationService.getWord("name"));
+		JLabel lblNewLabel = new JLabel("name");
 		lblNewLabel.setForeground(Color.WHITE);
-		sf = font.deriveFont(Font.PLAIN, 22f);
-		lblNewLabel.setFont(sf);
+		lblNewLabel.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
 		panel_2.add(lblNewLabel);
 		
 		JLabel label_1 = new JLabel(" ");
 		label_1.setForeground(Color.WHITE);
-		label_1.setFont(sf);
+		label_1.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
 		label_1.setBackground(Color.DARK_GRAY);
 		panel.add(label_1);
 		
-		JLabel lblJohnDoe = new JLabel(name);
+		JLabel lblJohnDoe = new JLabel(p.getName() + " " + p.getLastname());
 		lblJohnDoe.setForeground(Color.DARK_GRAY);
-		lblJohnDoe.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
+		lblJohnDoe.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
 		lblJohnDoe.setBackground(Color.DARK_GRAY);
 		panel.add(lblJohnDoe);
 		
@@ -121,18 +91,18 @@ public class UserPanel extends JPanel {
 		panel_3.setBackground(Color.DARK_GRAY);
 		panel_1.add(panel_3);
 		
-		JLabel lblId = new JLabel(LocalizationService.getWord("id"));
+		JLabel lblId = new JLabel("i.d.");
 		lblId.setForeground(Color.WHITE);
 		lblId.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
 		panel_3.add(lblId);
 		
 		JLabel label_2 = new JLabel(" ");
 		label_2.setForeground(Color.WHITE);
-		label_2.setFont(sf);
+		label_2.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
 		label_2.setBackground(Color.DARK_GRAY);
 		panel_1.add(label_2);
 		
-		JLabel label = new JLabel(id);
+		JLabel label = new JLabel(p.getId());
 		label.setVerticalAlignment(SwingConstants.BOTTOM);
 		label.setForeground(Color.DARK_GRAY);
 		label.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
@@ -165,5 +135,11 @@ public class UserPanel extends JPanel {
 		gbc_btnNewButton.gridx = 14;
 		gbc_btnNewButton.gridy = 5;
 		add(btnNewButton, gbc_btnNewButton);
+		
+		this.addMouseListener(con);
+	}
+	
+	public Patient getPatient() {
+		return p;
 	}
 }

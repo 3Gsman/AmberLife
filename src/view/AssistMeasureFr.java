@@ -23,7 +23,7 @@ public class AssistMeasureFr{
 
 	GraphFr gr;
 	
-	public AssistMeasureFr(){
+	public AssistMeasureFr(String filename){
 	
 	JFrame f = new JFrame("ECG:");
     //add(new GraphFr);
@@ -31,7 +31,7 @@ public class AssistMeasureFr{
     f.setLocation(200,200);
     
     
-    gr = new GraphFr();
+    gr = new GraphFr(filename);
     gr.setBackground(Color.DARK_GRAY.darker());
     gr.setOpaque(true);
     f.add(gr);
