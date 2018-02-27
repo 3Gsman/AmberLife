@@ -1,5 +1,5 @@
 Manuel;Alba Torres;39875417H;368691267401;Puentecaldelas;Avenida de Galicia 17
-Hombre.jpg
+Hombre.png
 Leve
 El paciente debe hacer una prueba cada 2 semanas
 ECG3

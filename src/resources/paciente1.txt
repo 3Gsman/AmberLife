@@ -1,5 +1,5 @@
 Juan;Garcia Perez;04589265Y;158690367467;Arteixo;Camiño do Cancelo 13
-Hombre.jpg
+Hombre.png
 Moderado
 El paciente debe hacer una prueba a la semana
 ECG1

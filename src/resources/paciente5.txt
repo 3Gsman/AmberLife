@@ -1,5 +1,5 @@
 Roi;Aspas Mariño;44190038T;153693697407;Negreira;Rua Castelao 3
-Hombre.jpg
+Hombre.png
 Moderado
 Cada dos semanas
 ECG5
