@@ -17,21 +17,23 @@ import javax.swing.*;
 
 
 import control.AssistMeasureCtrl;
+import model.ECG;
 import model.FileManager;
 
 public class AssistMeasureFr{
 
-	GraphFr gr;
-	
-	public AssistMeasureFr(String filename){
+	FullGraphPanel gr;
+	ECG ECGData;
+	public AssistMeasureFr(ECG ecgData){
 	
 	JFrame f = new JFrame("ECG:");
     //add(new GraphFr);
     f.setSize(400,400);
     f.setLocation(200,200);
     
+    ECGData = ecgData;
     
-    gr = new GraphFr(filename);
+    gr = new FullGraphPanel(ECGData);
     gr.setBackground(Color.DARK_GRAY.darker());
     gr.setOpaque(true);
     f.add(gr);
