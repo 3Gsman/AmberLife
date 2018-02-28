@@ -13,7 +13,9 @@ import javax.swing.JTextField;
 
 import model.Doctor;
 import model.FileManager;
+import view.AssistFr;
 import view.DoctorFr;
+import view.DoctorPatientFr;
 import view.PatientDialog;
 import view.PatientPanel;
 
@@ -64,11 +66,20 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 	//ONLY PATIENTPANELS ARE MEANT TO BE LISTENED TO.
 	public void mouseClicked(MouseEvent e) {
 		try {
-		PatientPanel p = (PatientPanel) e.getSource();
-		System.out.println(p.getPatient().getName());
+			PatientPanel p = (PatientPanel) e.getSource();
+			df.setVisible(false);
+			DoctorPatientFr dpf = new DoctorPatientFr();
+			DoctorPatientCtrl dpc = new DoctorPatientCtrl(dpf,doctor,p.getPatient());
+	        dpc.setPreviousWindow(df);
+	        dpf.addController(dpc);
+			dpf.initialize();
+		    dpf.setVisible(true);
 		}
 		catch(ClassCastException cce){
 			System.out.println("BAD CAST at DoctorCtrl");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 

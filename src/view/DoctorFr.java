@@ -151,7 +151,7 @@ public class DoctorFr extends JFrame {
 		btnNewButton2.setContentAreaFilled(false);
 		btnNewButton2.setActionCommand("NEW");
 		btnNewButton2.addActionListener(controller);
-		btnNewButton2.setIcon(new ImageIcon(getClass().getResource("/resources/Backbutton.png")));
+		btnNewButton2.setIcon(new ImageIcon(getClass().getResource("/resources/addbutton.png")));
 		viewport.add(btnNewButton2);
 		
 		scrollPane.setViewportView(viewport);
@@ -171,10 +171,8 @@ public class DoctorFr extends JFrame {
 		contentPane.add(btnLogout, gbc_btnLogout);
 		
 
-		
 		this.setVisible(true);
 	
-
 	}
 	
 	

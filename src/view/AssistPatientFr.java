@@ -52,28 +52,29 @@ public class AssistPatientFr extends JFrame {
 		this.controller = a;
 	}
 	
-	
-	public AssistPatientFr(String dni, String pname, String psurname, String user) {
-		
+
+	public AssistPatientFr() {
+		// TODO Auto-generated constructor stub
 	}
-	
+
+
 	/**
 	 * Initialize the frame.
 	 * @throws IOException 
 	 */
-	public void initialize(String dni, String pname, String psurname, String user) throws IOException {
+	public void initialize(String pname, String psurname, String id, String ssn, String user) throws IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 619, 632);
 		Dimension d = new Dimension(800, 620);
 		this.setMinimumSize(d);
 		this.setSize(d);
 		contentPane = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{40, 40, 40, 40, 20, 30, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 120, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{80, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 40, 80, 0};
-		gbl_contentPane.columnWeights = new double[]{0.2, 0.2, 0.2, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{0.5, 1, 1, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
@@ -111,6 +112,7 @@ public class AssistPatientFr extends JFrame {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(null);
 		panel_1.setBackground( new Color(255, 255, 255, 140) );
+	
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridheight = 15;
@@ -118,40 +120,148 @@ public class AssistPatientFr extends JFrame {
 		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 3;
 		contentPane.add(panel_1, gbc_panel_1);
-		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
+		//Deberia usar un GridBaglayout para solucionar distribucion de tama;o
+		GridBagLayout gbl = new GridBagLayout();
+		gbl.columnWidths = new int[]{15, 80, 0, 0, 0, 0, 0, 0, 0, 15};
+		gbl.rowHeights = new int[]{0, 30, 15, 30, 15, 30, 15, 30, 60, 15};
+		gbl.columnWeights = new double[]{0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.2, Double.MIN_VALUE};
+		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.2, Double.MIN_VALUE};
+		BoxLayout bl = new BoxLayout(panel_1, BoxLayout.Y_AXIS);
+		WrapLayout wl = new WrapLayout();
+		panel_1.setLayout(gbl);
 		
 		JLabel label = new JLabel(" ");
 		sf = font.deriveFont(18f);
 		label.setFont(sf);
 		panel_1.add(label);
 		
-		JLabel lblNameXxxxx = new JLabel(" " +LocalizationService.getWord("name") +": " + pname);
-		sf = font.deriveFont(22f);
-		lblNameXxxxx.setFont(sf);
-		lblNameXxxxx.setForeground(new Color(80, 77, 77, 255));
-		panel_1.add(lblNameXxxxx);
 		
-		JLabel lblNewLabel_4 = new JLabel(" ");
-		sf = font.deriveFont(18f);
-		lblNewLabel_4.setFont(sf);
-		panel_1.add(lblNewLabel_4);
+		//Here STARTS data under icon
 		
-		JLabel lblSsnXxxxx = new JLabel(" " +LocalizationService.getWord("surname") +": " + psurname);
-		sf = font.deriveFont(22f);
-		lblSsnXxxxx.setForeground(new Color(80, 77, 77, 255));
-		lblSsnXxxxx.setFont(sf);
-		panel_1.add(lblSsnXxxxx);
+		Font labelfont = font.deriveFont(Font.PLAIN, 24f);
+		Font datafont = new Font("Source Code Pro Medium", Font.PLAIN, 26);
+		Color greyboxcolor = new Color(80, 77, 77, 255);
 		
-		JLabel label_2 = new JLabel(" ");
-		sf = font.deriveFont(18f);
-		label_2.setFont(sf);
-		panel_1.add(label_2);
 		
-		JLabel lblPhoneXxxxx = new JLabel(" " +LocalizationService.getWord("id") +": " + dni);
-		sf = font.deriveFont(22f);
-		lblPhoneXxxxx.setForeground(new Color(80, 77, 77, 255));
-		lblPhoneXxxxx.setFont(sf);
-		panel_1.add(lblPhoneXxxxx);
+		// First Field
+		JPanel field_1 = new JPanel();
+		field_1.setOpaque(false);
+		FlowLayout flowLayout_f1 = (FlowLayout) field_1.getLayout();
+		flowLayout_f1.setAlignment(FlowLayout.LEFT);
+		GridBagConstraints gbc_f1 = new GridBagConstraints();
+		gbc_f1.gridheight = 1;
+		gbc_f1.gridwidth = 1;
+		gbc_f1.fill = GridBagConstraints.BOTH;
+		gbc_f1.gridx = 1;
+		gbc_f1.gridy = 1;
+		panel_1.add(field_1, gbc_f1);
+	
+		JPanel greybox = new JPanel();
+		greybox.setBackground(greyboxcolor);
+		FlowLayout flowLayout_gb = (FlowLayout) greybox.getLayout();
+		flowLayout_gb.setAlignment(FlowLayout.LEFT);
+		field_1.add(greybox);
+		
+		JLabel lblNewLabel3 = new JLabel(LocalizationService.getWord("name"));
+		lblNewLabel3.setForeground(Color.WHITE);
+		lblNewLabel3.setFont(labelfont);
+		greybox.add(lblNewLabel3);
+		
+		JLabel lblNewLabel4= new JLabel("  " + pname);
+		lblNewLabel4.setForeground(Color.DARK_GRAY);
+		lblNewLabel4.setFont(datafont);
+		field_1.add(lblNewLabel4);
+		
+		
+		//Second Field
+		JPanel field_2 = new JPanel();
+		field_2.setOpaque(false);
+		FlowLayout flowLayout_f2 = (FlowLayout) field_2.getLayout();
+		flowLayout_f2.setAlignment(FlowLayout.LEFT);
+		GridBagConstraints gbc_f2 = new GridBagConstraints();
+		gbc_f2.gridheight = 1;
+		gbc_f2.gridwidth = 1;
+		gbc_f2.fill = GridBagConstraints.BOTH;
+		gbc_f2.gridx = 1;
+		gbc_f2.gridy = 3;
+		panel_1.add(field_2,gbc_f2);
+		
+		JPanel greybox2 = new JPanel();
+		greybox2.setBackground(greyboxcolor);
+		FlowLayout flowLayout_gb2 = (FlowLayout) greybox2.getLayout();
+		flowLayout_gb2.setAlignment(FlowLayout.LEFT);
+		field_2.add(greybox2);
+		
+		JLabel lblNewLabeldata2= new JLabel(LocalizationService.getWord("surname"));
+		lblNewLabeldata2.setForeground(Color.WHITE);
+		lblNewLabeldata2.setFont(labelfont);
+		greybox2.add(lblNewLabeldata2);
+		
+		JLabel lblNewLabel5= new JLabel("  " + psurname);
+		lblNewLabel5.setForeground(Color.DARK_GRAY);
+		lblNewLabel5.setFont(datafont);
+		field_2.add(lblNewLabel5);
+		
+		//Third Field
+		JPanel field_3 = new JPanel();
+		field_3.setOpaque(false);
+		FlowLayout flowLayout_f3 = (FlowLayout) field_3.getLayout();
+		flowLayout_f3.setAlignment(FlowLayout.LEFT);
+		GridBagConstraints gbc_f3 = new GridBagConstraints();
+		gbc_f3.gridheight = 1;
+		gbc_f3.gridwidth = 1;
+		gbc_f3.fill = GridBagConstraints.BOTH;
+		gbc_f3.gridx = 1;
+		gbc_f3.gridy = 5;
+		panel_1.add(field_3,gbc_f3);
+		
+		JPanel greybox3 = new JPanel();
+		greybox3.setBackground(greyboxcolor);
+		FlowLayout flowLayout_gb3 = (FlowLayout) greybox3.getLayout();
+		flowLayout_gb3.setAlignment(FlowLayout.LEFT);
+		field_3.add(greybox3);
+		
+		JLabel lblNewLabeldata3= new JLabel(LocalizationService.getWord("id"));
+		lblNewLabeldata3.setForeground(Color.WHITE);
+		lblNewLabeldata3.setFont(labelfont);
+		greybox3.add(lblNewLabeldata3);
+		
+		JLabel lblNewLabel6= new JLabel("  " + id);
+		lblNewLabel6.setForeground(Color.DARK_GRAY);
+		lblNewLabel6.setFont(datafont);
+		field_3.add(lblNewLabel6);
+		
+		//Fourth Field
+		JPanel field_4 = new JPanel();
+		field_4.setOpaque(false);
+		FlowLayout flowLayout_f4 = (FlowLayout) field_4.getLayout();
+		flowLayout_f4.setAlignment(FlowLayout.LEFT);
+		GridBagConstraints gbc_f4 = new GridBagConstraints();
+		gbc_f4.gridheight = 1;
+		gbc_f4.gridwidth = 1;
+		gbc_f4.fill = GridBagConstraints.BOTH;
+		gbc_f4.gridx = 1;
+		gbc_f4.gridy = 7;
+		panel_1.add(field_4,gbc_f4);
+				
+		JPanel greybox4 = new JPanel();
+		greybox4.setBackground(greyboxcolor);
+		FlowLayout flowLayout_gb4 = (FlowLayout) greybox3.getLayout();
+		flowLayout_gb4.setAlignment(FlowLayout.LEFT);
+		field_4.add(greybox4);
+				
+		JLabel lblNewLabeldata4= new JLabel(LocalizationService.getWord("ssn"));
+		lblNewLabeldata4.setForeground(Color.WHITE);
+		lblNewLabeldata4.setFont(labelfont);
+		greybox4.add(lblNewLabeldata4);
+				
+		JLabel lblNewLabel8= new JLabel("  " + ssn);
+		lblNewLabel8.setForeground(Color.DARK_GRAY);
+		lblNewLabel8.setFont(datafont);
+		field_4.add(lblNewLabel8);
+				
+		//Here ENDS data under icon
+		
 		
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
@@ -163,7 +273,7 @@ public class AssistPatientFr extends JFrame {
 		gbc_panel.gridy = 0;
 		contentPane.add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
-		
+	
 		JLabel lblNewLabel = new JLabel(" " + LocalizationService.getWord("user") + ": "+ user);
 		sf = font.deriveFont(24f);
 		lblNewLabel.setFont(sf);
