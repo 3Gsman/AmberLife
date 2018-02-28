@@ -44,7 +44,7 @@ public class PreviewGraphPanel extends JPanel{
 	        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 	                            RenderingHints.VALUE_ANTIALIAS_ON);
 	        //g2.setBackground(Color.DARK_GRAY);
-	        int w = getWidth()*30;
+	        int w = getWidth()*25;
 	        double h = getHeight()/1.1;
 	
 	        Font font = g2.getFont();
