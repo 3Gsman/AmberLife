@@ -7,5 +7,10 @@
 	<classpathentry kind="lib" path="D:/Herramientas/Programacion/Librerias Java/jfreechart-1.0.1/lib/jfreechart-1.0.1.jar"/>
 	<classpathentry kind="lib" path="D:/Herramientas/Programacion/Librerias Java/jfreechart-1.0.1/lib/junit.jar"/>
 	<classpathentry kind="lib" path="D:/Herramientas/Programacion/Librerias Java/jfreechart-1.0.1/lib/servlet.jar"/>
+	<classpathentry kind="lib" path="D:/Herramientas/Programacion/GitHub/PIg17-amberlife/libraries/gnujaxp.jar"/>
+	<classpathentry kind="lib" path="D:/Herramientas/Programacion/GitHub/PIg17-amberlife/libraries/jcommon-1.0.0.jar"/>
+	<classpathentry kind="lib" path="D:/Herramientas/Programacion/GitHub/PIg17-amberlife/libraries/jfreechart-1.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/Herramientas/Programacion/GitHub/PIg17-amberlife/libraries/junit.jar"/>
+	<classpathentry kind="lib" path="D:/Herramientas/Programacion/GitHub/PIg17-amberlife/libraries/servlet.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
