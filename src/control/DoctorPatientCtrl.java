@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 import model.Doctor;
 import model.Patient;
@@ -70,6 +71,21 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 		if (e.getActionCommand().equals("BACK")){ 
 			returnToPrevious();
 			frame.dispose();
+		}
+		else if (e.getActionCommand().equals("ECGS")){ 
+			System.out.println("ECGS");
+			frame.initializeECG();
+			frame.setVisible(true);
+		}
+		else if (e.getActionCommand().equals("MESSAGES")){ 
+			try {
+				System.out.println("MESSAGES");
+				frame.initializeMessages();
+				frame.setVisible(true);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 	}

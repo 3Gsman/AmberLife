@@ -4,12 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import view.AssistMeasureFr;
+import view.TakeEcgFr;
 
 public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener, KeyListener{
 	
@@ -55,9 +57,23 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 		       chooser.getSelectedFile().getName());
 		    
 		
-		       AssistMeasureFr tmf = new AssistMeasureFr(chooser.getSelectedFile().getName());
+		       /*AssistMeasureFr tmf = new AssistMeasureFr(chooser.getSelectedFile().getName());
 		       AssistMeasureCtrl tmc = new AssistMeasureCtrl();
-		       tmf.addController(tmc);
+		       tmf.addController(tmc);*/
+		       try {
+		    	patient.setVisible(false);
+				TakeEcgFr ecgfr = new TakeEcgFr();
+				TakeEcgCtrl ecgc = new TakeEcgCtrl(ecgfr);
+				ecgc.setPreviousWindow(patient);
+				ecgfr.addController(ecgc);
+				ecgfr.initialize(null);
+				ecgfr.setVisible(true);
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
 		        
 		       System.out.println("Pantalla ECG");
 		    }

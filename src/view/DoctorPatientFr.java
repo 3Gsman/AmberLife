@@ -32,6 +32,7 @@ public class DoctorPatientFr extends JFrame {
 	private JPanelWithBackground contentPane;
 	public DoctorPatientCtrl controller;
 	private JPanel messagePanel;
+	private String mode = "";
 	
 	
 	public void addController(DoctorPatientCtrl a) {
@@ -44,6 +45,44 @@ public class DoctorPatientFr extends JFrame {
 	
 	public JPanel getMessagePanel() {
 		return messagePanel;
+	}
+	
+	//DOESN'T REALLY WORK
+	public void initializeMessages() throws IOException {
+		if(mode != "MESSAGES") {
+			messagePanel = new JPanel();
+			messagePanel.setBackground( new Color(255, 255, 255, 100));
+			messagePanel.setLayout(new BorderLayout(0, 0));
+			
+			JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomessages"));
+			
+			java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+			Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
+			Font sf = font; // will use sf to change the style;
+			try {
+				font = Font.createFont(Font.TRUETYPE_FONT, is);
+				sf = font;
+			} catch (FontFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			sf = font.deriveFont(28f);
+			lblNewLabel_2.setFont(sf);
+			lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
+			lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+			messagePanel.add(lblNewLabel_2, BorderLayout.CENTER);
+			mode = "MESSAGES";
+			this.repaint();
+		}
+	}
+	
+	public void initializeECG() {
+		if(mode != "ECGS") {
+			messagePanel = new JPanel();
+			messagePanel.setBackground( new Color(77,77,77,77));
+			mode = "ECGS";
+			this.repaint();
+		}
 	}
 	
 	/**
@@ -382,8 +421,9 @@ public class DoctorPatientFr extends JFrame {
 		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblNewLabel, BorderLayout.EAST);
+			
 		
-		messagePanel = new JPanel();
+		/*messagePanel = new JPanel();
 		messagePanel.setBackground( new Color(255, 255, 255, 100));
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
@@ -392,7 +432,7 @@ public class DoctorPatientFr extends JFrame {
 		gbc_panel_2.fill = GridBagConstraints.BOTH;
 		gbc_panel_2.gridx = 4;
 		gbc_panel_2.gridy = 1;
-		contentPane.add(messagePanel, gbc_panel_2);
+		
 		messagePanel.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomessages"));
@@ -401,6 +441,20 @@ public class DoctorPatientFr extends JFrame {
 		lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		messagePanel.add(lblNewLabel_2, BorderLayout.CENTER);
+		
+		contentPane.add(messagePanel, gbc_panel_2);*/
+	
+		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_2.gridheight = 17;
+		gbc_panel_2.gridwidth = 15;
+		gbc_panel_2.fill = GridBagConstraints.BOTH;
+		gbc_panel_2.gridx = 4;
+		gbc_panel_2.gridy = 1;
+		
+		initializeMessages();
+		contentPane.add(messagePanel, gbc_panel_2);
+		
 		
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setBorderPainted(false);
@@ -421,9 +475,9 @@ public class DoctorPatientFr extends JFrame {
 		btnNewButton2.setBorder(null);
 		btnNewButton2.setMargin(new Insets(0, 0, 0, 0));
 		btnNewButton2.setContentAreaFilled(false);
-		btnNewButton2.setActionCommand("BACK");
+		btnNewButton2.setActionCommand("MESSAGES");
 		btnNewButton2.addActionListener(controller);
-		btnNewButton2.setIcon(new ImageIcon(getClass().getResource("/resources/Backbutton.png")));
+		btnNewButton2.setIcon(new ImageIcon(getClass().getResource("/resources/Alerts.png")));
 		GridBagConstraints gbc_btnNewButton2 = new GridBagConstraints();
 		gbc_btnNewButton2.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton2.gridx = 1;
@@ -435,40 +489,14 @@ public class DoctorPatientFr extends JFrame {
 		btnNewButton3.setBorder(null);
 		btnNewButton3.setMargin(new Insets(0, 0, 0, 0));
 		btnNewButton3.setContentAreaFilled(false);
-		btnNewButton3.setActionCommand("BACK");
+		btnNewButton3.setActionCommand("ECGS");
 		btnNewButton3.addActionListener(controller);
-		btnNewButton3.setIcon(new ImageIcon(getClass().getResource("/resources/Backbutton.png")));
+		btnNewButton3.setIcon(new ImageIcon(getClass().getResource("/resources/Data.png")));
 		GridBagConstraints gbc_btnNewButton3 = new GridBagConstraints();
 		gbc_btnNewButton3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton3.gridx = 2;
 		gbc_btnNewButton3.gridy = 18;
 		contentPane.add(btnNewButton3, gbc_btnNewButton3);
 		
-		/*JPanel panel_3 = new JPanel();
-		panel_3.setBackground( new Color(255, 255, 255, 140) );
-		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
-		gbc_panel_3.insets = new Insets(0, 0, 0, 0);
-		gbc_panel_3.gridwidth = 2;
-		gbc_panel_3.fill = GridBagConstraints.BOTH;
-		gbc_panel_3.gridx = 1;
-		gbc_panel_3.gridy = 18;
-		contentPane.add(panel_3, gbc_panel_3);*/
-		
-		/*JButton btnMeasure = new JButton(LocalizationService.getWord("measure"));
-		btnMeasure.addActionListener(controller);
-		btnMeasure.setActionCommand("MEASURE");
-		sf = font.deriveFont(32f);
-		btnMeasure.setBorderPainted(false);
-		btnMeasure.setFont(sf);
-		btnMeasure.setForeground(new Color(0, 0, 0));
-		btnMeasure.setBackground(new Color(80, 77, 77, 255));
-		btnMeasure.setForeground(Color.WHITE);
-		GridBagConstraints gbc_btnMeasure = new GridBagConstraints();
-		gbc_btnMeasure.fill = GridBagConstraints.BOTH;
-		gbc_btnMeasure.gridwidth = 5;
-		gbc_btnMeasure.insets = new Insets(0, 0, 5, 5);
-		gbc_btnMeasure.gridx = 14;
-		gbc_btnMeasure.gridy = 18;
-		contentPane.add(btnMeasure, gbc_btnMeasure);*/
 	}
 }
