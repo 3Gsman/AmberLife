@@ -12,6 +12,9 @@ import model.FileManager;
 import model.Doctor;
 import model.Assistant;
 import view.AdminFr;
+import view.AssistDialog;
+import view.DoctorDialog;
+import view.PatientDialog;
 
 public class AdminCtrl extends ReturnsToFrame implements ActionListener {
 
@@ -65,7 +68,11 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener {
     	else if (e.getActionCommand().equals("BACK")){
     		af.dispose();
     		returnToPrevious();  		
-    	}
+    	}else if (e.getActionCommand().equals("NEWDOCTOR")) {
+			newDoctor();
+		}else if (e.getActionCommand().equals("NEWASSIST")) {
+			newAssist();
+		}
     
     	
     }
@@ -77,6 +84,18 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener {
 	
 	public Vector<Doctor> getAssistantList(){
 		return listamedicos;
+	}
+	
+	public void newDoctor() {
+		//Pasar a MCV
+		DoctorDialog dd = new DoctorDialog(af);
+		
+	}
+	
+	public void newAssist() {
+		//Pasar a MCV
+		AssistDialog dd = new AssistDialog(af);
+		
 	}
 	
 }

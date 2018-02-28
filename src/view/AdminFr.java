@@ -189,6 +189,28 @@ public class AdminFr extends JFrame {
 		//Si el bool es true, se inicia con doctores, si no, con assistants
 		loadUserPane(users, viewport);
 		
+		if(mode) {
+			JButton btnNewButton2 = new JButton("");
+			btnNewButton2.setBorderPainted(false);
+			btnNewButton2.setBorder(null);
+			btnNewButton2.setMargin(new Insets(0, 0, 0, 0));
+			btnNewButton2.setContentAreaFilled(false);
+			btnNewButton2.setActionCommand("NEWDOCTOR");
+			btnNewButton2.addActionListener(controller);
+			btnNewButton2.setIcon(new ImageIcon(getClass().getResource("/resources/addbutton.png")));
+			viewport.add(btnNewButton2);
+		}else {
+			JButton btnNewButton2 = new JButton("");
+			btnNewButton2.setBorderPainted(false);
+			btnNewButton2.setBorder(null);
+			btnNewButton2.setMargin(new Insets(0, 0, 0, 0));
+			btnNewButton2.setContentAreaFilled(false);
+			btnNewButton2.setActionCommand("NEWASSIST");
+			btnNewButton2.addActionListener(controller);
+			btnNewButton2.setIcon(new ImageIcon(getClass().getResource("/resources/addbutton.png")));
+			viewport.add(btnNewButton2);
+		}
+		
 		scrollPane.setViewportView(viewport);
 		
 		JButton btnLogout = new JButton("");

@@ -1,3 +1,5 @@
 
 *.class
 src/control/DoctorPatientCtrl.java
+src/control/AssistPatientCtrl.java
+src/control/AssistPatientCtrl.java
