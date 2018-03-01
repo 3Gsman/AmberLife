@@ -30,7 +30,11 @@ public class DoctorDialog {
 		
 		JOptionPane.showConfirmDialog(f, inputFields, "New Doctor", JOptionPane.OK_CANCEL_OPTION);
 
-		
+		if(nombre.getText().isEmpty() || lastname.getText().isEmpty() || password.getPassword().toString().isEmpty()
+				|| confirm.getPassword().toString().isEmpty()	|| id.getText().isEmpty() || ssn.getText().isEmpty() 
+				|| hospital.getText().isEmpty() || phone.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(f, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 		
 		if(!(Arrays.equals(password.getPassword(), confirm.getPassword()))) {
 			JOptionPane.showMessageDialog(f, "The password doesn't match", "Error", JOptionPane.ERROR_MESSAGE);
