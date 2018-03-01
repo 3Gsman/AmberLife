@@ -9,12 +9,15 @@ import java.io.IOException;
 import model.Doctor;
 import model.Patient;
 import view.DoctorPatientFr;
+import view.NewMessageDialog;
 
 public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener, MouseListener {
 	
 	Patient p;
 	Doctor d;
 	DoctorPatientFr frame;
+	
+	
 	
 	public Doctor getDoctor() {
 		return d;
@@ -32,6 +35,7 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 		this.frame = frame;
 		this.d = d;
 		this.p = p;
+		
 	}
 
 
@@ -76,7 +80,11 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 			System.out.println("ECGS");
 			frame.initializeECG();
 			frame.setVisible(true);
+		}else if (e.getActionCommand().equals("NEWMESSAGE")){ 
+			System.out.println("New Message");
+			NewMessage();
 		}
+		
 		else if (e.getActionCommand().equals("MESSAGES")){ 
 			try {
 				System.out.println("MESSAGES");
@@ -88,6 +96,10 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 			}
 		}
 		
+	}
+	
+	public void NewMessage() {
+		NewMessageDialog nmd = new NewMessageDialog(frame, p);
 	}
 
 }
