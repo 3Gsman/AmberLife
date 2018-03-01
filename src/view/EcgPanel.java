@@ -16,6 +16,7 @@ import java.awt.FontFormatException;
 
 import javax.swing.SwingConstants;
 
+import model.ECG;
 import model.LocalizationService;
 
 import java.awt.FlowLayout;
@@ -24,15 +25,13 @@ import java.awt.FlowLayout;
 
 public class EcgPanel extends JPanel {
 		
-		
-		private String date;
-		private String freq;
-		private String assistant;
+		ECG e;
 		
 		
-		public  EcgPanel(String date, String freq, String assistant) throws IOException {
+		public  EcgPanel(ECG e) throws IOException {
+			this.e=e;
 			GridBagLayout gridBagLayout = new GridBagLayout();
-			gridBagLayout.columnWidths = new int[]{10, 60, 180, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 60, 60, 10, 0, 0};
+			gridBagLayout.columnWidths = new int[]{10, 60, 180, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 60, 180, 10, 0, 0};
 			gridBagLayout.rowHeights = new int[]{15, 30, 15, 30, 40, 15, 19, 0, 15};
 			gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.2, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 			gridBagLayout.rowWeights = new double[]{0.2, 0.0, 0.2, 0.0, 2.0, 0.2, 0.0, 1.0, 0.2};
@@ -56,9 +55,9 @@ public class EcgPanel extends JPanel {
 			try {
 				font = Font.createFont(Font.TRUETYPE_FONT, is);
 				sf = font;
-			} catch (FontFormatException e) {
+			} catch (FontFormatException ex) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				ex.printStackTrace();
 			}
 			
 			JPanel panel_2 = new JPanel();
@@ -67,7 +66,7 @@ public class EcgPanel extends JPanel {
 			flowLayout_2.setAlignment(FlowLayout.LEADING);
 			panel.add(panel_2);
 			
-			JLabel lblNewLabel = new JLabel(LocalizationService.getWord("date"));
+			JLabel lblNewLabel = new JLabel(LocalizationService.getWord("name"));
 			lblNewLabel.setForeground(Color.WHITE);
 			lblNewLabel.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
 			panel_2.add(lblNewLabel);
@@ -79,11 +78,10 @@ public class EcgPanel extends JPanel {
 			label_1.setBackground(Color.DARK_GRAY);
 			panel.add(label_1);
 			
-			JLabel label_4 = new JLabel(date);
+			JLabel label_4 = new JLabel(e.getName());
 			label_4.setVerticalAlignment(SwingConstants.BOTTOM);
 			label_4.setForeground(Color.DARK_GRAY);
-			sf = font.deriveFont(22f);
-			label_4.setFont(sf);
+			label_4.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
 			panel.add(label_4);
 			
 			JPanel panel_1 = new JPanel();
@@ -114,7 +112,7 @@ public class EcgPanel extends JPanel {
 			label_2.setBackground(Color.DARK_GRAY);
 			panel_1.add(label_2);
 			
-			JLabel lblms = new JLabel(freq);
+			JLabel lblms = new JLabel(e.getFrequency() + " ms");
 			lblms.setVerticalAlignment(SwingConstants.BOTTOM);
 			lblms.setForeground(Color.DARK_GRAY);
 			lblms.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
@@ -148,19 +146,21 @@ public class EcgPanel extends JPanel {
 			label_3.setBackground(Color.DARK_GRAY);
 			panel_4.add(label_3);
 			
-			JLabel lblJohnDoe_1 = new JLabel(assistant);
+			JLabel lblJohnDoe_1 = new JLabel("unknown");
 			lblJohnDoe_1.setToolTipText("");
 			lblJohnDoe_1.setVerticalAlignment(SwingConstants.BOTTOM);
 			lblJohnDoe_1.setForeground(Color.DARK_GRAY);
 			lblJohnDoe_1.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
 			panel_4.add(lblJohnDoe_1);
 			
+			
+			//PAnel aqui
 			JPanel panel_6 = new JPanel();
 			panel_6.setBackground(Color.DARK_GRAY);
 			GridBagConstraints gbc_panel_6 = new GridBagConstraints();
 			gbc_panel_6.gridwidth = 11;
 			gbc_panel_6.gridheight = 9;
-			gbc_panel_6.insets = new Insets(0, 0, 5, 5);
+			gbc_panel_6.insets = new Insets(0, 0, 0, 0);
 			gbc_panel_6.fill = GridBagConstraints.BOTH;
 			gbc_panel_6.gridx = 7;
 			gbc_panel_6.gridy = 0;

@@ -11,6 +11,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -21,12 +22,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import control.DoctorPatientCtrl;
 import model.Doctor;
+import model.ECG;
 import model.LocalizationService;
 import model.Patient;
+import model.User;
 
 public class DoctorPatientFr extends JFrame {
 
@@ -85,12 +89,30 @@ public class DoctorPatientFr extends JFrame {
 			sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			sp.setOpaque(false);
+			JPanel viewport = new JPanel();
+			viewport.setOpaque(false);;
+			viewport.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
+			loadECGPanel(controller.getPatient().getECGs(),viewport);
+			sp.setViewportView(viewport);
+			sp.getViewport().setOpaque(false);
 			mode = "ECGS";
 			messagePanel = new JPanel();
+			messagePanel.setOpaque(false);
 			messagePanel.setLayout(new BorderLayout(0, 0));
 			messagePanel.add(sp, BorderLayout.CENTER);
 			this.repaint();
 		}
+	}
+	
+	public void loadECGPanel(Vector<ECG> v, JPanel viewport) {		
+		
+		for(ECG e : v)
+			try {
+				viewport.add(new EcgPanel(e));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 	}
 	
 	/**
