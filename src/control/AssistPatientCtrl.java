@@ -54,15 +54,12 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 			chooser.setCurrentDirectory(new java.io.File("./src/resources"));
 		    int returnVal = chooser.showOpenDialog(null);
 		    if(returnVal == JFileChooser.APPROVE_OPTION) {
-		       System.out.println("You chose to open this file: " +
-		    		   chooser.getSelectedFile().getName());
-		       
+		       System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
 		       String filename = chooser.getSelectedFile().getName();
 		       FileManager f = new FileManager();
 		       ECG ecg;
 			try {
-				  ecg = f.readECG(filename);
-			      /* AssistMeasureFr tmf = new AssistMeasureFr(ecg);;*/
+				   ecg = f.readECG(filename);
 			       AssistMeasureFr tef = new AssistMeasureFr();
 			       AssistMeasureCtrl tec = new AssistMeasureCtrl(tef,ecg);
 			       tec.setPreviousWindow(patient);
