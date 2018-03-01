@@ -35,31 +35,27 @@ public class FullGraphPanel extends JPanel implements ChangeListener {
     XYSeriesCollection dataset = new XYSeriesCollection();
     
     int m;
-    double rangeScroll = 1000;
-    double minimum = 0;
-    double maximum = 2000;
-    double max;
+    double minimum;
+    double maximum;
+    int t;
+    double frec;
 
     public FullGraphPanel(ECG ecgData) {
         super(new BorderLayout());
-
-        ECGData = ecgData;
         
-        m = 1000 / ECGData.getFrequency();//PERIODO
-        max = (ECGData.getFrequency()*ECGData.getData().size())*0.001;
-        System.out.println(max);
+        ECGData = ecgData;
+        frec = ECGData.getFrequency();
+        //m = 1000 / ECGData.getFrequency();//PERIODO
+        t = (ECGData.getFrequency()*ECGData.getData().size());
         XYDataset dataset = createDataset();
         chart = createChart(dataset);
+        minimum = (t/100)*-1;
+        maximum = (t/100)*5;
         chart.getXYPlot().getDomainAxis().setRange(minimum, maximum);
         ChartPanel chartPanel = new ChartPanel(chart);
-        //chartPanel.setPreferredSize(new java.awt.Dimension(600, 270));
         chartPanel.setDomainZoomable(true);
         chartPanel.setRangeZoomable(true);
-        Border border = BorderFactory.createCompoundBorder(
-                BorderFactory.createEmptyBorder(4, 4, 4, 4),
-                BorderFactory.createEtchedBorder()
-        );
-        chartPanel.setBorder(border);
+
         add(chartPanel);
 
         JPanel dashboard = new JPanel(new BorderLayout());
@@ -80,7 +76,7 @@ public class FullGraphPanel extends JPanel implements ChangeListener {
 
         int a = 0;
         for (int i = 0;i < nums.length; i++) {
-            series2.add(m*i, nums[a]);
+            series2.add(frec*i, nums[a]);
             a++;
         }
        
@@ -93,11 +89,10 @@ public class FullGraphPanel extends JPanel implements ChangeListener {
 
     private JFreeChart createChart(final XYDataset dataset) {
 
-        // create the chart...
         final JFreeChart chart = ChartFactory.createXYLineChart(
-                "INSERT_TITLE_HERE", // chart title
-                "INSERT_UNIT_HERE", // x axis label
-                "INSERT_UNIT_HERE", // y axis label
+                "", // chart title
+                "", // x axis label
+                "", // y axis label
                 dataset, // data
                 PlotOrientation.VERTICAL,
                 false, // include legend
@@ -118,21 +113,14 @@ public class FullGraphPanel extends JPanel implements ChangeListener {
     
     @Override
     public void stateChanged(ChangeEvent arg0) {
-        // TODO Auto-generated method stub
 
         int value = this.slider.getValue();
+       
+        minimum = (t/100)*(value-1);
+        maximum = (t/100)*(value+5);
         
-        if (value < lastValue ) { // left
-            minimum = minimum - rangeScroll;
-            maximum = maximum - rangeScroll;
-        } else if (value > lastValue) { // right
-            minimum = minimum + rangeScroll;
-            maximum = maximum + rangeScroll;
-        }
-
         chart.getXYPlot().getDomainAxis().setRange(minimum, maximum);
-        lastValue = value;
-        //System.out.println(value);
+
     }
 
 }
