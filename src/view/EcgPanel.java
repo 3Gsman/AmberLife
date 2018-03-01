@@ -8,10 +8,13 @@
 	import java.awt.Insets;
 	import javax.swing.JButton;
 	import java.awt.event.ActionListener;
-	import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.awt.event.ActionEvent;
 	import java.awt.Color;
 	import java.awt.Font;
-	import javax.swing.SwingConstants;
+import java.awt.FontFormatException;
+
+import javax.swing.SwingConstants;
 
 import model.LocalizationService;
 
@@ -27,7 +30,7 @@ public class EcgPanel extends JPanel {
 		private String assistant;
 		
 		
-		public  EcgPanel(String date, String freq, String assistant) {
+		public  EcgPanel(String date, String freq, String assistant) throws IOException {
 			GridBagLayout gridBagLayout = new GridBagLayout();
 			gridBagLayout.columnWidths = new int[]{10, 60, 180, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 60, 60, 10, 0, 0};
 			gridBagLayout.rowHeights = new int[]{15, 30, 15, 30, 40, 15, 19, 0, 15};
@@ -46,6 +49,18 @@ public class EcgPanel extends JPanel {
 			gbc_panel.gridy = 1;
 			add(panel, gbc_panel);
 			
+			//Get PROMETHEUS font
+			java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+			Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
+			Font sf = font; // will use sf to change the style;
+			try {
+				font = Font.createFont(Font.TRUETYPE_FONT, is);
+				sf = font;
+			} catch (FontFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			JPanel panel_2 = new JPanel();
 			panel_2.setBackground(Color.DARK_GRAY);
 			FlowLayout flowLayout_2 = (FlowLayout) panel_2.getLayout();
@@ -59,14 +74,16 @@ public class EcgPanel extends JPanel {
 			
 			JLabel label_1 = new JLabel(" ");
 			label_1.setForeground(Color.WHITE);
-			label_1.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			sf = font.deriveFont(22f);
+			label_1.setFont(sf);
 			label_1.setBackground(Color.DARK_GRAY);
 			panel.add(label_1);
 			
 			JLabel label_4 = new JLabel(date);
 			label_4.setVerticalAlignment(SwingConstants.BOTTOM);
 			label_4.setForeground(Color.DARK_GRAY);
-			label_4.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
+			sf = font.deriveFont(22f);
+			label_4.setFont(sf);
 			panel.add(label_4);
 			
 			JPanel panel_1 = new JPanel();
@@ -86,12 +103,14 @@ public class EcgPanel extends JPanel {
 			
 			JLabel lblId = new JLabel(LocalizationService.getWord("freq"));
 			lblId.setForeground(Color.WHITE);
-			lblId.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			sf = font.deriveFont(22f);
+			lblId.setFont(sf);
 			panel_3.add(lblId);
 			
 			JLabel label_2 = new JLabel(" ");
 			label_2.setForeground(Color.WHITE);
-			label_2.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			sf = font.deriveFont(22f);
+			label_2.setFont(sf);
 			label_2.setBackground(Color.DARK_GRAY);
 			panel_1.add(label_2);
 			
@@ -118,12 +137,14 @@ public class EcgPanel extends JPanel {
 			
 			JLabel lblAssist = new JLabel(LocalizationService.getWord("assist"));
 			lblAssist.setForeground(Color.WHITE);
-			lblAssist.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			sf = font.deriveFont(22f);
+			lblAssist.setFont(sf);
 			panel_5.add(lblAssist);
 			
 			JLabel label_3 = new JLabel(" ");
 			label_3.setForeground(Color.WHITE);
-			label_3.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			sf = font.deriveFont(22f);
+			label_3.setFont(sf);
 			label_3.setBackground(Color.DARK_GRAY);
 			panel_4.add(label_3);
 			
