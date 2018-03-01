@@ -12,18 +12,22 @@
 	import java.awt.Color;
 	import java.awt.Font;
 	import javax.swing.SwingConstants;
-	import java.awt.FlowLayout;
+
+import model.LocalizationService;
+
+import java.awt.FlowLayout;
 	import javax.swing.ImageIcon;
 
 
 public class EcgPanel extends JPanel {
 		
 		
-		private String name;
-		private String id;
+		private String date;
+		private String freq;
+		private String assistant;
 		
 		
-		public  EcgPanel(String name, String id) {
+		public  EcgPanel(String date, String freq, String assistant) {
 			GridBagLayout gridBagLayout = new GridBagLayout();
 			gridBagLayout.columnWidths = new int[]{10, 60, 180, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 60, 60, 10, 0, 0};
 			gridBagLayout.rowHeights = new int[]{15, 30, 15, 30, 40, 15, 19, 0, 15};
@@ -48,7 +52,7 @@ public class EcgPanel extends JPanel {
 			flowLayout_2.setAlignment(FlowLayout.LEADING);
 			panel.add(panel_2);
 			
-			JLabel lblNewLabel = new JLabel("date");
+			JLabel lblNewLabel = new JLabel(LocalizationService.getWord("date"));
 			lblNewLabel.setForeground(Color.WHITE);
 			lblNewLabel.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
 			panel_2.add(lblNewLabel);
@@ -59,7 +63,7 @@ public class EcgPanel extends JPanel {
 			label_1.setBackground(Color.DARK_GRAY);
 			panel.add(label_1);
 			
-			JLabel label_4 = new JLabel("24 2 2020");
+			JLabel label_4 = new JLabel(date);
 			label_4.setVerticalAlignment(SwingConstants.BOTTOM);
 			label_4.setForeground(Color.DARK_GRAY);
 			label_4.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
@@ -80,7 +84,7 @@ public class EcgPanel extends JPanel {
 			panel_3.setBackground(Color.DARK_GRAY);
 			panel_1.add(panel_3);
 			
-			JLabel lblId = new JLabel("freq");
+			JLabel lblId = new JLabel(LocalizationService.getWord("freq"));
 			lblId.setForeground(Color.WHITE);
 			lblId.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
 			panel_3.add(lblId);
@@ -91,7 +95,7 @@ public class EcgPanel extends JPanel {
 			label_2.setBackground(Color.DARK_GRAY);
 			panel_1.add(label_2);
 			
-			JLabel lblms = new JLabel("50ms");
+			JLabel lblms = new JLabel(freq);
 			lblms.setVerticalAlignment(SwingConstants.BOTTOM);
 			lblms.setForeground(Color.DARK_GRAY);
 			lblms.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
@@ -112,7 +116,7 @@ public class EcgPanel extends JPanel {
 			panel_5.setBackground(Color.DARK_GRAY);
 			panel_4.add(panel_5);
 			
-			JLabel lblAssist = new JLabel("assist");
+			JLabel lblAssist = new JLabel(LocalizationService.getWord("assist"));
 			lblAssist.setForeground(Color.WHITE);
 			lblAssist.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
 			panel_5.add(lblAssist);
@@ -123,7 +127,7 @@ public class EcgPanel extends JPanel {
 			label_3.setBackground(Color.DARK_GRAY);
 			panel_4.add(label_3);
 			
-			JLabel lblJohnDoe_1 = new JLabel("John Doe");
+			JLabel lblJohnDoe_1 = new JLabel(assistant);
 			lblJohnDoe_1.setToolTipText("");
 			lblJohnDoe_1.setVerticalAlignment(SwingConstants.BOTTOM);
 			lblJohnDoe_1.setForeground(Color.DARK_GRAY);

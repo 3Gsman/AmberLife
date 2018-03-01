@@ -99,6 +99,18 @@ public  class LocalizationService {
 		spanish.put("status", "estado");
 		galician.put("status", "estado");
 		
+		english.put("date", "fecha");
+		spanish.put("date", "fecha");
+		galician.put("date", "fecha");
+		
+		english.put("freq", "freq");
+		spanish.put("freq", "frec");
+		galician.put("freq", "frec");
+		
+		english.put("assist", "assist");
+		spanish.put("assist", "tecn");
+		galician.put("assist", "tecn");
+		
 	}
 	
 	public static String getWord(String word) {

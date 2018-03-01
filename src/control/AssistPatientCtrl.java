@@ -75,7 +75,6 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		    
 		
 		    }
 			 
