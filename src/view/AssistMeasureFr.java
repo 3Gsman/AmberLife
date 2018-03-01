@@ -98,9 +98,11 @@ public class AssistMeasureFr extends JFrame {
 		gbc_panel_1.gridy = 1;
 		panel.add(panel_1, gbc_panel_1);*/
 		
+		//PANEL
 		FullGraphPanel gr = new FullGraphPanel(controller.getECG());
     	gr.setBackground(Color.DARK_GRAY.darker());
     	gr.setOpaque(true);
+    	
     	GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.gridwidth = 22;
 		gbc_panel_1.gridheight = 9;

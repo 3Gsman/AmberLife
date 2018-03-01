@@ -18,6 +18,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -78,9 +80,15 @@ public class DoctorPatientFr extends JFrame {
 	
 	public void initializeECG() {
 		if(mode != "ECGS") {
-			messagePanel = new JPanel();
-			messagePanel.setBackground( new Color(77,77,77,77));
+			JScrollPane sp = new JScrollPane();
+			sp.setBackground( new Color(0, 0, 0, 0) );
+			sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			sp.setOpaque(false);
 			mode = "ECGS";
+			messagePanel = new JPanel();
+			messagePanel.setLayout(new BorderLayout(0, 0));
+			messagePanel.add(sp, BorderLayout.CENTER);
 			this.repaint();
 		}
 	}
@@ -414,7 +422,7 @@ public class DoctorPatientFr extends JFrame {
 		contentPane.add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 	
-		JLabel lblNewLabel = new JLabel(" " + LocalizationService.getWord("user") + ": "+ controller.getPatient().getName());
+		JLabel lblNewLabel = new JLabel(" " + LocalizationService.getWord("user") + ": "+ controller.getDoctor().getName());
 		sf = font.deriveFont(24f);
 		lblNewLabel.setFont(sf);
 		lblNewLabel.setForeground(new Color(255, 255, 255, 255));

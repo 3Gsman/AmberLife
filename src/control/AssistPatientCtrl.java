@@ -61,7 +61,7 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 		       FileManager f = new FileManager();
 		       ECG ecg;
 			try {
-				ecg = f.readECG(filename);
+				  ecg = f.readECG(filename);
 			      /* AssistMeasureFr tmf = new AssistMeasureFr(ecg);;*/
 			       AssistMeasureFr tef = new AssistMeasureFr();
 			       AssistMeasureCtrl tec = new AssistMeasureCtrl(tef,ecg);
