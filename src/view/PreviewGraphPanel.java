@@ -92,9 +92,7 @@ public class PreviewGraphPanel extends JPanel{
 	public double getMax() {
 		
 		Double[] nums = ECGData.getData().toArray(new Double[ECGData.getData().size()]);
-		
 			
-		
 	    double max = -Integer.MAX_VALUE;
 	    for(int i = 0; i < nums.length; i++) {
 	        if(nums[i] > max)
