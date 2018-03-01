@@ -95,6 +95,8 @@ public class DoctorPatientFr extends JFrame {
 			loadECGPanel(controller.getPatient().getECGs(),viewport);
 			sp.setViewportView(viewport);
 			sp.getViewport().setOpaque(false);
+			sp.setViewportBorder(null);
+			sp.setBorder(null);
 			mode = "ECGS";
 			messagePanel = new JPanel();
 			messagePanel.setOpaque(false);
@@ -122,11 +124,11 @@ public class DoctorPatientFr extends JFrame {
 	public void initialize() throws IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 619, 632);
-		Dimension dim = new Dimension(800, 620);
+		Dimension dim = new Dimension(1280, 820);
 		this.setMinimumSize(dim);
 		this.setSize(dim);
 		contentPane = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{40, 40, 40, 40, 20, 30, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 360, 0, 0, 0, 0};

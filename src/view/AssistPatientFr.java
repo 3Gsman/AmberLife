@@ -65,7 +65,7 @@ public class AssistPatientFr extends JFrame {
 	public void initialize(String pname, String psurname, String id, String ssn, String user) throws IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 619, 632);
-		Dimension d = new Dimension(800, 620);
+		Dimension d = new Dimension(1280, 820);
 		this.setMinimumSize(d);
 		this.setSize(d);
 		contentPane = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
