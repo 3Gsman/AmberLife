@@ -48,27 +48,6 @@ public class LoginFr extends JFrame {
 	
 	private JTextField textField;
 	private JPasswordField passwordField;
-
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginFr window = new LoginFr();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
-
-	
-	//Create a panel that allows for background
-
 	
 	/*
 	 * 
@@ -135,11 +114,11 @@ public class LoginFr extends JFrame {
 		gbl_panel.columnWidths = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panel.rowHeights = new int[]{0, 80, 20, 20, 0, 0, 10, 60, 0, 10, 60, 20, 60, 30, 0};
 		gbl_panel.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.2, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 
 		
-		JLabel lblNewLabel_3 = new JLabel("V0.2");
+		JLabel lblNewLabel_3 = new JLabel("V0.3");
 		sf = font.deriveFont(Font.BOLD, 11f);
 		lblNewLabel_3.setFont(sf);
 		lblNewLabel_3.setForeground(Color.WHITE);

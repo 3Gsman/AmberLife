@@ -93,13 +93,9 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 		Patient resultado = id.checkId(dni);
 		if(resultado.getNumber() != "null") {
 			System.out.println("Patient found.\n");
-			System.out.println("Technician: " + getName());
+			System.out.println("Technician: " + getName());			
 			
-			String pname = resultado.getName();
-			String psurname = resultado.getLastname();
-			
-			
-			openPatientTecn(dni,pname,psurname,name);
+			openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(),resultado.getSsn(),name);
 			
 		}else {
 			Object frame = null;	//crea un objeto ventana
@@ -109,14 +105,14 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 
 	}
 	
-	public void openPatientTecn(String dni, String pname, String psurname, String user) throws IOException {
+	public void openPatientTecn(String name, String lastname, String id, String ssn, String user) throws IOException {
 
     	//TecnFr.setVisible(false); 
-        AssistPatientFr vm = new AssistPatientFr(dni, pname, psurname, name);
+        AssistPatientFr vm = new AssistPatientFr();
         AssistPatientCtrl tc = new AssistPatientCtrl(vm);
         tc.setPreviousWindow(tf);
         vm.addController(tc);
-        vm.initialize(dni, pname, psurname, name);
+        vm.initialize(name, lastname, id, ssn, user);
         vm.setVisible(true);
         tf.setVisible(false);
 

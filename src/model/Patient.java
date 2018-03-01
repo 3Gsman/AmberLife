@@ -28,15 +28,12 @@ public class Patient {
 		setId(dni);
 	}
 	
-	
 	public Vector<ECG> getECGs() {
 		return ecgs;
 	}
-	
 	public void setECGs(Vector<ECG> ecgs) {
 		this.ecgs = ecgs;
 	}
-	
 	public String getNumber() {
 		return number;
 	}
@@ -61,21 +58,18 @@ public class Patient {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
 	public String getSsn() {
 		return ssn;
 	}
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
 	}
-	
 	public String getMunicipality() {
 		return municipality;
 	}
 	public void setMunicipality(String municipality) {
 		this.municipality = municipality;
 	}
-	
 	public String getAddress() {
 		return address;
 	}

@@ -83,7 +83,33 @@ public  class LocalizationService {
 		spanish.put("patients", "pacientes");
 		galician.put("patients", "pacientes");
 		
+		english.put("sex", "sex");
+		spanish.put("sex", "sexo");
+		galician.put("sex", "sexo");
 		
+		english.put("municipality", "municipality");
+		spanish.put("municipality", "municipio");
+		galician.put("municipality", "municipio");
+		
+		english.put("address", "address");
+		spanish.put("address", "dir.");
+		galician.put("address", "dir.");
+		
+		english.put("status", "status");
+		spanish.put("status", "estado");
+		galician.put("status", "estado");
+		
+		english.put("date", "fecha");
+		spanish.put("date", "fecha");
+		galician.put("date", "fecha");
+		
+		english.put("freq", "freq");
+		spanish.put("freq", "frec");
+		galician.put("freq", "frec");
+		
+		english.put("assist", "assist");
+		spanish.put("assist", "tecn");
+		galician.put("assist", "tecn");
 		
 	}
 	
