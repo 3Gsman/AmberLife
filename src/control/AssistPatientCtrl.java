@@ -65,6 +65,8 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 			      /* AssistMeasureFr tmf = new AssistMeasureFr(ecg);;*/
 			       AssistMeasureFr tef = new AssistMeasureFr();
 			       AssistMeasureCtrl tec = new AssistMeasureCtrl(tef,ecg);
+			       tec.setPreviousWindow(patient);
+			       patient.setVisible(false);
 			       tef.addController(tec);
 			       tef.initialize();
 			       tef.setVisible(true);
