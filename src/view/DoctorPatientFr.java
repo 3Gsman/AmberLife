@@ -452,7 +452,7 @@ public class DoctorPatientFr extends JFrame {
 		gbc_panel_2.gridx = 4;
 		gbc_panel_2.gridy = 1;
 		
-		initializeMessages();
+		initializeECG();
 		contentPane.add(messagePanel, gbc_panel_2);
 		
 		

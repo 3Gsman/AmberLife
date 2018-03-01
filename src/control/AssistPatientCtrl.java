@@ -62,10 +62,12 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 		       ECG ecg;
 			try {
 				ecg = f.readECG(filename);
-			       AssistMeasureFr tmf = new AssistMeasureFr(ecg);
-			       AssistMeasureCtrl tmc = new AssistMeasureCtrl();
-			       tmf.addController(tmc);
-			        
+			      /* AssistMeasureFr tmf = new AssistMeasureFr(ecg);;*/
+			       AssistMeasureFr tef = new AssistMeasureFr();
+			       AssistMeasureCtrl tec = new AssistMeasureCtrl(tef,ecg);
+			       tef.addController(tec);
+			       tef.initialize();
+			       tef.setVisible(true);
 			       System.out.println("Pantalla ECG");
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
