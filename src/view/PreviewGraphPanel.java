@@ -102,5 +102,4 @@ public class PreviewGraphPanel extends JPanel{
 	    }
 	    return max;
 	}
->>>>>>> Grafica:src/view/PreviewGraphPanel.java
 }
