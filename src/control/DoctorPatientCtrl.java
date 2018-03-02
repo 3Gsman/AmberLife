@@ -9,7 +9,9 @@ import java.io.IOException;
 import model.Doctor;
 import model.Patient;
 import view.DoctorPatientFr;
+import view.EcgPanel;
 import view.NewMessageDialog;
+import view.PatientPanel;
 
 public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener, MouseListener {
 	
@@ -41,7 +43,23 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		try {
+			EcgPanel ecg = (EcgPanel) e.getSource();
+			/*df.setVisible(false);
+			DoctorPatientFr dpf = new DoctorPatientFr();
+			DoctorPatientCtrl dpc = new DoctorPatientCtrl(dpf,doctor,p.getPatient());
+	        dpc.setPreviousWindow(df);
+	        dpf.addController(dpc);
+			dpf.initialize();
+		    dpf.setVisible(true);*/
+			System.out.println(ecg.getECG().getName());
+		}
+		catch(ClassCastException cce){
+			System.out.println("BAD CAST at DoctorPatientCtrl");
+		}/* catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}*/
 		
 	}
 

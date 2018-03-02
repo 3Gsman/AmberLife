@@ -8,6 +8,7 @@
 	import java.awt.Insets;
 	import javax.swing.JButton;
 	import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 	import java.awt.Color;
@@ -27,8 +28,12 @@ public class EcgPanel extends JPanel {
 		
 		ECG e;
 		
+		public ECG getECG() {
+			return e;
+		}
 		
-		public  EcgPanel(ECG e) throws IOException {
+		
+		public  EcgPanel(ECG e, MouseListener con) throws IOException {
 			this.e=e;
 			GridBagLayout gridBagLayout = new GridBagLayout();
 			gridBagLayout.columnWidths = new int[]{10, 60, 180, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 60, 180, 10, 0, 0};
@@ -165,6 +170,8 @@ public class EcgPanel extends JPanel {
 			gbc_panel_6.gridx = 7;
 			gbc_panel_6.gridy = 0;
 			add(panel_6, gbc_panel_6);
+			
+			this.addMouseListener(con);
 		
 		}
 

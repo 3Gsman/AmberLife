@@ -110,7 +110,7 @@ public class DoctorPatientFr extends JFrame {
 		
 		for(ECG e : v)
 			try {
-				viewport.add(new EcgPanel(e));
+				viewport.add(new EcgPanel(e,this.controller));
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

@@ -26,7 +26,7 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-public class AssistMeasureFr extends JFrame {
+public class DoctorMeasureFr extends JFrame {
 
 	private JPanel contentPane;
 	AssistMeasureCtrl controller;
@@ -35,7 +35,7 @@ public class AssistMeasureFr extends JFrame {
 		this.controller = c;
 	}
 
-	public AssistMeasureFr() {
+	public DoctorMeasureFr() {
 	}
 	/**
 	 * Create the frame.
@@ -127,7 +127,7 @@ public class AssistMeasureFr extends JFrame {
 			panel.add(scrollPane, gbc_scrollPane);
 		}
 		
-		JButton btnNewButton = new JButton(LocalizationService.getWord("cancel"));
+		JButton btnNewButton = new JButton();
 		sf = font.deriveFont(32f);
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.setFont(sf);
@@ -144,7 +144,7 @@ public class AssistMeasureFr extends JFrame {
 		gbc_btnNewButton.gridy = 13;
 		panel.add(btnNewButton, gbc_btnNewButton);
 		
-		JButton button = new JButton(LocalizationService.getWord("confirm"));
+		JButton button = new JButton(LocalizationService.getWord("compare"));
 		sf = font.deriveFont(32f);
 		button.setBorderPainted(false);
 		button.setFont(sf);
