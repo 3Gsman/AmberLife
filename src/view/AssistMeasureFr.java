@@ -113,7 +113,7 @@ public class AssistMeasureFr extends JFrame {
 		panel.add(gr, gbc_panel_1);
 		 
 		
-		if (controller.getECG() != null && controller.getECG().getReport() != null) {
+		/*if (controller.getECG() != null && controller.getECG().getReport() != null) {
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -125,7 +125,7 @@ public class AssistMeasureFr extends JFrame {
 			gbc_scrollPane.gridx = 1;
 			gbc_scrollPane.gridy = 10;
 			panel.add(scrollPane, gbc_scrollPane);
-		}
+		}*/
 		
 		JButton btnNewButton = new JButton(LocalizationService.getWord("cancel"));
 		sf = font.deriveFont(32f);
