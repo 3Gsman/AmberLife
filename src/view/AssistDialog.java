@@ -27,6 +27,7 @@ public class AssistDialog {
 		
 		if(nombre.getText().isEmpty() || lastname.getText().isEmpty() || password.getPassword().toString().isEmpty()
 				|| confirm.getPassword().toString().isEmpty()	|| id.getText().isEmpty() || city.getText().isEmpty()) {
+			
 			JOptionPane.showMessageDialog(f, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 

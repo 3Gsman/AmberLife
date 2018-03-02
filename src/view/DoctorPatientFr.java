@@ -446,7 +446,7 @@ public class DoctorPatientFr extends JFrame {
 		contentPane.add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 	
-		JLabel lblNewLabel = new JLabel(" " + LocalizationService.getWord("user") + ": "+ controller.getDoctor().getName());
+		JLabel lblNewLabel = new JLabel(" " + LocalizationService.getWord("user") + ": "+ controller.getDoctor().getName() + controller.getDoctor().getLastname().split(" ")[0]);
 		sf = font.deriveFont(24f);
 		lblNewLabel.setFont(sf);
 		lblNewLabel.setForeground(new Color(255, 255, 255, 255));
