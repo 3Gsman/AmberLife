@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import control.AssistMeasureCtrl;
+import control.DoctorMeasureCtrl;
 import model.ECG;
 import model.LocalizationService;
 
@@ -24,15 +25,16 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 public class DoctorMeasureFr extends JFrame {
 
 	private JPanel contentPane;
-	AssistMeasureCtrl controller;
+	DoctorMeasureCtrl controller;
 	
-	public void addController(AssistMeasureCtrl c) {
-		this.controller = c;
+	public void addController(DoctorMeasureCtrl dmc) {
+		this.controller = dmc;
 	}
 
 	public DoctorMeasureFr() {
@@ -124,25 +126,35 @@ public class DoctorMeasureFr extends JFrame {
 			gbc_scrollPane.fill = GridBagConstraints.BOTH;
 			gbc_scrollPane.gridx = 1;
 			gbc_scrollPane.gridy = 10;
+			
+			JPanel viewport = new JPanel();
+			viewport.setLayout(new BorderLayout());
+			JTextArea text = new JTextArea();
+			text.setLineWrap(true);
+			text.setText(this.controller.getECG().getReport());
+			text.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 18));
+			viewport.add(text, BorderLayout.CENTER);
+			
+			scrollPane.setViewportView(viewport);
 			panel.add(scrollPane, gbc_scrollPane);
 		}
 		
-		JButton btnNewButton = new JButton();
-		sf = font.deriveFont(32f);
-		btnNewButton.setBorderPainted(false);
-		btnNewButton.setFont(sf);
-		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setBackground(new Color(80, 77, 77, 255));
-		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.addActionListener(controller);
-		btnNewButton.setActionCommand("CANCEL");
+		JButton btnLogout = new JButton("");
+		btnLogout.setBorderPainted(false);
+		btnLogout.setBorder(null);
+		btnLogout.setMargin(new Insets(0, 0, 0, 0));
+		btnLogout.setContentAreaFilled(false);
+		btnLogout.setActionCommand("BACK");
+		btnLogout.addActionListener(controller);
+		btnLogout.setOpaque(false);
+		btnLogout.setIcon(new ImageIcon(getClass().getResource("/resources/Backbutton.png")));
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton.gridwidth = 3;
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 13;
-		panel.add(btnNewButton, gbc_btnNewButton);
+		panel.add(btnLogout, gbc_btnNewButton);
 		
 		JButton button = new JButton(LocalizationService.getWord("compare"));
 		sf = font.deriveFont(32f);

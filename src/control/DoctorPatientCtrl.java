@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import model.Doctor;
 import model.Patient;
+import view.AssistMeasureFr;
+import view.DoctorMeasureFr;
 import view.DoctorPatientFr;
 import view.EcgPanel;
 import view.NewMessageDialog;
@@ -45,21 +47,21 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 	public void mouseClicked(MouseEvent e) {
 		try {
 			EcgPanel ecg = (EcgPanel) e.getSource();
-			/*df.setVisible(false);
-			DoctorPatientFr dpf = new DoctorPatientFr();
-			DoctorPatientCtrl dpc = new DoctorPatientCtrl(dpf,doctor,p.getPatient());
-	        dpc.setPreviousWindow(df);
-	        dpf.addController(dpc);
-			dpf.initialize();
-		    dpf.setVisible(true);*/
-			System.out.println(ecg.getECG().getName());
+			DoctorMeasureFr dmf = new DoctorMeasureFr();
+			DoctorMeasureCtrl dmc = new DoctorMeasureCtrl(dmf,ecg.getECG());
+			dmc.setPreviousWindow(frame);
+			frame.setVisible(false);
+			dmf.addController(dmc);
+			dmf.initialize();
+			dmf.setVisible(true);
+			System.out.println("Selected ECG: " + ecg.getECG().getName());
 		}
 		catch(ClassCastException cce){
 			System.out.println("BAD CAST at DoctorPatientCtrl");
-		}/* catch (IOException e1) {
+		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}*/
+		}
 		
 	}
 
