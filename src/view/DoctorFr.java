@@ -133,6 +133,7 @@ public class DoctorFr extends JFrame {
 		scrollPane.setBackground( new Color(0, 0, 0, 0) );
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(18);
 		panel.add(scrollPane, BorderLayout.CENTER);
 		
 		//Viewport

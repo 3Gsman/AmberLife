@@ -119,6 +119,7 @@ public class DoctorMeasureFr extends JFrame {
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+			scrollPane.getVerticalScrollBar().setUnitIncrement(18);
 			//Make invisible if there's no messages
 			//scrollPane.setVisible(false);
 			GridBagConstraints gbc_scrollPane = new GridBagConstraints();

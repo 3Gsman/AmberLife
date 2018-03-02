@@ -89,6 +89,7 @@ public class DoctorPatientFr extends JFrame {
 			sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			sp.setOpaque(false);
+			sp.getVerticalScrollBar().setUnitIncrement(18);
 			JPanel viewport = new JPanel();
 			viewport.setOpaque(false);;
 			viewport.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
