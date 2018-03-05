@@ -1,5 +1,6 @@
 package control;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -13,6 +14,7 @@ import javax.swing.JTextField;
 
 import model.Doctor;
 import model.FileManager;
+import model.Patient;
 import view.AssistFr;
 import view.DoctorFr;
 import view.DoctorPatientFr;
@@ -55,6 +57,13 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 		}
 		else if (e.getActionCommand().equals("NEW")) {
 			registerPatient();
+		}else if(e.getActionCommand().equals("SEARCH")) {
+			try {
+				searchPatient();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 	
@@ -105,6 +114,41 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void searchPatient() throws IOException {
+		String dni = df.getID();
+		FileManager id = new FileManager();
+		boolean found= false;
+		
+		Patient resultado = id.checkId(dni);
+		Patient p = null;
+		
+		for(int i = 0; i<doctor.getPatientlist().size(); i++) {
+			if(resultado.getId().equals(doctor.getPatientlist().get(i).getId())) {
+				found = true;
+				p = doctor.getPatientlist().get(i);
+				
+			}
+		}
+		resultado = p;
+		
+		if(found == true) {
+			System.out.println("Patient found.\n");		
+			
+			df.setVisible(false);
+			DoctorPatientFr dpf = new DoctorPatientFr();
+			DoctorPatientCtrl dpc = new DoctorPatientCtrl(dpf,doctor, resultado);
+	        dpc.setPreviousWindow(df);
+	        dpf.addController(dpc);
+			dpf.initialize();
+		    dpf.setVisible(true);
+			
+		}else {
+			Object frame = null;	//crea un objeto ventana
+            JOptionPane.showMessageDialog((Component) frame, "Patient not found.", "Error", JOptionPane.ERROR_MESSAGE);	//sale una ventana de diálogo para alertar de un error
+
+		}
 	}
 
 }

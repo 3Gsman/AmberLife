@@ -39,6 +39,7 @@ public class DoctorFr extends JFrame {
 	private JPanel contentPane;
 	private DoctorCtrl controller;
 	private boolean mode;
+	public JTextField textField;
 
 
 
@@ -54,6 +55,9 @@ public class DoctorFr extends JFrame {
 		this.mode = mode;
 	}
 	
+	public String getID() {
+		return textField.getText();
+	}
 	
 	public void addController(DoctorCtrl a) {
 		this.controller = a;
@@ -110,12 +114,50 @@ public class DoctorFr extends JFrame {
 			sf = font.deriveFont(Font.BOLD, 28f);
 			btnNewButton.setFont(sf);
 			btnNewButton.setForeground(Color.DARK_GRAY);
+			
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.anchor = GridBagConstraints.BELOW_BASELINE;
 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 2;
+		
 		contentPane.add(btnNewButton, gbc_btnNewButton);
+		
+		textField = new JTextField();
+		textField.setBorder(null);
+		textField.setFont(new Font("Verdana", Font.PLAIN, 26));
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.anchor = GridBagConstraints.BELOW_BASELINE;
+		gbc_textField.fill = GridBagConstraints.BOTH;
+		
+		gbc_textField.gridx = 15;
+		gbc_textField.gridy = 2;
+		gbc_textField.gridwidth = 7;
+		gbc_textField.insets = new Insets(0, 0, 0, 5);
+		gbc_textField.gridheight = gbc_btnNewButton.gridheight;
+		textField.setColumns(10);
+		contentPane.add(textField, gbc_textField);
+		
+		JButton btnSearchButton = new JButton(LocalizationService.getWord("search"));
+		sf = font.deriveFont(22f);
+		btnSearchButton.setFont(sf);
+		btnSearchButton.setOpaque(true);
+		btnSearchButton.setBackground(Color.WHITE);
+		btnSearchButton.setBorderPainted(false);
+		sf = font.deriveFont(Font.BOLD, 28f);
+		btnSearchButton.setFont(sf);
+		btnSearchButton.setForeground(Color.DARK_GRAY);
+		btnSearchButton.setActionCommand("SEARCH");
+		btnSearchButton.addActionListener(controller);
+		
+		
+		GridBagConstraints gbc_btnSearchButton = new GridBagConstraints();
+		gbc_btnSearchButton.anchor = GridBagConstraints.BELOW_BASELINE;
+		gbc_btnSearchButton.fill = GridBagConstraints.BOTH;
+		gbc_btnSearchButton.gridx = 14;
+		gbc_btnSearchButton.gridy = 2;
+		contentPane.add(btnSearchButton, gbc_btnSearchButton);
+		
 		
 		JPanel panel = new JPanel();
 		panel.setBackground( new Color(0, 0, 0, 0));
@@ -170,6 +212,10 @@ public class DoctorFr extends JFrame {
 		gbc_btnLogout.gridx = 0;
 		gbc_btnLogout.gridy = 18;
 		contentPane.add(btnLogout, gbc_btnLogout);
+		
+		
+
+		
 		
 
 		this.setVisible(true);
