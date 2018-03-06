@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -20,6 +21,8 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 	
 	public AssistPatientCtrl(JFrame f) {
 		patient = f;
+		
+		
 	}
 	
 	

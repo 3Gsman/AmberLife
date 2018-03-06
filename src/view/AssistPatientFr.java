@@ -40,6 +40,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 
 public class AssistPatientFr extends JFrame {
@@ -62,7 +63,7 @@ public class AssistPatientFr extends JFrame {
 	 * Initialize the frame.
 	 * @throws IOException 
 	 */
-	public void initialize(String pname, String psurname, String id, String ssn, String user) throws IOException {
+	public void initialize(String pname, String psurname, String id, String ssn, Vector<String> messages, String user) throws IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 619, 632);
 		Dimension d = new Dimension(1280, 820);
@@ -294,12 +295,27 @@ public class AssistPatientFr extends JFrame {
 		contentPane.add(panel_2, gbc_panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomessages"));
-		sf = font.deriveFont(28f);
-		lblNewLabel_2.setFont(sf);
-		lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(lblNewLabel_2, BorderLayout.CENTER);
+		if(messages.equals(null)) {
+			JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomessages"));
+			sf = font.deriveFont(28f);
+			lblNewLabel_2.setFont(sf);
+			lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
+			lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+			panel_2.add(lblNewLabel_2, BorderLayout.CENTER);
+		}else {
+			for(int i = 0; i < messages.size(); i++) {	
+				JPanel panelMessage = new JPanel();
+				panelMessage.setBackground(Color.WHITE);
+				panel_2.add(panelMessage);
+				
+				JLabel lblNewLabel_2 = new JLabel(messages.get(i));
+				sf = font.deriveFont(28f);
+				lblNewLabel_2.setFont(sf);
+				lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
+				lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+				panel_2.add(lblNewLabel_2, BorderLayout.CENTER);
+			}
+		}
 		
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setBorderPainted(false);

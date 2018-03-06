@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.swing.JOptionPane;
 
@@ -89,13 +90,16 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 	public void searchPatient() throws IOException {
 		String dni = tf.getID();
 		FileManager id = new FileManager();
+		Vector<String> messages = new Vector<>();
 		
 		Patient resultado = id.checkId(dni);
+		messages = id.readPatientMessages(resultado.getNumber());
+		
 		if(resultado.getNumber() != "null") {
 			System.out.println("Patient found.\n");
 			System.out.println("Technician: " + getName());			
 			
-			openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(),resultado.getSsn(),name);
+			openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), resultado.getSsn(), messages, name);
 			
 		}else {
 			Object frame = null;	//crea un objeto ventana
@@ -105,14 +109,14 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 
 	}
 	
-	public void openPatientTecn(String name, String lastname, String id, String ssn, String user) throws IOException {
+	public void openPatientTecn(String name, String lastname, String id, String ssn, Vector<String> messages, String user) throws IOException {
 
     	//TecnFr.setVisible(false); 
         AssistPatientFr vm = new AssistPatientFr();
         AssistPatientCtrl tc = new AssistPatientCtrl(vm);
         tc.setPreviousWindow(tf);
         vm.addController(tc);
-        vm.initialize(name, lastname, id, ssn, user);
+        vm.initialize(name, lastname, id, ssn, messages, user);
         vm.setVisible(true);
         tf.setVisible(false);
 
