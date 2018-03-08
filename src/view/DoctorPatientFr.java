@@ -345,7 +345,7 @@ public class DoctorPatientFr extends JFrame {
 		lblNewLabeldata5.setFont(labelfont);
 		greybox5.add(lblNewLabeldata5);
 								
-		JLabel lblNewLabel9= new JLabel("  " + controller.getPatient().getGender());
+		JLabel lblNewLabel9= new JLabel("  " + controller.getPatient().getGender().split(".png")[0]);
 		lblNewLabel9.setForeground(Color.DARK_GRAY);
 		lblNewLabel9.setFont(datafont);
 		field_5.add(lblNewLabel9);

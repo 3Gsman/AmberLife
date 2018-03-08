@@ -160,7 +160,8 @@ public class EcgPanel extends JPanel {
 			
 			
 			//PAnel aqui
-			JPanel panel_6 = new JPanel();
+			
+			PreviewGraphPanel panel_6 = new PreviewGraphPanel(e);
 			panel_6.setBackground(Color.DARK_GRAY);
 			GridBagConstraints gbc_panel_6 = new GridBagConstraints();
 			gbc_panel_6.gridwidth = 11;

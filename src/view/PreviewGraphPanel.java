@@ -46,7 +46,7 @@ public class PreviewGraphPanel extends JPanel{
 		
 		//Double[] data = addData();
 	
-		final int PAD = 20;
+		
 	
 	
 	
@@ -55,7 +55,7 @@ public class PreviewGraphPanel extends JPanel{
 	    
 		
 		 Double[] nums = ECGData.getData().toArray(new Double[ECGData.getData().size()]);
-		
+		 final int PAD = 20;
 		
 	    	super.paintComponent(g);
 	        Graphics2D g2 = (Graphics2D)g;
@@ -76,11 +76,11 @@ public class PreviewGraphPanel extends JPanel{
 	        //double scale2 = ((double)(h - 2*PAD)/getMin());
 	       // g.drawRect (10, 10, 200, 200);
 	        
-	       g2.setPaint(new Color(255,191,0,255));
+	       g2.setPaint(Color.RED);
 	        for(int i = 0; i < nums.length-1; i++) {
-	            double x1 = PAD + i*xInc;
+	            double x1 = PAD + i*xInc -20;
 	            double y1 = h - PAD - scale*nums[i];
-	            double x2 = PAD + (i+1)*xInc;
+	            double x2 = PAD + (i+1)*xInc -20;
 	            double y2 = h - PAD - scale*nums[i+1];
 	            g2.draw(new Line2D.Double(x1, y1, x2, y2));
 	        }
