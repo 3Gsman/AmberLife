@@ -3,10 +3,12 @@ package view;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,15 +27,25 @@ public class PatientPanel extends JPanel {
 	
 	
 	public PatientPanel() {
-		initialize(new Patient("1","John","Doe","2222X"), null);
+		try {
+			initialize(new Patient("1","John","Doe","2222X"), null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public PatientPanel(Patient p, MouseListener con) {
 		this.p = p;
-		initialize(p,con);
+		try {
+			initialize(p,con);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public void initialize(Patient p, MouseListener con) {
+	public void initialize(Patient p, MouseListener con) throws IOException {
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{10, 60, 180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 60, 10, 0, 0};
@@ -41,6 +53,18 @@ public class PatientPanel extends JPanel {
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
+		
+		//Get PROMETHEUS font
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
+		Font sf = font; // will use sf to change the style;
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT, is);
+			sf = font;
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		JPanel panel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
@@ -61,12 +85,14 @@ public class PatientPanel extends JPanel {
 		
 		JLabel lblNewLabel = new JLabel("name");
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+		sf = font.deriveFont(Font.PLAIN, 22f);
+		lblNewLabel.setFont(sf);
 		panel_2.add(lblNewLabel);
 		
 		JLabel label_1 = new JLabel(" ");
 		label_1.setForeground(Color.WHITE);
-		label_1.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+		sf = font.deriveFont(Font.PLAIN, 22f);
+		label_1.setFont(sf);
 		label_1.setBackground(Color.DARK_GRAY);
 		panel.add(label_1);
 		
@@ -93,12 +119,14 @@ public class PatientPanel extends JPanel {
 		
 		JLabel lblId = new JLabel("i.d.");
 		lblId.setForeground(Color.WHITE);
-		lblId.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+		sf = font.deriveFont(Font.PLAIN, 22f);
+		lblId.setFont(sf);
 		panel_3.add(lblId);
 		
 		JLabel label_2 = new JLabel(" ");
 		label_2.setForeground(Color.WHITE);
-		label_2.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+		sf = font.deriveFont(Font.PLAIN, 22f);
+		label_2.setFont(sf);
 		label_2.setBackground(Color.DARK_GRAY);
 		panel_1.add(label_2);
 		
