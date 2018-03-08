@@ -36,7 +36,7 @@ import control.AdminCtrl;
 public class AdminFr extends JFrame {
 
 	private JPanel contentPane;
-	private ActionListener controller;
+	private AdminCtrl controller;
 	private boolean mode;
 
 
@@ -54,7 +54,7 @@ public class AdminFr extends JFrame {
 	}
 	
 	
-	public void addController(ActionListener a) {
+	public void addController(AdminCtrl a) {
 		this.controller = a;
 		
 	}
@@ -69,7 +69,8 @@ public class AdminFr extends JFrame {
 	 */
 	public void initialize(boolean doctors, Vector<? extends User> users, Dimension d) throws IOException {
 		this.mode = doctors;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(controller);
 		setBounds(100, 100, 850, 722);
 		contentPane = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

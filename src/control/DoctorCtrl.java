@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 
 import javax.swing.JComboBox;
@@ -18,10 +20,11 @@ import model.Patient;
 import view.AssistFr;
 import view.DoctorFr;
 import view.DoctorPatientFr;
+import view.ExitDialog;
 import view.PatientDialog;
 import view.PatientPanel;
 
-public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseListener{
+public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseListener, WindowListener{
 
 	String name;
 	DoctorFr df;
@@ -149,6 +152,47 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
             JOptionPane.showMessageDialog((Component) frame, "Patient not found.", "Error", JOptionPane.ERROR_MESSAGE);	//sale una ventana de diálogo para alertar de un error
 
 		}
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		ExitDialog.confirmExit();		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

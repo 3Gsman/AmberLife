@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 
 import model.Doctor;
@@ -12,10 +14,11 @@ import view.AssistMeasureFr;
 import view.DoctorMeasureFr;
 import view.DoctorPatientFr;
 import view.EcgPanel;
+import view.ExitDialog;
 import view.NewMessageDialog;
 import view.PatientPanel;
 
-public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener, MouseListener {
+public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener, MouseListener, WindowListener {
 	
 	Patient p;
 	Doctor d;
@@ -120,6 +123,48 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 	
 	public void NewMessage() {
 		NewMessageDialog nmd = new NewMessageDialog(frame, p);
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		ExitDialog.confirmExit();
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

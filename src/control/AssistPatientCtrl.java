@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.Vector;
 
@@ -14,8 +16,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import model.ECG;
 import model.FileManager;
 import view.AssistMeasureFr;
+import view.ExitDialog;
 
-public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener, KeyListener{
+public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener, KeyListener, WindowListener{
 	
 	JFrame patient;
 	
@@ -84,6 +87,54 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 			patient.dispose();
 			
 		}
+		
+	}
+
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		ExitDialog.confirmExit();
+	}
+
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 

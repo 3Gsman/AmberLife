@@ -15,6 +15,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -82,9 +84,13 @@ public class LoginFr extends JFrame {
 	 * @throws IOException 
 	 */
 	public void initialize() throws IOException {
+		
+		//Set action on close
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(controller);
+		
 		this.setBackground(new Color(204, 0, 0));
 		this.setBounds(100, 100, 798, 913);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(new BorderLayout(0, 0));	
 		this.setTitle("AmberLife");
 		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));

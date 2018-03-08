@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import control.AssistPatientCtrl;
 import model.LocalizationService;
 
 import javax.swing.JSplitPane;
@@ -46,10 +47,10 @@ import java.awt.event.ActionEvent;
 public class AssistPatientFr extends JFrame {
 
 	private JPanelWithBackground contentPane;
-	public ActionListener controller;
+	public AssistPatientCtrl controller;
 	
 	
-	public void addController(ActionListener a) {
+	public void addController(AssistPatientCtrl a) {
 		this.controller = a;
 	}
 	
@@ -64,7 +65,8 @@ public class AssistPatientFr extends JFrame {
 	 * @throws IOException 
 	 */
 	public void initialize(String pname, String psurname, String id, String ssn, Vector<String> messages, String user) throws IOException {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(controller);
 		setBounds(100, 100, 619, 632);
 		Dimension d = new Dimension(1280, 820);
 		this.setMinimumSize(d);

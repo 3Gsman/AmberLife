@@ -44,7 +44,8 @@ public class DoctorMeasureFr extends JFrame {
 	 * @throws IOException 
 	 */
 	public void initialize() throws IOException {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(controller);
 		setBounds(100, 100, 757, 535);
 		contentPane =  new JPanelWithBackground(getClass().getResource("/resources/BG.png"));	
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

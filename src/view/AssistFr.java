@@ -78,9 +78,10 @@ import javax.swing.JComboBox;
 		 * @throws IOException 
 		 */
 		public void initialize() throws IOException {
+			this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			this.addWindowListener(controller);
 			this.setBackground(new Color(204, 0, 0));
 			this.setBounds(100, 100, 798, 913);
-			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.getContentPane().setLayout(new BorderLayout(0, 0));	
 			this.setTitle("AmberLife");
 			ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));

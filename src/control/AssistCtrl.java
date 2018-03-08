@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.Vector;
 
@@ -15,7 +17,7 @@ import model.FileManager;
 import model.Patient;
 import model.Assistant;
 
-public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyListener{
+public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyListener, WindowListener{
 
 	AssistFr tf;
 	String name;
@@ -129,6 +131,48 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 	
 	public Assistant getTecnico() {
 		return tecnico;
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		ExitDialog.confirmExit();
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

@@ -123,7 +123,8 @@ public class DoctorPatientFr extends JFrame {
 	 * @throws IOException 
 	 */
 	public void initialize() throws IOException {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(controller);
 		setBounds(100, 100, 619, 632);
 		Dimension dim = new Dimension(1280, 820);
 		this.setMinimumSize(dim);
