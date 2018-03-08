@@ -73,7 +73,8 @@ public class EcgPanel extends JPanel {
 			
 			JLabel lblNewLabel = new JLabel(LocalizationService.getWord("name"));
 			lblNewLabel.setForeground(Color.WHITE);
-			lblNewLabel.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			sf = font.deriveFont(Font.PLAIN, 22f);
+			lblNewLabel.setFont(sf);
 			panel_2.add(lblNewLabel);
 			
 			JLabel label_1 = new JLabel(" ");
