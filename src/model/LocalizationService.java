@@ -99,7 +99,7 @@ public  class LocalizationService {
 		spanish.put("status", "estado");
 		galician.put("status", "estado");
 		
-		english.put("date", "fecha");
+		english.put("date", "date");
 		spanish.put("date", "fecha");
 		galician.put("date", "fecha");
 		

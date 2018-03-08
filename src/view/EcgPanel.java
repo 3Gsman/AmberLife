@@ -39,7 +39,7 @@ public class EcgPanel extends JPanel {
 			gridBagLayout.columnWidths = new int[]{10, 60, 180, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 60, 180, 10, 0, 0};
 			gridBagLayout.rowHeights = new int[]{15, 30, 15, 30, 40, 15, 19, 0, 15};
 			gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.2, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-			gridBagLayout.rowWeights = new double[]{0.2, 0.0, 0.2, 0.0, 2.0, 0.2, 0.0, 1.0, 0.2};
+			gridBagLayout.rowWeights = new double[]{0.2, 0.0, 0.2, 0.0, 2.0, 0.2, 0.0, 1.0, 0.2, Double.MIN_VALUE};
 			setLayout(gridBagLayout);
 			
 			JPanel panel = new JPanel();
@@ -161,7 +161,8 @@ public class EcgPanel extends JPanel {
 			
 			
 			//PAnel aqui
-			JPanel panel_6 = new JPanel();
+			
+			PreviewGraphPanel panel_6 = new PreviewGraphPanel(e);
 			panel_6.setBackground(Color.DARK_GRAY);
 			GridBagConstraints gbc_panel_6 = new GridBagConstraints();
 			gbc_panel_6.gridwidth = 11;
