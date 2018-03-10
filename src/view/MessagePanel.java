@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -161,6 +163,12 @@ public class MessagePanel extends JPanel {
 		panel_5.add(label, gbc_label);
 		
 		JButton btnNewButton = new JButton("");
+		ImageIcon reply = new ImageIcon(getClass().getResource("/resources/Flag.png"));
+		btnNewButton.setIcon(reply);
+		btnNewButton.setBorderPainted(false);
+		btnNewButton.setBorder(null);
+		btnNewButton.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton.setContentAreaFilled(false);
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
