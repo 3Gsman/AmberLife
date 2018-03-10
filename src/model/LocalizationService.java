@@ -123,6 +123,14 @@ public  class LocalizationService {
 		spanish.put("compare", "comparar");
 		galician.put("compare", "comparar");
 		
+		english.put("from", "from");
+		spanish.put("from", "de");
+		galician.put("from", "de");
+		
+		english.put("date", "date");
+		spanish.put("date", "fecha");
+		galician.put("date", "fecha");
+		
 	}
 	
 	public static String getWord(String word) {
