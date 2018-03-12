@@ -116,29 +116,76 @@ public class DoctorMeasureFr extends JFrame {
 		panel.add(gr, gbc_panel_1);
 		 
 		
-		if (controller.getECG() != null && controller.getECG().getReport() != null) {
+		if (controller.getECG() != null) {
+			
+			JPanel information = new JPanel();
+			GridBagLayout gridBagLayout = new GridBagLayout();
+			gridBagLayout.columnWidths = new int[]{40,40};
+			gridBagLayout.rowHeights = new int[]{30};
+			gridBagLayout.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+			gridBagLayout.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+			information.setLayout(gridBagLayout);
+			
+			
+			GridBagConstraints gbc_information = new GridBagConstraints();
+			gbc_information.gridwidth = 22;
+			gbc_information.fill = GridBagConstraints.BOTH;
+			gbc_information.gridx = 1;
+			gbc_information.gridy = 10;
+			
+			//Set Left Panel
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 			scrollPane.getVerticalScrollBar().setUnitIncrement(18);
-			//Make invisible if there's no messages
-			//scrollPane.setVisible(false);
-			GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-			gbc_scrollPane.gridwidth = 22;
-			gbc_scrollPane.fill = GridBagConstraints.BOTH;
-			gbc_scrollPane.gridx = 1;
-			gbc_scrollPane.gridy = 10;
-			
+			GridBagConstraints gbc_sp1 = new GridBagConstraints();
+			gbc_sp1.gridwidth = 1;
+			gbc_sp1.fill = GridBagConstraints.BOTH;
+			gbc_sp1.gridx = 0;
+			gbc_sp1.gridy = 0;
+
 			JPanel viewport = new JPanel();
 			viewport.setLayout(new BorderLayout());
 			JTextArea text = new JTextArea();
 			text.setLineWrap(true);
-			text.setText(this.controller.getECG().getReport());
+			String report = controller.getECG().getReport();
+			if(report != null) text.setText(report);
+			else text.setText("No report to show");
+			text.setEditable(false);
 			text.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 18));
 			viewport.add(text, BorderLayout.CENTER);
 			
 			scrollPane.setViewportView(viewport);
-			panel.add(scrollPane, gbc_scrollPane);
+			information.add(scrollPane,gbc_sp1);
+			
+			//Set Right Panel
+			JScrollPane scrollPane2 = new JScrollPane();
+			scrollPane2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			scrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+			scrollPane2.getVerticalScrollBar().setUnitIncrement(18);
+			GridBagConstraints gbc_sp2 = new GridBagConstraints();
+			gbc_sp2.gridwidth = 1;
+			gbc_sp2.fill = GridBagConstraints.BOTH;
+			gbc_sp2.gridx = 1;
+			gbc_sp2.gridy = 0;
+			
+			JPanel viewport2 = new JPanel();
+			viewport2.setLayout(new BorderLayout());
+			JTextArea text2 = new JTextArea();
+			text2.setLineWrap(true);
+			text2.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 18));
+			//INFO VA AQUI
+			text2.setEditable(false);
+			String nameword = LocalizationService.getWord("name");
+			String frequencyword = LocalizationService.getWord("frequency");
+			text2.setText(nameword.substring(0, 1).toUpperCase() + nameword.substring(1) + ": " + controller.getECG().getName() + "\n" +
+						frequencyword.substring(0, 1).toUpperCase() + frequencyword.substring(1)  + ": " + controller.getECG().getFrequency());
+			viewport2.add(text2, BorderLayout.CENTER);
+			
+			scrollPane2.setViewportView(viewport2);
+			information.add(scrollPane2,gbc_sp2);
+			
+			panel.add(information,gbc_information);
 		}
 		
 		JButton btnLogout = new JButton("");
