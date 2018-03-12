@@ -36,9 +36,9 @@ public class DoctorPatientFr extends JFrame {
 
 
 	private JPanelWithBackground contentPane;
+	public JPanel messagePanel = new JPanel();
 	public DoctorPatientCtrl controller;
-	private JPanel messagePanel;
-	private String mode = "";
+	private String mode = "ECGS";
 	
 	
 	public void addController(DoctorPatientCtrl a) {
@@ -49,16 +49,12 @@ public class DoctorPatientFr extends JFrame {
 	public DoctorPatientFr() {
 	}
 	
-	public JPanel getMessagePanel() {
-		return messagePanel;
-	}
-	
 	//DOESN'T REALLY WORK
-	public void initializeMessages() throws IOException {
-		if(mode != "MESSAGES") {
-			messagePanel = new JPanel();
-			messagePanel.setBackground( new Color(255, 255, 255, 100));
-			messagePanel.setLayout(new BorderLayout(0, 0));
+	private JPanel initializeMessages() throws IOException {
+
+			JPanel jp = new JPanel();
+			jp.setBackground( new Color(255, 255, 255, 100));
+			jp.setLayout(new BorderLayout(0, 0));
 			
 			JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomessages"));
 			
@@ -76,14 +72,13 @@ public class DoctorPatientFr extends JFrame {
 			lblNewLabel_2.setFont(sf);
 			lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
 			lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-			messagePanel.add(lblNewLabel_2, BorderLayout.CENTER);
+			jp.add(lblNewLabel_2, BorderLayout.CENTER);
 			mode = "MESSAGES";
-			this.repaint();
-		}
+			return jp;
 	}
 	
-	public void initializeECG() {
-		if(mode != "ECGS") {
+	private JPanel initializeECG() throws IOException {
+			JPanel jp = new JPanel();
 			JScrollPane sp = new JScrollPane();
 			sp.setBackground( new Color(0, 0, 0, 0) );
 			sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -91,7 +86,7 @@ public class DoctorPatientFr extends JFrame {
 			sp.setOpaque(false);
 			sp.getVerticalScrollBar().setUnitIncrement(18);
 			JPanel viewport = new JPanel();
-			viewport.setOpaque(false);;
+			viewport.setOpaque(false);
 			viewport.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
 			loadECGPanel(controller.getPatient().getECGs(),viewport);
 			sp.setViewportView(viewport);
@@ -99,11 +94,29 @@ public class DoctorPatientFr extends JFrame {
 			sp.setViewportBorder(null);
 			sp.setBorder(null);
 			mode = "ECGS";
-			messagePanel = new JPanel();
-			messagePanel.setOpaque(false);
-			messagePanel.setLayout(new BorderLayout(0, 0));
-			messagePanel.add(sp, BorderLayout.CENTER);
+			jp.setOpaque(false);
+			jp.setLayout(new BorderLayout(0, 0));
+			jp.add(sp, BorderLayout.CENTER);
+			return jp;
+	}
+	
+	public void setModeECG() throws IOException {
+		if(mode != "ECGS") {
+			//this.getContentPane().remove(messagePanel);
+			messagePanel.removeAll();
+			messagePanel.add(initializeECG(), BorderLayout.CENTER);
 			this.repaint();
+			mode = "ECGS";
+		}
+	}
+	
+	public void setModeMessages() throws IOException {
+		if(mode != "MESSAGES") {
+			//this.getContentPane().remove(messagePanel);
+			messagePanel.removeAll();
+			messagePanel.add(initializeMessages(), BorderLayout.CENTER);
+			this.repaint();
+			mode = "MESSAGES";
 		}
 	}
 	
@@ -478,6 +491,10 @@ public class DoctorPatientFr extends JFrame {
 		
 		contentPane.add(messagePanel, gbc_panel_2);*/
 	
+		
+		messagePanel.setOpaque(false);
+		messagePanel.setLayout(new BorderLayout());
+		messagePanel.add(initializeECG(), BorderLayout.CENTER);
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
 		gbc_panel_2.gridheight = 17;

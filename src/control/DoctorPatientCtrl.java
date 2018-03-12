@@ -100,9 +100,14 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 			frame.dispose();
 		}
 		else if (e.getActionCommand().equals("ECGS")){ 
-			System.out.println("ECGS");
-			frame.initializeECG();
-			frame.setVisible(true);
+			try {
+				System.out.println("ECGS");
+				frame.setModeECG();
+				frame.setVisible(true);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}else if (e.getActionCommand().equals("NEWMESSAGE")){ 
 			System.out.println("New Message");
 			NewMessage();
@@ -111,7 +116,7 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 		else if (e.getActionCommand().equals("MESSAGES")){ 
 			try {
 				System.out.println("MESSAGES");
-				frame.initializeMessages();
+				frame.setModeMessages();
 				frame.setVisible(true);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
