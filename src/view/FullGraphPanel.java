@@ -48,6 +48,7 @@ public class FullGraphPanel extends JPanel implements ChangeListener, ActionList
 	public double t;
 	public double frec;
 	public double frecsec;
+	public double firstsec;
 	public double zoom = 3;
 	public double zoom2 = -1 * (zoom);
 
@@ -59,6 +60,7 @@ public class FullGraphPanel extends JPanel implements ChangeListener, ActionList
 		frecsec = 1000 / frec;
 		// m = 1000 / ECGData.getFrequency();//PERIODO
 		t = (frecsec * ECGData.getData().size());
+		firstsec = 6*ECGData.getFrequency();
 		XYDataset dataset = createDataset();
 		chart = createChart(dataset);
 		minimum = (t / 100) * zoom2;
