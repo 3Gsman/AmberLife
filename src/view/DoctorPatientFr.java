@@ -28,6 +28,7 @@ import javax.swing.border.EmptyBorder;
 import control.DoctorPatientCtrl;
 import model.Doctor;
 import model.ECG;
+import model.FileManager;
 import model.LocalizationService;
 import model.Patient;
 import model.User;
@@ -36,7 +37,7 @@ public class DoctorPatientFr extends JFrame {
 
 
 	private JPanelWithBackground contentPane;
-	public JPanel messagePanel = new JPanel();
+	public JPanel messagePanel = new JPanel(new BorderLayout());
 	public DoctorPatientCtrl controller;
 	private String mode = "ECGS";
 	
@@ -51,9 +52,73 @@ public class DoctorPatientFr extends JFrame {
 	
 	//DOESN'T REALLY WORK
 	private JPanel initializeMessages() throws IOException {
+		
+			//Get PROMETHEUS font
+				java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+				Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
+				Font sf = font; // will use sf to change the style;
+				try {
+					font = Font.createFont(Font.TRUETYPE_FONT, is);
+					sf = font;
+				} catch (FontFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-			JPanel jp = new JPanel();
-			jp.setBackground( new Color(255, 255, 255, 100));
+			JPanel jp2 = new JPanel(new BorderLayout());
+			jp2.setBackground(new Color(255,255,255,140));
+			JScrollPane panel_2 = new JScrollPane();
+			panel_2.setBackground( new Color(255, 255, 255, 140) );
+			panel_2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			panel_2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			panel_2.setOpaque(false);
+			panel_2.getVerticalScrollBar().setUnitIncrement(18);
+			panel_2.getViewport().setOpaque(false);
+			panel_2.setViewportBorder(null);
+			panel_2.setBorder(null);
+			jp2.add(panel_2,BorderLayout.CENTER);
+				
+			JPanel new_msg = new JPanel();
+			new_msg.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			new_msg.setOpaque(false);
+			jp2.add(new_msg,BorderLayout.PAGE_END);
+			
+			JButton btnNewButton2 = new JButton("");
+			ImageIcon reply = new ImageIcon(getClass().getResource("/resources/Reply.png"));
+			btnNewButton2.setActionCommand("NEWMESSAGE");
+			btnNewButton2.addActionListener(controller);
+			btnNewButton2.setIcon(reply);
+			btnNewButton2.setBorderPainted(false);
+			btnNewButton2.setBorder(null);
+			btnNewButton2.setMargin(new Insets(0, 0, 0, 0));
+			btnNewButton2.setContentAreaFilled(false);
+			new_msg.add(btnNewButton2);
+			
+			FileManager id = new FileManager();
+			Vector<String> messages = id.readPatientMessages(controller.getPatient().getNumber());
+			if(messages.equals(null)) {
+				JPanel jp = new JPanel();
+				jp.setLayout(new BorderLayout());
+				jp.setOpaque(false);
+				JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomessages"));
+				sf = font.deriveFont(28f);
+				lblNewLabel_2.setFont(sf);
+				lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
+				lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+				jp.add(lblNewLabel_2, BorderLayout.CENTER);
+				panel_2.setViewportView(jp);
+			}else {
+				JPanel jp = new JPanel();
+				jp.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
+				jp.setOpaque(false);
+				for(String s : messages) {
+					MessagePanel mp = new MessagePanel(new User("234553X", "John", "Doe"), "24-3-18", s);
+					jp.add(mp);
+				}
+				panel_2.setViewportView(jp);
+			}
+			return jp2;
+			/*jp.setBackground( new Color(255, 255, 255, 100));
 			jp.setLayout(new BorderLayout(0, 0));
 			
 			JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomessages"));
@@ -73,8 +138,8 @@ public class DoctorPatientFr extends JFrame {
 			lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
 			lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 			jp.add(lblNewLabel_2, BorderLayout.CENTER);
-			mode = "MESSAGES";
-			return jp;
+			mode = "MESSAGES";*/
+
 	}
 	
 	private JPanel initializeECG() throws IOException {
