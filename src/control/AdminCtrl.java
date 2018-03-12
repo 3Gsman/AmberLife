@@ -38,34 +38,33 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowL
     	System.out.print("Action received: " + e.getActionCommand());
     	if (e.getActionCommand().equals("DOCTORS")){
     		if(af.getMode() != true) {
-    			try {
-    				boolean max = false;
+    				/*boolean max = false;
     				if (af.getExtendedState() == JFrame.MAXIMIZED_BOTH) max = true;
     				af.dispose();
     				af = new AdminFr();
     				af.addController(this);
 					af.initialize(true, listamedicos,new Dimension(af.getWidth(),af.getHeight()));
-					if (max)af.setExtendedState( af.getExtendedState()|JFrame.MAXIMIZED_BOTH );
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+					if (max)af.setExtendedState( af.getExtendedState()|JFrame.MAXIMIZED_BOTH );*/
+    				af.initializeDoctors(listamedicos);
+    				af.setButtons();
+    				af.repaint();
+    				af.setVisible(true);
+				
     		}
     	}
     	else if (e.getActionCommand().equals("ASSISTANTS")){
     		if(af.getMode() != false) {
-    			try {
-    				boolean max = false;
+    				/*boolean max = false;
     				if (af.getExtendedState() == JFrame.MAXIMIZED_BOTH) max = true;
     				af.dispose();
     				af = new AdminFr();
     				af.addController(this);
 					af.initialize(false, listatecnicos, new Dimension(af.getWidth(),af.getHeight()));
-					if (max)af.setExtendedState( af.getExtendedState()|JFrame.MAXIMIZED_BOTH );
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+					if (max)af.setExtendedState( af.getExtendedState()|JFrame.MAXIMIZED_BOTH );*/
+    				af.initializeAssistants(listatecnicos);
+    				af.setButtons();
+    				af.repaint();
+    				af.setVisible(true);
     		}
     	}
     	else if (e.getActionCommand().equals("BACK")){

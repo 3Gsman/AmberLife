@@ -21,6 +21,7 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -46,6 +47,9 @@ public class DoctorMeasureFr extends JFrame {
 	public void initialize() throws IOException {
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(controller);
+		Dimension d = new Dimension(1000, 800);
+		this.setMinimumSize(d);
+		this.setSize(d);
 		setBounds(100, 100, 757, 535);
 		contentPane =  new JPanelWithBackground(getClass().getResource("/resources/BG.png"));	
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
