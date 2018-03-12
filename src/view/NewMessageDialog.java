@@ -20,4 +20,14 @@ public class NewMessageDialog {
 
 		
 	}
+	
+	public NewMessageDialog(JFrame f, String name, String lastname) {
+		JTextArea message = new JTextArea();
+		message.setRows(7);
+		Object[] inputFields = {"New message about " + name + " " + lastname + ":", message};
+		
+		JOptionPane.showConfirmDialog(f, inputFields, "New Message", JOptionPane.OK_CANCEL_OPTION);
+
+		
+	}
 }

@@ -16,13 +16,16 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import model.ECG;
 import model.FileManager;
 import view.AssistMeasureFr;
+import view.AssistPatientFr;
+import view.DoctorDialog;
 import view.ExitDialog;
+import view.NewMessageDialog;
 
 public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener, KeyListener, WindowListener{
 	
-	JFrame patient;
+	AssistPatientFr patient;
 	
-	public AssistPatientCtrl(JFrame f) {
+	public AssistPatientCtrl(AssistPatientFr f) {
 		patient = f;
 		
 		
@@ -86,6 +89,8 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 			returnToPrevious();
 			patient.dispose();
 			
+		}else  if (e.getActionCommand().equals("NEWMESSAGE")){ 
+			NewMessageDialog nmd = new NewMessageDialog(patient, patient.getName(), patient.getLastname());
 		}
 		
 	}

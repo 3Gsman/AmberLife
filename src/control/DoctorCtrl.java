@@ -162,13 +162,12 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
+		ExitDialog.confirmExit();	
 		
 	}
 
 	@Override
-	public void windowClosed(WindowEvent e) {
-		ExitDialog.confirmExit();		
+	public void windowClosed(WindowEvent e) {	
 	}
 
 	@Override
