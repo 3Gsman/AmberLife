@@ -90,6 +90,7 @@ public class Main implements ActionListener, KeyListener, WindowListener {
         try {
             String resultado[] = comprobar.checkUser(usuario, Password);
             if (resultado[0] == "true") {
+            	vistaLogin.resetText();
                 switch (resultado[1]) {
                     case "medico":
                         //Abre ventana DoctorFr

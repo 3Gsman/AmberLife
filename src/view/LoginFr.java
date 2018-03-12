@@ -66,6 +66,11 @@ public class LoginFr extends JFrame {
 		return passwordField.getPassword();
 	}
 	
+	public void resetText() {
+		textField.setText("");
+		passwordField.setText("");
+	}
+	
 	
 	public void addController(Main a) {
 		this.controller = a;
