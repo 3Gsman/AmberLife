@@ -39,10 +39,10 @@ public class MessagePanel extends JPanel {
 	public MessagePanel(User u, String date, String message) throws IOException {
 		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 15, 0};
-		gridBagLayout.rowHeights = new int[]{15, 60, 30, 0, 0, 0, 0, 0, 0, 0, 15, 0};
+		gridBagLayout.columnWidths = new int[]{15, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 20, 60, 15, 0};
+		gridBagLayout.rowHeights = new int[]{15, 20, 15, 20, 0, 0, 80, 0, 0, 0, 15, 0};
 		gridBagLayout.columnWeights = new double[]{0.2, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.2, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.2, 0.2, 0.2, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.2, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.2, 0.2, 0.2, 0.2, 1.0, 1.0, 1.0, 1.0, 1.0, 0.2, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		//Get PROMETHEUS font
@@ -96,19 +96,25 @@ public class MessagePanel extends JPanel {
 		panel_3.add(panel_6, gbc_panel_6);
 		panel_6.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel(LocalizationService.getWord("from"));
+		JLabel lblNewLabel = new JLabel(" " +LocalizationService.getWord("from") + " ");
 		lblNewLabel.setForeground(Color.WHITE);
 		sf = font.deriveFont(22f);
 		lblNewLabel.setFont(sf);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_6.add(lblNewLabel, BorderLayout.CENTER);
 		
-		JLabel lblNewLabel_1 = new JLabel(u.getName());
+		JLabel lblNewLabel_1 = new JLabel(u.getName() + " " + u.getLastname());
 		lblNewLabel_1.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.gridx = 2;
 		gbc_lblNewLabel_1.gridy = 0;
 		panel_3.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		
+		JLabel label3 = new JLabel("   ");
+		GridBagConstraints gbc_label3 = new GridBagConstraints();
+		gbc_label3.gridx = 3;
+		gbc_label3.gridy = 0;
+		panel_3.add(label3, gbc_label3);
 		
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
@@ -149,7 +155,7 @@ public class MessagePanel extends JPanel {
 		panel_5.add(panel_7, gbc_panel_7);
 		panel_7.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblDate = new JLabel(LocalizationService.getWord("date"));
+		JLabel lblDate = new JLabel(" " +LocalizationService.getWord("date") + " ");
 		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDate.setForeground(Color.WHITE);
 		lblDate.setFont(sf);
@@ -162,8 +168,14 @@ public class MessagePanel extends JPanel {
 		gbc_label.gridy = 0;
 		panel_5.add(label, gbc_label);
 		
+		JLabel label2 = new JLabel("   ");
+		GridBagConstraints gbc_label2 = new GridBagConstraints();
+		gbc_label2.gridx = 3;
+		gbc_label2.gridy = 0;
+		panel_5.add(label2, gbc_label2);
+		
 		JButton btnNewButton = new JButton("");
-		ImageIcon reply = new ImageIcon(getClass().getResource("/resources/Flag.png"));
+		ImageIcon reply = new ImageIcon(getClass().getResource("/resources/Reply.png"));
 		btnNewButton.setIcon(reply);
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.setBorder(null);
@@ -179,6 +191,7 @@ public class MessagePanel extends JPanel {
 		//Comentario para commit 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setOpaque(false);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.gridwidth = 19;
 		gbc_scrollPane.gridheight = 7;
@@ -192,7 +205,7 @@ public class MessagePanel extends JPanel {
 		add(scrollPane, gbc_scrollPane);
 		
 		JTextArea jta = new JTextArea();
-		jta.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
+		jta.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
 		jta.setWrapStyleWord(true);
 		jta.setOpaque(false);
 		jta.setText(message);
