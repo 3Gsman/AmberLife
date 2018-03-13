@@ -4,12 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import model.ECG;
 import view.ExitDialog;
+import view.DoctorPatientFr;
+import view.ECGchooserFr;
 
 public class DoctorMeasureCtrl extends ReturnsToFrame implements ActionListener, WindowListener{
 	
@@ -26,15 +29,27 @@ public class DoctorMeasureCtrl extends ReturnsToFrame implements ActionListener,
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		System.out.println("Action received: " + e.getActionCommand());
-		 if (e.getActionCommand().equals("BACK")){
+	public void actionPerformed(ActionEvent ev) {
+		System.out.println("Action received: " + ev.getActionCommand());
+		 if (ev.getActionCommand().equals("BACK")){
 			 returnToPrevious();
 			 fr.dispose();
 		 }
-		 else if (e.getActionCommand().equals("COMPARE")){
-			 	System.out.println("Unimplemented");
-			 
+		 else if (ev.getActionCommand().equals("COMPARE")){
+			 try {
+			 	DoctorPatientCtrl dpc = ((DoctorPatientFr)getPreviousWindow()).getController();
+			 	ECGchooserFr ecgf = new ECGchooserFr();
+			 	ECGchooserCtrl ecgc = new ECGchooserCtrl(dpc, ecgf, e);
+			 	ecgc.setPreviousWindow(getPreviousWindow());
+			 	ecgf.addController(ecgc);
+			 	ecgf.initialize();
+			 	ecgf.setVisible(true);
+			 	
+			 	fr.dispose();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		 }
 		 else System.out.println("Invalid Action");
 	}

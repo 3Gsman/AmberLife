@@ -9,6 +9,7 @@ import java.awt.event.WindowListener;
 import java.io.IOException;
 
 import model.Doctor;
+import model.ECG;
 import model.Patient;
 import view.AssistMeasureFr;
 import view.DoctorMeasureFr;
@@ -128,6 +129,9 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 	
 	public void NewMessage() {
 		NewMessageDialog nmd = new NewMessageDialog(frame, p);
+	}
+	
+	public void compare(ECG first, ECG second) {
 	}
 
 	@Override

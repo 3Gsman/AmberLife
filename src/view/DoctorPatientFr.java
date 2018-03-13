@@ -46,6 +46,10 @@ public class DoctorPatientFr extends JFrame {
 		this.controller = a;
 	}
 	
+	public DoctorPatientCtrl getController() {
+		return controller;
+	}
+	
 	
 	public DoctorPatientFr() {
 	}

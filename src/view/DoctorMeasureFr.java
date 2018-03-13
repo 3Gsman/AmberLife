@@ -33,12 +33,17 @@ public class DoctorMeasureFr extends JFrame {
 
 	private JPanel contentPane;
 	DoctorMeasureCtrl controller;
+	CompareGraphPanel cgp;
 	
 	public void addController(DoctorMeasureCtrl dmc) {
 		this.controller = dmc;
 	}
 
 	public DoctorMeasureFr() {
+	}
+	
+	public void setCompareGraph(CompareGraphPanel cgp) {
+		this.cgp = cgp;
 	}
 	/**
 	 * Create the frame.
@@ -107,17 +112,24 @@ public class DoctorMeasureFr extends JFrame {
 		panel.add(panel_1, gbc_panel_1);*/
 		
 		//PANEL
-		FullGraphPanel gr = new FullGraphPanel(controller.getECG());
-    	gr.setBackground(Color.DARK_GRAY.darker());
-    	gr.setOpaque(true);
-    	
-    	GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.gridwidth = 22;
 		gbc_panel_1.gridheight = 9;
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 1;
-		panel.add(gr, gbc_panel_1);
+		if(cgp == null) {
+			FullGraphPanel gr = new FullGraphPanel(controller.getECG());   	
+			gr.setBackground(Color.DARK_GRAY.darker());
+	    	gr.setOpaque(true);
+	    	panel.add(gr, gbc_panel_1);
+		}
+		else {
+			cgp.setBackground(Color.DARK_GRAY.darker());
+			cgp.setOpaque(true);
+			panel.add(cgp, gbc_panel_1);
+			
+		}
 		 
 		
 		if (controller.getECG() != null) {
@@ -217,7 +229,7 @@ public class DoctorMeasureFr extends JFrame {
 		button.setBackground(new Color(80, 77, 77, 255));
 		button.setForeground(Color.WHITE);
 		button.addActionListener(controller);
-		button.setActionCommand("CONFIRM");
+		button.setActionCommand("COMPARE");
 		GridBagConstraints gbc_button = new GridBagConstraints();
 		gbc_button.insets = new Insets(0, 0, 5, 5);
 		gbc_button.fill = GridBagConstraints.BOTH;

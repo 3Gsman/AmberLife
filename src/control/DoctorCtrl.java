@@ -206,11 +206,8 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		/*if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			df.initializeList();
-	        df.repaint();
-	        df.setVisible(true);
-		}*/
+	
+		
 		
 	}
 
