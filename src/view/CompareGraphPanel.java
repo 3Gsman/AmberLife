@@ -27,6 +27,7 @@ import model.FileManager;
 public class CompareGraphPanel extends JPanel implements ChangeListener, ActionListener {
 
 	ECG ECGData;
+	ECG ECGData2;
 
 	private static final long serialVersionUID = 1L;
 	FileManager fichero;
@@ -50,7 +51,9 @@ public class CompareGraphPanel extends JPanel implements ChangeListener, ActionL
 	public double maximum;
 	public double t;
 	public double frec;
+	public double frec2;
 	public double frecsec;
+	public double frecsec2;
 	public double firstsec;
 	public double zoom = 3;
 	public double zoom2 = -1 * (zoom);
@@ -63,14 +66,16 @@ public class CompareGraphPanel extends JPanel implements ChangeListener, ActionL
 		super(new BorderLayout());
 
 		ECGData = ecgData;
-		ECGData = ecgData2;
+		ECGData2 = ecgData2;
 		
 		frec = ECGData.getFrequency();
+		frec2 = ECGData2.getFrequency();
 		datanum = ECGData.getData().size();
 		prop = datanum/frec; // tiempo total
 		firstsec = prop / frec;		
 		wi = firstsec/frec;	
 		frecsec = 1000 / frec;
+		frecsec2 = 1000 / frec2;
 		t = (frecsec * ECGData.getData().size());
 		XYDataset dataset = createDataset();
 		XYDataset dataset2 = createDataset2();
