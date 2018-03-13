@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import model.LocalizationService;
 import model.Patient;
 
 public class PatientPanel extends JPanel {
@@ -83,7 +84,7 @@ public class PatientPanel extends JPanel {
 		flowLayout_2.setAlignment(FlowLayout.LEADING);
 		panel.add(panel_2);
 		
-		JLabel lblNewLabel = new JLabel("name");
+		JLabel lblNewLabel = new JLabel(LocalizationService.getWord("name"));
 		lblNewLabel.setForeground(Color.WHITE);
 		sf = font.deriveFont(Font.PLAIN, 22f);
 		lblNewLabel.setFont(sf);
@@ -98,7 +99,7 @@ public class PatientPanel extends JPanel {
 		
 		JLabel lblJohnDoe = new JLabel(p.getName() + " " + p.getLastname());
 		lblJohnDoe.setForeground(Color.DARK_GRAY);
-		lblJohnDoe.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+		lblJohnDoe.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
 		lblJohnDoe.setBackground(Color.DARK_GRAY);
 		panel.add(lblJohnDoe);
 		
@@ -117,7 +118,7 @@ public class PatientPanel extends JPanel {
 		panel_3.setBackground(Color.DARK_GRAY);
 		panel_1.add(panel_3);
 		
-		JLabel lblId = new JLabel("i.d.");
+		JLabel lblId = new JLabel(LocalizationService.getWord("id"));
 		lblId.setForeground(Color.WHITE);
 		sf = font.deriveFont(Font.PLAIN, 22f);
 		lblId.setFont(sf);

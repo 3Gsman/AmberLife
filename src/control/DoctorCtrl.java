@@ -3,11 +3,14 @@ package control;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -24,7 +27,7 @@ import view.ExitDialog;
 import view.PatientDialog;
 import view.PatientPanel;
 
-public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseListener, WindowListener{
+public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseListener, WindowListener, KeyListener{
 
 	String name;
 	DoctorFr df;
@@ -190,6 +193,29 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		df.initializeList();
+        df.repaint();
+        df.setVisible(true);
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		/*if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			df.initializeList();
+	        df.repaint();
+	        df.setVisible(true);
+		}*/
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

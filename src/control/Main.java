@@ -128,7 +128,7 @@ public class Main implements ActionListener, KeyListener, WindowListener {
         DoctorCtrl dc = new DoctorCtrl(usuario,vp);
         dc.setPreviousWindow(vistaLogin);
         vp.addController(dc);
-        vp.initialize(dc.doctor.getPatientlist());
+        vp.initialize();
         vp.setVisible(true);
         
     }
