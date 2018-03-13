@@ -74,7 +74,8 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
     	System.out.println("Key pressed");
     	if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
-				searchPatient();
+            	if(tf.getID() != "")
+            		searchPatient();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -180,8 +181,6 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
 		 
 
 	//en desuso
