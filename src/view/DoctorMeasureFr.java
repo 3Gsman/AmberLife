@@ -123,7 +123,7 @@ public class DoctorMeasureFr extends JFrame {
 		}
 		else {
 			controller.getCGP().setBackground(Color.DARK_GRAY.darker());
-			controller.getCGP().setOpaque(true);
+			controller.getCGP().setOpaque(true);fco
 			panel.add(controller.getCGP(), gbc_panel_1);
 			
 		}
@@ -217,23 +217,24 @@ public class DoctorMeasureFr extends JFrame {
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 13;
 		panel.add(btnLogout, gbc_btnNewButton);
-		
-		JButton button = new JButton(LocalizationService.getWord("compare"));
-		sf = font.deriveFont(32f);
-		button.setBorderPainted(false);
-		button.setFont(sf);
-		button.setForeground(new Color(0, 0, 0));
-		button.setBackground(new Color(80, 77, 77, 255));
-		button.setForeground(Color.WHITE);
-		button.addActionListener(controller);
-		button.setActionCommand("COMPARE");
-		GridBagConstraints gbc_button = new GridBagConstraints();
-		gbc_button.insets = new Insets(0, 0, 5, 5);
-		gbc_button.fill = GridBagConstraints.BOTH;
-		gbc_button.gridwidth = 3;
-		gbc_button.gridx = 20;
-		gbc_button.gridy = 13;
-		panel.add(button, gbc_button);
+		if(controller.getCGP() == null) {
+			JButton button = new JButton(LocalizationService.getWord("compare"));
+			sf = font.deriveFont(32f);
+			button.setBorderPainted(false);
+			button.setFont(sf);
+			button.setForeground(new Color(0, 0, 0));
+			button.setBackground(new Color(80, 77, 77, 255));
+			button.setForeground(Color.WHITE);
+			button.addActionListener(controller);
+			button.setActionCommand("COMPARE");
+			GridBagConstraints gbc_button = new GridBagConstraints();
+			gbc_button.insets = new Insets(0, 0, 5, 5);
+			gbc_button.fill = GridBagConstraints.BOTH;
+			gbc_button.gridwidth = 3;
+			gbc_button.gridx = 20;
+			gbc_button.gridy = 13;
+			panel.add(button, gbc_button);
+		}
 	}
 
 }
