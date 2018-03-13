@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.Vector;
 
@@ -14,7 +16,7 @@ import view.DoctorMeasureFr;
 import view.ECGchooserFr;
 import view.EcgPanel;
 
-public class ECGchooserCtrl extends ReturnsToFrame implements ActionListener, MouseListener{
+public class ECGchooserCtrl extends ReturnsToFrame implements ActionListener, MouseListener, WindowListener{
 	
 	ECGchooserFr frame;
 	ECG first;
@@ -72,6 +74,48 @@ public class ECGchooserCtrl extends ReturnsToFrame implements ActionListener, Mo
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		returnToPrevious();
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 
