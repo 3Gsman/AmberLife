@@ -47,7 +47,13 @@ import javax.swing.JComboBox;
 	
 		public JTextField textField;
 		AssistCtrl controller;
+		JButton btnNewButton = new JButton(LocalizationService.getWord("id"));
+		JButton button = new JButton(LocalizationService.getWord("ssn"));
+		boolean mode = true;
 		
+		public boolean getMode() {
+			return mode;
+		}
 	
 		/**
 		 * Launch the application.
@@ -60,7 +66,7 @@ import javax.swing.JComboBox;
 		 * Create the application.
 		 */
 		
-		public AssistFr() {
+		public  AssistFr() {
 			
 		}
 		
@@ -70,6 +76,72 @@ import javax.swing.JComboBox;
 		
 		public void addController(AssistCtrl controlador){
 			this.controller = controlador;
+		}
+		
+		public void switchbuttons() {
+			mode = !mode;
+			setButtons();
+		}
+		
+		public void setButtons() {
+			java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+			Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
+			Font sf = font; // will use sf to change the style;
+			try {
+				font = Font.createFont(Font.TRUETYPE_FONT, is);
+				sf = font;
+			} catch (FontFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//Set Assistants button
+			 if(!mode) {
+				sf = font.deriveFont(22f);
+				button.setFont(sf);
+				button.setOpaque(true);
+				button.setBackground(new Color(255,255,255,255));
+				button.setBorderPainted(false);
+				sf = font.deriveFont(Font.BOLD, 28f);
+				button.setFont(sf);
+				button.setForeground(Color.DARK_GRAY);
+			}
+			else {
+				sf = font.deriveFont(22f);
+				button.setFont(sf);
+				button.setOpaque(false);
+				button.setBorderPainted(false);
+				button.setContentAreaFilled(false);
+				button.setBorder(null);
+				sf = font.deriveFont(Font.BOLD, 28f);
+				button.setFont(sf);
+				button.setForeground(Color.WHITE);
+			}
+			 //Set Doctors Button
+			if(mode) {
+				btnNewButton.setOpaque(true);
+				btnNewButton.setBackground(new Color(255,255,255,255));
+				btnNewButton.setBorderPainted(false);
+				sf = font.deriveFont(Font.BOLD, 28f);
+				btnNewButton.setFont(sf);
+				btnNewButton.setForeground(Color.DARK_GRAY);
+				btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
+				btnNewButton.setContentAreaFilled(true);
+				}
+			else {
+				sf = font.deriveFont(22f);
+				btnNewButton.setFont(sf);
+				btnNewButton.setOpaque(false);
+				btnNewButton.setBorderPainted(false);
+				btnNewButton.setContentAreaFilled(false);
+				btnNewButton.setBorder(null);
+				sf = font.deriveFont(Font.BOLD, 28f);
+				btnNewButton.setFont(sf);
+				btnNewButton.setForeground(Color.WHITE);
+				btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
+				}
 		}
 		
 
@@ -139,12 +211,15 @@ import javax.swing.JComboBox;
 			sf = font.deriveFont(28f);
 			sf = font.deriveFont(28f);
 			
-			JButton btnNewButton = new JButton(LocalizationService.getWord("id"));
-			btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-			sf = font.deriveFont(28f);
-			btnNewButton.setFont(sf);
-			btnNewButton.setContentAreaFilled(true);
-			btnNewButton.setBackground(Color.white);
+			
+			
+			//Buttons
+			button.addActionListener(controller);
+			button.setActionCommand("SSN");
+			btnNewButton.addActionListener(controller);
+			btnNewButton.setActionCommand("ID");
+			setButtons();
+			
 			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 			gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 			gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
@@ -152,15 +227,6 @@ import javax.swing.JComboBox;
 			gbc_btnNewButton.gridy = 7;
 			panel.add(btnNewButton, gbc_btnNewButton);
 			
-			JButton button = new JButton(LocalizationService.getWord("ssn"));
-			sf = font.deriveFont(28f);
-			button.setFont(sf);
-			button.setBorderPainted(false);
-			button.setBorder(null);
-			button.setMargin(new Insets(0, 0, 0, 0));
-			button.setContentAreaFilled(false);
-			button.setHorizontalAlignment(SwingConstants.LEFT);
-			button.setForeground(Color.white);
 			GridBagConstraints gbc_button = new GridBagConstraints();
 			gbc_button.fill = GridBagConstraints.BOTH;
 			gbc_button.insets = new Insets(0, 0, 5, 5);

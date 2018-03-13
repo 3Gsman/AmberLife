@@ -47,6 +47,12 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 			 tf.dispose();
 			 returnToPrevious();
 		 
+		 }else if (e.getActionCommand().equals("ID")) {
+			 if(!tf.getMode()) tf.switchbuttons();
+			 tf.repaint();
+		 }else if (e.getActionCommand().equals("SSN")) {
+			 if(tf.getMode()) tf.switchbuttons();
+			 tf.repaint();
 		 }else System.out.println(" Null");
 			/* try {
 				volverLogin();
