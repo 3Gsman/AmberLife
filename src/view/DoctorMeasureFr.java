@@ -33,7 +33,6 @@ public class DoctorMeasureFr extends JFrame {
 
 	private JPanel contentPane;
 	DoctorMeasureCtrl controller;
-	CompareGraphPanel cgp;
 	
 	public void addController(DoctorMeasureCtrl dmc) {
 		this.controller = dmc;
@@ -42,9 +41,6 @@ public class DoctorMeasureFr extends JFrame {
 	public DoctorMeasureFr() {
 	}
 	
-	public void setCompareGraph(CompareGraphPanel cgp) {
-		this.cgp = cgp;
-	}
 	/**
 	 * Create the frame.
 	 * @throws IOException 
@@ -118,19 +114,20 @@ public class DoctorMeasureFr extends JFrame {
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 1;
-		if(cgp == null) {
+		
+		if(controller.getCGP() == null) {
 			FullGraphPanel gr = new FullGraphPanel(controller.getECG());   	
 			gr.setBackground(Color.DARK_GRAY.darker());
 	    	gr.setOpaque(true);
 	    	panel.add(gr, gbc_panel_1);
 		}
 		else {
-			cgp.setBackground(Color.DARK_GRAY.darker());
-			cgp.setOpaque(true);
-			panel.add(cgp, gbc_panel_1);
+			controller.getCGP().setBackground(Color.DARK_GRAY.darker());
+			controller.getCGP().setOpaque(true);
+			panel.add(controller.getCGP(), gbc_panel_1);
 			
 		}
-		 
+		
 		
 		if (controller.getECG() != null) {
 			

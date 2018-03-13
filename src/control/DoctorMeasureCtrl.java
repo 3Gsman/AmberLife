@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import model.ECG;
 import view.ExitDialog;
+import view.CompareGraphPanel;
 import view.DoctorPatientFr;
 import view.ECGchooserFr;
 
@@ -18,14 +19,24 @@ public class DoctorMeasureCtrl extends ReturnsToFrame implements ActionListener,
 	
 	JFrame fr;
 	ECG e;
+	CompareGraphPanel cgp;
 	
 	public DoctorMeasureCtrl(JFrame thiscatwontshutthehellup, ECG e) {
 		this.fr = thiscatwontshutthehellup;
 		this.e = e;
 	}
 	
+	public DoctorMeasureCtrl(JFrame thiscatwontshutthehellup, CompareGraphPanel cgp) {
+		this.fr = thiscatwontshutthehellup;
+		this.cgp = cgp;
+	}
+	
 	public ECG getECG() {
 		return e;
+	}
+	
+	public CompareGraphPanel getCGP() {
+		return cgp;
 	}
 
 	@Override

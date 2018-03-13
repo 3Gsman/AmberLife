@@ -12,6 +12,7 @@ import model.Doctor;
 import model.ECG;
 import model.Patient;
 import view.AssistMeasureFr;
+import view.CompareGraphPanel;
 import view.DoctorMeasureFr;
 import view.DoctorPatientFr;
 import view.EcgPanel;
@@ -132,6 +133,22 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 	}
 	
 	public void compare(ECG first, ECG second) {
+		try {
+			CompareGraphPanel cgp = new CompareGraphPanel(first, second);
+			DoctorMeasureFr dmf = new DoctorMeasureFr();
+			DoctorMeasureCtrl dmc = new DoctorMeasureCtrl(dmf,cgp);
+			dmc.setPreviousWindow(frame);
+			frame.setVisible(false);
+			dmf.addController(dmc);
+			dmf.initialize();
+			dmf.setVisible(true);
+		}
+		catch(ClassCastException cce){
+			System.out.println("BAD CAST at DoctorPatientCtrl");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	@Override

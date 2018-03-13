@@ -36,7 +36,7 @@ public class ECGchooserCtrl extends ReturnsToFrame implements ActionListener, Mo
 			EcgPanel ecg = (EcgPanel) e.getSource();
 			controller.compare(first,ecg.getECG());
 			frame.dispose();
-			this.returnToPrevious();
+			//this.returnToPrevious();
 			System.out.println("Selected ECG: " + ecg.getECG().getName());
 		}
 		catch(ClassCastException cce){
