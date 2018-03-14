@@ -182,11 +182,31 @@ import javax.swing.JComboBox;
 			this.getContentPane().add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
 			gbl_panel.columnWidths = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-			gbl_panel.rowHeights = new int[]{0, 80, 50, 20, 0, 0, 10, 60, 60, 10, 60, 0, 0, 30, 0};
+			gbl_panel.rowHeights = new int[]{30, 80, 50, 20, 0, 0, 10, 60, 60, 10, 60, 0, 0, 30, 0};
 			gbl_panel.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-			gbl_panel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			sf = font.deriveFont(Font.BOLD, 11f);
+			
+			JPanel paneluser = new JPanel();
+			paneluser.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			paneluser.setOpaque(false);
+			GridBagConstraints gbc_paneluser = new GridBagConstraints();
+			gbc_paneluser.gridwidth = 6;
+			gbc_paneluser.gridheight = 1;
+			gbc_paneluser.insets = new Insets(0, 0, 5, 5);
+			gbc_paneluser.fill = GridBagConstraints.BOTH;
+			gbc_paneluser.gridx = 14;
+			gbc_paneluser.gridy = 0;
+			panel.add(paneluser,gbc_paneluser);
+			
+			JLabel lblUser = new JLabel(" " + LocalizationService.getWord("user") + ": " 
+								+ controller.getTecnico().getName() + " " + controller.getTecnico().getLastname());
+			sf = font.deriveFont(22f);
+			lblUser.setForeground(Color.WHITE);
+			lblUser.setOpaque(false);
+			lblUser.setFont(sf);
+			paneluser.add(lblUser);
 			
 			JPanel panel_1 = new JPanel();
 			panel_1.setOpaque(false);
