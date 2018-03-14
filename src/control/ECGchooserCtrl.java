@@ -85,13 +85,14 @@ public class ECGchooserCtrl extends ReturnsToFrame implements ActionListener, Mo
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-
+		returnToPrevious();
+		frame.dispose();
 		
 	}
 
 	@Override
 	public void windowClosed(WindowEvent e) {
-		returnToPrevious();
+		
 		
 	}
 
