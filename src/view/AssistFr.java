@@ -222,14 +222,14 @@ import javax.swing.JComboBox;
 			
 			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 			gbc_btnNewButton.fill = GridBagConstraints.BOTH;
-			gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
+			gbc_btnNewButton.insets = new Insets(0, 0, 0, 0);
 			gbc_btnNewButton.gridx = 9;
 			gbc_btnNewButton.gridy = 7;
 			panel.add(btnNewButton, gbc_btnNewButton);
 			
 			GridBagConstraints gbc_button = new GridBagConstraints();
 			gbc_button.fill = GridBagConstraints.BOTH;
-			gbc_button.insets = new Insets(0, 0, 5, 5);
+			gbc_button.insets = new Insets(0, 0, 0, 0);
 			gbc_button.gridx = 10;
 			gbc_button.gridy = 7;
 			panel.add(button, gbc_button);
@@ -252,6 +252,7 @@ import javax.swing.JComboBox;
 			btnNewButton_1.setBackground(Color.DARK_GRAY);
 			btnNewButton_1.addActionListener(controller);
 			btnNewButton_1.setActionCommand("SEARCH");
+			btnNewButton_1.setBorder(null);
 			sf = font.deriveFont(28f);
 			btnNewButton_1.setFont(sf);
 			btnNewButton_1.setForeground(Color.WHITE);

@@ -100,20 +100,21 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 		String dni = tf.getID();
 		FileManager id = new FileManager();
 		Vector<String> messages = new Vector<>();
-		
-		Patient resultado = id.checkId(dni);
-		messages = id.readPatientMessages(resultado.getNumber());
-		
-		if(resultado.getNumber() != "null") {
-			System.out.println("Patient found.\n");
-			System.out.println("Technician: " + getName());			
+		if(dni != null) {
+			Patient resultado = id.checkId(dni);
+			messages = id.readPatientMessages(resultado.getNumber());
 			
-			openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), resultado.getSsn(), messages, name);
-			
-		}else {
-			Object frame = null;	//crea un objeto ventana
-            JOptionPane.showMessageDialog((Component) frame, "Patient not found.", "Error", JOptionPane.ERROR_MESSAGE);	//sale una ventana de diálogo para alertar de un error
-
+			if(resultado.getNumber() != "null") {
+				System.out.println("Patient found.\n");
+				System.out.println("Technician: " + getName());			
+				
+				openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), resultado.getSsn(), messages, name);
+				
+			}else {
+				Object frame = null;	//crea un objeto ventana
+	            JOptionPane.showMessageDialog((Component) frame, "Patient not found.", "Error", JOptionPane.ERROR_MESSAGE);	//sale una ventana de diálogo para alertar de un error
+	
+			}
 		}
 
 	}

@@ -1,5 +1,6 @@
 package control;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -17,6 +18,7 @@ import view.DoctorMeasureFr;
 import view.DoctorPatientFr;
 import view.EcgPanel;
 import view.ExitDialog;
+import view.MessagePanel;
 import view.NewMessageDialog;
 import view.PatientPanel;
 
@@ -110,6 +112,16 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+		}else  if (e.getActionCommand().equals("REPLY")){ 	
+			 try {
+				 MessagePanel mp = (MessagePanel) ((Component) e.getSource()).getParent();
+				 NewMessageDialog nmd = new NewMessageDialog(p.getName(), p.getLastname(),
+							"From: " + mp.getUser().getName() + " " + mp.getUser().getLastname() + " on " + mp.getDate() + "\n"
+							 + "RE: " + mp.getMessage());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}else if (e.getActionCommand().equals("NEWMESSAGE")){ 
 			System.out.println("New Message");
 			NewMessage();
@@ -130,7 +142,7 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 	
 	public void NewMessage() {
 		try {
-			NewMessageDialog nmd = new NewMessageDialog(p.getName(),p.getLastname());
+			NewMessageDialog nmd = new NewMessageDialog(p.getName(),p.getLastname(),"");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

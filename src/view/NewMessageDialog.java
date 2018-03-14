@@ -31,7 +31,7 @@ public class NewMessageDialog extends JDialog {
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public NewMessageDialog(String name, String lastname) throws IOException {
+	public NewMessageDialog(String name, String lastname, String text) throws IOException {
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 491, 349);
 		getContentPane().setLayout(new BorderLayout());
@@ -70,7 +70,9 @@ public class NewMessageDialog extends JDialog {
 		
 		JTextArea area = new JTextArea();
 		area.setWrapStyleWord(true);
+		area.setLineWrap(true);
 		area.setFont(new Font("Source Code Pro Medium",Font.PLAIN,14));
+		area.append(text);
 		
 		GridBagConstraints gbc_text = new GridBagConstraints();
 		gbc_text.gridwidth = 14;

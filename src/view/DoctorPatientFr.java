@@ -116,7 +116,7 @@ public class DoctorPatientFr extends JFrame {
 				jp.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
 				jp.setOpaque(false);
 				for(String s : messages) {
-					MessagePanel mp = new MessagePanel(new User("234553X", "John", "Doe"), "24-3-18", s);
+					MessagePanel mp = new MessagePanel(controller, new User("234553X", "John", "Doe"), "24-3-18", s);
 					jp.add(mp);
 				}
 				panel_2.setViewportView(jp);

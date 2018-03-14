@@ -23,6 +23,7 @@ import java.awt.FontFormatException;
 
 import javax.swing.SwingConstants;
 
+import control.DoctorPatientCtrl;
 import model.LocalizationService;
 import model.User;
 
@@ -32,11 +33,30 @@ import javax.swing.ScrollPaneConstants;
 
 public class MessagePanel extends JPanel {
 
+	String message;
+	User u;
+	String date;
+	ActionListener controller;
+	
+	public String getMessage(){
+		return message;
+	}
+	
+	public User getUser(){
+		return u;
+	}
+	
+	public String getDate() {
+		return date;
+	}
 	/**
 	 * Create the panel.
 	 * @throws IOException 
 	 */
-	public MessagePanel(User u, String date, String message) throws IOException {
+	public MessagePanel(ActionListener controller, User u, String date, String message) throws IOException {
+		this.message = message;
+		this.u = u;
+		this.date = date;
 		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{15, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 20, 60, 15, 0};
@@ -176,6 +196,8 @@ public class MessagePanel extends JPanel {
 		
 		JButton btnNewButton = new JButton("");
 		ImageIcon reply = new ImageIcon(getClass().getResource("/resources/Reply.png"));
+		btnNewButton.setActionCommand("REPLY");
+		btnNewButton.addActionListener(controller);
 		btnNewButton.setIcon(reply);
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.setBorder(null);
