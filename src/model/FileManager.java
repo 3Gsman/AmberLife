@@ -230,6 +230,14 @@ public class FileManager {
     	 lectorp.close();
     	 return p;
      }
-
+     
+     public Vector<String> readPatientMessages(String number) throws IOException{
+    	 
+    	 Vector<String> messages = new Vector<String>();
+    	 Patient p = readPatient(number);
+    	 messages.add(p.getMessage());
+    	 
+    	 return messages;
+     }
     
     }

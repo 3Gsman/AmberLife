@@ -1,10 +1,16 @@
 package control;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -13,13 +19,15 @@ import javax.swing.JTextField;
 
 import model.Doctor;
 import model.FileManager;
+import model.Patient;
 import view.AssistFr;
 import view.DoctorFr;
 import view.DoctorPatientFr;
+import view.ExitDialog;
 import view.PatientDialog;
 import view.PatientPanel;
 
-public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseListener{
+public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseListener, WindowListener, KeyListener{
 
 	String name;
 	DoctorFr df;
@@ -55,6 +63,13 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 		}
 		else if (e.getActionCommand().equals("NEW")) {
 			registerPatient();
+		}else if(e.getActionCommand().equals("SEARCH")) {
+			try {
+				searchPatient();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 	
@@ -103,6 +118,101 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void searchPatient() throws IOException {
+		String dni = df.getID();
+		FileManager id = new FileManager();
+		boolean found= false;
+		
+		Patient resultado = id.checkId(dni);
+		Patient p = null;
+		
+		for(int i = 0; i<doctor.getPatientlist().size(); i++) {
+			if(resultado.getId().equals(doctor.getPatientlist().get(i).getId())) {
+				found = true;
+				p = doctor.getPatientlist().get(i);
+				
+			}
+		}
+		resultado = p;
+		
+		if(found == true) {
+			System.out.println("Patient found.\n");		
+			
+			df.setVisible(false);
+			DoctorPatientFr dpf = new DoctorPatientFr();
+			DoctorPatientCtrl dpc = new DoctorPatientCtrl(dpf,doctor, resultado);
+	        dpc.setPreviousWindow(df);
+	        dpf.addController(dpc);
+			dpf.initialize();
+		    dpf.setVisible(true);
+			
+		}else {
+			Object frame = null;	//crea un objeto ventana
+            JOptionPane.showMessageDialog((Component) frame, "Patient not found.", "Error", JOptionPane.ERROR_MESSAGE);	//sale una ventana de diálogo para alertar de un error
+
+		}
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		ExitDialog.confirmExit();	
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {	
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		df.initializeList();
+        df.repaint();
+        df.setVisible(true);
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+	
+		
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -28,6 +28,7 @@ import javax.swing.border.EmptyBorder;
 import control.DoctorPatientCtrl;
 import model.Doctor;
 import model.ECG;
+import model.FileManager;
 import model.LocalizationService;
 import model.Patient;
 import model.User;
@@ -36,29 +37,93 @@ public class DoctorPatientFr extends JFrame {
 
 
 	private JPanelWithBackground contentPane;
+	public JPanel messagePanel = new JPanel(new BorderLayout());
 	public DoctorPatientCtrl controller;
-	private JPanel messagePanel;
-	private String mode = "";
+	private String mode = "ECGS";
 	
 	
 	public void addController(DoctorPatientCtrl a) {
 		this.controller = a;
 	}
 	
+	public DoctorPatientCtrl getController() {
+		return controller;
+	}
+	
 	
 	public DoctorPatientFr() {
 	}
 	
-	public JPanel getMessagePanel() {
-		return messagePanel;
-	}
-	
 	//DOESN'T REALLY WORK
-	public void initializeMessages() throws IOException {
-		if(mode != "MESSAGES") {
-			messagePanel = new JPanel();
-			messagePanel.setBackground( new Color(255, 255, 255, 100));
-			messagePanel.setLayout(new BorderLayout(0, 0));
+	private JPanel initializeMessages() throws IOException {
+		
+			//Get PROMETHEUS font
+				java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+				Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
+				Font sf = font; // will use sf to change the style;
+				try {
+					font = Font.createFont(Font.TRUETYPE_FONT, is);
+					sf = font;
+				} catch (FontFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			JPanel jp2 = new JPanel(new BorderLayout());
+			jp2.setBackground(new Color(255,255,255,140));
+			JScrollPane panel_2 = new JScrollPane();
+			panel_2.setBackground( new Color(255, 255, 255, 140) );
+			panel_2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			panel_2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			panel_2.setOpaque(false);
+			panel_2.getVerticalScrollBar().setUnitIncrement(18);
+			panel_2.getViewport().setOpaque(false);
+			panel_2.setViewportBorder(null);
+			panel_2.setBorder(null);
+			jp2.add(panel_2,BorderLayout.CENTER);
+				
+			JPanel new_msg = new JPanel();
+			new_msg.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			new_msg.setOpaque(false);
+			jp2.add(new_msg,BorderLayout.PAGE_END);
+			
+			JButton btnNewButton2 = new JButton("");
+			ImageIcon reply = new ImageIcon(getClass().getResource("/resources/Reply.png"));
+			btnNewButton2.setActionCommand("NEWMESSAGE");
+			btnNewButton2.addActionListener(controller);
+			btnNewButton2.setIcon(reply);
+			btnNewButton2.setBorderPainted(false);
+			btnNewButton2.setBorder(null);
+			btnNewButton2.setMargin(new Insets(0, 0, 0, 0));
+			btnNewButton2.setContentAreaFilled(false);
+			new_msg.add(btnNewButton2);
+			
+			FileManager id = new FileManager();
+			Vector<String> messages = id.readPatientMessages(controller.getPatient().getNumber());
+			if(messages.equals(null)) {
+				JPanel jp = new JPanel();
+				jp.setLayout(new BorderLayout());
+				jp.setOpaque(false);
+				JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomessages"));
+				sf = font.deriveFont(28f);
+				lblNewLabel_2.setFont(sf);
+				lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
+				lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+				jp.add(lblNewLabel_2, BorderLayout.CENTER);
+				panel_2.setViewportView(jp);
+			}else {
+				JPanel jp = new JPanel();
+				jp.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
+				jp.setOpaque(false);
+				for(String s : messages) {
+					MessagePanel mp = new MessagePanel(controller, new User("234553X", "John", "Doe"), "24-3-18", s);
+					jp.add(mp);
+				}
+				panel_2.setViewportView(jp);
+			}
+			return jp2;
+			/*jp.setBackground( new Color(255, 255, 255, 100));
+			jp.setLayout(new BorderLayout(0, 0));
 			
 			JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomessages"));
 			
@@ -76,31 +141,51 @@ public class DoctorPatientFr extends JFrame {
 			lblNewLabel_2.setFont(sf);
 			lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
 			lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-			messagePanel.add(lblNewLabel_2, BorderLayout.CENTER);
-			mode = "MESSAGES";
-			this.repaint();
-		}
+			jp.add(lblNewLabel_2, BorderLayout.CENTER);
+			mode = "MESSAGES";*/
+
 	}
 	
-	public void initializeECG() {
-		if(mode != "ECGS") {
+	private JPanel initializeECG() throws IOException {
+			JPanel jp = new JPanel();
 			JScrollPane sp = new JScrollPane();
 			sp.setBackground( new Color(0, 0, 0, 0) );
 			sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			sp.setOpaque(false);
+			sp.getVerticalScrollBar().setUnitIncrement(18);
 			JPanel viewport = new JPanel();
-			viewport.setOpaque(false);;
+			viewport.setOpaque(false);
 			viewport.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
 			loadECGPanel(controller.getPatient().getECGs(),viewport);
 			sp.setViewportView(viewport);
 			sp.getViewport().setOpaque(false);
+			sp.setViewportBorder(null);
+			sp.setBorder(null);
 			mode = "ECGS";
-			messagePanel = new JPanel();
-			messagePanel.setOpaque(false);
-			messagePanel.setLayout(new BorderLayout(0, 0));
-			messagePanel.add(sp, BorderLayout.CENTER);
+			jp.setOpaque(false);
+			jp.setLayout(new BorderLayout(0, 0));
+			jp.add(sp, BorderLayout.CENTER);
+			return jp;
+	}
+	
+	public void setModeECG() throws IOException {
+		if(mode != "ECGS") {
+			//this.getContentPane().remove(messagePanel);
+			messagePanel.removeAll();
+			messagePanel.add(initializeECG(), BorderLayout.CENTER);
 			this.repaint();
+			mode = "ECGS";
+		}
+	}
+	
+	public void setModeMessages() throws IOException {
+		if(mode != "MESSAGES") {
+			//this.getContentPane().remove(messagePanel);
+			messagePanel.removeAll();
+			messagePanel.add(initializeMessages(), BorderLayout.CENTER);
+			this.repaint();
+			mode = "MESSAGES";
 		}
 	}
 	
@@ -108,7 +193,7 @@ public class DoctorPatientFr extends JFrame {
 		
 		for(ECG e : v)
 			try {
-				viewport.add(new EcgPanel(e));
+				viewport.add(new EcgPanel(e,this.controller));
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -120,13 +205,14 @@ public class DoctorPatientFr extends JFrame {
 	 * @throws IOException 
 	 */
 	public void initialize() throws IOException {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(controller);
 		setBounds(100, 100, 619, 632);
-		Dimension dim = new Dimension(800, 620);
+		Dimension dim = new Dimension(1280, 820);
 		this.setMinimumSize(dim);
 		this.setSize(dim);
 		contentPane = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{40, 40, 40, 40, 20, 30, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 360, 0, 0, 0, 0};
@@ -342,7 +428,7 @@ public class DoctorPatientFr extends JFrame {
 		lblNewLabeldata5.setFont(labelfont);
 		greybox5.add(lblNewLabeldata5);
 								
-		JLabel lblNewLabel9= new JLabel("  " + controller.getPatient().getGender());
+		JLabel lblNewLabel9= new JLabel("  " + controller.getPatient().getGender().split(".png")[0]);
 		lblNewLabel9.setForeground(Color.DARK_GRAY);
 		lblNewLabel9.setFont(datafont);
 		field_5.add(lblNewLabel9);
@@ -444,7 +530,7 @@ public class DoctorPatientFr extends JFrame {
 		contentPane.add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 	
-		JLabel lblNewLabel = new JLabel(" " + LocalizationService.getWord("user") + ": "+ controller.getDoctor().getName());
+		JLabel lblNewLabel = new JLabel(" " + LocalizationService.getWord("user") + ": "+ controller.getDoctor().getName() + controller.getDoctor().getLastname().split(" ")[0]);
 		sf = font.deriveFont(24f);
 		lblNewLabel.setFont(sf);
 		lblNewLabel.setForeground(new Color(255, 255, 255, 255));
@@ -474,6 +560,10 @@ public class DoctorPatientFr extends JFrame {
 		
 		contentPane.add(messagePanel, gbc_panel_2);*/
 	
+		
+		messagePanel.setOpaque(false);
+		messagePanel.setLayout(new BorderLayout());
+		messagePanel.add(initializeECG(), BorderLayout.CENTER);
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
 		gbc_panel_2.gridheight = 17;

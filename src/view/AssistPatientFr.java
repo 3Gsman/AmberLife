@@ -7,13 +7,18 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import control.AssistPatientCtrl;
 import model.LocalizationService;
+import model.User;
 
 import javax.swing.JSplitPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import java.awt.CardLayout;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.GridBagLayout;
@@ -40,15 +45,21 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 
 public class AssistPatientFr extends JFrame {
 
 	private JPanelWithBackground contentPane;
-	public ActionListener controller;
+	public AssistPatientCtrl controller;
 	
+	String name;
+	String psurname;
+	String id;
+	String ssn;
+	String user;
 	
-	public void addController(ActionListener a) {
+	public void addController(AssistPatientCtrl a) {
 		this.controller = a;
 	}
 	
@@ -56,16 +67,40 @@ public class AssistPatientFr extends JFrame {
 	public AssistPatientFr() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public String getName(){
+		return name;
+	}
+	public String getLastname(){
+		return psurname;
+	}
+	public String getId(){
+		return id;
+	}
+	public String getSsn(){
+		return ssn;
+	}
+	public String getUser(){
+		return user;
+	}
+	
+	
 
 
 	/**
 	 * Initialize the frame.
 	 * @throws IOException 
 	 */
-	public void initialize(String pname, String psurname, String id, String ssn, String user) throws IOException {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public void initialize(String pname, String psurname, String id, String ssn, Vector<String> messages, String user) throws IOException {
+		this.name = name;
+		this.psurname = psurname;
+		this.id = id;
+		this.ssn = ssn;
+		this.user = user;
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(controller);
 		setBounds(100, 100, 619, 632);
-		Dimension d = new Dimension(800, 620);
+		Dimension d = new Dimension(1280, 820);
 		this.setMinimumSize(d);
 		this.setSize(d);
 		contentPane = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
@@ -282,24 +317,80 @@ public class AssistPatientFr extends JFrame {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel.add(lblNewLabel, BorderLayout.EAST);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground( new Color(255, 255, 255, 100));
-		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_2.gridheight = 16;
-		gbc_panel_2.gridwidth = 15;
-		gbc_panel_2.fill = GridBagConstraints.BOTH;
-		gbc_panel_2.gridx = 4;
-		gbc_panel_2.gridy = 1;
-		contentPane.add(panel_2, gbc_panel_2);
-		panel_2.setLayout(new BorderLayout(0, 0));
+		JPanel msg = new JPanel();
+		msg.setLayout(new BorderLayout());
+		msg.setBackground(new Color(255,255,255,140));
+		GridBagConstraints gbc_panel_msg = new GridBagConstraints();
+		gbc_panel_msg.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_msg.gridheight = 16;
+		gbc_panel_msg.gridwidth = 15;
+		gbc_panel_msg.fill = GridBagConstraints.BOTH;
+		gbc_panel_msg.gridx = 4;
+		gbc_panel_msg.gridy = 1;
+		contentPane.add(msg, gbc_panel_msg);	
 		
-		JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomessages"));
-		sf = font.deriveFont(28f);
-		lblNewLabel_2.setFont(sf);
-		lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(lblNewLabel_2, BorderLayout.CENTER);
+		JScrollPane panel_2 = new JScrollPane();
+		panel_2.setBackground( new Color(255, 255, 255, 140) );
+		panel_2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		panel_2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		panel_2.setOpaque(false);
+		panel_2.getVerticalScrollBar().setUnitIncrement(18);
+		panel_2.getViewport().setOpaque(false);
+		panel_2.setViewportBorder(null);
+		panel_2.setBorder(null);
+		msg.add(panel_2,BorderLayout.CENTER);
+		
+		JPanel new_msg = new JPanel();
+		new_msg.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		new_msg.setOpaque(false);
+		msg.add(new_msg,BorderLayout.PAGE_END);
+		
+		JButton btnNewButton2 = new JButton("");
+		ImageIcon reply = new ImageIcon(getClass().getResource("/resources/Reply.png"));
+		btnNewButton2.setActionCommand("NEWMESSAGE");
+		btnNewButton2.addActionListener(controller);
+		btnNewButton2.setIcon(reply);
+		btnNewButton2.setBorderPainted(false);
+		btnNewButton2.setBorder(null);
+		btnNewButton2.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton2.setContentAreaFilled(false);
+		new_msg.add(btnNewButton2);
+		
+		
+		//If there's messages
+		
+		if(messages.equals(null)) {
+			JPanel jp = new JPanel();
+			jp.setLayout(new BorderLayout());
+			jp.setOpaque(false);
+			JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomessages"));
+			sf = font.deriveFont(28f);
+			lblNewLabel_2.setFont(sf);
+			lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
+			lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+			jp.add(lblNewLabel_2, BorderLayout.CENTER);
+			panel_2.setViewportView(jp);
+		}else {
+			JPanel jp = new JPanel();
+			jp.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
+			jp.setOpaque(false);
+			for(String s : messages) {
+				MessagePanel mp = new MessagePanel(controller, new User("234553X", "John", "Doe"), "24-3-18", s);
+				jp.add(mp);
+			}
+			panel_2.setViewportView(jp);
+			/*for(int i = 0; i < messages.size(); i++) {	
+				JPanel panelMessage = new JPanel();
+				panelMessage.setBackground(Color.WHITE);
+				panel_2.add(panelMessage);
+				JLabel lblNewLabel_2 = new JLabel(messages.get(i));
+				sf = font.deriveFont(28f);
+				lblNewLabel_2.setFont(sf);
+				lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
+				lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+				panel_2.add(lblNewLabel_2, BorderLayout.CENTER);
+			}*/
+		}
 		
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setBorderPainted(false);

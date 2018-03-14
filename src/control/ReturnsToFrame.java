@@ -13,4 +13,7 @@ public class ReturnsToFrame {
 	public void setPreviousWindow(JFrame prev) {
 		this.previousWindow = prev;
 	}
+	public JFrame getPreviousWindow() {
+		return previousWindow;
+	}
 }

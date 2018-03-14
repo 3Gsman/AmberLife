@@ -8,6 +8,7 @@
 	import java.awt.Insets;
 	import javax.swing.JButton;
 	import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 	import java.awt.Color;
@@ -27,14 +28,18 @@ public class EcgPanel extends JPanel {
 		
 		ECG e;
 		
+		public ECG getECG() {
+			return e;
+		}
 		
-		public  EcgPanel(ECG e) throws IOException {
+		
+		public  EcgPanel(ECG e, MouseListener con) throws IOException {
 			this.e=e;
 			GridBagLayout gridBagLayout = new GridBagLayout();
 			gridBagLayout.columnWidths = new int[]{10, 60, 180, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 60, 180, 10, 0, 0};
 			gridBagLayout.rowHeights = new int[]{15, 30, 15, 30, 40, 15, 19, 0, 15};
 			gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.2, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-			gridBagLayout.rowWeights = new double[]{0.2, 0.0, 0.2, 0.0, 2.0, 0.2, 0.0, 1.0, 0.2};
+			gridBagLayout.rowWeights = new double[]{0.2, 0.0, 0.2, 0.0, 2.0, 0.2, 0.0, 1.0, 0.2, Double.MIN_VALUE};
 			setLayout(gridBagLayout);
 			
 			JPanel panel = new JPanel();
@@ -68,7 +73,8 @@ public class EcgPanel extends JPanel {
 			
 			JLabel lblNewLabel = new JLabel(LocalizationService.getWord("name"));
 			lblNewLabel.setForeground(Color.WHITE);
-			lblNewLabel.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			sf = font.deriveFont(Font.PLAIN, 22f);
+			lblNewLabel.setFont(sf);
 			panel_2.add(lblNewLabel);
 			
 			JLabel label_1 = new JLabel(" ");
@@ -155,7 +161,8 @@ public class EcgPanel extends JPanel {
 			
 			
 			//PAnel aqui
-			JPanel panel_6 = new JPanel();
+			
+			PreviewGraphPanel panel_6 = new PreviewGraphPanel(e);
 			panel_6.setBackground(Color.DARK_GRAY);
 			GridBagConstraints gbc_panel_6 = new GridBagConstraints();
 			gbc_panel_6.gridwidth = 11;
@@ -165,6 +172,8 @@ public class EcgPanel extends JPanel {
 			gbc_panel_6.gridx = 7;
 			gbc_panel_6.gridy = 0;
 			add(panel_6, gbc_panel_6);
+			
+			this.addMouseListener(con);
 		
 		}
 

@@ -99,7 +99,7 @@ public  class LocalizationService {
 		spanish.put("status", "estado");
 		galician.put("status", "estado");
 		
-		english.put("date", "fecha");
+		english.put("date", "date");
 		spanish.put("date", "fecha");
 		galician.put("date", "fecha");
 		
@@ -110,6 +110,30 @@ public  class LocalizationService {
 		english.put("assist", "assist");
 		spanish.put("assist", "tecn");
 		galician.put("assist", "tecn");
+
+		english.put("cancel", "cancel");
+		spanish.put("cancel", "cancelar");
+		galician.put("cancel", "cancelar");
+		
+		english.put("confirm", "confirm");
+		spanish.put("confirm", "confirmar");
+		galician.put("confirm", "confirmar");
+		
+		english.put("compare", "compare");
+		spanish.put("compare", "comparar");
+		galician.put("compare", "comparar");
+		
+		english.put("from", "from");
+		spanish.put("from", "de");
+		galician.put("from", "de");
+		
+		english.put("date", "date");
+		spanish.put("date", "fecha");
+		galician.put("date", "fecha");
+		
+		english.put("frequency", "frequency");
+		spanish.put("frequency", "frecuencia");
+		galician.put("frequency", "frecuencia");
 		
 	}
 	

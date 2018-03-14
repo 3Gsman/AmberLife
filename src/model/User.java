@@ -4,6 +4,17 @@ public class User {
 	String name;
 	String lastname;
 	String id;
+
+	
+	public User(String id, String name, String lastname) {
+		this.id = id;
+		this.name = name;
+		this.lastname = lastname;
+	}
+	
+	public User() {
+		
+	}
 	
 	public String getName() {
 		return name;

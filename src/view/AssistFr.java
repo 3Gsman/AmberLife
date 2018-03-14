@@ -47,7 +47,13 @@ import javax.swing.JComboBox;
 	
 		public JTextField textField;
 		AssistCtrl controller;
+		JButton btnNewButton = new JButton(LocalizationService.getWord("id"));
+		JButton button = new JButton(LocalizationService.getWord("ssn"));
+		boolean mode = true;
 		
+		public boolean getMode() {
+			return mode;
+		}
 	
 		/**
 		 * Launch the application.
@@ -60,7 +66,7 @@ import javax.swing.JComboBox;
 		 * Create the application.
 		 */
 		
-		public AssistFr() {
+		public  AssistFr() {
 			
 		}
 		
@@ -72,15 +78,82 @@ import javax.swing.JComboBox;
 			this.controller = controlador;
 		}
 		
+		public void switchbuttons() {
+			mode = !mode;
+			setButtons();
+		}
+		
+		public void setButtons() {
+			java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+			Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
+			Font sf = font; // will use sf to change the style;
+			try {
+				font = Font.createFont(Font.TRUETYPE_FONT, is);
+				sf = font;
+			} catch (FontFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//Set Assistants button
+			 if(!mode) {
+				sf = font.deriveFont(22f);
+				button.setFont(sf);
+				button.setOpaque(true);
+				button.setBackground(new Color(255,255,255,255));
+				button.setBorderPainted(false);
+				sf = font.deriveFont(Font.BOLD, 28f);
+				button.setFont(sf);
+				button.setForeground(Color.DARK_GRAY);
+			}
+			else {
+				sf = font.deriveFont(22f);
+				button.setFont(sf);
+				button.setOpaque(false);
+				button.setBorderPainted(false);
+				button.setContentAreaFilled(false);
+				button.setBorder(null);
+				sf = font.deriveFont(Font.BOLD, 28f);
+				button.setFont(sf);
+				button.setForeground(Color.WHITE);
+			}
+			 //Set Doctors Button
+			if(mode) {
+				btnNewButton.setOpaque(true);
+				btnNewButton.setBackground(new Color(255,255,255,255));
+				btnNewButton.setBorderPainted(false);
+				sf = font.deriveFont(Font.BOLD, 28f);
+				btnNewButton.setFont(sf);
+				btnNewButton.setForeground(Color.DARK_GRAY);
+				btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
+				btnNewButton.setContentAreaFilled(true);
+				}
+			else {
+				sf = font.deriveFont(22f);
+				btnNewButton.setFont(sf);
+				btnNewButton.setOpaque(false);
+				btnNewButton.setBorderPainted(false);
+				btnNewButton.setContentAreaFilled(false);
+				btnNewButton.setBorder(null);
+				sf = font.deriveFont(Font.BOLD, 28f);
+				btnNewButton.setFont(sf);
+				btnNewButton.setForeground(Color.WHITE);
+				btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
+				}
+		}
+		
 
 		/**
 		 * Initialize the contents of the frame.
 		 * @throws IOException 
 		 */
 		public void initialize() throws IOException {
+			this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			this.addWindowListener(controller);
 			this.setBackground(new Color(204, 0, 0));
 			this.setBounds(100, 100, 798, 913);
-			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.getContentPane().setLayout(new BorderLayout(0, 0));	
 			this.setTitle("AmberLife");
 			ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
@@ -109,11 +182,31 @@ import javax.swing.JComboBox;
 			this.getContentPane().add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
 			gbl_panel.columnWidths = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-			gbl_panel.rowHeights = new int[]{0, 80, 50, 20, 0, 0, 10, 60, 60, 10, 60, 0, 0, 30, 0};
+			gbl_panel.rowHeights = new int[]{30, 80, 50, 20, 0, 0, 10, 60, 60, 10, 60, 0, 0, 30, 0};
 			gbl_panel.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-			gbl_panel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			sf = font.deriveFont(Font.BOLD, 11f);
+			
+			JPanel paneluser = new JPanel();
+			paneluser.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			paneluser.setOpaque(false);
+			GridBagConstraints gbc_paneluser = new GridBagConstraints();
+			gbc_paneluser.gridwidth = 20;
+			gbc_paneluser.gridheight = 1;
+			gbc_paneluser.insets = new Insets(5, 0, 5, 5);
+			gbc_paneluser.fill = GridBagConstraints.BOTH;
+			gbc_paneluser.gridx = 0;
+			gbc_paneluser.gridy = 0;
+			panel.add(paneluser,gbc_paneluser);
+			
+			JLabel lblUser = new JLabel(" " + LocalizationService.getWord("user") + ": " 
+								+ controller.getTecnico().getName() + " " + controller.getTecnico().getLastname());
+			sf = font.deriveFont(22f);
+			lblUser.setForeground(Color.WHITE);
+			lblUser.setOpaque(false);
+			lblUser.setFont(sf);
+			paneluser.add(lblUser);
 			
 			JPanel panel_1 = new JPanel();
 			panel_1.setOpaque(false);
@@ -138,31 +231,25 @@ import javax.swing.JComboBox;
 			sf = font.deriveFont(28f);
 			sf = font.deriveFont(28f);
 			
-			JButton btnNewButton = new JButton(LocalizationService.getWord("id"));
-			btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
-			sf = font.deriveFont(28f);
-			btnNewButton.setFont(sf);
-			btnNewButton.setContentAreaFilled(true);
-			btnNewButton.setBackground(Color.white);
+			
+			
+			//Buttons
+			button.addActionListener(controller);
+			button.setActionCommand("SSN");
+			btnNewButton.addActionListener(controller);
+			btnNewButton.setActionCommand("ID");
+			setButtons();
+			
 			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 			gbc_btnNewButton.fill = GridBagConstraints.BOTH;
-			gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
+			gbc_btnNewButton.insets = new Insets(0, 0, 0, 0);
 			gbc_btnNewButton.gridx = 9;
 			gbc_btnNewButton.gridy = 7;
 			panel.add(btnNewButton, gbc_btnNewButton);
 			
-			JButton button = new JButton(LocalizationService.getWord("ssn"));
-			sf = font.deriveFont(28f);
-			button.setFont(sf);
-			button.setBorderPainted(false);
-			button.setBorder(null);
-			button.setMargin(new Insets(0, 0, 0, 0));
-			button.setContentAreaFilled(false);
-			button.setHorizontalAlignment(SwingConstants.LEFT);
-			button.setForeground(Color.white);
 			GridBagConstraints gbc_button = new GridBagConstraints();
 			gbc_button.fill = GridBagConstraints.BOTH;
-			gbc_button.insets = new Insets(0, 0, 5, 5);
+			gbc_button.insets = new Insets(0, 0, 0, 0);
 			gbc_button.gridx = 10;
 			gbc_button.gridy = 7;
 			panel.add(button, gbc_button);
@@ -185,6 +272,7 @@ import javax.swing.JComboBox;
 			btnNewButton_1.setBackground(Color.DARK_GRAY);
 			btnNewButton_1.addActionListener(controller);
 			btnNewButton_1.setActionCommand("SEARCH");
+			btnNewButton_1.setBorder(null);
 			sf = font.deriveFont(28f);
 			btnNewButton_1.setFont(sf);
 			btnNewButton_1.setForeground(Color.WHITE);

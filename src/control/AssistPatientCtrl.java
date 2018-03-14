@@ -1,25 +1,39 @@
 package control;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.util.Vector;
 
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import model.ECG;
 import model.FileManager;
 import view.AssistMeasureFr;
+import view.AssistPatientFr;
+import view.DoctorDialog;
+import view.ExitDialog;
+import view.MessagePanel;
+import view.NewMessageDialog;
 
-public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener, KeyListener{
+public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener, KeyListener, WindowListener{
 	
-	JFrame patient;
+	AssistPatientFr patient;
 	
-	public AssistPatientCtrl(JFrame f) {
+	public AssistPatientCtrl(AssistPatientFr f) {
 		patient = f;
+		
+		
 	}
 	
 	
@@ -80,7 +94,73 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 			returnToPrevious();
 			patient.dispose();
 			
+		}else  if (e.getActionCommand().equals("REPLY")){ 	
+			 try {
+				MessagePanel mp = (MessagePanel) ((Component) e.getSource()).getParent();
+				NewMessageDialog nmd = new NewMessageDialog(patient.getName(), patient.getLastname(),
+						"From: " + mp.getUser().getName() + " " + mp.getUser().getLastname() + " on " + mp.getDate() + "\n"
+						+ "RE: " + mp.getMessage());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}else  if (e.getActionCommand().equals("NEWMESSAGE")){ 
+			try {
+				NewMessageDialog nmd = new NewMessageDialog(patient.getName(), patient.getLastname(),"");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
+		
+	}
+
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		ExitDialog.confirmExit();
+	}
+
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 

@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import control.AssistMeasureCtrl;
 import model.ECG;
+import model.LocalizationService;
 
 import java.awt.GridBagLayout;
 import javax.swing.JRadioButton;
@@ -41,7 +42,8 @@ public class AssistMeasureFr extends JFrame {
 	 * @throws IOException 
 	 */
 	public void initialize() throws IOException {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(controller);
 		setBounds(100, 100, 757, 535);
 		contentPane =  new JPanelWithBackground(getClass().getResource("/resources/BG.png"));	
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -112,7 +114,7 @@ public class AssistMeasureFr extends JFrame {
 		panel.add(gr, gbc_panel_1);
 		 
 		
-		if (controller.getECG() != null && controller.getECG().getReport() != null) {
+		/*if (controller.getECG() != null && controller.getECG().getReport() != null) {
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -124,9 +126,9 @@ public class AssistMeasureFr extends JFrame {
 			gbc_scrollPane.gridx = 1;
 			gbc_scrollPane.gridy = 10;
 			panel.add(scrollPane, gbc_scrollPane);
-		}
+		}*/
 		
-		JButton btnNewButton = new JButton("cancel");
+		JButton btnNewButton = new JButton(LocalizationService.getWord("cancel"));
 		sf = font.deriveFont(32f);
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.setFont(sf);
@@ -143,7 +145,7 @@ public class AssistMeasureFr extends JFrame {
 		gbc_btnNewButton.gridy = 13;
 		panel.add(btnNewButton, gbc_btnNewButton);
 		
-		JButton button = new JButton("confirm");
+		JButton button = new JButton(LocalizationService.getWord("confirm"));
 		sf = font.deriveFont(32f);
 		button.setBorderPainted(false);
 		button.setFont(sf);

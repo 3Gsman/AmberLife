@@ -15,6 +15,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -22,7 +24,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-public class Main implements ActionListener, KeyListener {
+public class Main implements ActionListener, KeyListener, WindowListener {
 
     LoginFr vistaLogin;
     JTextField idBox;
@@ -88,6 +90,7 @@ public class Main implements ActionListener, KeyListener {
         try {
             String resultado[] = comprobar.checkUser(usuario, Password);
             if (resultado[0] == "true") {
+            	vistaLogin.resetText();
                 switch (resultado[1]) {
                     case "medico":
                         //Abre ventana DoctorFr
@@ -125,7 +128,7 @@ public class Main implements ActionListener, KeyListener {
         DoctorCtrl dc = new DoctorCtrl(usuario,vp);
         dc.setPreviousWindow(vistaLogin);
         vp.addController(dc);
-        vp.initialize(dc.doctor.getPatientlist());
+        vp.initialize();
         vp.setVisible(true);
         
     }
@@ -171,6 +174,48 @@ public class Main implements ActionListener, KeyListener {
 			e.printStackTrace();
 		}
     }
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+    public void windowClosing(WindowEvent e)
+    { 
+    	ExitDialog.confirmExit();
+    }
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
     
     /*EventQueue.invokeLater(new Runnable() {

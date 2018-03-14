@@ -36,10 +36,11 @@ import control.AdminCtrl;
 public class AdminFr extends JFrame {
 
 	private JPanel contentPane;
-	private ActionListener controller;
+	private AdminCtrl controller;
 	private boolean mode;
-
-
+	private JButton btnAssistants = new JButton(LocalizationService.getWord("assistants"));
+	private JButton btnNewButton = new JButton(LocalizationService.getWord("doctors"));
+	private JPanel display = new JPanel();
 
 	public AdminFr() {
 		
@@ -54,7 +55,7 @@ public class AdminFr extends JFrame {
 	}
 	
 	
-	public void addController(ActionListener a) {
+	public void addController(AdminCtrl a) {
 		this.controller = a;
 		
 	}
@@ -62,6 +63,147 @@ public class AdminFr extends JFrame {
 	public ActionListener getController() {
 		return controller;
 	}
+	
+	
+	public void initializeDoctors(Vector<? extends User> users) {
+		display.removeAll();
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBackground( new Color(255, 255, 255, 140) );
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setOpaque(false);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(18);
+		scrollPane.getViewport().setOpaque(false);
+		scrollPane.setViewportBorder(null);
+		scrollPane.setBorder(null);
+		//Scroll speed here
+		scrollPane.getVerticalScrollBar().setUnitIncrement(18);
+		display.add(scrollPane, BorderLayout.CENTER);
+		
+		//Viewport
+		JPanel viewport = new JPanel();
+		viewport.setBackground(Color.WHITE);	
+		viewport.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
+		viewport.setBackground( new Color(255, 255, 255, 255) );
+		viewport.setOpaque(false);
+		//Contents go here
+		//Si el bool es true, se inicia con doctores, si no, con assistants
+		loadUserPane(users, viewport);
+		
+		JButton btnNewButton2 = new JButton("");
+		btnNewButton2.setBorderPainted(false);
+		btnNewButton2.setBorder(null);
+		btnNewButton2.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton2.setContentAreaFilled(false);
+		btnNewButton2.setActionCommand("NEWDOCTOR");
+		btnNewButton2.addActionListener(controller);
+		btnNewButton2.setIcon(new ImageIcon(getClass().getResource("/resources/addbutton.png")));
+		viewport.add(btnNewButton2);
+		
+		scrollPane.setViewportView(viewport);
+		mode = true;
+	}
+	
+	public void initializeAssistants( Vector<? extends User> users) {
+		display.removeAll();
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBackground( new Color(255, 255, 255, 140) );
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setOpaque(false);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(18);
+		scrollPane.getViewport().setOpaque(false);
+		scrollPane.setViewportBorder(null);
+		scrollPane.setBorder(null);
+		//Scroll speed here
+		scrollPane.getVerticalScrollBar().setUnitIncrement(18);
+		display.add(scrollPane, BorderLayout.CENTER);
+		
+		//Viewport
+		JPanel viewport = new JPanel();
+		viewport.setBackground(Color.WHITE);	
+		viewport.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
+		viewport.setBackground( new Color(255, 255, 255, 255) );
+		viewport.setOpaque(false);
+		//Contents go here
+		//Si el bool es true, se inicia con doctores, si no, con assistants
+		loadUserPane(users, viewport);
+		
+		JButton btnNewButton2 = new JButton("");
+		btnNewButton2.setBorderPainted(false);
+		btnNewButton2.setBorder(null);
+		btnNewButton2.setMargin(new Insets(0, 0, 0, 0));
+		btnNewButton2.setContentAreaFilled(false);
+		btnNewButton2.setActionCommand("NEWASSIST");
+		btnNewButton2.addActionListener(controller);
+		btnNewButton2.setIcon(new ImageIcon(getClass().getResource("/resources/addbutton.png")));
+		viewport.add(btnNewButton2);
+		
+		
+		scrollPane.setViewportView(viewport);
+		mode = false;
+	}
+	
+	public void setButtons() {
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
+		Font sf = font; // will use sf to change the style;
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT, is);
+			sf = font;
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//Set Assistants button
+		 if(!mode) {
+			sf = font.deriveFont(22f);
+			btnAssistants.setFont(sf);
+			btnAssistants.setOpaque(true);
+			btnAssistants.setBackground(Color.WHITE);
+			btnAssistants.setBorderPainted(false);
+			sf = font.deriveFont(Font.BOLD, 28f);
+			btnAssistants.setFont(sf);
+			btnAssistants.setForeground(Color.DARK_GRAY);
+		}
+		else {
+			sf = font.deriveFont(22f);
+			btnAssistants.setFont(sf);
+			btnAssistants.setOpaque(false);
+			btnAssistants.setBorderPainted(false);
+			btnAssistants.setContentAreaFilled(false);
+			btnAssistants.setBorder(null);
+			sf = font.deriveFont(Font.BOLD, 28f);
+			btnAssistants.setFont(sf);
+			btnAssistants.setForeground(Color.WHITE);
+		}
+		 //Set Doctors Button
+		if(mode) {
+			sf = font.deriveFont(22f);
+			btnNewButton.setFont(sf);
+			btnNewButton.setOpaque(true);
+			btnNewButton.setBackground(Color.WHITE);
+			btnNewButton.setBorderPainted(false);
+			sf = font.deriveFont(Font.BOLD, 28f);
+			btnNewButton.setFont(sf);
+			btnNewButton.setForeground(Color.DARK_GRAY);
+			}
+		else {
+			sf = font.deriveFont(22f);
+			btnNewButton.setFont(sf);
+			btnNewButton.setOpaque(false);
+			btnNewButton.setBorderPainted(false);
+			btnNewButton.setContentAreaFilled(false);
+			btnNewButton.setBorder(null);
+			sf = font.deriveFont(Font.BOLD, 28f);
+			btnNewButton.setFont(sf);
+			btnNewButton.setForeground(Color.WHITE);
+			}
+	}
+	
 	/**
 	 * Create the frame.
 	 * @return 
@@ -69,7 +211,8 @@ public class AdminFr extends JFrame {
 	 */
 	public void initialize(boolean doctors, Vector<? extends User> users, Dimension d) throws IOException {
 		this.mode = doctors;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(controller);
 		setBounds(100, 100, 850, 722);
 		contentPane = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -100,29 +243,9 @@ public class AdminFr extends JFrame {
 			e.printStackTrace();
 		}
 			
-		
-		JButton btnNewButton = new JButton(LocalizationService.getWord("doctors"));
-		if(mode) {
-			sf = font.deriveFont(22f);
-			btnNewButton.setFont(sf);
-			btnNewButton.setOpaque(true);
-			btnNewButton.setBackground(Color.WHITE);
-			btnNewButton.setBorderPainted(false);
-			sf = font.deriveFont(Font.BOLD, 28f);
-			btnNewButton.setFont(sf);
-			btnNewButton.setForeground(Color.DARK_GRAY);
-		}
-		else {
-			sf = font.deriveFont(22f);
-			btnNewButton.setFont(sf);
-			btnNewButton.setOpaque(false);
-			btnNewButton.setBorderPainted(false);
-			btnNewButton.setContentAreaFilled(false);
-			btnNewButton.setBorder(null);
-			sf = font.deriveFont(Font.BOLD, 28f);
-			btnNewButton.setFont(sf);
-			btnNewButton.setForeground(Color.WHITE);
-		}
+		//Set buttons
+		setButtons();
+
 		btnNewButton.setActionCommand("DOCTORS");
 		btnNewButton.addActionListener(controller);
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -132,28 +255,6 @@ public class AdminFr extends JFrame {
 		gbc_btnNewButton.gridy = 2;
 		contentPane.add(btnNewButton, gbc_btnNewButton);
 		
-		JButton btnAssistants = new JButton(LocalizationService.getWord("assistants"));
-		if(!mode) {
-			sf = font.deriveFont(22f);
-			btnAssistants.setFont(sf);
-			btnAssistants.setOpaque(true);
-			btnAssistants.setBackground(Color.WHITE);
-			btnAssistants.setBorderPainted(false);
-			sf = font.deriveFont(Font.BOLD, 28f);
-			btnAssistants.setFont(sf);
-			btnAssistants.setForeground(Color.DARK_GRAY);
-		}
-		else {
-			sf = font.deriveFont(22f);
-			btnAssistants.setFont(sf);
-			btnAssistants.setOpaque(false);
-			btnAssistants.setBorderPainted(false);
-			btnAssistants.setContentAreaFilled(false);
-			btnAssistants.setBorder(null);
-			sf = font.deriveFont(Font.BOLD, 28f);
-			btnAssistants.setFont(sf);
-			btnAssistants.setForeground(Color.WHITE);
-		}
 		btnAssistants.setActionCommand("ASSISTANTS");
 		btnAssistants.addActionListener(controller);
 		GridBagConstraints gbc_btnAssistants = new GridBagConstraints();
@@ -162,8 +263,8 @@ public class AdminFr extends JFrame {
 		gbc_btnAssistants.gridy = 2;
 		contentPane.add(btnAssistants, gbc_btnAssistants);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground( new Color(0, 0, 0, 0));
+		
+		
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridheight = 14;
 		gbc_panel.gridwidth = 21;
@@ -171,47 +272,12 @@ public class AdminFr extends JFrame {
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 3;
-		contentPane.add(panel, gbc_panel);
-		panel.setLayout(new BorderLayout(0, 0));
+		display.setBackground(new Color(255,255,255,255));
+		display.setLayout(new BorderLayout());
+		initializeDoctors(users);
+		contentPane.add(display, gbc_panel);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBackground( new Color(0, 0, 0, 0) );
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		panel.add(scrollPane, BorderLayout.CENTER);
 		
-		//Viewport
-		JPanel viewport = new JPanel();
-		viewport.setBackground(Color.WHITE);	
-		viewport.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
-		viewport.setBackground( new Color(255, 255, 255, 255) );
-		//Contents go here
-		//Si el bool es true, se inicia con doctores, si no, con assistants
-		loadUserPane(users, viewport);
-		
-		if(mode) {
-			JButton btnNewButton2 = new JButton("");
-			btnNewButton2.setBorderPainted(false);
-			btnNewButton2.setBorder(null);
-			btnNewButton2.setMargin(new Insets(0, 0, 0, 0));
-			btnNewButton2.setContentAreaFilled(false);
-			btnNewButton2.setActionCommand("NEWDOCTOR");
-			btnNewButton2.addActionListener(controller);
-			btnNewButton2.setIcon(new ImageIcon(getClass().getResource("/resources/addbutton.png")));
-			viewport.add(btnNewButton2);
-		}else {
-			JButton btnNewButton2 = new JButton("");
-			btnNewButton2.setBorderPainted(false);
-			btnNewButton2.setBorder(null);
-			btnNewButton2.setMargin(new Insets(0, 0, 0, 0));
-			btnNewButton2.setContentAreaFilled(false);
-			btnNewButton2.setActionCommand("NEWASSIST");
-			btnNewButton2.addActionListener(controller);
-			btnNewButton2.setIcon(new ImageIcon(getClass().getResource("/resources/addbutton.png")));
-			viewport.add(btnNewButton2);
-		}
-		
-		scrollPane.setViewportView(viewport);
 		
 		JButton btnLogout = new JButton("");
 		btnLogout.setBorderPainted(false);

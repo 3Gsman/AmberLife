@@ -1,17 +1,28 @@
 package control;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 
 import model.Doctor;
+import model.ECG;
 import model.Patient;
+import view.AssistMeasureFr;
+import view.CompareGraphPanel;
+import view.DoctorMeasureFr;
 import view.DoctorPatientFr;
+import view.EcgPanel;
+import view.ExitDialog;
+import view.MessagePanel;
 import view.NewMessageDialog;
+import view.PatientPanel;
 
-public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener, MouseListener {
+public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener, MouseListener, WindowListener {
 	
 	Patient p;
 	Doctor d;
@@ -41,7 +52,23 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		try {
+			EcgPanel ecg = (EcgPanel) e.getSource();
+			DoctorMeasureFr dmf = new DoctorMeasureFr();
+			DoctorMeasureCtrl dmc = new DoctorMeasureCtrl(dmf,ecg.getECG());
+			dmc.setPreviousWindow(frame);
+			frame.setVisible(false);
+			dmf.addController(dmc);
+			dmf.initialize();
+			dmf.setVisible(true);
+			System.out.println("Selected ECG: " + ecg.getECG().getName());
+		}
+		catch(ClassCastException cce){
+			System.out.println("BAD CAST at DoctorPatientCtrl");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 	}
 
@@ -77,9 +104,24 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 			frame.dispose();
 		}
 		else if (e.getActionCommand().equals("ECGS")){ 
-			System.out.println("ECGS");
-			frame.initializeECG();
-			frame.setVisible(true);
+			try {
+				System.out.println("ECGS");
+				frame.setModeECG();
+				frame.setVisible(true);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}else  if (e.getActionCommand().equals("REPLY")){ 	
+			 try {
+				 MessagePanel mp = (MessagePanel) ((Component) e.getSource()).getParent();
+				 NewMessageDialog nmd = new NewMessageDialog(p.getName(), p.getLastname(),
+							"From: " + mp.getUser().getName() + " " + mp.getUser().getLastname() + " on " + mp.getDate() + "\n"
+							 + "RE: " + mp.getMessage());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}else if (e.getActionCommand().equals("NEWMESSAGE")){ 
 			System.out.println("New Message");
 			NewMessage();
@@ -88,7 +130,7 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 		else if (e.getActionCommand().equals("MESSAGES")){ 
 			try {
 				System.out.println("MESSAGES");
-				frame.initializeMessages();
+				frame.setModeMessages();
 				frame.setVisible(true);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
@@ -99,7 +141,73 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 	}
 	
 	public void NewMessage() {
-		NewMessageDialog nmd = new NewMessageDialog(frame, p);
+		try {
+			NewMessageDialog nmd = new NewMessageDialog(p.getName(),p.getLastname(),"");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void compare(ECG first, ECG second) {
+		try {
+			CompareGraphPanel cgp = new CompareGraphPanel(first, second);
+			DoctorMeasureFr dmf = new DoctorMeasureFr();
+			DoctorMeasureCtrl dmc = new DoctorMeasureCtrl(dmf,cgp);
+			dmc.setPreviousWindow(frame);
+			frame.setVisible(false);
+			dmf.addController(dmc);
+			dmf.initialize();
+			dmf.setVisible(true);
+		}
+		catch(ClassCastException cce){
+			System.out.println("BAD CAST at DoctorPatientCtrl");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		ExitDialog.confirmExit();
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -15,6 +15,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -64,6 +66,11 @@ public class LoginFr extends JFrame {
 		return passwordField.getPassword();
 	}
 	
+	public void resetText() {
+		textField.setText("");
+		passwordField.setText("");
+	}
+	
 	
 	public void addController(Main a) {
 		this.controller = a;
@@ -82,9 +89,13 @@ public class LoginFr extends JFrame {
 	 * @throws IOException 
 	 */
 	public void initialize() throws IOException {
+		
+		//Set action on close
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(controller);
+		
 		this.setBackground(new Color(204, 0, 0));
 		this.setBounds(100, 100, 798, 913);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().setLayout(new BorderLayout(0, 0));	
 		this.setTitle("AmberLife");
 		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
@@ -118,7 +129,7 @@ public class LoginFr extends JFrame {
 		panel.setLayout(gbl_panel);
 
 		
-		JLabel lblNewLabel_3 = new JLabel("V0.3");
+		JLabel lblNewLabel_3 = new JLabel("V1.0");
 		sf = font.deriveFont(Font.BOLD, 11f);
 		lblNewLabel_3.setFont(sf);
 		lblNewLabel_3.setForeground(Color.WHITE);
