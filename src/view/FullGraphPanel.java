@@ -51,6 +51,7 @@ public class FullGraphPanel extends JPanel implements ChangeListener, ActionList
 	public double firstsec;
 	public double zoom = 3;
 	public double zoom2 = -1 * (zoom);
+	//public double zoom2 = -1 * (zoom);	//The ECG will begin in 0, but the zoom has to be fixed.
 
 	public FullGraphPanel(ECG ecgData) {
 		super(new BorderLayout());

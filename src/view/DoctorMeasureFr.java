@@ -123,7 +123,7 @@ public class DoctorMeasureFr extends JFrame {
 		}
 		else {
 			controller.getCGP().setBackground(Color.DARK_GRAY.darker());
-			controller.getCGP().setOpaque(true);fco
+			controller.getCGP().setOpaque(true);
 			panel.add(controller.getCGP(), gbc_panel_1);
 			
 		}
