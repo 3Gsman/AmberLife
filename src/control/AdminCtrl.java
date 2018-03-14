@@ -16,6 +16,7 @@ import model.Assistant;
 import view.AdminFr;
 import view.AssistDialog;
 import view.DoctorDialog;
+import view.DoctorDialog;
 import view.ExitDialog;
 import view.PatientDialog;
 
@@ -90,7 +91,12 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowL
 	
 	public void newDoctor() {
 		//Pasar a MCV
-		DoctorDialog dd = new DoctorDialog(af);
+		try {
+			DoctorDialog dd = new DoctorDialog();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
