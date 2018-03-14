@@ -3,6 +3,8 @@ package view.panels;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -24,7 +26,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 import model.ECG;
 import model.FileManager;
 
-public class FullGraphPanel extends JPanel implements ChangeListener, ActionListener {
+public class FullGraphPanel extends JPanel implements ChangeListener, ActionListener, MouseWheelListener {
 
 	ECG ECGData;
 
@@ -52,7 +54,7 @@ public class FullGraphPanel extends JPanel implements ChangeListener, ActionList
 	public double zoom = 3;
 	public double zoom2 = -1 * (zoom);
 	//public double zoom2 = -1 * (zoom);	//The ECG will begin in 0, but the zoom has to be fixed.
-
+	
 	public FullGraphPanel(ECG ecgData) {
 		super(new BorderLayout());
 
@@ -70,7 +72,7 @@ public class FullGraphPanel extends JPanel implements ChangeListener, ActionList
 		ChartPanel chartPanel = new ChartPanel(chart);
 		chartPanel.setDomainZoomable(true);
 		chartPanel.setRangeZoomable(true);
-
+		
 		add(chartPanel);
 
 		JPanel dashboard = new JPanel();
@@ -165,7 +167,8 @@ public class FullGraphPanel extends JPanel implements ChangeListener, ActionList
 				true, // tooltips
 				false// urls
 		);
-
+		
+		addMouseWheelListener(this);
 		chart.setBackgroundPaint(Color.white);
 
 		XYPlot plot = chart.getXYPlot();
@@ -203,7 +206,6 @@ public class FullGraphPanel extends JPanel implements ChangeListener, ActionList
 		}
 
 		if (e.getActionCommand().equals("zoomout")) {
-			// labelRespuesta.setText( "You are not Boo, go away!" );
 			zoom = zoom + 1;
 			System.out.println("zoom out");
 			minimum = (t / 100) * (value + zoom2);
@@ -219,6 +221,36 @@ public class FullGraphPanel extends JPanel implements ChangeListener, ActionList
 			maximum = (t / 100) * (value + zoom);
 			chart.getXYPlot().getDomainAxis().setRange(minimum, maximum);
 		}
+	}
+	
+	public void mouseWheelMoved(MouseWheelEvent e) {
+	    //if (e.isControlDown()) {
+	        if (e.getWheelRotation() < 0) {
+	            System.out.println("mouse wheel Up");
+	            
+	    			if (zoom >= -1.0) {
+	    				zoom = zoom - 1;
+	    			}
+	    			
+	    			System.out.println("zoom in");
+	    			minimum = (t / 100) * (value + zoom2);
+	    			maximum = (t / 100) * (value + zoom);
+	    			chart.getXYPlot().getDomainAxis().setRange(minimum, maximum);
+	            
+	        } else {
+	        	
+	        	if (zoom >= 250.0) {
+    				zoom = zoom - 1;
+    			}
+	        	
+	            System.out.println("mouse wheel Down" + zoom);
+	            zoom = zoom + 1;
+				System.out.println("zoom out");
+				minimum = (t / 100) * (value + zoom2);
+				maximum = (t / 100) * (value + zoom);
+				chart.getXYPlot().getDomainAxis().setRange(minimum, maximum);
+	        }
+	    //}
 	}
 
 }
