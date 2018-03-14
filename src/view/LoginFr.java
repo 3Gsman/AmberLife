@@ -1,6 +1,7 @@
 package view;
 import control.Main;
 import model.LocalizationService;
+import view.panels.JPanelWithBackground;
 
 import java.awt.EventQueue;
 

@@ -8,6 +8,10 @@ package control;
 import model.FileManager;
 import model.LocalizationService;
 import view.*;
+import view.admin.AdminFr;
+import view.assistant.AssistFr;
+import view.dialogs.ExitDialog;
+import view.doctor.DoctorFr;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -23,6 +27,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+
+import control.admin.AdminCtrl;
+import control.assistant.AssistCtrl;
+import control.doctor.DoctorCtrl;
 
 public class Main implements ActionListener, KeyListener, WindowListener {
 
