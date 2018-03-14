@@ -31,6 +31,10 @@ public class ECGchooserFr extends JFrame {
 	
 	
 	public void initialize() throws IOException {
+
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(controller);
+		
 		this.setTitle("Compare");
 		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
 		this.setIconImage(img.getImage());
