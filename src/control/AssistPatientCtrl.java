@@ -90,7 +90,12 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 			patient.dispose();
 			
 		}else  if (e.getActionCommand().equals("NEWMESSAGE")){ 
-			NewMessageDialog nmd = new NewMessageDialog(patient, patient.getName(), patient.getLastname());
+			try {
+				NewMessageDialog nmd = new NewMessageDialog(patient.getName(), patient.getLastname());
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 	}

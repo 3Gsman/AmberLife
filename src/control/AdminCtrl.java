@@ -25,6 +25,8 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowL
 	public AdminFr af;
 	private Vector<Assistant> listatecnicos;
 	private Vector<Doctor> listamedicos;
+	DoctorDialog dd;
+	AssistDialog ad;
 	
 	public AdminCtrl(AdminFr vm) throws IOException {
 		FileManager conseguirListas = new FileManager();
@@ -92,7 +94,7 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowL
 	public void newDoctor() {
 		//Pasar a MCV
 		try {
-			DoctorDialog dd = new DoctorDialog();
+			 dd = new DoctorDialog();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -103,7 +105,7 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowL
 	public void newAssist() {
 		//Pasar a MCV
 		try {
-			AssistDialog dd = new AssistDialog();
+			ad = new AssistDialog();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

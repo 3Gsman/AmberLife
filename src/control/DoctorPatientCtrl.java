@@ -129,7 +129,12 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 	}
 	
 	public void NewMessage() {
-		NewMessageDialog nmd = new NewMessageDialog(frame, p);
+		try {
+			NewMessageDialog nmd = new NewMessageDialog(p.getName(),p.getLastname());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void compare(ECG first, ECG second) {
