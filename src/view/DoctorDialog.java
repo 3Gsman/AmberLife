@@ -35,18 +35,7 @@ public class DoctorDialog extends JDialog {
 	private JTextField textField_6;
 	private JTextField textField_7;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			DoctorDialog dialog = new DoctorDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	/**
 	 * Create the dialog.
