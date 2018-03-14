@@ -173,6 +173,27 @@ public class DoctorFr extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//User label
+		JPanel paneluser = new JPanel();
+		paneluser.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		paneluser.setOpaque(false);
+		GridBagConstraints gbc_paneluser = new GridBagConstraints();
+		gbc_paneluser.gridwidth = 26;
+		gbc_paneluser.gridheight = 1;
+		gbc_paneluser.insets = new Insets(0, 0, 5, 5);
+		gbc_paneluser.fill = GridBagConstraints.BOTH;
+		gbc_paneluser.gridx = 0;
+		gbc_paneluser.gridy = 0;
+		contentPane.add(paneluser,gbc_paneluser);
+		
+		JLabel lblUser = new JLabel(" " + LocalizationService.getWord("user") + ": " 
+							+ controller.getDoctor().getName() + " " + controller.getDoctor().getLastname());
+		sf = font.deriveFont(22f);
+		lblUser.setForeground(Color.WHITE);
+		lblUser.setOpaque(false);
+		lblUser.setFont(sf);
+		paneluser.add(lblUser);
 			
 		
 		JButton btnNewButton = new JButton(LocalizationService.getWord("patients"));

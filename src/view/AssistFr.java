@@ -192,11 +192,11 @@ import javax.swing.JComboBox;
 			paneluser.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			paneluser.setOpaque(false);
 			GridBagConstraints gbc_paneluser = new GridBagConstraints();
-			gbc_paneluser.gridwidth = 6;
+			gbc_paneluser.gridwidth = 20;
 			gbc_paneluser.gridheight = 1;
-			gbc_paneluser.insets = new Insets(0, 0, 5, 5);
+			gbc_paneluser.insets = new Insets(5, 0, 5, 5);
 			gbc_paneluser.fill = GridBagConstraints.BOTH;
-			gbc_paneluser.gridx = 14;
+			gbc_paneluser.gridx = 0;
 			gbc_paneluser.gridy = 0;
 			panel.add(paneluser,gbc_paneluser);
 			
