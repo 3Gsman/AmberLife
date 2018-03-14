@@ -487,7 +487,7 @@ public class AssistDialog extends JDialog {
 			JButton btnConfirm = new JButton("confirm");
 			btnConfirm.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					System.out.println("Doctor creation confirmed");
+					System.out.println("Assistant creation confirmed");
 				}
 			});
 			btnConfirm.setActionCommand("CONFIRM");
