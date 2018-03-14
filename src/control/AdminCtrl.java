@@ -102,7 +102,12 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowL
 	
 	public void newAssist() {
 		//Pasar a MCV
-		AssistDialog dd = new AssistDialog(af);
+		try {
+			AssistDialog dd = new AssistDialog();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
