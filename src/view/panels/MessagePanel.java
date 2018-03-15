@@ -229,6 +229,8 @@ public class MessagePanel extends JPanel {
 		JTextArea jta = new JTextArea();
 		jta.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
 		jta.setWrapStyleWord(true);
+		jta.setLineWrap(true);
+		jta.setEditable(false);
 		jta.setOpaque(false);
 		jta.setText(message);
 		scrollPane.setViewportView(jta);
