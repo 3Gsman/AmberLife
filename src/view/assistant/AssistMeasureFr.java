@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import control.GraphCtrl;
 import control.assistant.AssistMeasureCtrl;
 import model.ECG;
 import model.LocalizationService;
@@ -104,7 +105,9 @@ public class AssistMeasureFr extends JFrame {
 		
 		//PANEL
 		FullGraphPanel gr = new FullGraphPanel(controller.getECG());
-    	gr.setBackground(Color.DARK_GRAY.darker());
+		GraphCtrl gc = new GraphCtrl(gr);
+		gr.addController(gc);
+	   	gr.setBackground(Color.DARK_GRAY.darker());
     	gr.setOpaque(true);
     	
     	GridBagConstraints gbc_panel_1 = new GridBagConstraints();

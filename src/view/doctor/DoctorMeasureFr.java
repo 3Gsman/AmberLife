@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import control.GraphCtrl;
 import control.assistant.AssistMeasureCtrl;
 import control.doctor.DoctorMeasureCtrl;
 import model.ECG;
@@ -119,6 +120,8 @@ public class DoctorMeasureFr extends JFrame {
 		
 		if(controller.getCGP() == null) {
 			FullGraphPanel gr = new FullGraphPanel(controller.getECG());   	
+			GraphCtrl gc = new GraphCtrl(gr);
+			gr.addController(gc);
 			gr.setBackground(Color.DARK_GRAY.darker());
 	    	gr.setOpaque(true);
 	    	panel.add(gr, gbc_panel_1);

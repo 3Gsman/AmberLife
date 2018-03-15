@@ -21,6 +21,7 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+import control.GraphCtrl;
 import model.ECG;
 import model.FileManager;
 
@@ -52,6 +53,8 @@ public class CompareGraphPanel extends JPanel{
 		
 		
 		FullGraphPanel gr = new FullGraphPanel(ecgData);
+		GraphCtrl gc = new GraphCtrl(gr);
+		gr.addController(gc);
     	gr.setBackground(Color.DARK_GRAY.darker());
     	gr.setOpaque(true);
     	
@@ -64,6 +67,8 @@ public class CompareGraphPanel extends JPanel{
 		graphBoard.add(gr, gbc_panel_1);
 		
 		FullGraphPanel gr2 = new FullGraphPanel(ecgData2);
+		GraphCtrl gc2 = new GraphCtrl(gr2);
+		gr2.addController(gc2);
 		gr2.setBackground(Color.DARK_GRAY.darker());
 		gr2.setOpaque(true);
     	
