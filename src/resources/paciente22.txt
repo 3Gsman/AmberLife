@@ -1,0 +1,5 @@
+Juan;Otero Rosende;14787132H;152268457715;Oleiro;Rua Balado 3
+Hombre.png
+Leve
+Monitorizacion normal de manera mensual
+ECG6

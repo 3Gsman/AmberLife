@@ -24,6 +24,7 @@ import view.assistant.AssistMeasureFr;
 import view.assistant.AssistPatientFr;
 import view.dialogs.DoctorDialog;
 import view.dialogs.ExitDialog;
+import view.dialogs.FileChooserErrorDialog;
 import view.dialogs.NewMessageDialog;
 import view.panels.MessagePanel;
 
@@ -68,26 +69,31 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 			chooser.setFileFilter(filter);
 			chooser.setCurrentDirectory(new java.io.File("./src/resources"));
 		    int returnVal = chooser.showOpenDialog(null);
+		    
 		    if(returnVal == JFileChooser.APPROVE_OPTION) {
 		       System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
 		       String filename = chooser.getSelectedFile().getName();
 		       FileManager f = new FileManager();
 		       ECG ecg;
-			try {
-				   ecg = f.readECG(filename);
-			       AssistMeasureFr tef = new AssistMeasureFr();
-			       AssistMeasureCtrl tec = new AssistMeasureCtrl(tef,ecg);
-			       tec.setPreviousWindow(patient);
-			       patient.setVisible(false);
-			       tef.addController(tec);
-			       tef.initialize();
-			       tef.setVisible(true);
-			       System.out.println("Pantalla ECG");
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		
+		       
+		       if(filename.substring(0,3).equals("ECG")) {
+					try {
+						   ecg = f.readECG(filename);
+					       AssistMeasureFr tef = new AssistMeasureFr();
+					       AssistMeasureCtrl tec = new AssistMeasureCtrl(tef,ecg);
+					       tec.setPreviousWindow(patient);
+					       patient.setVisible(false);
+					       tef.addController(tec);
+					       tef.initialize();
+					       tef.setVisible(true);
+					       System.out.println("Pantalla ECG");
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		       }else {
+		    	   FileChooserErrorDialog.notECG();
+		       }
 		    }
 			 
 

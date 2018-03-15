@@ -1,0 +1,10 @@
+Maria;Garcia Castano;08887243C;155671243276;Oleiros;Rua Tierno Galvan 58
+Mujer.png
+Critico
+Atentos a los comentarios del paciente por si comunica algun tipo de dolor localizado
+ECG1
+ECG3
+ECG4
+ECG5
+ECG7
+ECG8
