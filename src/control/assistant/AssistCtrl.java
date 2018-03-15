@@ -105,19 +105,37 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 		String dni = tf.getID();
 		FileManager id = new FileManager();
 		Vector<String> messages = new Vector<>();
-		if(dni != null) {
-			Patient resultado = id.checkId(dni);
-			
-			if(resultado.getNumber() != "null") {
-
-				messages = id.readPatientMessages(resultado.getNumber());
-				System.out.println("Patient found.\n");
-				System.out.println("Technician: " + getName());			
+		if(tf.getMode() == true) {
+			if(dni != null) {
+				Patient resultado = id.checkId(dni);
 				
-				openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), resultado.getSsn(), messages, name);
+				if(resultado.getNumber() != "null") {
+	
+					messages = id.readPatientMessages(resultado.getNumber());
+					System.out.println("Patient found.\n");
+					System.out.println("Technician: " + getName());			
+					
+					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), resultado.getSsn(), messages, name);
+					
+				}else {
+					InvalidPatientDialog.noPatientFound();
+				}
+			}
+		}else {
+			if(dni != null) {
+				Patient resultado = id.checkId(dni);
 				
-			}else {
-				InvalidPatientDialog.noPatientFound();
+				if(resultado.getNumber() != "null") {
+	
+					messages = id.readPatientMessages(resultado.getNumber());
+					System.out.println("Patient found.\n");
+					System.out.println("Technician: " + getName());			
+					
+					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), resultado.getSsn(), messages, name);
+					
+				}else {
+					InvalidPatientDialog.noPatientFound();
+				}
 			}
 		}
 

@@ -1,0 +1,7 @@
+Angustias;Martin de Pablos;24583125N;157100067424;Culleredo;Rua Manuel Reboredo 9
+Mujer.png
+Leve
+Nada nuevo
+ECG3
+ECG5
+ECG7
