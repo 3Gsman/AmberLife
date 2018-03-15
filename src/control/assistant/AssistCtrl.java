@@ -17,6 +17,7 @@ import view.*;
 import view.assistant.AssistFr;
 import view.assistant.AssistPatientFr;
 import view.dialogs.ExitDialog;
+import view.dialogs.InvalidPatientDialog;
 import model.FileManager;
 import model.Patient;
 import model.Assistant;
@@ -106,18 +107,17 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 		Vector<String> messages = new Vector<>();
 		if(dni != null) {
 			Patient resultado = id.checkId(dni);
-			messages = id.readPatientMessages(resultado.getNumber());
 			
 			if(resultado.getNumber() != "null") {
+
+				messages = id.readPatientMessages(resultado.getNumber());
 				System.out.println("Patient found.\n");
 				System.out.println("Technician: " + getName());			
 				
 				openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), resultado.getSsn(), messages, name);
 				
 			}else {
-				Object frame = null;	//crea un objeto ventana
-	            JOptionPane.showMessageDialog((Component) frame, "Patient not found.", "Error", JOptionPane.ERROR_MESSAGE);	//sale una ventana de diálogo para alertar de un error
-	
+				InvalidPatientDialog.noPatientFound();
 			}
 		}
 
