@@ -123,7 +123,7 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 			}
 		}else {
 			if(dni != null) {
-				Patient resultado = id.checkId(dni);
+				Patient resultado = id.checkSsn(dni);
 				
 				if(resultado.getNumber() != "null") {
 	

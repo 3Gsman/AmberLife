@@ -62,6 +62,28 @@ public class FileManager {
     	return pt;	
     }
     
+    public Patient checkSsn(String id) throws IOException {
+    	Boolean busqueda=false;
+    	lector=new BufferedReader(new FileReader("src/resources/pacientes.txt"));
+    	Patient pt = new Patient("null", "null", "null", "null");
+    	String linea;
+
+    	
+    	while((linea=lector.readLine())!=null &&(!busqueda)){
+    		String[] lineatxt=linea.split(";");	
+    		if(lineatxt[4].equals(id)){ //equalsIgnoreCases
+
+    				busqueda=true;	
+    				pt.setNumber(lineatxt[0]);
+    				pt.setName(lineatxt[1]);
+    				pt.setLastname(lineatxt[2]);
+    				pt.setId(lineatxt[3]);
+    		}
+    	}
+            lector.close();
+    	return pt;	
+    }
+    
     public String[] readAssistant(String username) throws IOException{
     	Boolean busqueda = false;
     	lector=new BufferedReader(new FileReader("src/resources/Tecnicos.txt"));
