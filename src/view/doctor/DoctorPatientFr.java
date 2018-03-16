@@ -93,7 +93,7 @@ public class DoctorPatientFr extends JFrame {
 			jp2.add(new_msg,BorderLayout.PAGE_END);
 			
 			JButton btnNewButton2 = new JButton("");
-			ImageIcon reply = new ImageIcon(getClass().getResource("/resources/Reply.png"));
+			ImageIcon reply = new ImageIcon(getClass().getResource("/resources/MessageButton.png"));
 			btnNewButton2.setActionCommand("NEWMESSAGE");
 			btnNewButton2.addActionListener(controller);
 			btnNewButton2.setIcon(reply);
