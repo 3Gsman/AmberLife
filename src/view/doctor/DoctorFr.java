@@ -108,8 +108,7 @@ public class DoctorFr extends JFrame {
 		String search = textField.getText();
 		if(search != null)
 			for(Patient d : patients) {	
-				if (d.getName().toLowerCase().contains(search.toLowerCase()) ||
-					d.getLastname().toLowerCase().contains(search.toLowerCase()) ||	
+				if ((d.getName() + " " + d.getLastname()).toLowerCase().contains(search.toLowerCase()) ||	
 					d.getId().toLowerCase().contains(search.toLowerCase()) ||
 					d.getSsn().toLowerCase().contains(search.toLowerCase())){
 						viewport.add(new PatientPanel(d, controller));
@@ -207,6 +206,8 @@ public class DoctorFr extends JFrame {
 			btnNewButton.setOpaque(true);
 			btnNewButton.setBackground(Color.WHITE);
 			btnNewButton.setBorderPainted(false);
+			//btnNewButton.setContentAreaFilled(false);
+			btnNewButton.setBorder(null);
 			sf = font.deriveFont(Font.BOLD, 28f);
 			btnNewButton.setFont(sf);
 			btnNewButton.setForeground(Color.DARK_GRAY);
@@ -283,6 +284,16 @@ public class DoctorFr extends JFrame {
 		box.add(searchpanel,BorderLayout.PAGE_START);
 		
 		//Crear "Boton"
+		JLabel icon = new JLabel("");
+		icon.setHorizontalAlignment(SwingConstants.CENTER);
+		icon.setIcon(new ImageIcon(getClass().getResource("/resources/searchicon.png")));
+		//Set label icon size
+		GridBagConstraints gbc_icon = new GridBagConstraints();
+		gbc_icon.fill = GridBagConstraints.BOTH;
+		gbc_icon.gridx = 0;
+		gbc_icon.gridy = 0;
+		searchpanel.add(icon,gbc_icon);
+		
 		//Crear Textfield
 		textField.setBorder(null);
 		textField.setFont(new Font("Source Code Pro Medium", Font.ITALIC, 16));
@@ -310,6 +321,7 @@ public class DoctorFr extends JFrame {
 		
 
 		this.setVisible(true);
+		textField.requestFocus();
 	
 	}
 

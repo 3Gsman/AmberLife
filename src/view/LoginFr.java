@@ -144,6 +144,7 @@ public class LoginFr extends JFrame {
 		
 		JLabel label = new JLabel("");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setIcon(new ImageIcon(getClass().getResource("/resources/Logo.png")));
 		//Set label icon size
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.fill = GridBagConstraints.BOTH;
@@ -151,7 +152,7 @@ public class LoginFr extends JFrame {
 		gbc_label.insets = new Insets(0, 0, 5, 5);
 		gbc_label.gridx = 10;
 		gbc_label.gridy = 1;
-		label.setIcon(new ImageIcon(getClass().getResource("/resources/Logo.png")));
+		
 		panel.add(label, gbc_label);
 		
 		JPanel panel_1 = new JPanel();
