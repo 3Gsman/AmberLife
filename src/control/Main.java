@@ -5,7 +5,7 @@
  */
 package control;
 
-import model.FileManager;
+import model.FileManagement;
 import model.LocalizationService;
 import view.*;
 import view.admin.AdminFr;
@@ -94,7 +94,7 @@ public class Main implements ActionListener, KeyListener, WindowListener {
         String usuario = vistaLogin.getUsername();	//recoge el contenido del JTextField
         char caracteres[] = vistaLogin.getPassword();	//array de caracteres que coge los elementos que se encuentran en el JPasswordField
         String Password = String.valueOf(caracteres);	//Convierte los elementos del array en un String
-        FileManager comprobar = new FileManager();	//crea un nuevo gestor de ficheros
+        FileManagement comprobar = new FileManagement();	//crea un nuevo gestor de ficheros
         try {
             String resultado[] = comprobar.checkUser(usuario, Password);
             if (resultado[0] == "true") {

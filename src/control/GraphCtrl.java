@@ -15,7 +15,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import model.Doctor;
 import model.ECG;
-import model.FileManager;
+import model.FileManagement;
 import model.Patient;
 import view.doctor.DoctorPatientFr;
 import view.panels.FullGraphPanel;
@@ -23,7 +23,7 @@ import view.panels.FullGraphPanel;
 public class GraphCtrl implements ChangeListener, ActionListener, MouseWheelListener {
 	
 	ECG ECGData;
-	FileManager fichero;
+	FileManagement fichero;
 	FullGraphPanel graph;
 
 	public GraphCtrl(FullGraphPanel graph){

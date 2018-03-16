@@ -19,7 +19,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import control.ReturnsToFrame;
 import model.ECG;
-import model.FileManager;
+import model.FileManagement;
 import view.assistant.AssistMeasureFr;
 import view.assistant.AssistPatientFr;
 import view.dialogs.DoctorDialog;
@@ -73,7 +73,7 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 		    if(returnVal == JFileChooser.APPROVE_OPTION) {
 		       System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
 		       String filename = chooser.getSelectedFile().getName();
-		       FileManager f = new FileManager();
+		       FileManagement f = new FileManagement();
 		       ECG ecg;
 		       
 		       if(filename.substring(0,3).equals("ECG")) {

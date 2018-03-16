@@ -17,7 +17,7 @@ import java.awt.geom.*;
 import javax.swing.*;
 
 import control.assistant.AssistMeasureCtrl;
-import model.FileManager;
+import model.FileManagement;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;

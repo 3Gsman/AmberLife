@@ -18,7 +18,7 @@ import view.assistant.AssistFr;
 import view.assistant.AssistPatientFr;
 import view.dialogs.ExitDialog;
 import view.dialogs.InvalidPatientDialog;
-import model.FileManager;
+import model.FileManagement;
 import model.Patient;
 import model.Assistant;
 
@@ -103,7 +103,7 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 	
 	public void searchPatient() throws IOException {
 		String dni = tf.getID();
-		FileManager id = new FileManager();
+		FileManagement id = new FileManagement();
 		Vector<String> messages = new Vector<>();
 		if(tf.getMode() == true) {
 			if(dni != null) {

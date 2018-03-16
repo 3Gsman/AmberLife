@@ -11,7 +11,7 @@ import java.util.Vector;
 import javax.swing.JFrame;
 
 import control.ReturnsToFrame;
-import model.FileManager;
+import model.FileManagement;
 import model.Doctor;
 import model.Assistant;
 import view.admin.AdminFr;
@@ -29,7 +29,7 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowL
 	AssistDialog ad;
 	
 	public AdminCtrl(AdminFr vm) throws IOException {
-		FileManager conseguirListas = new FileManager();
+		FileManagement conseguirListas = new FileManagement();
 		
 		af = vm;
 		listatecnicos = conseguirListas.getAssistants();

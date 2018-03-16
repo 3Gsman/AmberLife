@@ -16,7 +16,7 @@ public class Assistant extends User {
 	}
 	
 	public Assistant(String un) throws IOException {
-		FileManager t = new FileManager();
+		FileManagement t = new FileManagement();
 		String t2[] = t.readAssistant(un);
 		name = t2[0];
 		lastname = t2[1];

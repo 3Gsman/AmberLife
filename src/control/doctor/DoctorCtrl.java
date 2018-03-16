@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 
 import control.ReturnsToFrame;
 import model.Doctor;
-import model.FileManager;
+import model.FileManagement;
 import model.Patient;
 import view.assistant.AssistFr;
 import view.dialogs.ExitDialog;
@@ -35,14 +35,14 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 	Doctor doctor;
 	
 	public DoctorCtrl(String user, DoctorFr vd) throws IOException {
-		FileManager file = new FileManager();
+		FileManagement file = new FileManagement();
 		
 		df = vd;
 		name = user;
 		doctor = file.readDoctor(name);
 		
 		int i = 0;
-		FileManager getpatients = new FileManager();
+		FileManagement getpatients = new FileManagement();
 		for(i = 0; i < doctor.getPatientlist().size(); i ++) {
 			
 			doctor.getPatientlist().set(i,getpatients.readPatient(doctor.getPatientlist().get(i).getNumber()));
@@ -125,7 +125,7 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 	
 	public void searchPatient() throws IOException {
 		String dni = df.getID();
-		FileManager id = new FileManager();
+		FileManagement id = new FileManagement();
 		boolean found= false;
 		
 		Patient resultado = id.checkId(dni);

@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import view.panels.JPanelWithBackground;
@@ -31,8 +32,8 @@ import java.awt.event.ActionEvent;
 public class AssistDialog extends JDialog {
 	private JTextField textField;
 	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JPasswordField passField;
+	private JPasswordField passField_2;
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
@@ -259,15 +260,15 @@ public class AssistDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_2 = new JTextField();
-				textField_2.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_2.setColumns(10);
-				textField_2.setBorder(null);
-				GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-				gbc_textField_2.fill = GridBagConstraints.BOTH;
-				gbc_textField_2.gridx = 2;
-				gbc_textField_2.gridy = 1;
-				panel.add(textField_2, gbc_textField_2);
+				passField = new JPasswordField();
+				passField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				passField.setColumns(10);
+				passField.setBorder(null);
+				GridBagConstraints gbc_passField = new GridBagConstraints();
+				gbc_passField.fill = GridBagConstraints.BOTH;
+				gbc_passField.gridx = 2;
+				gbc_passField.gridy = 1;
+				panel.add(passField, gbc_passField);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -321,15 +322,15 @@ public class AssistDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_3 = new JTextField();
-				textField_3.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_3.setColumns(10);
-				textField_3.setBorder(null);
-				GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-				gbc_textField_3.fill = GridBagConstraints.BOTH;
-				gbc_textField_3.gridx = 2;
-				gbc_textField_3.gridy = 1;
-				panel.add(textField_3, gbc_textField_3);
+				passField_2 = new JPasswordField();
+				passField_2.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				passField_2.setColumns(10);
+				passField_2.setBorder(null);
+				GridBagConstraints gbc_passField_2 = new GridBagConstraints();
+				gbc_passField_2.fill = GridBagConstraints.BOTH;
+				gbc_passField_2.gridx = 2;
+				gbc_passField_2.gridy = 1;
+				panel.add(passField_2, gbc_passField_2);
 			}
 			{
 				JPanel panel_1 = new JPanel();

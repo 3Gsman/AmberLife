@@ -28,7 +28,7 @@ import javax.swing.border.EmptyBorder;
 import control.doctor.DoctorPatientCtrl;
 import model.Doctor;
 import model.ECG;
-import model.FileManager;
+import model.FileManagement;
 import model.LocalizationService;
 import model.Patient;
 import model.User;
@@ -103,7 +103,7 @@ public class DoctorPatientFr extends JFrame {
 			btnNewButton2.setContentAreaFilled(false);
 			new_msg.add(btnNewButton2);
 			
-			FileManager id = new FileManager();
+			FileManagement id = new FileManagement();
 			Vector<String> messages = id.readPatientMessages(controller.getPatient().getNumber());
 			if(messages.equals(null)) {
 				JPanel jp = new JPanel();
