@@ -126,7 +126,7 @@ public class LoginFr extends JFrame {
 		gbl_panel.columnWidths = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panel.rowHeights = new int[]{15, 80, 20, 20, 0, 0, 10, 60, 0, 10, 60, 20, 60, 30, 0};
 		gbl_panel.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.2, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.2, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.2, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.5, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 
 		
@@ -196,7 +196,7 @@ public class LoginFr extends JFrame {
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.fill = GridBagConstraints.BOTH;
 		gbc_textField.gridwidth = 2;
-		gbc_textField.insets = new Insets(0, 0, 0, 5);
+		gbc_textField.insets = new Insets(0, 0, 10, 5);
 		gbc_textField.gridx = 10;
 		gbc_textField.gridy = 7;
 		panel.add(textField, gbc_textField);

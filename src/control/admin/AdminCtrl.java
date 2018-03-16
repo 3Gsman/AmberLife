@@ -18,7 +18,6 @@ import view.admin.AdminFr;
 import view.dialogs.AssistDialog;
 import view.dialogs.DoctorDialog;
 import view.dialogs.ExitDialog;
-import view.dialogs.PatientDialog;
 
 public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowListener {
 

@@ -52,7 +52,12 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 	
 	public void registerPatient() {
 		//Pasar a MCV
-		PatientDialog pd = new PatientDialog(df);
+		try {
+			PatientDialog pd = new PatientDialog();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

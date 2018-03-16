@@ -86,7 +86,7 @@ public class DoctorDialog extends JDialog {
 			gbc_panel.gridy = 0;
 			getContentPane().add(panel, gbc_panel);
 			{
-				JLabel lblNewLabel_2 = new JLabel("introduce new control.doctor data");
+				JLabel lblNewLabel_2 = new JLabel("introduce new doctor data");
 				lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel_2.setForeground(Color.WHITE);
 				lblNewLabel_2.setFont(sf);
