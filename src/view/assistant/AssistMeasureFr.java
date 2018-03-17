@@ -109,10 +109,9 @@ public class AssistMeasureFr extends JFrame {
 		gr.addController(gc);
 	   	gr.setBackground(Color.DARK_GRAY.darker());
     	gr.setOpaque(true);
-    	
     	GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.gridwidth = 22;
-		gbc_panel_1.gridheight = 9;
+		gbc_panel_1.gridheight = 10;
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 1;
