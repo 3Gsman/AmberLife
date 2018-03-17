@@ -34,6 +34,7 @@ import model.Patient;
 import model.User;
 import view.assistant.AssistPatientFr;
 import view.layouts.WrapLayout;
+import view.panels.AlphaContainer;
 import view.panels.EcgPanel;
 import view.panels.JPanelWithBackground;
 import view.panels.MessagePanel;
@@ -178,7 +179,7 @@ public class DoctorPatientFr extends JFrame {
 		if(mode != "ECGS") {
 			//this.getContentPane().remove(messagePanel);
 			messagePanel.removeAll();
-			messagePanel.add(initializeECG(), BorderLayout.CENTER);
+			messagePanel.add(new AlphaContainer(initializeECG()), BorderLayout.CENTER);
 			this.repaint();
 			mode = "ECGS";
 		}
@@ -188,7 +189,7 @@ public class DoctorPatientFr extends JFrame {
 		if(mode != "MESSAGES") {
 			//this.getContentPane().remove(messagePanel);
 			messagePanel.removeAll();
-			messagePanel.add(initializeMessages(), BorderLayout.CENTER);
+			messagePanel.add(new AlphaContainer(initializeMessages()), BorderLayout.CENTER);
 			this.repaint();
 			mode = "MESSAGES";
 		}

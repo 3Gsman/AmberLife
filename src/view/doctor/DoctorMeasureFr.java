@@ -14,6 +14,7 @@ import control.assistant.AssistMeasureCtrl;
 import control.doctor.DoctorMeasureCtrl;
 import model.ECG;
 import model.LocalizationService;
+import view.panels.AlphaContainer;
 import view.panels.FullGraphPanel;
 import view.panels.JPanelWithBackground;
 
@@ -89,7 +90,7 @@ public class DoctorMeasureFr extends JFrame {
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 1;
-		contentPane.add(panel, gbc_panel);
+		contentPane.add(new AlphaContainer(panel), gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{30, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 20, 20, 30, 0};
 		gbl_panel.rowHeights = new int[]{30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 50, 30, 0};

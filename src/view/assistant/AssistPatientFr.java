@@ -11,6 +11,7 @@ import control.assistant.AssistPatientCtrl;
 import model.LocalizationService;
 import model.User;
 import view.layouts.WrapLayout;
+import view.panels.AlphaContainer;
 import view.panels.JPanelWithBackground;
 import view.panels.MessagePanel;
 
@@ -330,7 +331,7 @@ public class AssistPatientFr extends JFrame {
 		gbc_panel_msg.fill = GridBagConstraints.BOTH;
 		gbc_panel_msg.gridx = 4;
 		gbc_panel_msg.gridy = 1;
-		contentPane.add(msg, gbc_panel_msg);	
+		contentPane.add(new AlphaContainer(msg), gbc_panel_msg);	
 		
 		JScrollPane panel_2 = new JScrollPane();
 		panel_2.setBackground( new Color(255, 255, 255, 140) );
