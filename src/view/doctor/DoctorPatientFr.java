@@ -179,7 +179,7 @@ public class DoctorPatientFr extends JFrame {
 		if(mode != "ECGS") {
 			//this.getContentPane().remove(messagePanel);
 			messagePanel.removeAll();
-			messagePanel.add(new AlphaContainer(initializeECG()), BorderLayout.CENTER);
+			messagePanel.add(initializeECG(), BorderLayout.CENTER);
 			this.repaint();
 			mode = "ECGS";
 		}

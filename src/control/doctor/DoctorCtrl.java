@@ -33,6 +33,7 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 	String name;
 	DoctorFr df;
 	Doctor doctor;
+	String lastTyped = "";
 	
 	public DoctorCtrl(String user, DoctorFr vd) throws IOException {
 		FileManagement file = new FileManagement();
@@ -205,9 +206,12 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		df.initializeList();
-        df.repaint();
-        df.setVisible(true);
+		if(df.getText().length() > 0 || lastTyped.length() > 0) {
+			df.initializeList();
+	        df.repaint();
+	        df.setVisible(true);
+		}
+		lastTyped = df.getText();
 	}
 
 	@Override

@@ -105,6 +105,8 @@ public class LoginFr extends JFrame {
 		this.setMinimumSize(d);
 		this.setSize(d);
 		
+		Color grey = new Color(80, 77, 77, 255);
+		
 		//Get PROMETHEUS font
 		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
@@ -228,15 +230,14 @@ public class LoginFr extends JFrame {
 		panel.add(passwordField, gbc_passwordField);
 		
 		JButton btnNewButton_1 = new JButton(LocalizationService.getWord("login"));
-		btnNewButton_1.setForeground(new Color(0, 0, 0));
-		btnNewButton_1.setBackground(Color.DARK_GRAY);
+		btnNewButton_1.setForeground(new Color(255, 255, 255,255));
+		btnNewButton_1.setBackground(grey);
 		btnNewButton_1.addActionListener(controller);
 		btnNewButton_1.addKeyListener(controller);
 		btnNewButton_1.setActionCommand("LOGIN");
 		btnNewButton_1.setBorderPainted(false);
 		sf = font.deriveFont(Font.BOLD, 32f);
 		btnNewButton_1.setFont(sf);
-		btnNewButton_1.setForeground(Color.WHITE);
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.gridwidth = 2;
 		gbc_btnNewButton_1.fill = GridBagConstraints.BOTH;

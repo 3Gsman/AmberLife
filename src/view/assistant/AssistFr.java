@@ -88,6 +88,7 @@ import javax.swing.JComboBox;
 			java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
 			Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 			Font sf = font; // will use sf to change the style;
+			Color grey = new Color(80, 77, 77, 255);
 			try {
 				font = Font.createFont(Font.TRUETYPE_FONT, is);
 				sf = font;
@@ -107,7 +108,7 @@ import javax.swing.JComboBox;
 				button.setBorderPainted(false);
 				sf = font.deriveFont(Font.BOLD, 28f);
 				button.setFont(sf);
-				button.setForeground(Color.DARK_GRAY);
+				button.setForeground(grey);
 			}
 			else {
 				sf = font.deriveFont(22f);
@@ -127,7 +128,7 @@ import javax.swing.JComboBox;
 				btnNewButton.setBorderPainted(false);
 				sf = font.deriveFont(Font.BOLD, 28f);
 				btnNewButton.setFont(sf);
-				btnNewButton.setForeground(Color.DARK_GRAY);
+				btnNewButton.setForeground(grey);
 				btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 				btnNewButton.setContentAreaFilled(true);
 				}
@@ -162,6 +163,8 @@ import javax.swing.JComboBox;
 			Dimension d = new Dimension(1280,720);
 			this.setMinimumSize(d);
 			this.setSize(d);
+			
+			Color grey = new Color(80, 77, 77, 255);
 			
 			//Get PROMETHEUS font
 				
@@ -270,7 +273,7 @@ import javax.swing.JComboBox;
 			textField.setColumns(10);
 			
 			JButton btnNewButton_1 = new JButton(LocalizationService.getWord("search"));
-			btnNewButton_1.setBackground(Color.DARK_GRAY);
+			btnNewButton_1.setBackground(grey);
 			btnNewButton_1.addActionListener(controller);
 			btnNewButton_1.setActionCommand("SEARCH");
 			btnNewButton_1.setBorder(null);

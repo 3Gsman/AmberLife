@@ -36,6 +36,7 @@ import java.awt.FlowLayout;
 
 import model.*;
 import view.layouts.WrapLayout;
+import view.panels.AlphaContainer;
 import view.panels.JPanelWithBackground;
 import view.panels.PatientPanel;
 
@@ -51,6 +52,10 @@ public class DoctorFr extends JFrame {
 
 	public DoctorFr() {
 		
+	}
+	
+	public String getText() {
+		return textField.getText();
 	}
 	
 	public boolean getMode() {
@@ -91,18 +96,19 @@ public class DoctorFr extends JFrame {
 		}
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBackground( new Color(0, 0, 0, 0) );
+		scrollPane.setBackground( new Color(255, 255, 255, 140) );
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setOpaque(false);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(18);
 		scrollPane.getViewport().setOpaque(false);
+		scrollPane.setBorder(null);
 		
 		//Viewport
 		JPanel viewport = new JPanel();
 		viewport.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
 		viewport.setBackground( new Color(255, 255, 255, 255) );
-		viewport.setOpaque(true);
+		viewport.setOpaque(false);
 		//Contents go here
 		//Si el bool es true, se inicia con doctores, si no, con assistants
 		String search = textField.getText();
@@ -264,7 +270,7 @@ public class DoctorFr extends JFrame {
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 3;
-		contentPane.add(box, gbc_panel);
+		contentPane.add(new AlphaContainer(box), gbc_panel);
 		box.setLayout(new BorderLayout(0, 0));
 
 		
@@ -273,14 +279,14 @@ public class DoctorFr extends JFrame {
 		
 		//Inicializar barra de busqueda aqui
 		
-		searchpanel.setOpaque(false);
+		//searchpanel.setOpaque(false);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{40,120, 120};
 		gridBagLayout.rowHeights = new int[]{40};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.2, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		searchpanel.setLayout(gridBagLayout);
-		searchpanel.setOpaque(false);
+		searchpanel.setBackground(Color.WHITE);
 		box.add(searchpanel,BorderLayout.PAGE_START);
 		
 		//Crear "Boton"
@@ -296,6 +302,7 @@ public class DoctorFr extends JFrame {
 		
 		//Crear Textfield
 		textField.setBorder(null);
+		textField.setBackground(new Color(245,245,245,255));
 		textField.setFont(new Font("Source Code Pro Medium", Font.ITALIC, 16));
 		textField.addKeyListener(controller);
 		GridBagConstraints gbc_textfield = new GridBagConstraints();

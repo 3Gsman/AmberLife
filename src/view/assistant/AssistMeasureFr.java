@@ -61,6 +61,8 @@ public class AssistMeasureFr extends JFrame {
 		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
 		this.setIconImage(img.getImage());
 		
+		Color grey = new Color(80, 77, 77, 255);
+		
 		//Get PROMETHEUS font
 		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
@@ -94,7 +96,7 @@ public class AssistMeasureFr extends JFrame {
 		//GRAPH GOES HERE
 		
 		/*JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.DARK_GRAY);
+		panel_1.setBackground(grey);
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.gridwidth = 22;
 		gbc_panel_1.gridheight = 9;
@@ -137,7 +139,7 @@ public class AssistMeasureFr extends JFrame {
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.setFont(sf);
 		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setBackground(new Color(80, 77, 77, 255));
+		btnNewButton.setBackground(grey);
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.addActionListener(controller);
 		btnNewButton.setActionCommand("CANCEL");
@@ -154,7 +156,7 @@ public class AssistMeasureFr extends JFrame {
 		button.setBorderPainted(false);
 		button.setFont(sf);
 		button.setForeground(new Color(0, 0, 0));
-		button.setBackground(new Color(80, 77, 77, 255));
+		button.setBackground(grey);
 		button.setForeground(Color.WHITE);
 		button.addActionListener(controller);
 		button.setActionCommand("CONFIRM");

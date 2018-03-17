@@ -59,6 +59,8 @@ public class UserPanel extends JPanel {
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
+		Color grey = new Color(80, 77, 77, 255);
+		
 		//Get PROMETHEUS font
 				java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
 				Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
@@ -70,8 +72,10 @@ public class UserPanel extends JPanel {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+		this.setBackground(new Color(250,250,250,255));
 		
 		JPanel panel = new JPanel();
+		panel.setOpaque(false);
 		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -83,7 +87,7 @@ public class UserPanel extends JPanel {
 		add(panel, gbc_panel);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.DARK_GRAY);
+		panel_2.setBackground(grey);
 		FlowLayout flowLayout_2 = (FlowLayout) panel_2.getLayout();
 		flowLayout_2.setAlignment(FlowLayout.LEADING);
 		panel.add(panel_2);
@@ -97,16 +101,17 @@ public class UserPanel extends JPanel {
 		JLabel label_1 = new JLabel(" ");
 		label_1.setForeground(Color.WHITE);
 		label_1.setFont(sf);
-		label_1.setBackground(Color.DARK_GRAY);
+		label_1.setBackground(grey);
 		panel.add(label_1);
 		
 		JLabel lblJohnDoe = new JLabel(name);
-		lblJohnDoe.setForeground(Color.DARK_GRAY);
+		lblJohnDoe.setForeground(grey);
 		lblJohnDoe.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
-		lblJohnDoe.setBackground(Color.DARK_GRAY);
+		lblJohnDoe.setBackground(grey);
 		panel.add(lblJohnDoe);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setOpaque(false);
 		FlowLayout flowLayout_1 = (FlowLayout) panel_1.getLayout();
 		flowLayout_1.setAlignment(FlowLayout.LEFT);
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
@@ -118,7 +123,7 @@ public class UserPanel extends JPanel {
 		add(panel_1, gbc_panel_1);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(Color.DARK_GRAY);
+		panel_3.setBackground(grey);
 		panel_1.add(panel_3);
 		
 		JLabel lblId = new JLabel(LocalizationService.getWord("id"));
@@ -130,12 +135,12 @@ public class UserPanel extends JPanel {
 		JLabel label_2 = new JLabel(" ");
 		label_2.setForeground(Color.WHITE);
 		label_2.setFont(sf);
-		label_2.setBackground(Color.DARK_GRAY);
+		label_2.setBackground(grey);
 		panel_1.add(label_2);
 		
 		JLabel label = new JLabel(id);
 		label.setVerticalAlignment(SwingConstants.BOTTOM);
-		label.setForeground(Color.DARK_GRAY);
+		label.setForeground(grey);
 		label.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
 		panel_1.add(label);
 		
