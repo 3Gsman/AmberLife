@@ -56,6 +56,7 @@ public class FileManagement {
     				pt.setName(lineatxt[1]);
     				pt.setLastname(lineatxt[2]);
     				pt.setId(lineatxt[3]);
+    				pt.setSsn(lineatxt[4]);
     		}
     	}
             lector.close();
