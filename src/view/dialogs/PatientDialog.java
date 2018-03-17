@@ -705,6 +705,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 			}
 		}
+		sf = font.deriveFont(22f);
 		{
 			JButton btnNewButton = new JButton("cancel");
 			btnNewButton.addActionListener(new ActionListener() {
@@ -713,7 +714,7 @@ public class PatientDialog extends JDialog {
 			});
 			btnNewButton.setActionCommand("CANCEL");
 			btnNewButton.setBorderPainted(false);
-			btnNewButton.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			btnNewButton.setFont(sf);
 			btnNewButton.setForeground(Color.WHITE);
 			btnNewButton.setBackground(grey);
 			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -735,7 +736,7 @@ public class PatientDialog extends JDialog {
 			btnConfirm.setBorderPainted(false);
 			btnConfirm.setBackground(grey);
 			btnConfirm.setForeground(Color.WHITE);
-			btnConfirm.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			btnConfirm.setFont(sf);
 			GridBagConstraints gbc_btnConfirm = new GridBagConstraints();
 			gbc_btnConfirm.fill = GridBagConstraints.BOTH;
 			gbc_btnConfirm.gridwidth = 3;

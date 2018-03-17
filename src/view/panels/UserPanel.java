@@ -123,7 +123,8 @@ public class UserPanel extends JPanel {
 		
 		JLabel lblId = new JLabel(LocalizationService.getWord("id"));
 		lblId.setForeground(Color.WHITE);
-		lblId.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+		sf = font.deriveFont(22f);
+		lblId.setFont(sf);
 		panel_3.add(lblId);
 		
 		JLabel label_2 = new JLabel(" ");
