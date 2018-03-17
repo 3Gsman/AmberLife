@@ -106,7 +106,7 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 				MessagePanel mp = (MessagePanel) ((Component) e.getSource()).getParent();
 				NewMessageDialog nmd = new NewMessageDialog(patient.getName(), patient.getLastname(),
 						"From: " + mp.getUser().getName() + " " + mp.getUser().getLastname() + " on " + mp.getDate() + "\n"
-						+ "RE: " + mp.getMessage());
+						+ "RE: " + mp.getMessage() + "\n");
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
