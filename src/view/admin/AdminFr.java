@@ -170,7 +170,7 @@ public class AdminFr extends JFrame {
 		
 		//Set Assistants button
 		 if(!mode) {
-			jpanel2.setBackground(new Color(255,255,255,140));
+			jpanel2.setBackground(new Color(255,255,255,255));
 			jpanel2.setOpaque(true);
 			btnAssistants.setBorderPainted(false);
 			sf = font.deriveFont(Font.BOLD, 28f);
@@ -189,7 +189,7 @@ public class AdminFr extends JFrame {
 		}
 		 //Set Doctors Button
 		if(mode) {
-			jpanel.setBackground(new Color(255,255,255,140));
+			jpanel.setBackground(new Color(255,255,255,255));
 			jpanel.setOpaque(true);
 			btnNewButton.setBorderPainted(false);
 			sf = font.deriveFont(Font.BOLD, 28f);
@@ -249,7 +249,8 @@ public class AdminFr extends JFrame {
 			
 		//Set buttons
 		
-		jpanel.setBackground(new Color(255,255,255,140));
+		jpanel.setBackground(new Color(255,255,255,255));
+		jpanel.setLayout(new BorderLayout());
 		btnNewButton.setActionCommand("DOCTORS");
 		btnNewButton.addActionListener(controller);
 		btnNewButton.setOpaque(false);
@@ -259,11 +260,12 @@ public class AdminFr extends JFrame {
 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 2;
-		jpanel.add(btnNewButton);
-		contentPane.add(new AlphaContainer(jpanel), gbc_btnNewButton);
+		jpanel.add(btnNewButton,BorderLayout.CENTER);
+		contentPane.add(jpanel, gbc_btnNewButton);
 	
-		jpanel2.setBackground(new Color(255,255,255,140));
+		jpanel2.setBackground(new Color(255,255,255,255));
 		jpanel2.setOpaque(false);
+		jpanel2.setLayout(new BorderLayout());
 		btnAssistants.setActionCommand("ASSISTANTS");
 		btnAssistants.addActionListener(controller);
 		btnAssistants.setOpaque(false);
@@ -272,8 +274,8 @@ public class AdminFr extends JFrame {
 		gbc_btnAssistants.fill = GridBagConstraints.BOTH;
 		gbc_btnAssistants.gridx = 2;
 		gbc_btnAssistants.gridy = 2;
-		jpanel2.add(btnAssistants);
-		contentPane.add(new AlphaContainer(jpanel2), gbc_btnAssistants);
+		jpanel2.add(btnAssistants,BorderLayout.CENTER);
+		contentPane.add(jpanel2, gbc_btnAssistants);
 		
 		setButtons();
 		
