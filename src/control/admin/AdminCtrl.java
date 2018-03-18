@@ -93,7 +93,7 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowL
 	public void newDoctor() {
 		//Pasar a MCV
 		try {
-			 dd = new DoctorDialog();
+			 dd = new DoctorDialog(af);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,7 +104,7 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowL
 	public void newAssist() {
 		//Pasar a MCV
 		try {
-			ad = new AssistDialog();
+			ad = new AssistDialog(af);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

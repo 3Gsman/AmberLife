@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
@@ -17,10 +18,13 @@ import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.io.IOException;
+import java.util.Arrays;
 import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.FontFormatException;
 
@@ -30,14 +34,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class DoctorDialog extends JDialog {
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField nameField;
+	private JTextField surnameField;
 	private JPasswordField passField;
-	private JPasswordField passField_2;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JPasswordField confirmField;
+	private JTextField idField;
+	private JTextField ssnField;
+	private JTextField hospitalField;
+	private JTextField phoneField;
 
 
 
@@ -45,7 +49,7 @@ public class DoctorDialog extends JDialog {
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public DoctorDialog() throws IOException {
+	public DoctorDialog(JFrame f) throws IOException {
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 468);
 		setContentPane( new JPanelWithBackground(getClass().getResource("/resources/BG.png")));
@@ -136,15 +140,15 @@ public class DoctorDialog extends JDialog {
 				panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 			}
 			{
-				textField = new JTextField();
-				textField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField.setBorder(null);
-				GridBagConstraints gbc_textField = new GridBagConstraints();
-				gbc_textField.fill = GridBagConstraints.BOTH;
-				gbc_textField.gridx = 2;
-				gbc_textField.gridy = 1;
-				panel.add(textField, gbc_textField);
-				textField.setColumns(10);
+				nameField = new JTextField();
+				nameField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				nameField.setBorder(null);
+				GridBagConstraints gbc_nameField = new GridBagConstraints();
+				gbc_nameField.fill = GridBagConstraints.BOTH;
+				gbc_nameField.gridx = 2;
+				gbc_nameField.gridy = 1;
+				panel.add(nameField, gbc_nameField);
+				nameField.setColumns(10);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -198,15 +202,15 @@ public class DoctorDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_1 = new JTextField();
-				textField_1.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_1.setColumns(10);
-				textField_1.setBorder(null);
-				GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-				gbc_textField_1.fill = GridBagConstraints.BOTH;
-				gbc_textField_1.gridx = 2;
-				gbc_textField_1.gridy = 1;
-				panel.add(textField_1, gbc_textField_1);
+				surnameField = new JTextField();
+				surnameField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				surnameField.setColumns(10);
+				surnameField.setBorder(null);
+				GridBagConstraints gbc_surnameField = new GridBagConstraints();
+				gbc_surnameField.fill = GridBagConstraints.BOTH;
+				gbc_surnameField.gridx = 2;
+				gbc_surnameField.gridy = 1;
+				panel.add(surnameField, gbc_surnameField);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -322,15 +326,15 @@ public class DoctorDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				passField_2 = new JPasswordField();
-				passField_2.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				passField_2.setColumns(10);
-				passField_2.setBorder(null);
-				GridBagConstraints gbc_passField_2 = new GridBagConstraints();
-				gbc_passField_2.fill = GridBagConstraints.BOTH;
-				gbc_passField_2.gridx = 2;
-				gbc_passField_2.gridy = 1;
-				panel.add(passField_2, gbc_passField_2);
+				confirmField = new JPasswordField();
+				confirmField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				confirmField.setColumns(10);
+				confirmField.setBorder(null);
+				GridBagConstraints gbc_confirmField = new GridBagConstraints();
+				gbc_confirmField.fill = GridBagConstraints.BOTH;
+				gbc_confirmField.gridx = 2;
+				gbc_confirmField.gridy = 1;
+				panel.add(confirmField, gbc_confirmField);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -384,15 +388,15 @@ public class DoctorDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_4 = new JTextField();
-				textField_4.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_4.setColumns(10);
-				textField_4.setBorder(null);
-				GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-				gbc_textField_4.fill = GridBagConstraints.BOTH;
-				gbc_textField_4.gridx = 2;
-				gbc_textField_4.gridy = 1;
-				panel.add(textField_4, gbc_textField_4);
+				idField = new JTextField();
+				idField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				idField.setColumns(10);
+				idField.setBorder(null);
+				GridBagConstraints gbc_idField = new GridBagConstraints();
+				gbc_idField.fill = GridBagConstraints.BOTH;
+				gbc_idField.gridx = 2;
+				gbc_idField.gridy = 1;
+				panel.add(idField, gbc_idField);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -446,15 +450,15 @@ public class DoctorDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_5 = new JTextField();
-				textField_5.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_5.setColumns(10);
-				textField_5.setBorder(null);
-				GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-				gbc_textField_5.fill = GridBagConstraints.BOTH;
-				gbc_textField_5.gridx = 2;
-				gbc_textField_5.gridy = 1;
-				panel.add(textField_5, gbc_textField_5);
+				ssnField = new JTextField();
+				ssnField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				ssnField.setColumns(10);
+				ssnField.setBorder(null);
+				GridBagConstraints gbc_ssnField = new GridBagConstraints();
+				gbc_ssnField.fill = GridBagConstraints.BOTH;
+				gbc_ssnField.gridx = 2;
+				gbc_ssnField.gridy = 1;
+				panel.add(ssnField, gbc_ssnField);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -508,15 +512,15 @@ public class DoctorDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_6 = new JTextField();
-				textField_6.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_6.setColumns(10);
-				textField_6.setBorder(null);
-				GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-				gbc_textField_6.fill = GridBagConstraints.BOTH;
-				gbc_textField_6.gridx = 2;
-				gbc_textField_6.gridy = 1;
-				panel.add(textField_6, gbc_textField_6);
+				hospitalField = new JTextField();
+				hospitalField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				hospitalField.setColumns(10);
+				hospitalField.setBorder(null);
+				GridBagConstraints gbc_hospitalField = new GridBagConstraints();
+				gbc_hospitalField.fill = GridBagConstraints.BOTH;
+				gbc_hospitalField.gridx = 2;
+				gbc_hospitalField.gridy = 1;
+				panel.add(hospitalField, gbc_hospitalField);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -570,15 +574,15 @@ public class DoctorDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_7 = new JTextField();
-				textField_7.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_7.setColumns(10);
-				textField_7.setBorder(null);
-				GridBagConstraints gbc_textField_7 = new GridBagConstraints();
-				gbc_textField_7.fill = GridBagConstraints.BOTH;
-				gbc_textField_7.gridx = 2;
-				gbc_textField_7.gridy = 1;
-				panel.add(textField_7, gbc_textField_7);
+				phoneField = new JTextField();
+				phoneField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				phoneField.setColumns(10);
+				phoneField.setBorder(null);
+				GridBagConstraints gbc_phoneField = new GridBagConstraints();
+				gbc_phoneField.fill = GridBagConstraints.BOTH;
+				gbc_phoneField.gridx = 2;
+				gbc_phoneField.gridy = 1;
+				panel.add(phoneField, gbc_phoneField);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -616,8 +620,30 @@ public class DoctorDialog extends JDialog {
 			btnConfirm.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("Doctor creation confirmed");
+					if(nameField.getText().isEmpty() || surnameField.getText().isEmpty() || passField.getPassword().toString().isEmpty()
+							|| confirmField.getPassword().toString().isEmpty()	|| idField.getText().isEmpty() || ssnField.getText().isEmpty() 
+							|| hospitalField.getText().isEmpty() || phoneField.getText().isEmpty()) {
+						
+						//JOptionPane.showMessageDialog((JFrame)this, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(f, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					if(!(Arrays.equals(passField.getPassword(), confirmField.getPassword()))) {
+						JOptionPane.showMessageDialog(f, "The password doesn't match", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			});
+			
+			/*
+			private JTextField textField;
+			private JTextField surnameField;
+			private JPasswordField passField;
+			private JPasswordField confirmField;
+			private JTextField idField;
+			private JTextField ssnField;
+			private JTextField hospitalField;
+			private JTextField phoneField;
+			*/
+			
 			btnConfirm.setActionCommand("CONFIRM");
 			btnConfirm.setBorderPainted(false);
 			btnConfirm.setBackground(grey);
