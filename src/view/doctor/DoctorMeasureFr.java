@@ -94,7 +94,6 @@ public class DoctorMeasureFr extends JFrame {
 		gbl_panel.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 0.0, 0.5, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		
 		//GRAPH GOES HERE
 		
 		//PANEL

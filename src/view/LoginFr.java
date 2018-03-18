@@ -112,7 +112,7 @@ public class LoginFr extends JFrame {
 		panel.setLayout(gbl_panel);
 
 		
-		JLabel lblNewLabel_3 = new JLabel("V1.0");
+		JLabel lblNewLabel_3 = new JLabel("V1.1");
 		sf = font.deriveFont(Font.BOLD, 11f);
 		lblNewLabel_3.setFont(sf);
 		lblNewLabel_3.setForeground(Color.WHITE);
