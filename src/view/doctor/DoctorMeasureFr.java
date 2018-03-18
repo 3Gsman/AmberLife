@@ -1,7 +1,6 @@
 package view.doctor;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontFormatException;
 
@@ -10,19 +9,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import control.GraphCtrl;
-import control.assistant.AssistMeasureCtrl;
 import control.doctor.DoctorMeasureCtrl;
-import model.ECG;
 import model.LocalizationService;
 import view.panels.AlphaContainer;
 import view.panels.FullGraphPanel;
 import view.panels.JPanelWithBackground;
 
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -33,6 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
+@SuppressWarnings("serial")
 public class DoctorMeasureFr extends JFrame {
 
 	private JPanel contentPane;
@@ -100,16 +96,6 @@ public class DoctorMeasureFr extends JFrame {
 		
 		
 		//GRAPH GOES HERE
-		
-		/*JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.DARK_GRAY);
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.gridwidth = 22;
-		gbc_panel_1.gridheight = 9;
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridx = 1;
-		gbc_panel_1.gridy = 1;
-		panel.add(panel_1, gbc_panel_1);*/
 		
 		//PANEL
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();

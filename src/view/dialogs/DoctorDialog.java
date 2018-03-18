@@ -1,6 +1,5 @@
 package view.dialogs;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
@@ -9,12 +8,10 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.border.EmptyBorder;
 
 import view.panels.JPanelWithBackground;
 
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.io.IOException;
@@ -33,7 +30,9 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class DoctorDialog extends JDialog {
+	
 	private JTextField nameField;
 	private JTextField surnameField;
 	private JPasswordField passField;
@@ -42,7 +41,6 @@ public class DoctorDialog extends JDialog {
 	private JTextField ssnField;
 	private JTextField hospitalField;
 	private JTextField phoneField;
-
 
 
 	/**
@@ -632,17 +630,6 @@ public class DoctorDialog extends JDialog {
 					}
 				}
 			});
-			
-			/*
-			private JTextField textField;
-			private JTextField surnameField;
-			private JPasswordField passField;
-			private JPasswordField confirmField;
-			private JTextField idField;
-			private JTextField ssnField;
-			private JTextField hospitalField;
-			private JTextField phoneField;
-			*/
 			
 			btnConfirm.setActionCommand("CONFIRM");
 			btnConfirm.setBorderPainted(false);

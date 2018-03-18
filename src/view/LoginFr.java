@@ -3,48 +3,28 @@ import control.Main;
 import model.LocalizationService;
 import view.panels.JPanelWithBackground;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import java.awt.Color;
-import javax.swing.border.MatteBorder;
 
-import org.omg.CORBA.portable.InputStream;
-
-import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.Graphics;
-import java.awt.GraphicsEnvironment;
 
+
+@SuppressWarnings("serial")
 public class LoginFr extends JFrame {
 	
 	Main controller;

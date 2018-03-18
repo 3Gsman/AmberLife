@@ -1,44 +1,33 @@
 package view.admin;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import control.admin.AdminCtrl;
-
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Vector;
-import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 
-import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JTextField;
-import javax.swing.JSeparator;
-import javax.swing.JLabel;
 import java.awt.FlowLayout;
-
 import model.*;
 import view.layouts.WrapLayout;
 import view.panels.AlphaContainer;
 import view.panels.JPanelWithBackground;
 import view.panels.UserPanel;
 
+@SuppressWarnings("serial")
 public class AdminFr extends JFrame {
 
 	private JPanel contentPane;
@@ -281,8 +270,6 @@ public class AdminFr extends JFrame {
 		
 		//Set buttons done
 		
-
-		
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridheight = 14;
 		gbc_panel.gridwidth = 21;
@@ -293,9 +280,7 @@ public class AdminFr extends JFrame {
 		display.setBackground(new Color(255,255,255,140));
 		display.setLayout(new BorderLayout());
 		initializeDoctors(users);
-		contentPane.add(new AlphaContainer(display), gbc_panel);
-		
-		
+		contentPane.add(new AlphaContainer(display), gbc_panel);	
 		
 		JButton btnLogout = new JButton("");
 		btnLogout.setBorderPainted(false);

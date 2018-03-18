@@ -1,7 +1,6 @@
 package view.doctor;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,15 +9,11 @@ import javax.swing.border.EmptyBorder;
 import control.doctor.DoctorCtrl;
 
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.Vector;
-import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -27,10 +22,8 @@ import java.awt.FontFormatException;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
-import javax.swing.JSeparator;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
 
@@ -40,6 +33,7 @@ import view.panels.AlphaContainer;
 import view.panels.JPanelWithBackground;
 import view.panels.PatientPanel;
 
+@SuppressWarnings("serial")
 public class DoctorFr extends JFrame {
 
 	private JPanel contentPane;
@@ -76,24 +70,9 @@ public class DoctorFr extends JFrame {
 	}
 	
 	public void initializeList() {
-		//Get PROMETHEUS font
 		box.removeAll();
 		box.add(searchpanel,BorderLayout.PAGE_START);
 		Vector<Patient> patients = controller.getDoctor().getPatientlist();
-		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
-		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
-	
-		Font sf = font; // will use sf to change the style;
-		try {
-			font = Font.createFont(Font.TRUETYPE_FONT, is);
-			sf = font;
-		} catch (FontFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBackground( new Color(255, 255, 255, 140) );
@@ -151,7 +130,6 @@ public class DoctorFr extends JFrame {
 	 * @throws IOException 
 	 */
 	public void initialize() throws IOException {
-		Vector<Patient> patients = controller.getDoctor().getPatientlist();
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(controller);
 		setBounds(100, 100, 850, 722);
@@ -225,42 +203,6 @@ public class DoctorFr extends JFrame {
 		gbc_btnNewButton.gridy = 2;
 		
 		contentPane.add(btnNewButton, gbc_btnNewButton);
-		/*
-		textField = new JTextField();
-		textField.setBorder(null);
-		textField.setFont(new Font("Verdana", Font.PLAIN, 26));
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.anchor = GridBagConstraints.BELOW_BASELINE;
-		gbc_textField.fill = GridBagConstraints.BOTH;
-		
-		gbc_textField.gridx = 15;
-		gbc_textField.gridy = 2;
-		gbc_textField.gridwidth = 7;
-		gbc_textField.insets = new Insets(0, 0, 0, 5);
-		gbc_textField.gridheight = gbc_btnNewButton.gridheight;
-		textField.setColumns(10);
-		contentPane.add(textField, gbc_textField);
-		
-		JButton btnSearchButton = new JButton(LocalizationService.getWord("search"));
-		sf = font.deriveFont(22f);
-		btnSearchButton.setFont(sf);
-		btnSearchButton.setOpaque(true);
-		btnSearchButton.setBackground(Color.WHITE);
-		btnSearchButton.setBorderPainted(false);
-		sf = font.deriveFont(Font.BOLD, 28f);
-		btnSearchButton.setFont(sf);
-		btnSearchButton.setForeground(Color.DARK_GRAY);
-		btnSearchButton.setActionCommand("SEARCH");
-		btnSearchButton.addActionListener(controller);
-		
-		
-		GridBagConstraints gbc_btnSearchButton = new GridBagConstraints();
-		gbc_btnSearchButton.anchor = GridBagConstraints.BELOW_BASELINE;
-		gbc_btnSearchButton.fill = GridBagConstraints.BOTH;
-		gbc_btnSearchButton.gridx = 14;
-		gbc_btnSearchButton.gridy = 2;
-		contentPane.add(btnSearchButton, gbc_btnSearchButton);
-		*/
 
 		box.setBackground( new Color(255,255,255,140));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -273,7 +215,6 @@ public class DoctorFr extends JFrame {
 		contentPane.add(new AlphaContainer(box), gbc_panel);
 		box.setLayout(new BorderLayout(0, 0));
 
-		
 		
 		initializeList();
 		

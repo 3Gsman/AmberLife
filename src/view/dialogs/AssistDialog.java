@@ -1,6 +1,5 @@
 package view.dialogs;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
@@ -9,12 +8,10 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.border.EmptyBorder;
 
 import view.panels.JPanelWithBackground;
 
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.io.IOException;
@@ -33,6 +30,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class AssistDialog extends JDialog {
 	private JTextField nameField;
 	private JTextField surnameField;

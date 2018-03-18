@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Vector;
 
@@ -14,13 +13,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import control.doctor.DoctorCtrl;
 import control.doctor.ECGchooserCtrl;
 import model.ECG;
 import view.layouts.WrapLayout;
 import view.panels.EcgPanel;
 import view.panels.JPanelWithBackground;
 
+@SuppressWarnings("serial")
 public class ECGchooserFr extends JFrame {
 	
 	ECGchooserCtrl controller;

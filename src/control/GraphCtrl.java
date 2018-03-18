@@ -4,32 +4,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-
-import javax.swing.JButton;
-import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.xy.XYSeriesCollection;
-
-import model.Doctor;
 import model.ECG;
 import model.FileManagement;
-import model.Patient;
-import view.doctor.DoctorPatientFr;
 import view.panels.FullGraphPanel;
 
 public class GraphCtrl implements ChangeListener, ActionListener, MouseWheelListener {
 	
-	ECG ECGData;
-	FileManagement fichero;
-	FullGraphPanel graph;
+	private ECG ECGData;
+	private FileManagement fichero;
+	private FullGraphPanel graph;
 
+	/**
+	 * Class constructor. Sets an associated FullGraphPanel
+	 * 
+	 * @param graph	the associated FullGraphPanel
+	 */
 	public GraphCtrl(FullGraphPanel graph){
 		this.graph = graph;
 	}
 
+	/**
+	 * Detects when the slider changes, and scrolls the graph according to the slider.
+	 * 
+	 * @param a triggering event 
+	 */
 	@Override
 	public void stateChanged(ChangeEvent a) {
 
@@ -43,6 +43,15 @@ public class GraphCtrl implements ChangeListener, ActionListener, MouseWheelList
 		System.out.println(graph.value);
 	}
 	
+	/**
+	 * Listens to event commands emitted by FullGraphPanel, and reacts to them accordingly:
+	 * 
+	 * zoomin:      Zooms the chart in
+	 * zoomout		Zooms the chart out.
+	 * reset:		Resets the zoom to default levels.
+	 *
+	 * @param e triggering event
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("zoomin")) {
@@ -80,6 +89,11 @@ public class GraphCtrl implements ChangeListener, ActionListener, MouseWheelList
 		
 	}
 	
+	/**
+	 * Listens to the mouse wheel, and changes when the graph is scrolled up or down.
+	 * 
+	 * @param e 	triggering event
+	 */
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		if (e.getWheelRotation() < 0) {

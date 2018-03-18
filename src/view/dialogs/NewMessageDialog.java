@@ -17,7 +17,6 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
 import java.awt.GridBagConstraints;
@@ -26,6 +25,7 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Dimension;
 
+@SuppressWarnings("serial")
 public class NewMessageDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));

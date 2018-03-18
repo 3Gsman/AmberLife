@@ -10,36 +10,55 @@ import java.util.Vector;
 
 public class FileManagement {
 	
-    BufferedWriter escritor;
-    BufferedReader lector;
-    BufferedReader lectorm;
-    BufferedReader lectorp;
-    File ficheroUsuario = new File("FicheroUsuarios.txt");
-    String p = ";";
+    private BufferedWriter escritor;
+    private BufferedReader lector;
+    private BufferedReader lectorm;
+    private BufferedReader lectorp;
+    private File ficheroUsuario = new File("FicheroUsuarios.txt");
+    private String p = ";";
 
+    /**
+     * Checks whether an user exists or not by reading into the DB (currently a txt file as a placeholder) and if it
+     * does, returns the type of user that it is (Assistant, Doctor, or Admin)
+     * 
+     * @param usuario	username of the checked user
+     * @param Password	password of the checked user
+     * @return	the type of user, if it exists
+     * @throws IOException
+     */
     public String[] checkUser(String usuario, String Password) throws IOException{	
-	Boolean busqueda=false;
-	lector=new BufferedReader(new FileReader("src/resources/Users.txt"));
-	String linea;	
-	String tipo[]=new String[3];
-	tipo[0]="false";
-	tipo[1]="null";
-	tipo[2]="null";
-	while((linea=lector.readLine())!=null &&(!busqueda)){
-		String[] lineatxt=linea.split(";");	
-		if(lineatxt[0].equals(usuario)){ //equalsIgnoreCases
-			if(lineatxt[2].equals(Password)){
-				busqueda=true;	
-				tipo[0]="true";
-				tipo[1]=lineatxt[1];
-				tipo[2]=lineatxt[2];
+		Boolean busqueda=false;
+		lector=new BufferedReader(new FileReader("src/resources/Users.txt"));
+		String linea;	
+		String tipo[]=new String[3];
+		tipo[0]="false";
+		tipo[1]="null";
+		tipo[2]="null";
+		while((linea=lector.readLine())!=null &&(!busqueda)){
+			String[] lineatxt=linea.split(";");	
+			if(lineatxt[0].equals(usuario)){ //equalsIgnoreCases
+				if(lineatxt[2].equals(Password)){
+					busqueda=true;	
+					tipo[0]="true";
+					tipo[1]=lineatxt[1];
+					tipo[2]=lineatxt[2];
+				}
 			}
 		}
-	}
-        lector.close();
-	return tipo;	
+	        lector.close();
+		return tipo;	
     }
     
+  
+    /**
+     * Checks whether a patient exists within the DB using their id number (Currently a txt file as a placeholder)
+     * and returns an array containing the data that the Assistant has the authorization to see, 
+     * to protect confidential information.
+     * 
+     * @param id	the id of the patient to check
+     * @return an array with the authorized data of the patient
+     * @throws IOException
+     */
     public Patient checkId(String id) throws IOException {
     	Boolean busqueda=false;
     	lector=new BufferedReader(new FileReader("src/resources/pacientes.txt"));
@@ -63,6 +82,15 @@ public class FileManagement {
     	return pt;	
     }
     
+    /**
+     * Checks whether a patient exists within the DB using their ssn number (Currently a txt file as a placeholder)
+     * and returns an array containing the data that the Assistant has the authorization to see, 
+     * to protect confidential information.
+     * 
+     * @param id	the ssn of the patient to check
+     * @return	an array with the authorized data of the patient
+     * @throws IOException
+     */
     public Patient checkSsn(String id) throws IOException {
     	Boolean busqueda=false;
     	lector=new BufferedReader(new FileReader("src/resources/pacientes.txt"));
@@ -79,12 +107,20 @@ public class FileManagement {
     				pt.setName(lineatxt[1]);
     				pt.setLastname(lineatxt[2]);
     				pt.setId(lineatxt[3]);
+    				pt.setSsn(lineatxt[4]);
     		}
     	}
             lector.close();
     	return pt;	
     }
     
+    /**
+     * Checks whether an assistant exists and returns their information from their username.
+     * 
+     * @param username	the username of the assistant to check
+     * @return an array of strings containing the data of the assistant
+     * @throws IOException
+     */
     public String[] readAssistant(String username) throws IOException{
     	Boolean busqueda = false;
     	lector=new BufferedReader(new FileReader("src/resources/Tecnicos.txt"));
@@ -98,14 +134,16 @@ public class FileManagement {
     				tecnico = lineatxt;
     		}
     	}
-    	
-
-    	
-    	
     	lector.close();
     	return tecnico;
     }
     
+    /**
+     * Gets all assistants from the DB (currently a txt file) and returns a list with their data.
+     * 
+     * @return	the list of assistants registered within the system.
+     * @throws IOException
+     */
     public Vector<Assistant> getAssistants() throws IOException {
     	lector = new BufferedReader(new FileReader("src/resources/Tecnicos.txt"));
     	Assistant[] lista = new Assistant[6];
@@ -128,6 +166,13 @@ public class FileManagement {
     	return v;
     }
     
+    /**
+     * Checks whether an doctor exists and returns their information from their username.
+     * 
+     * @param username	the username of the doctor to check
+     * @return an array of strings containing the data of the doctor
+     * @throws IOException
+     */
     public Doctor readDoctor(String username) throws IOException{
     	lectorm = new BufferedReader(new FileReader("src/resources/" + username + ".txt"));
     	String linea;
@@ -151,6 +196,12 @@ public class FileManagement {
     	
     }
     
+    /**
+     * Gets all doctors from the DB (currently a txt file) and returns a list with their data.
+     * 
+     * @return	the list of doctors registered within the system.
+     * @throws IOException
+     */
     public Vector<Doctor> getDoctors() throws IOException{
     	lector = new BufferedReader(new FileReader("src/resources/Users.txt"));
     	Doctor[] lista = new Doctor[5];
@@ -178,6 +229,13 @@ public class FileManagement {
     	return v;
     }
     
+    /**
+     * Parses an ECG file into an ECG object.
+     * 
+     * @param filename	The path to the ECG file
+     * @return	the resultant ECG object
+     * @throws IOException
+     */
      public ECG readECG(String filename) throws IOException{
     	lector = new BufferedReader(new FileReader("src/resources/" + filename));
     	ECG ecg = new ECG();
@@ -213,14 +271,20 @@ public class FileManagement {
     	
     	//Check the reading of the ecgs
 		//System.out.print(ecg.toString());
-		
-		
-    	
     	return ecg;
     	
     	
     }
      
+  
+     /**
+      * Checks whether a patient exists in the DB (currently txt files) and returns their data as a Patient object,
+      * containing confidential information that only Doctors may see.
+      * 
+      * @param username		the username of the patient to check
+      * @return	the resultant Patient file
+      * @throws IOException
+      */
      public Patient readPatient(String username) throws IOException{
     	 Patient p = new Patient(username);
     	 lectorp = new BufferedReader(new FileReader("src/resources/" + username + ".txt"));
@@ -254,6 +318,13 @@ public class FileManagement {
     	 return p;
      }
      
+     /**
+      * Reads a list of all messages relating to a patient from the DB (currently txt files)
+      * 
+      * @param number	id number of the patient
+      * @return	a list of all the messages relating to a patient
+      * @throws IOException
+      */
      public Vector<String> readPatientMessages(String number) throws IOException{
     	 
     	 Vector<String> messages = new Vector<String>();

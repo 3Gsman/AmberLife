@@ -6,11 +6,7 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
-import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -22,6 +18,7 @@ import model.LocalizationService;
 import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
 
+@SuppressWarnings("serial")
 public class UserPanel extends JPanel {
 	
 	
@@ -31,8 +28,6 @@ public class UserPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	
-	
 	public UserPanel() {
 		try {
 			initialize("John Doe", "XXXXXXX");

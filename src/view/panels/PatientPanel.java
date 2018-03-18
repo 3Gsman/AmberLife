@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import model.LocalizationService;
 import model.Patient;
 
+@SuppressWarnings("serial")
 public class PatientPanel extends JPanel {
 	
 	private Patient p;

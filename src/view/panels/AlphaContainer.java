@@ -18,6 +18,7 @@ import javax.swing.JComponent;
  *  background painting on behalf of its contained Component, using the
  *  background Color of the Component.
  */
+@SuppressWarnings("serial")
 public class AlphaContainer extends JComponent
 {
 	private JComponent component;

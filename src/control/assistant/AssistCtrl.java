@@ -1,6 +1,5 @@
 package control.assistant;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -9,11 +8,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.Vector;
-
-import javax.swing.JOptionPane;
-
 import control.ReturnsToFrame;
-import view.*;
 import view.assistant.AssistFr;
 import view.assistant.AssistPatientFr;
 import view.dialogs.ExitDialog;
@@ -24,56 +19,67 @@ import model.Assistant;
 
 public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyListener, WindowListener{
 
-	AssistFr tf;
-	String name;
-	Assistant tecnico;
+	private AssistFr tf;
+	private String name;
+	private Assistant tecnico;
 	
-	public AssistCtrl(String user, AssistFr vm) throws IOException {
-		tf = vm;
+	/**
+	 * Class constructor, sets the related frame, and the username of the current user for display in it.
+	 *
+	 * @param  user	Name of the current user
+	 * @param  fr	Frame related to the controller	
+	 * @throws IOException
+	 * @see    AssistFr
+	 */
+	public AssistCtrl(String user, AssistFr fr) throws IOException {
+		tf = fr;
 		name = user;
 		tecnico = new Assistant(user);
 	
 	}
 	
+	/**
+	 * Listens to event commands emitted by AssistFr, and reacts to them accordingly:
+	 * 
+	 * SEARCH:		Search a patient by ID or SSN in the DB (Uses a text file as a placeholder)
+	 * BACK:	   	Go back to the previous window
+	 * ID:			Set the mode to ID Search (If it's not already set that way)
+	 * SSN:			Set the mode to SSN Search (If it's not already set that way)
+	 *
+	 * @param  e event triggering the action performed
+	 * @see         AssistFR
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Action received: ");
-		 if (e.getActionCommand().equals("SEARCH")){
-			System.out.println(" Search");
+		System.out.print("Action received: " + e.getActionCommand());
+		 if (e.getActionCommand().equals("SEARCH")){;
 			try {
 				searchPatient();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-				 
-		
 		 }else if (e.getActionCommand().equals("BACK")) {
 			 tf.dispose();
 			 returnToPrevious();
-		 
 		 }else if (e.getActionCommand().equals("ID")) {
 			 if(!tf.getMode()) tf.switchbuttons();
 			 tf.repaint();
 		 }else if (e.getActionCommand().equals("SSN")) {
 			 if(tf.getMode()) tf.switchbuttons();
 			 tf.repaint();
-		 }else System.out.println(" Null");
-			/* try {
-				volverLogin();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}else System.out.println(" Null");
-		
-        if (e.getSource().equals(tf.blogout)){
-        			System.out.println("Test1\n");
-        }
-        
-       */
+		 }else System.out.println("Invalid Action");
 		
 	}
 	
+	/**
+	
+	 * Listens to Keys pressed in components at AssistFr, and reacts to them accordingly:
+	 * 
+	 * ENTER:	Search for a patient in ID or SSN
+	 *
+	 * @param  e event triggering the action performed
+	 * @see         AssistFR
+	 */
     @Override
     public void keyPressed(KeyEvent e) {
     	System.out.println("Key pressed");
@@ -85,9 +91,7 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-        } else if (e.getKeyCode() == KeyEvent.VK_F1) {
-        	
-        }
+        } 
     }
     
     @Override
@@ -100,7 +104,13 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 		// TODO Auto-generated method stub
 		
 	}
-	
+
+	/**
+	 * Searches for a patient by ID or SSN, depending on the active mode, and if it's found, call as method to open a 
+	 * new window with the patient data as argument.
+	 *
+	 * @throws	IOException
+	 */
 	public void searchPatient() throws IOException {
 		String dni = tf.getID();
 		FileManagement id = new FileManagement();
@@ -140,10 +150,20 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 		}
 
 	}
-	
-	public void openPatientTecn(String name, String lastname, String id, String ssn, Vector<String> messages, String user) throws IOException {
 
-    	//TecnFr.setVisible(false); 
+	/**
+	 * Opens a new ASsistPatientFr to see the opened patient in as much detail as an Assistant is allowed to.
+	 * 
+	 * @param	name		Name of the patient.
+	 * @param	lastname	Last name of the patient.
+	 * @param	id			ID of the patient.
+	 * @param	ssn			SSN of the patient.
+	 * @param	messages	Any messages related to the patient.
+	 * @param	user		Username of the Assistant using the program.
+	 * @see     AssistPatientCtrl, AssistPatientFr
+	 * @throws	IOException
+	 */
+	public void openPatientTecn(String name, String lastname, String id, String ssn, Vector<String> messages, String user) throws IOException {
         AssistPatientFr vm = new AssistPatientFr();
         AssistPatientCtrl tc = new AssistPatientCtrl(vm);
         tc.setPreviousWindow(tf);
@@ -151,15 +171,24 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
         vm.initialize(name, lastname, id, ssn, messages, user);
         vm.setVisible(true);
         tf.setVisible(false);
-
     }
 
-
+	/**
+	 * Returns the name of the user
+	 * 
+	 * @return name of the user
+	 */
 	public String getName() {
 		return name;
 	}
-	
-	public Assistant getTecnico() {
+
+	/**
+	 * Returns an Assistant object representing the user
+	 * 
+	 * @return the user object
+	 * @see Assistant
+	 */
+	public Assistant getAssist() {
 		return tecnico;
 	}
 
@@ -168,7 +197,13 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/**
+	 * Asks for a confirmation before the window is closed.
+	 * 
+	 * @param	e	WindowEvent triggering the method, in this case, the window closing.
+	 * @see         ExitDialog
+	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 		ExitDialog.confirmExit();
@@ -204,15 +239,4 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 		// TODO Auto-generated method stub
 		
 	}
-		 
-
-	//en desuso
-	/*public void volverLogin() throws IOException {
-        tf.setVisible(false);  //Cierra la ventana de tecnico
-        LoginFr login = new LoginFr(); //crea nueva ventana
-        Main mc = new Main (login);    //crea nuevo controlador de ventana
-        login.addController(mc);   //asigna el controlador a la ventana creada
-        login.initialize();
-		
-	}*/
 }

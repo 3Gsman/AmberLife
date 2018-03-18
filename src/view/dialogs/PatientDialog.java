@@ -1,6 +1,5 @@
 package view.dialogs;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
@@ -8,13 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.border.EmptyBorder;
-
 import view.panels.JPanelWithBackground;
 
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.io.IOException;
@@ -30,11 +25,10 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class PatientDialog extends JDialog {
 	private JTextField textField;
 	private JTextField textField_1;
-	private JPasswordField passField;
-	private JPasswordField passField_2;
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
@@ -628,7 +622,7 @@ public class PatientDialog extends JDialog {
 			}
 			{
 				Object[] genders = {"Male", "Female"};
-				JComboBox boxgenders = new JComboBox(genders);
+				JComboBox<Object> boxgenders = new JComboBox<Object>(genders);
 				boxgenders.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
 				boxgenders.setBorder(null);
 				boxgenders.setOpaque(false);
@@ -685,7 +679,7 @@ public class PatientDialog extends JDialog {
 
 			{
 				Object[] status = {"Low", "Mild", "Moderate", "Critical"};
-				JComboBox boxstatus = new JComboBox(status);
+				JComboBox<Object> boxstatus = new JComboBox<Object>(status);
 				boxstatus.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
 				GridBagConstraints gbc_boxstatus = new GridBagConstraints();
 				gbc_boxstatus.fill = GridBagConstraints.BOTH;

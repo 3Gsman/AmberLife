@@ -1,7 +1,6 @@
 package view.assistant;
-import java.awt.AlphaComposite;
+
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,53 +14,36 @@ import view.panels.AlphaContainer;
 import view.panels.JPanelWithBackground;
 import view.panels.MessagePanel;
 
-import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
-import javax.swing.JSeparator;
-import java.awt.CardLayout;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
-import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.Point;
-import java.awt.RenderingHints;
 
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Vector;
-import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class AssistPatientFr extends JFrame {
 
 	private JPanelWithBackground contentPane;
 	public AssistPatientCtrl controller;
 	
-	String name;
-	String psurname;
-	String id;
-	String ssn;
-	String user;
+	private String name;
+	private String psurname;
+	private String id;
+	private String ssn;
+	private String user;
 	
 	public void addController(AssistPatientCtrl a) {
 		this.controller = a;
@@ -96,7 +78,7 @@ public class AssistPatientFr extends JFrame {
 	 * @throws IOException 
 	 */
 	public void initialize(String pname, String psurname, String id, String ssn, Vector<String> messages, String user) throws IOException {
-		this.name = name;
+		this.name = pname;
 		this.psurname = psurname;
 		this.id = id;
 		this.ssn = ssn;
@@ -159,14 +141,11 @@ public class AssistPatientFr extends JFrame {
 		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 3;
 		contentPane.add(panel_1, gbc_panel_1);
-		//Deberia usar un GridBaglayout para solucionar distribucion de tama;o
 		GridBagLayout gbl = new GridBagLayout();
 		gbl.columnWidths = new int[]{15, 80, 0, 0, 0, 0, 0, 0, 0, 15};
 		gbl.rowHeights = new int[]{0, 30, 15, 30, 15, 30, 15, 30, 60, 15};
 		gbl.columnWeights = new double[]{0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.0, 0.2, Double.MIN_VALUE};
 		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.2, Double.MIN_VALUE};
-		BoxLayout bl = new BoxLayout(panel_1, BoxLayout.Y_AXIS);
-		WrapLayout wl = new WrapLayout();
 		panel_1.setLayout(gbl);
 		
 		JLabel label = new JLabel(" ");
@@ -383,17 +362,6 @@ public class AssistPatientFr extends JFrame {
 				jp.add(mp);
 			}
 			panel_2.setViewportView(jp);
-			/*for(int i = 0; i < messages.size(); i++) {	
-				JPanel panelMessage = new JPanel();
-				panelMessage.setBackground(Color.WHITE);
-				panel_2.add(panelMessage);
-				JLabel lblNewLabel_2 = new JLabel(messages.get(i));
-				sf = font.deriveFont(28f);
-				lblNewLabel_2.setFont(sf);
-				lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
-				lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-				panel_2.add(lblNewLabel_2, BorderLayout.CENTER);
-			}*/
 		}
 		
 		JButton btnNewButton = new JButton("");

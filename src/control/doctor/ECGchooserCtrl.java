@@ -6,33 +6,49 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.IOException;
-import java.util.Vector;
-
-import javax.swing.JFrame;
-
 import control.ReturnsToFrame;
 import model.ECG;
-import view.doctor.DoctorMeasureFr;
+import view.dialogs.AssistDialog;
 import view.doctor.ECGchooserFr;
 import view.panels.EcgPanel;
 
 public class ECGchooserCtrl extends ReturnsToFrame implements ActionListener, MouseListener, WindowListener{
 	
-	ECGchooserFr frame;
-	ECG first;
-	DoctorPatientCtrl controller;
+	private ECGchooserFr frame;
+	private ECG first;
+	private DoctorPatientCtrl controller;
 	
+	/**
+	 * Class constructor, sets the related frame, the controller that will receive the ECGs, and the first ECG.
+	 * 
+	 * @param  c		Controller that will receive both ECGs
+	 * @param  f		Related frame DoctorPatientFr
+	 * @param  first	First ECG to compare
+	 * @see    DoctorPatientCtrl, ECGchooserFR, ECG
+	 */
 	public ECGchooserCtrl(DoctorPatientCtrl c ,ECGchooserFr f, ECG first){
 		frame = f;
 		controller = c;
 		this.first = first;
 	}
 
+	/**
+	 * Returns the DoctorPatientCtrl associated with the class.
+	 * 
+	 * @return	the controller to receive the ECGs
+	 * @see    DoctorPatientCtrl, ECGchooserFR, ECG
+	 */
 	public DoctorPatientCtrl getController() {
 		return controller;
 	}
 	
+	/**
+	 * Takes the clicked ECGPanel as a second ECG, and calls the compare function of the controller passing
+	 * both ECGs as parameters
+	 * 
+	 * @param e		The event triggering the method. Only ECGPanels are meant to be listened to.
+	 * @see EcgPanel
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		try {
@@ -84,11 +100,16 @@ public class ECGchooserCtrl extends ReturnsToFrame implements ActionListener, Mo
 		
 	}
 
+	/**
+	 * Closes the current frame and returns to previous.
+	 *  
+	 * @param	e	WindowEvent triggering the method, in this case, the window closing.
+	 * @see         AssistDialog
+	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 		returnToPrevious();
-		frame.dispose();
-		
+		frame.dispose();	
 	}
 
 	@Override

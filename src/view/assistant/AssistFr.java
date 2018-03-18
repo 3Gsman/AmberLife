@@ -1,51 +1,30 @@
 	package view.assistant;
 	
-	import java.awt.EventQueue;
-	
 	import javax.swing.JFrame;
 	import javax.swing.JButton;
 	import java.awt.BorderLayout;
-	import java.awt.Dimension;
-	import java.awt.GridLayout;
-	import java.awt.Image;
+import java.awt.Color;
+import java.awt.Dimension;
 	import java.awt.GridBagLayout;
 	import java.awt.GridBagConstraints;
 	import java.awt.Insets;
-	import java.awt.event.MouseAdapter;
-	import java.awt.event.MouseEvent;
-	import java.awt.image.BufferedImage;
-	import java.awt.image.ImageObserver;
-	import java.io.File;
 	import java.io.IOException;
-	import java.net.URL;
-	import java.awt.event.ActionListener;
-	import java.awt.event.ActionEvent;
 	import java.awt.FlowLayout;
 	import javax.swing.JPanel;
-	import javax.imageio.ImageIO;
-	import javax.swing.BoxLayout;
 	import javax.swing.JLabel;
-	import java.awt.Color;
-	import javax.swing.border.MatteBorder;
-	
-	import org.omg.CORBA.portable.InputStream;
 
 import control.assistant.AssistCtrl;
 import model.LocalizationService;
 import view.panels.JPanelWithBackground;
-
-import javax.swing.JComboBox;
 	import javax.swing.ImageIcon;
 	import javax.swing.JTextField;
 	import javax.swing.SwingConstants;
-	import javax.swing.JPasswordField;
 	import java.awt.Font;
 	import java.awt.FontFormatException;
-	import java.awt.Graphics;
-	import java.awt.GraphicsEnvironment;
 	
+	@SuppressWarnings("serial")
 	public class AssistFr extends JFrame {
-	
+		
 		public JTextField textField;
 		AssistCtrl controller;
 		JButton btnNewButton = new JButton(LocalizationService.getWord("id"));
@@ -205,7 +184,7 @@ import javax.swing.JComboBox;
 			panel.add(paneluser,gbc_paneluser);
 			
 			JLabel lblUser = new JLabel(" " + LocalizationService.getWord("user") + ": " 
-								+ controller.getTecnico().getName() + " " + controller.getTecnico().getLastname());
+								+ controller.getAssist().getName() + " " + controller.getAssist().getLastname());
 			sf = font.deriveFont(22f);
 			lblUser.setForeground(Color.WHITE);
 			lblUser.setOpaque(false);

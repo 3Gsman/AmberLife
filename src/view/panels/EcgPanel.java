@@ -1,29 +1,22 @@
 
-	package view.panels;
+package view.panels;
 
-	import javax.swing.JPanel;
-	import java.awt.GridBagLayout;
-	import javax.swing.JLabel;
-	import java.awt.GridBagConstraints;
-	import java.awt.Insets;
-	import javax.swing.JButton;
-	import java.awt.event.ActionListener;
+import javax.swing.JPanel;
+import java.awt.GridBagLayout;
+import javax.swing.JLabel;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.awt.event.MouseListener;
 import java.io.IOException;
-import java.awt.event.ActionEvent;
-	import java.awt.Color;
-	import java.awt.Font;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.FontFormatException;
-
 import javax.swing.SwingConstants;
-
 import model.ECG;
 import model.LocalizationService;
-
 import java.awt.FlowLayout;
-	import javax.swing.ImageIcon;
 
-
+@SuppressWarnings("serial")
 public class EcgPanel extends JPanel {
 		
 		ECG e;

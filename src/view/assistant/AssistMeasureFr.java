@@ -1,7 +1,5 @@
 package view.assistant;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontFormatException;
 
@@ -11,24 +9,20 @@ import javax.swing.border.EmptyBorder;
 
 import control.GraphCtrl;
 import control.assistant.AssistMeasureCtrl;
-import model.ECG;
 import model.LocalizationService;
 import view.panels.FullGraphPanel;
 import view.panels.JPanelWithBackground;
 
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
+@SuppressWarnings("serial")
 public class AssistMeasureFr extends JFrame {
 
 	private JPanel contentPane;
