@@ -15,8 +15,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
 import java.awt.GridBagConstraints;
@@ -25,6 +25,7 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Dimension;
 
+@SuppressWarnings("serial")
 public class NewMessageDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
@@ -52,6 +53,19 @@ public class NewMessageDialog extends JDialog {
 		this.setSize(d);
 		this.setResizable(false);
 		this.setTitle("New Message: " + name + " " + lastname);
+		
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
+		Font sf = font; // will use sf to change the style;
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT, is);
+			sf = font;
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		sf = font.deriveFont(22f);
 		{
 			JPanel panel = new JPanel();
 			panel.setOpaque(false);
@@ -67,7 +81,7 @@ public class NewMessageDialog extends JDialog {
 			
 			JLabel lblNewLabel = new JLabel("new message");
 			lblNewLabel.setForeground(Color.WHITE);
-			lblNewLabel.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			lblNewLabel.setFont(sf);
 			panel.add(lblNewLabel);
 		}
 		
@@ -95,7 +109,7 @@ public class NewMessageDialog extends JDialog {
 			}
 		});
 		btnCancel.setForeground(Color.WHITE);
-		btnCancel.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+		btnCancel.setFont(sf);
 		btnCancel.setBackground(Color.DARK_GRAY);
 		btnCancel.setBorder(null);
 		btnCancel.setActionCommand("CANCEL");
@@ -114,7 +128,7 @@ public class NewMessageDialog extends JDialog {
 		});
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.setBackground(Color.DARK_GRAY);
-		btnNewButton.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+		btnNewButton.setFont(sf);
 		btnNewButton.setBorder(null);
 		btnNewButton.setActionCommand("CONFIRM");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();

@@ -5,10 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import control.ReturnsToFrame;
 import model.ECG;
 import view.panels.CompareGraphPanel;
@@ -18,10 +15,17 @@ import view.doctor.ECGchooserFr;
 
 public class DoctorMeasureCtrl extends ReturnsToFrame implements ActionListener, WindowListener{
 	
-	JFrame fr;
-	ECG e;
-	CompareGraphPanel cgp;
+	private JFrame fr;
+	private ECG e;
+	private CompareGraphPanel cgp;
 	
+	/**
+	 * Class constructor, sets the related frame and the ECG measure that will be displayed on it.
+	 *
+	 * @param  thiscatwontshutthehellup		Related frame and mention to my neighbour's cat.
+	 * @param  e	ECG to be displayed in the related frame	
+	 * @see    DoctorMeasureFr, ECG
+	 */
 	public DoctorMeasureCtrl(JFrame thiscatwontshutthehellup, ECG e) {
 		this.fr = thiscatwontshutthehellup;
 		this.e = e;
@@ -32,14 +36,35 @@ public class DoctorMeasureCtrl extends ReturnsToFrame implements ActionListener,
 		this.cgp = cgp;
 	}
 	
+	/**
+	 * Returns the ECG that the related frame will represent.
+	 * 
+	 * @returns		returns the ECG represented in the AssistMeasureFr
+	 * @see         ECG
+	 */
 	public ECG getECG() {
 		return e;
 	}
 	
+	/**
+	 * Returns a CompareGraphPanel owned by the controller.
+	 * 
+	 * @returns		the CompareGraphPanel owned by the controller, null if no comparison is being performed.
+	 * @see         CompareGraphPanel
+	 */
 	public CompareGraphPanel getCGP() {
 		return cgp;
 	}
 
+	/**
+	 * Listens to event commands emitted by DoctorMeasureFr, and reacts to them accordingly:
+	 * 
+	 * BACK:		Returns to the previous frame.
+	 * COMPARE:		Closes the current frame and opens a ECGChooserFr to choose an ECH for comparison.
+	 *
+	 * @param  e event triggering the action performed
+	 * @see         DoctorMeasureFr, ECGchooserFr, ECGchooserCtrl
+	 */
 	@Override
 	public void actionPerformed(ActionEvent ev) {
 		System.out.println("Action received: " + ev.getActionCommand());
@@ -71,7 +96,13 @@ public class DoctorMeasureCtrl extends ReturnsToFrame implements ActionListener,
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/**
+	 * Asks for a confirmation before the window is closed.
+	 * 
+	 * @param	e	WindowEvent triggering the method, in this case, the window closing.
+	 * @see         ExitDialog
+	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 		ExitDialog.confirmExit();

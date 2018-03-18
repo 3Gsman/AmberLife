@@ -5,7 +5,7 @@
  */
 package control;
 
-import model.FileManager;
+import model.FileManagement;
 import model.LocalizationService;
 import view.*;
 import view.admin.AdminFr;
@@ -34,21 +34,30 @@ import control.doctor.DoctorCtrl;
 
 public class Main implements ActionListener, KeyListener, WindowListener {
 
-    LoginFr vistaLogin;
-    JTextField idBox;
-    JPasswordField pwBox;
-    JFrame frame;
+    private LoginFr vistaLogin;
 
-    //Constructor por defecto
+   /**
+    * Class constructor, set associated window.
+    * @param w	associated frame
+    * @see LoginFr
+    */
     public Main(LoginFr w) {
         vistaLogin = w;
     }
-    
+
+    /**
+	 * Listens to event commands emitted by AdminFr, and reacts to them accordingly:
+	 * 
+	 * LOGIN:    	Check if the user exists, and open a window depending on their privileges
+	 * LANGUAGE:	Switch to the next language
+	 *
+	 * @param  e event triggering the action performed
+	 * @see         LoginFR
+	 */
     @Override
     public void actionPerformed(ActionEvent e) {
     	System.out.print("Action received: " + e.getActionCommand());
     	if (e.getActionCommand().equals("LOGIN")){
-    		System.out.println(" Login");
     		aceptarVentana();
     	}
     	else if (e.getActionCommand().equals("LANGUAGE")){
@@ -68,20 +77,23 @@ public class Main implements ActionListener, KeyListener, WindowListener {
     	}
     	else System.out.println(" Null");
     }
-  
+   
+    /**
+     * Equivalent to pressing the Login button, listen to the button in the associated frame and check if enter was 
+     * pressed while it had the focus.
+     * 
+     */
     @Override
     public void keyPressed(KeyEvent e) {
     	System.out.println("Key pressed");
     	if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             aceptarVentana();
-        } else if (e.getKeyCode() == KeyEvent.VK_F1) {
-        	
-        }
+        } 
     }
     
     @Override
     public void keyReleased(KeyEvent e) {
-    	
+    	// TODO Auto-generated method stub
     }
      
 	@Override
@@ -90,11 +102,15 @@ public class Main implements ActionListener, KeyListener, WindowListener {
 		
 	}
 
+	/**
+	 * Get username and password, check if such an user exists and what kind of user it is, and then open a window
+	 * corresponding to the user's privileges.
+	 */
     public void aceptarVentana() {
         String usuario = vistaLogin.getUsername();	//recoge el contenido del JTextField
         char caracteres[] = vistaLogin.getPassword();	//array de caracteres que coge los elementos que se encuentran en el JPasswordField
         String Password = String.valueOf(caracteres);	//Convierte los elementos del array en un String
-        FileManager comprobar = new FileManager();	//crea un nuevo gestor de ficheros
+        FileManagement comprobar = new FileManagement();	//crea un nuevo gestor de ficheros
         try {
             String resultado[] = comprobar.checkUser(usuario, Password);
             if (resultado[0] == "true") {
@@ -129,6 +145,13 @@ public class Main implements ActionListener, KeyListener, WindowListener {
         }
     }
 
+	/**
+	 * Open the Doctor window
+	 * 
+	 * @param usuario	the name of the program's user registered in the DB
+	 * @throws IOException
+	 * @see DoctorFr, DoctorCtrl
+	 */
     public void openDoctor(String usuario) throws IOException {
 
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
@@ -140,7 +163,14 @@ public class Main implements ActionListener, KeyListener, WindowListener {
         vp.setVisible(true);
         
     }
-
+    
+	/**
+	 * Open the Assistant window
+	 * 
+	 * @param usuario	the name of the program's user registered in the DB
+	 * @throws IOException
+	 * @see AssistFr, AssistCtrl
+	 */
     public void openAssistant(String usuario) throws IOException {
 
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
@@ -150,9 +180,15 @@ public class Main implements ActionListener, KeyListener, WindowListener {
         vm.addController(tc);
         vm.initialize();
         vm.setVisible(true);
-
     }
-
+    
+	/**
+	 * Open the Admin window
+	 * 
+	 * @param usuario	the name of the program's user registered in the DB
+	 * @throws IOException
+	 * @see AdminFr, AdminCtrl
+	 */
     public void openAdmin(String usuario) throws IOException {
 
     	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
@@ -167,7 +203,12 @@ public class Main implements ActionListener, KeyListener, WindowListener {
 
     }
     
-
+	/**
+	 * Creates an initial LoginFr and a controller for it, initializes services, and starts the program.
+	 * 
+	 * @param args	arguments passed to the program
+	 * @see LoginFr, LocalizationService
+	 */
     public static void main(String[] args) {
     	LocalizationService.initialize();
 
@@ -188,7 +229,13 @@ public class Main implements ActionListener, KeyListener, WindowListener {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/**
+	 * Asks for a confirmation before the window is closed.
+	 * 
+	 * @param	e	WindowEvent triggering the method, in this case, the window closing.
+	 * @see         ExitDialog
+	 */
 	@Override
     public void windowClosing(WindowEvent e)
     { 
@@ -224,19 +271,5 @@ public class Main implements ActionListener, KeyListener, WindowListener {
 		// TODO Auto-generated method stub
 		
 	}
-
-    
-    /*EventQueue.invokeLater(new Runnable() {
-		public void run() {
-			try {
-				LoginFr window = new LoginFr();
-				vistaLogin.setVisible(true);
-				Main mc = new Main(window);
-			    window.addController(mc);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	});*/
 
 }

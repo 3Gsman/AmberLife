@@ -1,7 +1,5 @@
 package view.assistant;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontFormatException;
 
@@ -9,25 +7,22 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import control.GraphCtrl;
 import control.assistant.AssistMeasureCtrl;
-import model.ECG;
 import model.LocalizationService;
 import view.panels.FullGraphPanel;
 import view.panels.JPanelWithBackground;
 
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 
+@SuppressWarnings("serial")
 public class AssistMeasureFr extends JFrame {
 
 	private JPanel contentPane;
@@ -59,6 +54,8 @@ public class AssistMeasureFr extends JFrame {
 		this.setTitle("ECG Confirmation");
 		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
 		this.setIconImage(img.getImage());
+		
+		Color grey = new Color(80, 77, 77, 255);
 		
 		//Get PROMETHEUS font
 		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
@@ -93,7 +90,7 @@ public class AssistMeasureFr extends JFrame {
 		//GRAPH GOES HERE
 		
 		/*JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.DARK_GRAY);
+		panel_1.setBackground(grey);
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.gridwidth = 22;
 		gbc_panel_1.gridheight = 9;
@@ -104,12 +101,13 @@ public class AssistMeasureFr extends JFrame {
 		
 		//PANEL
 		FullGraphPanel gr = new FullGraphPanel(controller.getECG());
-    	gr.setBackground(Color.DARK_GRAY.darker());
+		GraphCtrl gc = new GraphCtrl(gr);
+		gr.addController(gc);
+	   	gr.setBackground(Color.DARK_GRAY.darker());
     	gr.setOpaque(true);
-    	
     	GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.gridwidth = 22;
-		gbc_panel_1.gridheight = 9;
+		gbc_panel_1.gridheight = 10;
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 1;
@@ -135,7 +133,7 @@ public class AssistMeasureFr extends JFrame {
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.setFont(sf);
 		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setBackground(new Color(80, 77, 77, 255));
+		btnNewButton.setBackground(grey);
 		btnNewButton.setForeground(Color.WHITE);
 		btnNewButton.addActionListener(controller);
 		btnNewButton.setActionCommand("CANCEL");
@@ -152,7 +150,7 @@ public class AssistMeasureFr extends JFrame {
 		button.setBorderPainted(false);
 		button.setFont(sf);
 		button.setForeground(new Color(0, 0, 0));
-		button.setBackground(new Color(80, 77, 77, 255));
+		button.setBackground(grey);
 		button.setForeground(Color.WHITE);
 		button.addActionListener(controller);
 		button.setActionCommand("CONFIRM");

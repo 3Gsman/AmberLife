@@ -9,6 +9,11 @@ public  class LocalizationService {
 	static private HashMap<String,String> spanish = new HashMap<>();
 	static private HashMap<String,String> galician = new HashMap<>();
 	
+	/**
+	 * Initializes the LocalizationService to contain the words used in the app and their equivalent in other languages.
+	 * To be eventually substituted with json parsing for more decoupling and ease of translation.
+	 * 
+	 */
 	public static void initialize() {
 		//This needs to read a JSON in the future, for now it's hardcoded
 		english.put("username", "username");
@@ -137,6 +142,12 @@ public  class LocalizationService {
 		
 	}
 	
+	/**
+	 * Returns the equivalent of a word or string to be used in a given scenario in the selected language.
+	 * 
+	 * @param word	the word or string to be used
+	 * @return	the equivalent in the selected language
+	 */
 	public static String getWord(String word) {
 		if(appLanguage == "ENGLISH") {
 			return english.get(word);
@@ -150,6 +161,9 @@ public  class LocalizationService {
 		}
 	}
 
+	/**
+	 * Changes from one selected language to the next.
+	 */
 	public static void rotate() {
 		if(appLanguage == "ENGLISH") appLanguage = "SPANISH";
 		else if(appLanguage == "SPANISH") appLanguage = "GALICIAN";
@@ -160,6 +174,11 @@ public  class LocalizationService {
 		}
 	}
 
+	/**
+	 * Returns the current language as a string.
+	 * 
+	 * @return the current language
+	 */
 	public static String getLanguage() {
 		return appLanguage;
 	}

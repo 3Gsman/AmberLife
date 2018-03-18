@@ -8,25 +8,8 @@ import java.awt.RenderingHints;
 import java.awt.font.FontRenderContext;
 import java.awt.font.LineMetrics;
 import java.awt.geom.Line2D;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Vector;
-import java.awt.*;
-import java.awt.font.*;
-import java.awt.geom.*;
-import javax.swing.*;
 
-import control.assistant.AssistMeasureCtrl;
-import model.FileManager;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.font.FontRenderContext;
-import java.awt.font.LineMetrics;
-import java.awt.geom.Line2D;
-
-import javax.swing.*;
+import javax.swing.JPanel;
 
 import model.ECG;
 

@@ -2,35 +2,25 @@ package view.panels;
 
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
-import javax.swing.JTextPane;
 import java.awt.Insets;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.awt.event.ActionEvent;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.FontFormatException;
-
 import javax.swing.SwingConstants;
-
-import control.doctor.DoctorPatientCtrl;
 import model.LocalizationService;
 import model.User;
-
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
+@SuppressWarnings("serial")
 public class MessagePanel extends JPanel {
 
 	String message;
@@ -229,6 +219,8 @@ public class MessagePanel extends JPanel {
 		JTextArea jta = new JTextArea();
 		jta.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
 		jta.setWrapStyleWord(true);
+		jta.setLineWrap(true);
+		jta.setEditable(false);
 		jta.setOpaque(false);
 		jta.setText(message);
 		scrollPane.setViewportView(jta);

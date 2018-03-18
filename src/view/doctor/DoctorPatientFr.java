@@ -9,11 +9,9 @@ import java.awt.FontFormatException;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Vector;
 
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,22 +20,21 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import control.doctor.DoctorPatientCtrl;
-import model.Doctor;
 import model.ECG;
-import model.FileManager;
+import model.FileManagement;
 import model.LocalizationService;
-import model.Patient;
 import model.User;
 import view.assistant.AssistPatientFr;
 import view.layouts.WrapLayout;
+import view.panels.AlphaContainer;
 import view.panels.EcgPanel;
 import view.panels.JPanelWithBackground;
 import view.panels.MessagePanel;
 
+@SuppressWarnings("serial")
 public class DoctorPatientFr extends JFrame {
 
 
@@ -93,7 +90,7 @@ public class DoctorPatientFr extends JFrame {
 			jp2.add(new_msg,BorderLayout.PAGE_END);
 			
 			JButton btnNewButton2 = new JButton("");
-			ImageIcon reply = new ImageIcon(getClass().getResource("/resources/Reply.png"));
+			ImageIcon reply = new ImageIcon(getClass().getResource("/resources/MessageButton.png"));
 			btnNewButton2.setActionCommand("NEWMESSAGE");
 			btnNewButton2.addActionListener(controller);
 			btnNewButton2.setIcon(reply);
@@ -103,7 +100,7 @@ public class DoctorPatientFr extends JFrame {
 			btnNewButton2.setContentAreaFilled(false);
 			new_msg.add(btnNewButton2);
 			
-			FileManager id = new FileManager();
+			FileManagement id = new FileManagement();
 			Vector<String> messages = id.readPatientMessages(controller.getPatient().getNumber());
 			if(messages.equals(null)) {
 				JPanel jp = new JPanel();
@@ -127,28 +124,6 @@ public class DoctorPatientFr extends JFrame {
 				panel_2.setViewportView(jp);
 			}
 			return jp2;
-			/*jp.setBackground( new Color(255, 255, 255, 100));
-			jp.setLayout(new BorderLayout(0, 0));
-			
-			JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomessages"));
-			
-			java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
-			Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
-			Font sf = font; // will use sf to change the style;
-			try {
-				font = Font.createFont(Font.TRUETYPE_FONT, is);
-				sf = font;
-			} catch (FontFormatException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			sf = font.deriveFont(28f);
-			lblNewLabel_2.setFont(sf);
-			lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
-			lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-			jp.add(lblNewLabel_2, BorderLayout.CENTER);
-			mode = "MESSAGES";*/
-
 	}
 	
 	private JPanel initializeECG() throws IOException {
@@ -188,7 +163,7 @@ public class DoctorPatientFr extends JFrame {
 		if(mode != "MESSAGES") {
 			//this.getContentPane().remove(messagePanel);
 			messagePanel.removeAll();
-			messagePanel.add(initializeMessages(), BorderLayout.CENTER);
+			messagePanel.add(new AlphaContainer(initializeMessages()), BorderLayout.CENTER);
 			this.repaint();
 			mode = "MESSAGES";
 		}
@@ -268,14 +243,11 @@ public class DoctorPatientFr extends JFrame {
 		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 3;
 		contentPane.add(panel_1, gbc_panel_1);
-		//Deberia usar un GridBaglayout para solucionar distribucion de tama;o
 		GridBagLayout gbl = new GridBagLayout();
 		gbl.columnWidths = new int[]{15, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15};
 		gbl.rowHeights = new int[]{0, 30, 15, 30, 15, 30, 15, 30, 15, 30, 15, 30, 15, 30, 15, 0, 0, 20};
 		gbl.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.2, Double.MIN_VALUE};
-		BoxLayout bl = new BoxLayout(panel_1, BoxLayout.Y_AXIS);
-		WrapLayout wl = new WrapLayout();
 		panel_1.setLayout(gbl);
 		
 		JLabel label = new JLabel(" ");

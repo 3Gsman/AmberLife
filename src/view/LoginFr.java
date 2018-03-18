@@ -3,48 +3,28 @@ import control.Main;
 import model.LocalizationService;
 import view.panels.JPanelWithBackground;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
-import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import java.awt.Color;
-import javax.swing.border.MatteBorder;
 
-import org.omg.CORBA.portable.InputStream;
-
-import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
 import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.Graphics;
-import java.awt.GraphicsEnvironment;
 
+
+@SuppressWarnings("serial")
 public class LoginFr extends JFrame {
 	
 	Main controller;
@@ -105,6 +85,8 @@ public class LoginFr extends JFrame {
 		this.setMinimumSize(d);
 		this.setSize(d);
 		
+		Color grey = new Color(80, 77, 77, 255);
+		
 		//Get PROMETHEUS font
 		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
@@ -124,9 +106,9 @@ public class LoginFr extends JFrame {
 		this.getContentPane().add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel.rowHeights = new int[]{0, 80, 20, 20, 0, 0, 10, 60, 0, 10, 60, 20, 60, 30, 0};
+		gbl_panel.rowHeights = new int[]{15, 80, 20, 20, 0, 0, 10, 60, 0, 10, 60, 20, 60, 30, 0};
 		gbl_panel.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.2, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.2, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.5, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 
 		
@@ -144,6 +126,7 @@ public class LoginFr extends JFrame {
 		
 		JLabel label = new JLabel("");
 		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setIcon(new ImageIcon(getClass().getResource("/resources/Logo.png")));
 		//Set label icon size
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.fill = GridBagConstraints.BOTH;
@@ -151,7 +134,7 @@ public class LoginFr extends JFrame {
 		gbc_label.insets = new Insets(0, 0, 5, 5);
 		gbc_label.gridx = 10;
 		gbc_label.gridy = 1;
-		label.setIcon(new ImageIcon(getClass().getResource("/resources/Logo.png")));
+		
 		panel.add(label, gbc_label);
 		
 		JPanel panel_1 = new JPanel();
@@ -195,7 +178,7 @@ public class LoginFr extends JFrame {
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.fill = GridBagConstraints.BOTH;
 		gbc_textField.gridwidth = 2;
-		gbc_textField.insets = new Insets(0, 0, 0, 5);
+		gbc_textField.insets = new Insets(0, 0, 10, 5);
 		gbc_textField.gridx = 10;
 		gbc_textField.gridy = 7;
 		panel.add(textField, gbc_textField);
@@ -227,15 +210,14 @@ public class LoginFr extends JFrame {
 		panel.add(passwordField, gbc_passwordField);
 		
 		JButton btnNewButton_1 = new JButton(LocalizationService.getWord("login"));
-		btnNewButton_1.setForeground(new Color(0, 0, 0));
-		btnNewButton_1.setBackground(Color.DARK_GRAY);
+		btnNewButton_1.setForeground(new Color(255, 255, 255,255));
+		btnNewButton_1.setBackground(grey);
 		btnNewButton_1.addActionListener(controller);
 		btnNewButton_1.addKeyListener(controller);
 		btnNewButton_1.setActionCommand("LOGIN");
 		btnNewButton_1.setBorderPainted(false);
 		sf = font.deriveFont(Font.BOLD, 32f);
 		btnNewButton_1.setFont(sf);
-		btnNewButton_1.setForeground(Color.WHITE);
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.gridwidth = 2;
 		gbc_btnNewButton_1.fill = GridBagConstraints.BOTH;

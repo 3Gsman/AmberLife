@@ -1,28 +1,16 @@
 package view.panels;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.XYItemRenderer;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
-
+import control.GraphCtrl;
 import model.ECG;
-import model.FileManager;
+import model.FileManagement;
 
 public class CompareGraphPanel extends JPanel{
 
@@ -30,7 +18,7 @@ public class CompareGraphPanel extends JPanel{
 	ECG ECGData2;
 
 	private static final long serialVersionUID = 1L;
-	FileManager fichero;
+	FileManagement fichero;
 
 
 	public CompareGraphPanel(ECG ecgData,ECG ecgData2) {
@@ -52,6 +40,8 @@ public class CompareGraphPanel extends JPanel{
 		
 		
 		FullGraphPanel gr = new FullGraphPanel(ecgData);
+		GraphCtrl gc = new GraphCtrl(gr);
+		gr.addController(gc);
     	gr.setBackground(Color.DARK_GRAY.darker());
     	gr.setOpaque(true);
     	
@@ -64,6 +54,8 @@ public class CompareGraphPanel extends JPanel{
 		graphBoard.add(gr, gbc_panel_1);
 		
 		FullGraphPanel gr2 = new FullGraphPanel(ecgData2);
+		GraphCtrl gc2 = new GraphCtrl(gr2);
+		gr2.addController(gc2);
 		gr2.setBackground(Color.DARK_GRAY.darker());
 		gr2.setOpaque(true);
     	

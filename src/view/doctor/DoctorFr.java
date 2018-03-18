@@ -1,7 +1,6 @@
 package view.doctor;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,15 +9,11 @@ import javax.swing.border.EmptyBorder;
 import control.doctor.DoctorCtrl;
 
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.Vector;
-import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -27,18 +22,18 @@ import java.awt.FontFormatException;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
-import javax.swing.JSeparator;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
 
 import model.*;
 import view.layouts.WrapLayout;
+import view.panels.AlphaContainer;
 import view.panels.JPanelWithBackground;
 import view.panels.PatientPanel;
 
+@SuppressWarnings("serial")
 public class DoctorFr extends JFrame {
 
 	private JPanel contentPane;
@@ -51,6 +46,10 @@ public class DoctorFr extends JFrame {
 
 	public DoctorFr() {
 		
+	}
+	
+	public String getText() {
+		return textField.getText();
 	}
 	
 	public boolean getMode() {
@@ -71,45 +70,30 @@ public class DoctorFr extends JFrame {
 	}
 	
 	public void initializeList() {
-		//Get PROMETHEUS font
 		box.removeAll();
 		box.add(searchpanel,BorderLayout.PAGE_START);
 		Vector<Patient> patients = controller.getDoctor().getPatientlist();
-		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
-		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
-	
-		Font sf = font; // will use sf to change the style;
-		try {
-			font = Font.createFont(Font.TRUETYPE_FONT, is);
-			sf = font;
-		} catch (FontFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBackground( new Color(0, 0, 0, 0) );
+		scrollPane.setBackground( new Color(255, 255, 255, 140) );
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setOpaque(false);
 		scrollPane.getVerticalScrollBar().setUnitIncrement(18);
 		scrollPane.getViewport().setOpaque(false);
+		scrollPane.setBorder(null);
 		
 		//Viewport
 		JPanel viewport = new JPanel();
 		viewport.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
 		viewport.setBackground( new Color(255, 255, 255, 255) );
-		viewport.setOpaque(true);
+		viewport.setOpaque(false);
 		//Contents go here
 		//Si el bool es true, se inicia con doctores, si no, con assistants
 		String search = textField.getText();
 		if(search != null)
 			for(Patient d : patients) {	
-				if (d.getName().toLowerCase().contains(search.toLowerCase()) ||
-					d.getLastname().toLowerCase().contains(search.toLowerCase()) ||	
+				if ((d.getName() + " " + d.getLastname()).toLowerCase().contains(search.toLowerCase()) ||	
 					d.getId().toLowerCase().contains(search.toLowerCase()) ||
 					d.getSsn().toLowerCase().contains(search.toLowerCase())){
 						viewport.add(new PatientPanel(d, controller));
@@ -146,7 +130,6 @@ public class DoctorFr extends JFrame {
 	 * @throws IOException 
 	 */
 	public void initialize() throws IOException {
-		Vector<Patient> patients = controller.getDoctor().getPatientlist();
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(controller);
 		setBounds(100, 100, 850, 722);
@@ -207,6 +190,8 @@ public class DoctorFr extends JFrame {
 			btnNewButton.setOpaque(true);
 			btnNewButton.setBackground(Color.WHITE);
 			btnNewButton.setBorderPainted(false);
+			//btnNewButton.setContentAreaFilled(false);
+			btnNewButton.setBorder(null);
 			sf = font.deriveFont(Font.BOLD, 28f);
 			btnNewButton.setFont(sf);
 			btnNewButton.setForeground(Color.DARK_GRAY);
@@ -218,42 +203,6 @@ public class DoctorFr extends JFrame {
 		gbc_btnNewButton.gridy = 2;
 		
 		contentPane.add(btnNewButton, gbc_btnNewButton);
-		/*
-		textField = new JTextField();
-		textField.setBorder(null);
-		textField.setFont(new Font("Verdana", Font.PLAIN, 26));
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.anchor = GridBagConstraints.BELOW_BASELINE;
-		gbc_textField.fill = GridBagConstraints.BOTH;
-		
-		gbc_textField.gridx = 15;
-		gbc_textField.gridy = 2;
-		gbc_textField.gridwidth = 7;
-		gbc_textField.insets = new Insets(0, 0, 0, 5);
-		gbc_textField.gridheight = gbc_btnNewButton.gridheight;
-		textField.setColumns(10);
-		contentPane.add(textField, gbc_textField);
-		
-		JButton btnSearchButton = new JButton(LocalizationService.getWord("search"));
-		sf = font.deriveFont(22f);
-		btnSearchButton.setFont(sf);
-		btnSearchButton.setOpaque(true);
-		btnSearchButton.setBackground(Color.WHITE);
-		btnSearchButton.setBorderPainted(false);
-		sf = font.deriveFont(Font.BOLD, 28f);
-		btnSearchButton.setFont(sf);
-		btnSearchButton.setForeground(Color.DARK_GRAY);
-		btnSearchButton.setActionCommand("SEARCH");
-		btnSearchButton.addActionListener(controller);
-		
-		
-		GridBagConstraints gbc_btnSearchButton = new GridBagConstraints();
-		gbc_btnSearchButton.anchor = GridBagConstraints.BELOW_BASELINE;
-		gbc_btnSearchButton.fill = GridBagConstraints.BOTH;
-		gbc_btnSearchButton.gridx = 14;
-		gbc_btnSearchButton.gridy = 2;
-		contentPane.add(btnSearchButton, gbc_btnSearchButton);
-		*/
 
 		box.setBackground( new Color(255,255,255,140));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -263,28 +212,38 @@ public class DoctorFr extends JFrame {
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 3;
-		contentPane.add(box, gbc_panel);
+		contentPane.add(new AlphaContainer(box), gbc_panel);
 		box.setLayout(new BorderLayout(0, 0));
 
-		
 		
 		initializeList();
 		
 		//Inicializar barra de busqueda aqui
 		
-		searchpanel.setOpaque(false);
+		//searchpanel.setOpaque(false);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{40,120, 120};
 		gridBagLayout.rowHeights = new int[]{40};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.2, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		searchpanel.setLayout(gridBagLayout);
-		searchpanel.setOpaque(false);
+		searchpanel.setBackground(Color.WHITE);
 		box.add(searchpanel,BorderLayout.PAGE_START);
 		
 		//Crear "Boton"
+		JLabel icon = new JLabel("");
+		icon.setHorizontalAlignment(SwingConstants.CENTER);
+		icon.setIcon(new ImageIcon(getClass().getResource("/resources/searchicon.png")));
+		//Set label icon size
+		GridBagConstraints gbc_icon = new GridBagConstraints();
+		gbc_icon.fill = GridBagConstraints.BOTH;
+		gbc_icon.gridx = 0;
+		gbc_icon.gridy = 0;
+		searchpanel.add(icon,gbc_icon);
+		
 		//Crear Textfield
 		textField.setBorder(null);
+		textField.setBackground(new Color(245,245,245,255));
 		textField.setFont(new Font("Source Code Pro Medium", Font.ITALIC, 16));
 		textField.addKeyListener(controller);
 		GridBagConstraints gbc_textfield = new GridBagConstraints();
@@ -310,6 +269,7 @@ public class DoctorFr extends JFrame {
 		
 
 		this.setVisible(true);
+		textField.requestFocus();
 	
 	}
 

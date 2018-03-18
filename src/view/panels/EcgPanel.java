@@ -1,29 +1,22 @@
 
-	package view.panels;
+package view.panels;
 
-	import javax.swing.JPanel;
-	import java.awt.GridBagLayout;
-	import javax.swing.JLabel;
-	import java.awt.GridBagConstraints;
-	import java.awt.Insets;
-	import javax.swing.JButton;
-	import java.awt.event.ActionListener;
+import javax.swing.JPanel;
+import java.awt.GridBagLayout;
+import javax.swing.JLabel;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.awt.event.MouseListener;
 import java.io.IOException;
-import java.awt.event.ActionEvent;
-	import java.awt.Color;
-	import java.awt.Font;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.FontFormatException;
-
 import javax.swing.SwingConstants;
-
 import model.ECG;
 import model.LocalizationService;
-
 import java.awt.FlowLayout;
-	import javax.swing.ImageIcon;
 
-
+@SuppressWarnings("serial")
 public class EcgPanel extends JPanel {
 		
 		ECG e;
@@ -41,6 +34,8 @@ public class EcgPanel extends JPanel {
 			gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.2, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 			gridBagLayout.rowWeights = new double[]{0.2, 0.0, 0.2, 0.0, 2.0, 0.2, 0.0, 1.0, 0.2, Double.MIN_VALUE};
 			setLayout(gridBagLayout);
+			
+			Color grey = new Color(80, 77, 77, 255);
 			
 			JPanel panel = new JPanel();
 			FlowLayout flowLayout = (FlowLayout) panel.getLayout();
@@ -66,7 +61,7 @@ public class EcgPanel extends JPanel {
 			}
 			
 			JPanel panel_2 = new JPanel();
-			panel_2.setBackground(Color.DARK_GRAY);
+			panel_2.setBackground(grey);
 			FlowLayout flowLayout_2 = (FlowLayout) panel_2.getLayout();
 			flowLayout_2.setAlignment(FlowLayout.LEADING);
 			panel.add(panel_2);
@@ -81,12 +76,12 @@ public class EcgPanel extends JPanel {
 			label_1.setForeground(Color.WHITE);
 			sf = font.deriveFont(22f);
 			label_1.setFont(sf);
-			label_1.setBackground(Color.DARK_GRAY);
+			label_1.setBackground(grey);
 			panel.add(label_1);
 			
 			JLabel label_4 = new JLabel(e.getName());
 			label_4.setVerticalAlignment(SwingConstants.BOTTOM);
-			label_4.setForeground(Color.DARK_GRAY);
+			label_4.setForeground(grey);
 			label_4.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
 			panel.add(label_4);
 			
@@ -102,7 +97,7 @@ public class EcgPanel extends JPanel {
 			add(panel_1, gbc_panel_1);
 			
 			JPanel panel_3 = new JPanel();
-			panel_3.setBackground(Color.DARK_GRAY);
+			panel_3.setBackground(grey);
 			panel_1.add(panel_3);
 			
 			JLabel lblId = new JLabel(LocalizationService.getWord("freq"));
@@ -115,12 +110,12 @@ public class EcgPanel extends JPanel {
 			label_2.setForeground(Color.WHITE);
 			sf = font.deriveFont(22f);
 			label_2.setFont(sf);
-			label_2.setBackground(Color.DARK_GRAY);
+			label_2.setBackground(grey);
 			panel_1.add(label_2);
 			
 			JLabel lblms = new JLabel(e.getFrequency() + " ms");
 			lblms.setVerticalAlignment(SwingConstants.BOTTOM);
-			lblms.setForeground(Color.DARK_GRAY);
+			lblms.setForeground(grey);
 			lblms.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
 			panel_1.add(lblms);
 			
@@ -136,7 +131,7 @@ public class EcgPanel extends JPanel {
 			add(panel_4, gbc_panel_4);
 			
 			JPanel panel_5 = new JPanel();
-			panel_5.setBackground(Color.DARK_GRAY);
+			panel_5.setBackground(grey);
 			panel_4.add(panel_5);
 			
 			JLabel lblAssist = new JLabel(LocalizationService.getWord("assist"));
@@ -149,13 +144,13 @@ public class EcgPanel extends JPanel {
 			label_3.setForeground(Color.WHITE);
 			sf = font.deriveFont(22f);
 			label_3.setFont(sf);
-			label_3.setBackground(Color.DARK_GRAY);
+			label_3.setBackground(grey);
 			panel_4.add(label_3);
 			
 			JLabel lblJohnDoe_1 = new JLabel("unknown");
 			lblJohnDoe_1.setToolTipText("");
 			lblJohnDoe_1.setVerticalAlignment(SwingConstants.BOTTOM);
-			lblJohnDoe_1.setForeground(Color.DARK_GRAY);
+			lblJohnDoe_1.setForeground(grey);
 			lblJohnDoe_1.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
 			panel_4.add(lblJohnDoe_1);
 			
@@ -163,7 +158,7 @@ public class EcgPanel extends JPanel {
 			//PAnel aqui
 			
 			PreviewGraphPanel panel_6 = new PreviewGraphPanel(e);
-			panel_6.setBackground(Color.DARK_GRAY);
+			panel_6.setBackground(grey);
 			GridBagConstraints gbc_panel_6 = new GridBagConstraints();
 			gbc_panel_6.gridwidth = 11;
 			gbc_panel_6.gridheight = 9;

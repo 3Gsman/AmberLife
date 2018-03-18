@@ -1,0 +1,6 @@
+Maria;Colon Carvajal;44009114V;368691267402;Puentecaldelas;Avenida de Galicia 17
+Mujer.png
+Leve
+El paciente debe hacer una prueba cada 2 semanas
+ECG3
+ECG6

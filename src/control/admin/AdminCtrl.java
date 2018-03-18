@@ -1,69 +1,70 @@
 package control.admin;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.Vector;
-
-import javax.swing.JFrame;
-
 import control.ReturnsToFrame;
-import model.FileManager;
+import model.FileManagement;
 import model.Doctor;
 import model.Assistant;
 import view.admin.AdminFr;
 import view.dialogs.AssistDialog;
 import view.dialogs.DoctorDialog;
 import view.dialogs.ExitDialog;
-import view.dialogs.PatientDialog;
+
 
 public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowListener {
 
-	public AdminFr af;
+	private AdminFr af;
 	private Vector<Assistant> listatecnicos;
 	private Vector<Doctor> listamedicos;
-	DoctorDialog dd;
-	AssistDialog ad;
+	private DoctorDialog dd;
+	private AssistDialog ad;
 	
-	public AdminCtrl(AdminFr vm) throws IOException {
-		FileManager conseguirListas = new FileManager();
+	/**
+	 * Class constructor, sets the related frame and gets the lists of Doctors and Assistants
+	 *
+	 * @throws IOException
+	 * @param  fr	Frame related to the controller	
+	 * @see    AdminFr
+	 */
+	public AdminCtrl(AdminFr fr) throws IOException {
+		FileManagement conseguirListas = new FileManagement();
 		
-		af = vm;
+		af = fr;
 		listatecnicos = conseguirListas.getAssistants();
 		listamedicos = conseguirListas.getDoctors();
 	}
 	
+	
+	/**
+	 * Listens to event commands emitted by AdminFr, and reacts to them accordingly:
+	 * 
+	 * DOCTORS:     Show the list of doctors in the display panel
+	 * ASSISTANTS:  Show the list of assistants in the display panel
+	 * BACK: 		Go back to the previous window
+	 * NEWDOCTOR:	Create a dialog for adding new doctors to the DB (Placeholder only)
+	 * NEWASSIST:	Create a dialog for adding new assistants to the DB (Placeholder only)
+	 *
+	 * @param  e event triggering the action performed
+	 * @see         AdminFr
+	 */
 	@Override
     public void actionPerformed(ActionEvent e) {
     	System.out.print("Action received: " + e.getActionCommand());
     	if (e.getActionCommand().equals("DOCTORS")){
     		if(af.getMode() != true) {
-    				/*boolean max = false;
-    				if (af.getExtendedState() == JFrame.MAXIMIZED_BOTH) max = true;
-    				af.dispose();
-    				af = new AdminFr();
-    				af.addController(this);
-					af.initialize(true, listamedicos,new Dimension(af.getWidth(),af.getHeight()));
-					if (max)af.setExtendedState( af.getExtendedState()|JFrame.MAXIMIZED_BOTH );*/
     				af.initializeDoctors(listamedicos);
     				af.setButtons();
     				af.repaint();
-    				af.setVisible(true);
-				
+    				af.setVisible(true);	
     		}
     	}
     	else if (e.getActionCommand().equals("ASSISTANTS")){
     		if(af.getMode() != false) {
-    				/*boolean max = false;
-    				if (af.getExtendedState() == JFrame.MAXIMIZED_BOTH) max = true;
-    				af.dispose();
-    				af = new AdminFr();
-    				af.addController(this);
-					af.initialize(false, listatecnicos, new Dimension(af.getWidth(),af.getHeight()));
-					if (max)af.setExtendedState( af.getExtendedState()|JFrame.MAXIMIZED_BOTH );*/
     				af.initializeAssistants(listatecnicos);
     				af.setButtons();
     				af.repaint();
@@ -77,24 +78,39 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowL
 			newDoctor();
 		}else if (e.getActionCommand().equals("NEWASSIST")) {
 			newAssist();
-		}
+		}else System.out.println("Invalid Action");
     
     	
     }
 	
-	
+	/**
+	 * Returns a list of all the doctors in the DB (uses a text file as a placeholder)
+	 *
+	 * @return      list of the doctors in the DB (uses a text file as a placeholder)
+	 * @see         Doctor
+	 */
 	public Vector<Doctor> getDoctorList(){
 		return listamedicos;
 	}
-	
+	/**
+	 * Returns a list of all the assistants in the DB (uses a text file as a placeholder)
+	 *
+	 * @return      list of the assistants in the DB (uses a text file as a placeholder)
+	 * @see         Assistant
+	 */
 	public Vector<Doctor> getAssistantList(){
 		return listamedicos;
 	}
 	
+	/**
+	 * Creates a dialog for adding new doctors to the DB (Placeholder only)
+	 * 
+	 * @throws		IOException
+	 * @see         DoctorDialog
+	 */
 	public void newDoctor() {
-		//Pasar a MCV
 		try {
-			 dd = new DoctorDialog();
+			 dd = new DoctorDialog(af);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,10 +118,15 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowL
 		
 	}
 	
+	/**
+	 * Creates a dialog for adding new assistants to the DB (Placeholder only)
+	 * 
+	 * @throws		IOException
+	 * @see         AssistDialog
+	 */
 	public void newAssist() {
-		//Pasar a MCV
 		try {
-			ad = new AssistDialog();
+			ad = new AssistDialog(af);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -119,6 +140,12 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowL
 		
 	}
 
+	/**
+	 * Asks for a confirmation before the window is closed.
+	 * 
+	 * @param	e	WindowEvent triggering the method, in this case, the window closing.
+	 * @see         ExitDialog
+	 */
 	@Override
     public void windowClosing(WindowEvent e)
     { 

@@ -1,51 +1,30 @@
 	package view.assistant;
 	
-	import java.awt.EventQueue;
-	
 	import javax.swing.JFrame;
 	import javax.swing.JButton;
 	import java.awt.BorderLayout;
-	import java.awt.Dimension;
-	import java.awt.GridLayout;
-	import java.awt.Image;
+import java.awt.Color;
+import java.awt.Dimension;
 	import java.awt.GridBagLayout;
 	import java.awt.GridBagConstraints;
 	import java.awt.Insets;
-	import java.awt.event.MouseAdapter;
-	import java.awt.event.MouseEvent;
-	import java.awt.image.BufferedImage;
-	import java.awt.image.ImageObserver;
-	import java.io.File;
 	import java.io.IOException;
-	import java.net.URL;
-	import java.awt.event.ActionListener;
-	import java.awt.event.ActionEvent;
 	import java.awt.FlowLayout;
 	import javax.swing.JPanel;
-	import javax.imageio.ImageIO;
-	import javax.swing.BoxLayout;
 	import javax.swing.JLabel;
-	import java.awt.Color;
-	import javax.swing.border.MatteBorder;
-	
-	import org.omg.CORBA.portable.InputStream;
 
 import control.assistant.AssistCtrl;
 import model.LocalizationService;
 import view.panels.JPanelWithBackground;
-
-import javax.swing.JComboBox;
 	import javax.swing.ImageIcon;
 	import javax.swing.JTextField;
 	import javax.swing.SwingConstants;
-	import javax.swing.JPasswordField;
 	import java.awt.Font;
 	import java.awt.FontFormatException;
-	import java.awt.Graphics;
-	import java.awt.GraphicsEnvironment;
 	
+	@SuppressWarnings("serial")
 	public class AssistFr extends JFrame {
-	
+		
 		public JTextField textField;
 		AssistCtrl controller;
 		JButton btnNewButton = new JButton(LocalizationService.getWord("id"));
@@ -88,6 +67,7 @@ import javax.swing.JComboBox;
 			java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
 			Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 			Font sf = font; // will use sf to change the style;
+			Color grey = new Color(80, 77, 77, 255);
 			try {
 				font = Font.createFont(Font.TRUETYPE_FONT, is);
 				sf = font;
@@ -107,7 +87,7 @@ import javax.swing.JComboBox;
 				button.setBorderPainted(false);
 				sf = font.deriveFont(Font.BOLD, 28f);
 				button.setFont(sf);
-				button.setForeground(Color.DARK_GRAY);
+				button.setForeground(grey);
 			}
 			else {
 				sf = font.deriveFont(22f);
@@ -127,7 +107,7 @@ import javax.swing.JComboBox;
 				btnNewButton.setBorderPainted(false);
 				sf = font.deriveFont(Font.BOLD, 28f);
 				btnNewButton.setFont(sf);
-				btnNewButton.setForeground(Color.DARK_GRAY);
+				btnNewButton.setForeground(grey);
 				btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 				btnNewButton.setContentAreaFilled(true);
 				}
@@ -163,6 +143,8 @@ import javax.swing.JComboBox;
 			this.setMinimumSize(d);
 			this.setSize(d);
 			
+			Color grey = new Color(80, 77, 77, 255);
+			
 			//Get PROMETHEUS font
 				
 			java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
@@ -182,9 +164,9 @@ import javax.swing.JComboBox;
 			JPanelWithBackground panel = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));	
 			this.getContentPane().add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
-			gbl_panel.columnWidths = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+			gbl_panel.columnWidths = new int[] {20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 			gbl_panel.rowHeights = new int[]{30, 80, 50, 20, 0, 0, 10, 60, 60, 10, 60, 0, 0, 30, 0};
-			gbl_panel.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+			gbl_panel.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.2, Double.MIN_VALUE};
 			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 			panel.setLayout(gbl_panel);
 			sf = font.deriveFont(Font.BOLD, 11f);
@@ -193,7 +175,7 @@ import javax.swing.JComboBox;
 			paneluser.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			paneluser.setOpaque(false);
 			GridBagConstraints gbc_paneluser = new GridBagConstraints();
-			gbc_paneluser.gridwidth = 20;
+			gbc_paneluser.gridwidth = 22;
 			gbc_paneluser.gridheight = 1;
 			gbc_paneluser.insets = new Insets(5, 0, 5, 5);
 			gbc_paneluser.fill = GridBagConstraints.BOTH;
@@ -202,7 +184,7 @@ import javax.swing.JComboBox;
 			panel.add(paneluser,gbc_paneluser);
 			
 			JLabel lblUser = new JLabel(" " + LocalizationService.getWord("user") + ": " 
-								+ controller.getTecnico().getName() + " " + controller.getTecnico().getLastname());
+								+ controller.getAssist().getName() + " " + controller.getAssist().getLastname());
 			sf = font.deriveFont(22f);
 			lblUser.setForeground(Color.WHITE);
 			lblUser.setOpaque(false);
@@ -270,7 +252,7 @@ import javax.swing.JComboBox;
 			textField.setColumns(10);
 			
 			JButton btnNewButton_1 = new JButton(LocalizationService.getWord("search"));
-			btnNewButton_1.setBackground(Color.DARK_GRAY);
+			btnNewButton_1.setBackground(grey);
 			btnNewButton_1.addActionListener(controller);
 			btnNewButton_1.setActionCommand("SEARCH");
 			btnNewButton_1.setBorder(null);

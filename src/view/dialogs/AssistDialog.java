@@ -1,25 +1,27 @@
 package view.dialogs;
 
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.JPasswordField;
 
 import view.panels.JPanelWithBackground;
 
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.io.IOException;
+import java.util.Arrays;
 import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.FontFormatException;
 
@@ -28,15 +30,14 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class AssistDialog extends JDialog {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField nameField;
+	private JTextField surnameField;
+	private JPasswordField passField;
+	private JPasswordField confirmField;
+	private JTextField idField;
+	private JTextField cityField;
 
 
 
@@ -44,7 +45,7 @@ public class AssistDialog extends JDialog {
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public AssistDialog() throws IOException {
+	public AssistDialog(JFrame f) throws IOException {
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 468);
 		setContentPane( new JPanelWithBackground(getClass().getResource("/resources/BG.png")));
@@ -135,15 +136,15 @@ public class AssistDialog extends JDialog {
 				panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 			}
 			{
-				textField = new JTextField();
-				textField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField.setBorder(null);
-				GridBagConstraints gbc_textField = new GridBagConstraints();
-				gbc_textField.fill = GridBagConstraints.BOTH;
-				gbc_textField.gridx = 2;
-				gbc_textField.gridy = 1;
-				panel.add(textField, gbc_textField);
-				textField.setColumns(10);
+				nameField = new JTextField();
+				nameField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				nameField.setBorder(null);
+				GridBagConstraints gbc_nameField = new GridBagConstraints();
+				gbc_nameField.fill = GridBagConstraints.BOTH;
+				gbc_nameField.gridx = 2;
+				gbc_nameField.gridy = 1;
+				panel.add(nameField, gbc_nameField);
+				nameField.setColumns(10);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -197,15 +198,15 @@ public class AssistDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_1 = new JTextField();
-				textField_1.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_1.setColumns(10);
-				textField_1.setBorder(null);
-				GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-				gbc_textField_1.fill = GridBagConstraints.BOTH;
-				gbc_textField_1.gridx = 2;
-				gbc_textField_1.gridy = 1;
-				panel.add(textField_1, gbc_textField_1);
+				surnameField = new JTextField();
+				surnameField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				surnameField.setColumns(10);
+				surnameField.setBorder(null);
+				GridBagConstraints gbc_surnameField = new GridBagConstraints();
+				gbc_surnameField.fill = GridBagConstraints.BOTH;
+				gbc_surnameField.gridx = 2;
+				gbc_surnameField.gridy = 1;
+				panel.add(surnameField, gbc_surnameField);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -259,15 +260,15 @@ public class AssistDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_2 = new JTextField();
-				textField_2.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_2.setColumns(10);
-				textField_2.setBorder(null);
-				GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-				gbc_textField_2.fill = GridBagConstraints.BOTH;
-				gbc_textField_2.gridx = 2;
-				gbc_textField_2.gridy = 1;
-				panel.add(textField_2, gbc_textField_2);
+				passField = new JPasswordField();
+				passField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				passField.setColumns(10);
+				passField.setBorder(null);
+				GridBagConstraints gbc_passField = new GridBagConstraints();
+				gbc_passField.fill = GridBagConstraints.BOTH;
+				gbc_passField.gridx = 2;
+				gbc_passField.gridy = 1;
+				panel.add(passField, gbc_passField);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -321,15 +322,15 @@ public class AssistDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_3 = new JTextField();
-				textField_3.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_3.setColumns(10);
-				textField_3.setBorder(null);
-				GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-				gbc_textField_3.fill = GridBagConstraints.BOTH;
-				gbc_textField_3.gridx = 2;
-				gbc_textField_3.gridy = 1;
-				panel.add(textField_3, gbc_textField_3);
+				confirmField = new JPasswordField();
+				confirmField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				confirmField.setColumns(10);
+				confirmField.setBorder(null);
+				GridBagConstraints gbc_confirmField = new GridBagConstraints();
+				gbc_confirmField.fill = GridBagConstraints.BOTH;
+				gbc_confirmField.gridx = 2;
+				gbc_confirmField.gridy = 1;
+				panel.add(confirmField, gbc_confirmField);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -383,15 +384,15 @@ public class AssistDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_4 = new JTextField();
-				textField_4.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_4.setColumns(10);
-				textField_4.setBorder(null);
-				GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-				gbc_textField_4.fill = GridBagConstraints.BOTH;
-				gbc_textField_4.gridx = 2;
-				gbc_textField_4.gridy = 1;
-				panel.add(textField_4, gbc_textField_4);
+				idField = new JTextField();
+				idField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				idField.setColumns(10);
+				idField.setBorder(null);
+				GridBagConstraints gbc_idField = new GridBagConstraints();
+				gbc_idField.fill = GridBagConstraints.BOTH;
+				gbc_idField.gridx = 2;
+				gbc_idField.gridy = 1;
+				panel.add(idField, gbc_idField);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -445,15 +446,15 @@ public class AssistDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_5 = new JTextField();
-				textField_5.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_5.setColumns(10);
-				textField_5.setBorder(null);
-				GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-				gbc_textField_5.fill = GridBagConstraints.BOTH;
-				gbc_textField_5.gridx = 2;
-				gbc_textField_5.gridy = 1;
-				panel.add(textField_5, gbc_textField_5);
+				cityField = new JTextField();
+				cityField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				cityField.setColumns(10);
+				cityField.setBorder(null);
+				GridBagConstraints gbc_cityField = new GridBagConstraints();
+				gbc_cityField.fill = GridBagConstraints.BOTH;
+				gbc_cityField.gridx = 2;
+				gbc_cityField.gridy = 1;
+				panel.add(cityField, gbc_cityField);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -466,7 +467,7 @@ public class AssistDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 			}
 		}
-		
+		sf = font.deriveFont(22f);
 		{
 			JButton btnNewButton = new JButton("cancel");
 			btnNewButton.addActionListener(new ActionListener() {
@@ -475,7 +476,7 @@ public class AssistDialog extends JDialog {
 			});
 			btnNewButton.setActionCommand("CANCEL");
 			btnNewButton.setBorderPainted(false);
-			btnNewButton.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			btnNewButton.setFont(sf);
 			btnNewButton.setForeground(Color.WHITE);
 			btnNewButton.setBackground(grey);
 			GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -491,13 +492,25 @@ public class AssistDialog extends JDialog {
 			btnConfirm.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("Assistant creation confirmed");
+					if(nameField.getText().isEmpty() || surnameField.getText().isEmpty() || passField.getPassword().toString().isEmpty()
+							|| confirmField.getPassword().toString().isEmpty() || idField.getText().isEmpty() || cityField.getText().isEmpty()) {
+						
+						JOptionPane.showMessageDialog(f, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					
+					if(!(Arrays.equals(passField.getPassword(), confirmField.getPassword()))) {
+						
+						JOptionPane.showMessageDialog(f, "The password doesn't match", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					
 				}
 			});
+			
 			btnConfirm.setActionCommand("CONFIRM");
 			btnConfirm.setBorderPainted(false);
 			btnConfirm.setBackground(grey);
 			btnConfirm.setForeground(Color.WHITE);
-			btnConfirm.setFont(new Font("PROMETHEUS", Font.PLAIN, 22));
+			btnConfirm.setFont(sf);
 			GridBagConstraints gbc_btnConfirm = new GridBagConstraints();
 			gbc_btnConfirm.fill = GridBagConstraints.BOTH;
 			gbc_btnConfirm.gridwidth = 3;

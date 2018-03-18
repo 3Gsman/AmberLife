@@ -10,18 +10,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
-import java.util.Vector;
-
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-
 import control.ReturnsToFrame;
 import model.Doctor;
-import model.FileManager;
+import model.FileManagement;
 import model.Patient;
-import view.assistant.AssistFr;
 import view.dialogs.ExitDialog;
 import view.dialogs.PatientDialog;
 import view.doctor.DoctorFr;
@@ -30,56 +23,98 @@ import view.panels.PatientPanel;
 
 public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseListener, WindowListener, KeyListener{
 
-	String name;
-	DoctorFr df;
-	Doctor doctor;
+	private String name;
+	private DoctorFr df;
+	private Doctor doctor;
+	private String lastTyped = "";
 	
-	public DoctorCtrl(String user, DoctorFr vd) throws IOException {
-		FileManager file = new FileManager();
-		
-		df = vd;
+	/**
+	 * Class constructor, sets the related frame and the username of the current user. From that username, it reads
+	 * the information of the doctor in the DB (currently a text file).
+	 *
+	 * @param  user	Username of the current user	
+	 * @param  f	Frame related to the controller	
+	 * @throws IOException
+	 * @see    DoctorFr
+	 */
+	public DoctorCtrl(String user, DoctorFr f) throws IOException {
+		FileManagement file = new FileManagement();
+		df = f;
 		name = user;
 		doctor = file.readDoctor(name);
 		
-		int i = 0;
-		FileManager getpatients = new FileManager();
-		for(i = 0; i < doctor.getPatientlist().size(); i ++) {
+		FileManagement getpatients = new FileManagement();
+		for(int i = 0; i < doctor.getPatientlist().size(); i ++) {
 			
 			doctor.getPatientlist().set(i,getpatients.readPatient(doctor.getPatientlist().get(i).getNumber()));
-
 		}
 	}
-	
+
+	/**
+	 * Creates a dialog for adding new patients to the DB (Placeholder only)
+	 * 
+	 * @see         PatientDialog
+	 */
 	public void registerPatient() {
-		//Pasar a MCV
-		PatientDialog pd = new PatientDialog(df);
+		try {
+			PatientDialog pd = new PatientDialog();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
+	/**
+	 * Listens to event commands emitted by DoctorFr, and reacts to them accordingly:
+	 * 
+	 * BACK:		Returns to the previous frame.
+	 * NEW:			Calls the registerPatient() method to open a dialog to register a new Patient.
+	 * SEARCH:		Deprecated. No longer used as the program's functionality evolved. Calls the searchPatient() method.
+	 *
+	 * @param  e event triggering the action performed
+	 * @see         DoctorFr
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		System.out.print("Action received: " + e.getActionCommand());
 		if (e.getActionCommand().equals("BACK")){ 
 			returnToPrevious();
 			df.dispose();
 		}
 		else if (e.getActionCommand().equals("NEW")) {
 			registerPatient();
-		}else if(e.getActionCommand().equals("SEARCH")) {
+		}
+		else System.out.println("Invalid Action");
+		//DEPRECATED OPTION
+		/*else if(e.getActionCommand().equals("SEARCH")) {
 			try {
 				searchPatient();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		}
+		}*/
 	}
 	
+	/**
+	 * Returns a Doctor object representing the user
+	 * 
+	 * @return the user object
+	 * @see Doctor
+	 */
 	public Doctor getDoctor() {
 		return doctor;
 	}
 
+	
+	/**
+	 * Opens a new DoctorPatientFr detailing that patient's information, messages, and ECGs when a PatientPanel is clicked.
+	 * 
+	 * @param e The event triggering the method. Only PatientPanels are meant to be listened to.
+	 * @see PatientPanel, DoctorPatientFr, DoctorPatientCtrl
+	 */
 	@Override
-	//ONLY PATIENTPANELS ARE MEANT TO BE LISTENED TO.
 	public void mouseClicked(MouseEvent e) {
 		try {
 			PatientPanel p = (PatientPanel) e.getSource();
@@ -122,10 +157,19 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 		// TODO Auto-generated method stub
 		
 	}
-	
+
+	/**
+	 * Searches for a patient by ID, depending on the active mode, and if it's found, creates a new DoctorPatientFr,
+	 * showing the Patient's information in detail.
+	 *
+	 * @throws	IOException
+	 * @see		Patient, DoctorPatientFr, DoctorPatientCtrl
+	 * @deprecated
+	 */
+	//DEPRECATED FUNCTION
 	public void searchPatient() throws IOException {
 		String dni = df.getID();
-		FileManager id = new FileManager();
+		FileManagement id = new FileManagement();
 		boolean found= false;
 		
 		Patient resultado = id.checkId(dni);
@@ -153,7 +197,8 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 			
 		}else {
 			Object frame = null;	//crea un objeto ventana
-            JOptionPane.showMessageDialog((Component) frame, "Patient not found.", "Error", JOptionPane.ERROR_MESSAGE);	//sale una ventana de diálogo para alertar de un error
+            //sale una ventana de diálogo para alertar de un error
+            JOptionPane.showMessageDialog((Component) frame, "Patient not found.", "Error", JOptionPane.ERROR_MESSAGE);	
 
 		}
 	}
@@ -163,7 +208,13 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/**
+	 * Asks for a confirmation before the window is closed.
+	 * 
+	 * @param	e	WindowEvent triggering the method, in this case, the window closing.
+	 * @see         ExitDialog
+	 */
 	@Override
 	public void windowClosing(WindowEvent e) {
 		ExitDialog.confirmExit();	
@@ -197,25 +248,30 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 		// TODO Auto-generated method stub
 		
 	}
-
+	/**
+	 * Repaints the list of patients when the doctor types in the searchbar, to make sure only relevant patients are displayed.
+	 * 
+	 * @param	e	KeyEvent triggering the method, in this case, the window closing.
+	 * @see         DoctorFr
+	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
-		df.initializeList();
-        df.repaint();
-        df.setVisible(true);
+		if(df.getText().length() > 0 || lastTyped.length() > 0) {
+			df.initializeList();
+	        df.repaint();
+	        df.setVisible(true);
+		}
+		lastTyped = df.getText();
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-	
-		
-		
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -1,43 +1,33 @@
 package view.admin;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import control.admin.AdminCtrl;
-
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Vector;
-import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 
-import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JTextField;
-import javax.swing.JSeparator;
-import javax.swing.JLabel;
 import java.awt.FlowLayout;
-
 import model.*;
 import view.layouts.WrapLayout;
+import view.panels.AlphaContainer;
 import view.panels.JPanelWithBackground;
 import view.panels.UserPanel;
 
+@SuppressWarnings("serial")
 public class AdminFr extends JFrame {
 
 	private JPanel contentPane;
@@ -46,6 +36,8 @@ public class AdminFr extends JFrame {
 	private JButton btnAssistants = new JButton(LocalizationService.getWord("assistants"));
 	private JButton btnNewButton = new JButton(LocalizationService.getWord("doctors"));
 	private JPanel display = new JPanel();
+	JPanel jpanel2 = new JPanel();
+	JPanel jpanel = new JPanel();
 
 	public AdminFr() {
 		
@@ -163,21 +155,20 @@ public class AdminFr extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		Color grey = new Color(80, 77, 77, 255);
+		
 		//Set Assistants button
 		 if(!mode) {
-			sf = font.deriveFont(22f);
-			btnAssistants.setFont(sf);
-			btnAssistants.setOpaque(true);
-			btnAssistants.setBackground(Color.WHITE);
+			jpanel2.setBackground(new Color(255,255,255,255));
+			jpanel2.setOpaque(true);
 			btnAssistants.setBorderPainted(false);
 			sf = font.deriveFont(Font.BOLD, 28f);
 			btnAssistants.setFont(sf);
-			btnAssistants.setForeground(Color.DARK_GRAY);
+			btnAssistants.setForeground(grey);
 		}
 		else {
-			sf = font.deriveFont(22f);
-			btnAssistants.setFont(sf);
-			btnAssistants.setOpaque(false);
+			jpanel2.setBackground(new Color(255,255,255,0));
+			jpanel2.setOpaque(false);
 			btnAssistants.setBorderPainted(false);
 			btnAssistants.setContentAreaFilled(false);
 			btnAssistants.setBorder(null);
@@ -187,19 +178,16 @@ public class AdminFr extends JFrame {
 		}
 		 //Set Doctors Button
 		if(mode) {
-			sf = font.deriveFont(22f);
-			btnNewButton.setFont(sf);
-			btnNewButton.setOpaque(true);
-			btnNewButton.setBackground(Color.WHITE);
+			jpanel.setBackground(new Color(255,255,255,255));
+			jpanel.setOpaque(true);
 			btnNewButton.setBorderPainted(false);
 			sf = font.deriveFont(Font.BOLD, 28f);
 			btnNewButton.setFont(sf);
-			btnNewButton.setForeground(Color.DARK_GRAY);
+			btnNewButton.setForeground(grey);
 			}
 		else {
-			sf = font.deriveFont(22f);
-			btnNewButton.setFont(sf);
-			btnNewButton.setOpaque(false);
+			jpanel.setBackground(new Color(255,255,255,0));
+			jpanel.setOpaque(false);
 			btnNewButton.setBorderPainted(false);
 			btnNewButton.setContentAreaFilled(false);
 			btnNewButton.setBorder(null);
@@ -249,26 +237,38 @@ public class AdminFr extends JFrame {
 		}
 			
 		//Set buttons
-		setButtons();
-
+		
+		jpanel.setBackground(new Color(255,255,255,255));
+		jpanel.setLayout(new BorderLayout());
 		btnNewButton.setActionCommand("DOCTORS");
 		btnNewButton.addActionListener(controller);
+		btnNewButton.setOpaque(false);
+		btnNewButton.setContentAreaFilled(false);
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.anchor = GridBagConstraints.BELOW_BASELINE;
 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 2;
-		contentPane.add(btnNewButton, gbc_btnNewButton);
-		
+		jpanel.add(btnNewButton,BorderLayout.CENTER);
+		contentPane.add(jpanel, gbc_btnNewButton);
+	
+		jpanel2.setBackground(new Color(255,255,255,255));
+		jpanel2.setOpaque(false);
+		jpanel2.setLayout(new BorderLayout());
 		btnAssistants.setActionCommand("ASSISTANTS");
 		btnAssistants.addActionListener(controller);
+		btnAssistants.setOpaque(false);
+		btnAssistants.setContentAreaFilled(false);
 		GridBagConstraints gbc_btnAssistants = new GridBagConstraints();
 		gbc_btnAssistants.fill = GridBagConstraints.BOTH;
 		gbc_btnAssistants.gridx = 2;
 		gbc_btnAssistants.gridy = 2;
-		contentPane.add(btnAssistants, gbc_btnAssistants);
+		jpanel2.add(btnAssistants,BorderLayout.CENTER);
+		contentPane.add(jpanel2, gbc_btnAssistants);
 		
+		setButtons();
 		
+		//Set buttons done
 		
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridheight = 14;
@@ -277,12 +277,10 @@ public class AdminFr extends JFrame {
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 3;
-		display.setBackground(new Color(255,255,255,255));
+		display.setBackground(new Color(255,255,255,140));
 		display.setLayout(new BorderLayout());
 		initializeDoctors(users);
-		contentPane.add(display, gbc_panel);
-		
-		
+		contentPane.add(new AlphaContainer(display), gbc_panel);	
 		
 		JButton btnLogout = new JButton("");
 		btnLogout.setBorderPainted(false);

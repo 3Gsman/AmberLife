@@ -1,7 +1,6 @@
 package view.doctor;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.FontFormatException;
 
@@ -9,18 +8,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import control.assistant.AssistMeasureCtrl;
+import control.GraphCtrl;
 import control.doctor.DoctorMeasureCtrl;
-import model.ECG;
 import model.LocalizationService;
+import view.panels.AlphaContainer;
 import view.panels.FullGraphPanel;
 import view.panels.JPanelWithBackground;
 
 import java.awt.GridBagLayout;
-import javax.swing.JRadioButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -31,6 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
+@SuppressWarnings("serial")
 public class DoctorMeasureFr extends JFrame {
 
 	private JPanel contentPane;
@@ -88,7 +86,7 @@ public class DoctorMeasureFr extends JFrame {
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 1;
-		contentPane.add(panel, gbc_panel);
+		contentPane.add(new AlphaContainer(panel), gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{30, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 20, 20, 30, 0};
 		gbl_panel.rowHeights = new int[]{30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 50, 30, 0};
@@ -99,16 +97,6 @@ public class DoctorMeasureFr extends JFrame {
 		
 		//GRAPH GOES HERE
 		
-		/*JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.DARK_GRAY);
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.gridwidth = 22;
-		gbc_panel_1.gridheight = 9;
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridx = 1;
-		gbc_panel_1.gridy = 1;
-		panel.add(panel_1, gbc_panel_1);*/
-		
 		//PANEL
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.gridwidth = 22;
@@ -116,23 +104,17 @@ public class DoctorMeasureFr extends JFrame {
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 1;
+		gbc_panel_1.insets = new Insets(0,0,5,0);
 		
-		if(controller.getCGP() == null) {
+		if(controller.getCGP() == null && controller.getECG() != null) {
 			FullGraphPanel gr = new FullGraphPanel(controller.getECG());   	
+			GraphCtrl gc = new GraphCtrl(gr);
+			gr.addController(gc);
 			gr.setBackground(Color.DARK_GRAY.darker());
 	    	gr.setOpaque(true);
 	    	panel.add(gr, gbc_panel_1);
-		}
-		else {
-			controller.getCGP().setBackground(Color.DARK_GRAY.darker());
-			controller.getCGP().setOpaque(true);
-			panel.add(controller.getCGP(), gbc_panel_1);
-			
-		}
-		
-		
-		if (controller.getECG() != null) {
-			
+	    	
+
 			JPanel information = new JPanel();
 			GridBagLayout gridBagLayout = new GridBagLayout();
 			gridBagLayout.columnWidths = new int[]{40,40};
@@ -162,12 +144,19 @@ public class DoctorMeasureFr extends JFrame {
 			JPanel viewport = new JPanel();
 			viewport.setLayout(new BorderLayout());
 			JTextArea text = new JTextArea();
-			text.setLineWrap(true);
 			String report = controller.getECG().getReport();
-			if(report != null) text.setText(report);
-			else text.setText("No report to show");
+			text.setLineWrap(true);
+			if(report != "") {
+				text.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 18));		
+				text.setText(report);
+			}
+			else {
+				text.setFont(new Font("Source Code Pro Medium", Font.ITALIC, 18));
+				text.setForeground(new Color(140,140,140,255));
+				text.setText("No report to show.");
+			}
 			text.setEditable(false);
-			text.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 18));
+			
 			viewport.add(text, BorderLayout.CENTER);
 			
 			scrollPane.setViewportView(viewport);
@@ -202,6 +191,14 @@ public class DoctorMeasureFr extends JFrame {
 			
 			panel.add(information,gbc_information);
 		}
+		else {
+			controller.getCGP().setBackground(Color.DARK_GRAY.darker());
+			controller.getCGP().setOpaque(true);
+			gbc_panel_1.gridheight = 11;
+			panel.add(controller.getCGP(), gbc_panel_1);
+			
+		}
+			
 		
 		JButton btnLogout = new JButton("");
 		btnLogout.setBorderPainted(false);
