@@ -118,6 +118,7 @@ public class DoctorFr extends JPanelWithBackground {
 		scrollPane.setViewportView(viewport);
 		
 		box.add(scrollPane,BorderLayout.CENTER);
+
 		textField.requestFocus();
 	}
 	

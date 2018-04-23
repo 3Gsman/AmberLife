@@ -225,6 +225,7 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 	        df.repaint();
 		}
 		lastTyped = df.getText();
+		MainCtrl.window.validate();
 	}
 
 }

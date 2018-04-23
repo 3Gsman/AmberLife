@@ -148,6 +148,7 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 			try {
 				frame.setModeECG();
 				frame.setVisible(true);
+				MainCtrl.window.validate();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -174,6 +175,7 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 			try {
 				frame.setModeMessages();
 				frame.setVisible(true);
+				MainCtrl.window.validate();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

@@ -68,6 +68,7 @@ public class LoginCtrl implements ActionListener, KeyListener {
 				vistaLogin.initialize();
 				MainCtrl.window.setContentPane(vistaLogin);
 				vistaLogin.setVisible(true);
+				MainCtrl.window.validate();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
