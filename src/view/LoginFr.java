@@ -235,9 +235,9 @@ public class LoginFr extends JPanel {
 		btnNewButton.setMargin(new Insets(0, 0, 0, 0));
 		btnNewButton.setContentAreaFilled(false);
 		ImageIcon flag;
-		if(LocalizationService.getLanguage() == "ENGLISH") flag = new ImageIcon(getClass().getResource("/resources/Flag.png"));
-		else if(LocalizationService.getLanguage() == "SPANISH") flag = new ImageIcon(getClass().getResource("/resources/FlagSpain.png"));
-		else if (LocalizationService.getLanguage() == "GALICIAN") flag = new ImageIcon(getClass().getResource("/resources/FlagGalicia.png"));
+		if(LocalizationService.getLanguage() == "GALICIAN") flag = new ImageIcon(getClass().getResource("/resources/Flag.png"));
+		else if(LocalizationService.getLanguage() == "ENGLISH") flag = new ImageIcon(getClass().getResource("/resources/FlagSpain.png"));
+		else if (LocalizationService.getLanguage() == "SPANISH") flag = new ImageIcon(getClass().getResource("/resources/FlagGalicia.png"));
 		else flag = new ImageIcon(getClass().getResource("/resources/Flag.png"));
 		btnNewButton.setIcon(flag);
 		btnNewButton.setActionCommand("LANGUAGE");

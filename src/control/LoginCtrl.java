@@ -63,8 +63,10 @@ public class LoginCtrl implements ActionListener, KeyListener {
     		try {
     			/*vistaLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     			vistaLogin.dispose();*/
+    			vistaLogin = new LoginFr();
 				vistaLogin.addController(this);
 				vistaLogin.initialize();
+				MainCtrl.window.setContentPane(vistaLogin);
 				vistaLogin.setVisible(true);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
