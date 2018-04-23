@@ -34,7 +34,7 @@ import view.panels.JPanelWithBackground;
 import view.panels.PatientPanel;
 
 @SuppressWarnings("serial")
-public class DoctorFr extends JFrame {
+public class DoctorFr extends JPanel {
 
 	private JPanel contentPane;
 	private DoctorCtrl controller;
@@ -130,12 +130,10 @@ public class DoctorFr extends JFrame {
 	 * @throws IOException 
 	 */
 	public void initialize() throws IOException {
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(controller);
 		setBounds(100, 100, 850, 722);
 		contentPane = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		this.add(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{40, 60, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0};
 		gbl_contentPane.rowHeights = new int[]{60, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0};
@@ -145,9 +143,6 @@ public class DoctorFr extends JFrame {
 		Dimension d = new Dimension(600,400);
 		this.setMinimumSize(new Dimension(800,600));
 		this.setSize(d);
-		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
-		this.setIconImage(img.getImage());
-		this.setTitle(controller.getDoctor().getName() + " " +controller.getDoctor().getLastname());
 		
 		
 		//Get PROMETHEUS font

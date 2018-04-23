@@ -23,7 +23,7 @@ import view.panels.JPanelWithBackground;
 	import java.awt.FontFormatException;
 	
 	@SuppressWarnings("serial")
-	public class AssistFr extends JFrame {
+	public class AssistFr extends JPanel {
 		
 		public JTextField textField;
 		AssistCtrl controller;
@@ -131,14 +131,9 @@ import view.panels.JPanelWithBackground;
 		 * @throws IOException 
 		 */
 		public void initialize() throws IOException {
-			this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-			this.addWindowListener(controller);
 			this.setBackground(new Color(204, 0, 0));
 			this.setBounds(100, 100, 798, 913);
-			this.getContentPane().setLayout(new BorderLayout(0, 0));	
-			this.setTitle("AmberLife");
-			ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
-			this.setIconImage(img.getImage());
+			this.setLayout(new BorderLayout(0, 0));	
 			Dimension d = new Dimension(1280,720);
 			this.setMinimumSize(d);
 			this.setSize(d);
@@ -162,7 +157,7 @@ import view.panels.JPanelWithBackground;
 	
 			//JPanelWithBackground panel = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));	
 			JPanelWithBackground panel = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));	
-			this.getContentPane().add(panel, BorderLayout.CENTER);
+			this.add(panel, BorderLayout.CENTER);
 			GridBagLayout gbl_panel = new GridBagLayout();
 			gbl_panel.columnWidths = new int[] {20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 65, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 			gbl_panel.rowHeights = new int[]{30, 80, 50, 20, 0, 0, 10, 60, 60, 10, 60, 0, 0, 30, 0};

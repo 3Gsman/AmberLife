@@ -29,7 +29,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 @SuppressWarnings("serial")
-public class DoctorMeasureFr extends JFrame {
+public class DoctorMeasureFr extends JPanel {
 
 	private JPanel contentPane;
 	DoctorMeasureCtrl controller;
@@ -46,24 +46,19 @@ public class DoctorMeasureFr extends JFrame {
 	 * @throws IOException 
 	 */
 	public void initialize() throws IOException {
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(controller);
 		Dimension d = new Dimension(1000, 800);
 		this.setMinimumSize(d);
 		this.setSize(d);
 		setBounds(100, 100, 757, 535);
 		contentPane =  new JPanelWithBackground(getClass().getResource("/resources/BG.png"));	
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		this.add(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.5, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{1.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.5, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
-		this.setTitle("ECG Confirmation");
-		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
-		this.setIconImage(img.getImage());
 		
 		//Get PROMETHEUS font
 		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");

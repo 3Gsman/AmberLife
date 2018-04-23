@@ -9,7 +9,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 
-import control.ReturnsToFrame;
+import control.MainCtrl;
 import model.Doctor;
 import model.ECG;
 import model.Patient;
@@ -24,7 +24,7 @@ import view.panels.EcgPanel;
 import view.panels.MessagePanel;
 import view.panels.PatientPanel;
 
-public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener, MouseListener, WindowListener {
+public class DoctorPatientCtrl implements ActionListener, MouseListener {
 	
 	private Patient p;
 	private Doctor d;
@@ -87,7 +87,7 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 			EcgPanel ecg = (EcgPanel) e.getSource();
 			DoctorMeasureFr dmf = new DoctorMeasureFr();
 			DoctorMeasureCtrl dmc = new DoctorMeasureCtrl(dmf,ecg.getECG());
-			dmc.setPreviousWindow(frame);
+			MainCtrl.window.toBackStack(frame);
 			frame.setVisible(false);
 			dmf.addController(dmc);
 			dmf.initialize();
@@ -142,8 +142,7 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Action received: " + e.getActionCommand());
 		if (e.getActionCommand().equals("BACK")){ 
-			returnToPrevious();
-			frame.dispose();
+			MainCtrl.window.popBackStack();
 		}
 		else if (e.getActionCommand().equals("ECGS")){ 
 			try {
@@ -196,11 +195,12 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 			CompareGraphPanel cgp = new CompareGraphPanel(first, second);
 			DoctorMeasureFr dmf = new DoctorMeasureFr();
 			DoctorMeasureCtrl dmc = new DoctorMeasureCtrl(dmf,cgp);
-			dmc.setPreviousWindow(frame);
+			MainCtrl.window.toBackStack(frame);
 			frame.setVisible(false);
 			dmf.addController(dmc);
 			dmf.initialize();
-			dmf.setVisible(true);
+			MainCtrl.window.setContentPane(dmf);
+			MainCtrl.window.setVisible(true);
 		}
 		catch(ClassCastException cce){
 			System.out.println("BAD CAST at DoctorPatientCtrl");
@@ -210,52 +210,5 @@ public class DoctorPatientCtrl extends ReturnsToFrame implements ActionListener,
 		}
 	}
 
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	/**
-	 * Asks for a confirmation before the window is closed.
-	 * 
-	 * @param	e	WindowEvent triggering the method, in this case, the window closing.
-	 * @see         ExitDialog
-	 */
-	@Override
-	public void windowClosing(WindowEvent e) {
-		ExitDialog.confirmExit();
-		
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

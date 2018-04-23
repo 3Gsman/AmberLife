@@ -11,7 +11,8 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 import javax.swing.JOptionPane;
-import control.ReturnsToFrame;
+
+import control.MainCtrl;
 import model.Doctor;
 import model.FileManagement;
 import model.Patient;
@@ -21,7 +22,7 @@ import view.doctor.DoctorFr;
 import view.doctor.DoctorPatientFr;
 import view.panels.PatientPanel;
 
-public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseListener, WindowListener, KeyListener{
+public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 
 	private String name;
 	private DoctorFr df;
@@ -79,8 +80,8 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 	public void actionPerformed(ActionEvent e) {
 		System.out.print("Action received: " + e.getActionCommand());
 		if (e.getActionCommand().equals("BACK")){ 
-			returnToPrevious();
-			df.dispose();
+			MainCtrl.window.popBackStack();
+			
 		}
 		else if (e.getActionCommand().equals("NEW")) {
 			registerPatient();
@@ -121,10 +122,10 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 			df.setVisible(false);
 			DoctorPatientFr dpf = new DoctorPatientFr();
 			DoctorPatientCtrl dpc = new DoctorPatientCtrl(dpf,doctor,p.getPatient());
-	        dpc.setPreviousWindow(df);
+	        MainCtrl.window.toBackStack(df);
 	        dpf.addController(dpc);
 			dpf.initialize();
-		    dpf.setVisible(true);
+		    MainCtrl.window.setContentPane(dpf);
 		}
 		catch(ClassCastException cce){
 			System.out.println("BAD CAST at DoctorCtrl");
@@ -190,10 +191,10 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 			df.setVisible(false);
 			DoctorPatientFr dpf = new DoctorPatientFr();
 			DoctorPatientCtrl dpc = new DoctorPatientCtrl(dpf,doctor, resultado);
-	        dpc.setPreviousWindow(df);
+			MainCtrl.window.toBackStack(df);
 	        dpf.addController(dpc);
 			dpf.initialize();
-		    dpf.setVisible(true);
+		    MainCtrl.window.setContentPane(dpf);
 			
 		}else {
 			Object frame = null;	//crea un objeto ventana
@@ -203,51 +204,8 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 		}
 	}
 
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	/**
-	 * Asks for a confirmation before the window is closed.
-	 * 
-	 * @param	e	WindowEvent triggering the method, in this case, the window closing.
-	 * @see         ExitDialog
-	 */
-	@Override
-	public void windowClosing(WindowEvent e) {
-		ExitDialog.confirmExit();	
-		
-	}
 
-	@Override
-	public void windowClosed(WindowEvent e) {	
-	}
 
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 	/**
 	 * Repaints the list of patients when the doctor types in the searchbar, to make sure only relevant patients are displayed.
 	 * 
@@ -256,12 +214,6 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 	 */
 	@Override
 	public void keyTyped(KeyEvent e) {
-		if(df.getText().length() > 0 || lastTyped.length() > 0) {
-			df.initializeList();
-	        df.repaint();
-	        df.setVisible(true);
-		}
-		lastTyped = df.getText();
 	}
 
 	@Override
@@ -271,7 +223,12 @@ public class DoctorCtrl extends ReturnsToFrame implements ActionListener, MouseL
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		if(df.getText().length() > 0 || lastTyped.length() > 0) {
+			df.initializeList();
+	        df.repaint();
+	        df.setVisible(true);
+		}
+		lastTyped = df.getText();
 	}
 
 }

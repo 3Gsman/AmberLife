@@ -35,7 +35,7 @@ import view.panels.JPanelWithBackground;
 import view.panels.MessagePanel;
 
 @SuppressWarnings("serial")
-public class DoctorPatientFr extends JFrame {
+public class DoctorPatientFr extends JPanel {
 
 
 	private JPanelWithBackground contentPane;
@@ -185,25 +185,21 @@ public class DoctorPatientFr extends JFrame {
 	 * @throws IOException 
 	 */
 	public void initialize() throws IOException {
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(controller);
+	
 		setBounds(100, 100, 619, 632);
 		Dimension dim = new Dimension(1280, 820);
 		this.setMinimumSize(dim);
 		this.setSize(dim);
 		contentPane = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
-		setContentPane(contentPane);
+		this.add(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{40, 40, 40, 40, 20, 30, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 360, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{80, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 40, 80, 0};
 		gbl_contentPane.columnWeights = new double[]{0.1, 0.1, 0.1, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 3.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
-		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
-		this.setIconImage(img.getImage());
-		this.setTitle("Patient: " + controller.getPatient().getName() + " " + controller.getPatient().getLastname());
-		
+
 		//Get PROMETHEUS font
 		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;

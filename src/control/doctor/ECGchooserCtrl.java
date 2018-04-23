@@ -6,13 +6,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import control.ReturnsToFrame;
 import model.ECG;
 import view.dialogs.AssistDialog;
 import view.doctor.ECGchooserFr;
 import view.panels.EcgPanel;
 
-public class ECGchooserCtrl extends ReturnsToFrame implements ActionListener, MouseListener, WindowListener{
+public class ECGchooserCtrl implements ActionListener, MouseListener, WindowListener{
 	
 	private ECGchooserFr frame;
 	private ECG first;

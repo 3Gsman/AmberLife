@@ -28,7 +28,7 @@ import view.panels.JPanelWithBackground;
 import view.panels.UserPanel;
 
 @SuppressWarnings("serial")
-public class AdminFr extends JFrame {
+public class AdminFr extends JPanel {
 
 	private JPanel contentPane;
 	private AdminCtrl controller;
@@ -204,12 +204,10 @@ public class AdminFr extends JFrame {
 	 */
 	public void initialize(boolean doctors, Vector<? extends User> users, Dimension d) throws IOException {
 		this.mode = doctors;
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(controller);
 		setBounds(100, 100, 850, 722);
 		contentPane = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		this.add(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{40, 60, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0};
 		gbl_contentPane.rowHeights = new int[]{60, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0};
@@ -219,9 +217,6 @@ public class AdminFr extends JFrame {
 		if(d.getHeight()==0 || d.getWidth() == 0) d = new Dimension(600,400);
 		this.setMinimumSize(new Dimension(800,600));
 		this.setSize(d);
-		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
-		this.setIconImage(img.getImage());
-		this.setTitle(LocalizationService.getWord("adminconsole"));
 		
 		
 		//Get PROMETHEUS font

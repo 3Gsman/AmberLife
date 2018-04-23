@@ -20,7 +20,7 @@ import view.panels.EcgPanel;
 import view.panels.JPanelWithBackground;
 
 @SuppressWarnings("serial")
-public class ECGchooserFr extends JFrame {
+public class ECGchooserFr extends JPanel {
 	
 	ECGchooserCtrl controller;
 	
@@ -34,15 +34,9 @@ public class ECGchooserFr extends JFrame {
 	
 	public void initialize() throws IOException {
 
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(controller);
-		
-		this.setTitle("Compare");
-		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
-		this.setIconImage(img.getImage());
-		Dimension d = new Dimension(1200, 800);
+		/*Dimension d = new Dimension(1200, 800);
 		this.setMinimumSize(d);
-		this.setSize(d);
+		this.setSize(d);*/
 		
 		JPanel jp = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
 		JScrollPane sp = new JScrollPane();
@@ -62,7 +56,7 @@ public class ECGchooserFr extends JFrame {
 		jp.setOpaque(false);
 		jp.setLayout(new BorderLayout(0, 0));
 		jp.add(sp, BorderLayout.CENTER);
-		this.setContentPane(jp);
+		this.add(jp);
 		
 		this.setVisible(true);
 	}

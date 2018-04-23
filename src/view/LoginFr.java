@@ -1,5 +1,5 @@
 package view;
-import control.Main;
+import control.LoginCtrl;
 import model.LocalizationService;
 import view.panels.JPanelWithBackground;
 
@@ -25,9 +25,9 @@ import java.awt.FontFormatException;
 
 
 @SuppressWarnings("serial")
-public class LoginFr extends JFrame {
+public class LoginFr extends JPanel {
 	
-	Main controller;
+	LoginCtrl controller;
 	
 	private JTextField textField;
 	private JPasswordField passwordField;
@@ -53,7 +53,7 @@ public class LoginFr extends JFrame {
 	}
 	
 	
-	public void addController(Main a) {
+	public void addController(LoginCtrl a) {
 		this.controller = a;
 	}
 	
@@ -72,18 +72,12 @@ public class LoginFr extends JFrame {
 	public void initialize() throws IOException {
 		
 		//Set action on close
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.addWindowListener(controller);
-		
 		this.setBackground(new Color(204, 0, 0));
 		this.setBounds(100, 100, 798, 913);
-		this.getContentPane().setLayout(new BorderLayout(0, 0));	
-		this.setTitle("AmberLife");
-		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
-		this.setIconImage(img.getImage());
-		Dimension d = new Dimension(900, 820);
+		this.setLayout(new BorderLayout(0, 0));	
+		/*Dimension d = new Dimension(900, 820);
 		this.setMinimumSize(d);
-		this.setSize(d);
+		this.setSize(d);*/
 		
 		Color grey = new Color(80, 77, 77, 255);
 		
@@ -103,7 +97,7 @@ public class LoginFr extends JFrame {
 
 		JPanelWithBackground panel = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));	
 		//JPanel panel = new JPanel();
-		this.getContentPane().add(panel, BorderLayout.CENTER);
+		this.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panel.rowHeights = new int[]{15, 80, 20, 20, 0, 0, 10, 60, 0, 10, 60, 20, 60, 30, 0};
@@ -256,6 +250,8 @@ public class LoginFr extends JFrame {
 		btnNewButton.addActionListener(controller);
 		btnNewButton.setHorizontalAlignment(SwingConstants.LEFT);
 		panel_2.add(btnNewButton);
+		
+		this.setVisible(true);
 	}
 
 }

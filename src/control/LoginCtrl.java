@@ -30,7 +30,7 @@ import control.admin.AdminCtrl;
 import control.assistant.AssistCtrl;
 import control.doctor.DoctorCtrl;
 
-public class Main implements ActionListener, KeyListener, WindowListener {
+public class LoginCtrl implements ActionListener, KeyListener {
 
     private LoginFr vistaLogin;
 
@@ -39,7 +39,7 @@ public class Main implements ActionListener, KeyListener, WindowListener {
     * @param w	associated frame
     * @see LoginFr
     */
-    public Main(LoginFr w) {
+    public LoginCtrl(LoginFr w) {
         vistaLogin = w;
     }
 
@@ -61,8 +61,8 @@ public class Main implements ActionListener, KeyListener, WindowListener {
     	else if (e.getActionCommand().equals("LANGUAGE")){
     		LocalizationService.rotate();
     		try {
-    			vistaLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    			vistaLogin.dispose();
+    			/*vistaLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    			vistaLogin.dispose();*/
 				vistaLogin = new LoginFr();
 				vistaLogin.addController(this);
 				vistaLogin.initialize();
@@ -152,13 +152,14 @@ public class Main implements ActionListener, KeyListener, WindowListener {
 	 */
     public void openDoctor(String usuario) throws IOException {
 
-    	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
+    	MainCtrl.window.toBackStack(vistaLogin);	//Cierra la ventana de inicio
         DoctorFr vp = new DoctorFr();	//crea nueva ventana
         DoctorCtrl dc = new DoctorCtrl(usuario,vp);
-        dc.setPreviousWindow(vistaLogin);
+        
         vp.addController(dc);
         vp.initialize();
-        vp.setVisible(true);
+        MainCtrl.window.setContentPane(vp);
+        MainCtrl.window.setVisible(true);
         
     }
     
@@ -171,13 +172,13 @@ public class Main implements ActionListener, KeyListener, WindowListener {
 	 */
     public void openAssistant(String usuario) throws IOException {
 
-    	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
+    	MainCtrl.window.toBackStack(vistaLogin);	
         AssistFr vm = new AssistFr();
         AssistCtrl tc = new AssistCtrl(usuario, vm);
-        tc.setPreviousWindow(vistaLogin);
         vm.addController(tc);
         vm.initialize();
-        vm.setVisible(true);
+        MainCtrl.window.setContentPane(vm);
+        MainCtrl.window.setVisible(true);
     }
     
 	/**
@@ -189,85 +190,14 @@ public class Main implements ActionListener, KeyListener, WindowListener {
 	 */
     public void openAdmin(String usuario) throws IOException {
 
-    	vistaLogin.setVisible(false);	//Cierra la ventana de inicio
+    	MainCtrl.window.toBackStack(vistaLogin);	
         AdminFr vm = new AdminFr();	//crea nueva ventana
         AdminCtrl ac = new AdminCtrl(vm);
-        ac.setPreviousWindow(vistaLogin);
         vm.addController(ac);
         vm.initialize(true, ac.getDoctorList(),new Dimension(0,0));
-        vm.setVisible(true);
+        MainCtrl.window.setContentPane(vm);
+        MainCtrl.window.setVisible(true);
         
         System.out.println("Opened the admin panel");
-
     }
-    
-	/**
-	 * Creates an initial LoginFr and a controller for it, initializes services, and starts the program.
-	 * 
-	 * @param args	arguments passed to the program
-	 * @see LoginFr, LocalizationService
-	 */
-    public static void main(String[] args) {
-    	LocalizationService.initialize();
-
-        try {
-            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName()); 
-			LoginFr window = new LoginFr();
-			Main mc = new Main(window);
-		    window.addController(mc);
-		    window.initialize();
-			window.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    }
-
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	/**
-	 * Asks for a confirmation before the window is closed.
-	 * 
-	 * @param	e	WindowEvent triggering the method, in this case, the window closing.
-	 * @see         ExitDialog
-	 */
-	@Override
-    public void windowClosing(WindowEvent e)
-    { 
-    	ExitDialog.confirmExit();
-    }
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
