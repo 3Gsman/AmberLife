@@ -2,13 +2,11 @@ package view.doctor;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Vector;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -20,12 +18,15 @@ import view.panels.EcgPanel;
 import view.panels.JPanelWithBackground;
 
 @SuppressWarnings("serial")
-public class ECGchooserFr extends JPanel {
+public class ECGchooserFr extends JPanelWithBackground {
 	
+	public ECGchooserFr(URL url) throws IOException {
+		super(url);
+		// TODO Auto-generated constructor stub
+	}
+
 	ECGchooserCtrl controller;
 	
-	public ECGchooserFr(){
-	}
 	
 	public void addController(ECGchooserCtrl c) {
 		controller = c;
@@ -38,7 +39,6 @@ public class ECGchooserFr extends JPanel {
 		this.setMinimumSize(d);
 		this.setSize(d);*/
 		
-		JPanel jp = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
 		JScrollPane sp = new JScrollPane();
 		sp.setBackground( new Color(0, 0, 0, 0) );
 		sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -53,10 +53,9 @@ public class ECGchooserFr extends JPanel {
 		sp.getViewport().setOpaque(false);
 		sp.setViewportBorder(null);
 		sp.setBorder(null);
-		jp.setOpaque(false);
-		jp.setLayout(new BorderLayout(0, 0));
-		jp.add(sp, BorderLayout.CENTER);
-		this.add(jp);
+		this.setOpaque(false);
+		this.setLayout(new BorderLayout(0, 0));
+		this.add(sp, BorderLayout.CENTER);
 		
 		this.setVisible(true);
 	}

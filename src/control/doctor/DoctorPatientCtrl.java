@@ -85,7 +85,7 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		try {
 			EcgPanel ecg = (EcgPanel) e.getSource();
-			DoctorMeasureFr dmf = new DoctorMeasureFr();
+			DoctorMeasureFr dmf = new DoctorMeasureFr(getClass().getResource("/resources/BG.png"));
 			DoctorMeasureCtrl dmc = new DoctorMeasureCtrl(dmf,ecg.getECG());
 			MainCtrl.window.toBackStack(frame);
 			frame.setVisible(false);
@@ -193,7 +193,7 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 	public void compare(ECG first, ECG second) {
 		try {
 			CompareGraphPanel cgp = new CompareGraphPanel(first, second);
-			DoctorMeasureFr dmf = new DoctorMeasureFr();
+			DoctorMeasureFr dmf = new DoctorMeasureFr(getClass().getResource("/resources/BG.png"));
 			DoctorMeasureCtrl dmc = new DoctorMeasureCtrl(dmf,cgp);
 			MainCtrl.window.toBackStack(frame);
 			frame.setVisible(false);

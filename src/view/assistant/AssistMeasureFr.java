@@ -3,7 +3,6 @@ package view.assistant;
 import java.awt.Font;
 import java.awt.FontFormatException;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -17,13 +16,18 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.io.IOException;
+import java.net.URL;
 import java.awt.Color;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class AssistMeasureFr extends JPanel {
+public class AssistMeasureFr extends JPanelWithBackground {
+
+	public AssistMeasureFr(URL url) throws IOException {
+		super(url);
+		// TODO Auto-generated constructor stub
+	}
 
 	private JPanel contentPane;
 	AssistMeasureCtrl controller;
@@ -32,8 +36,6 @@ public class AssistMeasureFr extends JPanel {
 		this.controller = c;
 	}
 
-	public AssistMeasureFr() {
-	}
 	/**
 	 * Create the frame.
 	 * @throws IOException 

@@ -19,13 +19,18 @@ public class MainFr extends JFrame{
 
 	MainCtrl controller;
 	
-	public static Stack<JPanel> backstack;
+	public static Stack<JPanel> backstack = new Stack<>();
 	
 	public void popBackStack() {
-		this.setContentPane(backstack.pop());
+		JPanel panel = backstack.pop();
+		this.remove(this.getContentPane());
+		panel.setVisible(true);
+		this.setContentPane(panel);
+		this.repaint();
 	}
 	
 	public void toBackStack(JPanel panel) {
+		panel.setVisible(false);
 		backstack.push(panel);
 	}
 

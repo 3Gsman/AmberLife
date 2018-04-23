@@ -3,10 +3,8 @@ import control.LoginCtrl;
 import model.LocalizationService;
 import view.panels.JPanelWithBackground;
 
-import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -73,11 +71,7 @@ public class LoginFr extends JPanel {
 		
 		//Set action on close
 		this.setBackground(new Color(204, 0, 0));
-		this.setBounds(100, 100, 798, 913);
 		this.setLayout(new BorderLayout(0, 0));	
-		/*Dimension d = new Dimension(900, 820);
-		this.setMinimumSize(d);
-		this.setSize(d);*/
 		
 		Color grey = new Color(80, 77, 77, 255);
 		

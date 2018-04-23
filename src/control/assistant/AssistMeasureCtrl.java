@@ -2,15 +2,13 @@ package control.assistant;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import control.ReturnsToFrame;
+
+import control.MainCtrl;
 import model.ECG;
 import view.admin.AdminFr;
 import view.assistant.AssistMeasureFr;
-import view.dialogs.ExitDialog;
 
-public class AssistMeasureCtrl extends ReturnsToFrame implements ActionListener, WindowListener{
+public class AssistMeasureCtrl implements ActionListener{
 	
 	private AssistMeasureFr fr;
 	private ECG e;
@@ -51,63 +49,14 @@ public class AssistMeasureCtrl extends ReturnsToFrame implements ActionListener,
 		System.out.println("Action received: ");
 		 if (e.getActionCommand().equals("CANCEL")){
 			 System.out.println(" Cancel");
-			 returnToPrevious();
-			 fr.dispose();
+			 MainCtrl.window.popBackStack();
 		 }
 		 else if (e.getActionCommand().equals("CONFIRM")){
 			 //Saving Measures not implemented yet.
 			 System.out.println(" UNIMPLEMENTED");
-			 returnToPrevious();
-			 fr.dispose();	 
+			 MainCtrl.window.popBackStack(); 
 		 }
 		 else System.out.println("Invalid Action");
-	}
-
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	/**
-	 * Asks for a confirmation before the window is closed.
-	 * 
-	 * @param	e	WindowEvent triggering the method, in this case, the window closing.
-	 * @see         ExitDialog
-	 */
-	@Override
-	public void windowClosing(WindowEvent e) {
-		ExitDialog.confirmExit();
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

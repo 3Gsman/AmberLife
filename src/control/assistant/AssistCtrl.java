@@ -4,20 +4,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.Vector;
-import control.ReturnsToFrame;
+
+import control.MainCtrl;
 import view.assistant.AssistFr;
 import view.assistant.AssistPatientFr;
-import view.dialogs.ExitDialog;
 import view.dialogs.InvalidPatientDialog;
 import model.FileManagement;
 import model.Patient;
 import model.Assistant;
 
-public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyListener, WindowListener{
+public class AssistCtrl implements ActionListener, KeyListener{
 
 	private AssistFr tf;
 	private String name;
@@ -59,8 +57,7 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 				e1.printStackTrace();
 			}
 		 }else if (e.getActionCommand().equals("BACK")) {
-			 tf.dispose();
-			 returnToPrevious();
+			 MainCtrl.window.popBackStack();
 		 }else if (e.getActionCommand().equals("ID")) {
 			 if(!tf.getMode()) tf.switchbuttons();
 			 tf.repaint();
@@ -164,13 +161,12 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 	 * @throws	IOException
 	 */
 	public void openPatientTecn(String name, String lastname, String id, String ssn, Vector<String> messages, String user) throws IOException {
-        AssistPatientFr vm = new AssistPatientFr();
+        AssistPatientFr vm = new AssistPatientFr(getClass().getResource("/resources/BG.png"));
         AssistPatientCtrl tc = new AssistPatientCtrl(vm);
-        tc.setPreviousWindow(tf);
+        MainCtrl.window.toBackStack(tf);
         vm.addController(tc);
         vm.initialize(name, lastname, id, ssn, messages, user);
-        vm.setVisible(true);
-        tf.setVisible(false);
+        MainCtrl.window.setContentPane(vm);
     }
 
 	/**
@@ -190,53 +186,5 @@ public class AssistCtrl extends ReturnsToFrame implements ActionListener, KeyLis
 	 */
 	public Assistant getAssist() {
 		return tecnico;
-	}
-
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	/**
-	 * Asks for a confirmation before the window is closed.
-	 * 
-	 * @param	e	WindowEvent triggering the method, in this case, the window closing.
-	 * @see         ExitDialog
-	 */
-	@Override
-	public void windowClosing(WindowEvent e) {
-		ExitDialog.confirmExit();
-		
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }

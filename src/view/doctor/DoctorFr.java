@@ -13,6 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JButton;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Vector;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -34,9 +35,12 @@ import view.panels.JPanelWithBackground;
 import view.panels.PatientPanel;
 
 @SuppressWarnings("serial")
-public class DoctorFr extends JPanel {
+public class DoctorFr extends JPanelWithBackground {
 
-	private JPanel contentPane;
+	public DoctorFr(URL url) throws IOException {
+		super(url);
+		// TODO Auto-generated constructor stub
+	}
 	private DoctorCtrl controller;
 	private boolean mode;
 	public JTextField textField = new JTextField();
@@ -44,9 +48,6 @@ public class DoctorFr extends JPanel {
 	private JPanel searchpanel = new JPanel();
 
 
-	public DoctorFr() {
-		
-	}
 	
 	public String getText() {
 		return textField.getText();
@@ -131,15 +132,13 @@ public class DoctorFr extends JPanel {
 	 */
 	public void initialize() throws IOException {
 		setBounds(100, 100, 850, 722);
-		contentPane = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.add(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{40, 60, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0};
-		gbl_contentPane.rowHeights = new int[]{60, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		GridBagLayout gbl_this = new GridBagLayout();
+		gbl_this.columnWidths = new int[]{40, 60, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0};
+		gbl_this.rowHeights = new int[]{60, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0};
+		gbl_this.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_this.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		this.setLayout(gbl_this);
 		Dimension d = new Dimension(600,400);
 		this.setMinimumSize(new Dimension(800,600));
 		this.setSize(d);
@@ -168,7 +167,7 @@ public class DoctorFr extends JPanel {
 		gbc_paneluser.fill = GridBagConstraints.BOTH;
 		gbc_paneluser.gridx = 0;
 		gbc_paneluser.gridy = 0;
-		contentPane.add(paneluser,gbc_paneluser);
+		this.add(paneluser,gbc_paneluser);
 		
 		JLabel lblUser = new JLabel(" " + LocalizationService.getWord("user") + ": " 
 							+ controller.getDoctor().getName() + " " + controller.getDoctor().getLastname());
@@ -197,7 +196,7 @@ public class DoctorFr extends JPanel {
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 2;
 		
-		contentPane.add(btnNewButton, gbc_btnNewButton);
+		this.add(btnNewButton, gbc_btnNewButton);
 
 		box.setBackground( new Color(255,255,255,140));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -207,7 +206,7 @@ public class DoctorFr extends JPanel {
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 3;
-		contentPane.add(new AlphaContainer(box), gbc_panel);
+		this.add(new AlphaContainer(box), gbc_panel);
 		box.setLayout(new BorderLayout(0, 0));
 
 		
@@ -259,9 +258,7 @@ public class DoctorFr extends JPanel {
 		gbc_btnLogout.fill = GridBagConstraints.BOTH;
 		gbc_btnLogout.gridx = 0;
 		gbc_btnLogout.gridy = 18;
-		contentPane.add(btnLogout, gbc_btnLogout);
-
-		
+		this.add(btnLogout, gbc_btnLogout);
 
 		this.setVisible(true);
 		textField.requestFocus();

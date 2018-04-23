@@ -10,6 +10,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -35,10 +36,14 @@ import view.panels.JPanelWithBackground;
 import view.panels.MessagePanel;
 
 @SuppressWarnings("serial")
-public class DoctorPatientFr extends JPanel {
+public class DoctorPatientFr extends JPanelWithBackground {
 
 
-	private JPanelWithBackground contentPane;
+	public DoctorPatientFr(URL url) throws IOException {
+		super(url);
+		// TODO Auto-generated constructor stub
+	}
+
 	public JPanel messagePanel = new JPanel(new BorderLayout());
 	public DoctorPatientCtrl controller;
 	private String mode = "ECGS";
@@ -52,9 +57,6 @@ public class DoctorPatientFr extends JPanel {
 		return controller;
 	}
 	
-	
-	public DoctorPatientFr() {
-	}
 	
 	//DOESN'T REALLY WORK
 	private JPanel initializeMessages() throws IOException {
@@ -151,7 +153,7 @@ public class DoctorPatientFr extends JPanel {
 	
 	public void setModeECG() throws IOException {
 		if(mode != "ECGS") {
-			//this.getContentPane().remove(messagePanel);
+			//this.getthis().remove(messagePanel);
 			messagePanel.removeAll();
 			messagePanel.add(initializeECG(), BorderLayout.CENTER);
 			this.repaint();
@@ -161,7 +163,7 @@ public class DoctorPatientFr extends JPanel {
 	
 	public void setModeMessages() throws IOException {
 		if(mode != "MESSAGES") {
-			//this.getContentPane().remove(messagePanel);
+			//this.getthis().remove(messagePanel);
 			messagePanel.removeAll();
 			messagePanel.add(new AlphaContainer(initializeMessages()), BorderLayout.CENTER);
 			this.repaint();
@@ -186,19 +188,13 @@ public class DoctorPatientFr extends JPanel {
 	 */
 	public void initialize() throws IOException {
 	
-		setBounds(100, 100, 619, 632);
-		Dimension dim = new Dimension(1280, 820);
-		this.setMinimumSize(dim);
-		this.setSize(dim);
-		contentPane = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
-		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
-		this.add(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{40, 40, 40, 40, 20, 30, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 360, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{80, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 40, 80, 0};
-		gbl_contentPane.columnWeights = new double[]{0.1, 0.1, 0.1, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 3.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
+		this.setBorder(new EmptyBorder(0, 0, 0, 0));
+		GridBagLayout gbl_this = new GridBagLayout();
+		gbl_this.columnWidths = new int[]{40, 40, 40, 40, 20, 30, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 360, 0, 0, 0, 0};
+		gbl_this.rowHeights = new int[]{80, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 40, 80, 0};
+		gbl_this.columnWeights = new double[]{0.1, 0.1, 0.1, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 3.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_this.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, Double.MIN_VALUE};
+		this.setLayout(gbl_this);
 
 		//Get PROMETHEUS font
 		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
@@ -220,7 +216,7 @@ public class DoctorPatientFr extends JPanel {
 		gbc_panel_5.fill = GridBagConstraints.BOTH;
 		gbc_panel_5.gridx = 0;
 		gbc_panel_5.gridy = 0;
-		contentPane.add(panel_5, gbc_panel_5);
+		this.add(panel_5, gbc_panel_5);
 		panel_5.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel_1 = new JLabel("");
@@ -238,7 +234,7 @@ public class DoctorPatientFr extends JPanel {
 		gbc_panel_1.gridwidth = 3;
 		gbc_panel_1.gridx = 0;
 		gbc_panel_1.gridy = 3;
-		contentPane.add(panel_1, gbc_panel_1);
+		this.add(panel_1, gbc_panel_1);
 		GridBagLayout gbl = new GridBagLayout();
 		gbl.columnWidths = new int[]{15, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15};
 		gbl.rowHeights = new int[]{0, 30, 15, 30, 15, 30, 15, 30, 15, 30, 15, 30, 15, 30, 15, 0, 0, 20};
@@ -500,7 +496,7 @@ public class DoctorPatientFr extends JPanel {
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 4;
 		gbc_panel.gridy = 0;
-		contentPane.add(panel, gbc_panel);
+		this.add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 	
 		JLabel lblNewLabel = new JLabel(" " + LocalizationService.getWord("user") + ": "+ controller.getDoctor().getName() + controller.getDoctor().getLastname().split(" ")[0]);
@@ -531,7 +527,7 @@ public class DoctorPatientFr extends JPanel {
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		messagePanel.add(lblNewLabel_2, BorderLayout.CENTER);
 		
-		contentPane.add(messagePanel, gbc_panel_2);*/
+		this.add(messagePanel, gbc_panel_2);*/
 	
 		
 		messagePanel.setOpaque(false);
@@ -546,7 +542,7 @@ public class DoctorPatientFr extends JPanel {
 		gbc_panel_2.gridy = 1;
 		
 		initializeECG();
-		contentPane.add(messagePanel, gbc_panel_2);
+		this.add(messagePanel, gbc_panel_2);
 		
 		
 		JButton btnNewButton = new JButton("");
@@ -561,7 +557,7 @@ public class DoctorPatientFr extends JPanel {
 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton.gridx = 0;
 		gbc_btnNewButton.gridy = 18;
-		contentPane.add(btnNewButton, gbc_btnNewButton);
+		this.add(btnNewButton, gbc_btnNewButton);
 		
 		JButton btnNewButton2 = new JButton("");
 		btnNewButton2.setBorderPainted(false);
@@ -575,7 +571,7 @@ public class DoctorPatientFr extends JPanel {
 		gbc_btnNewButton2.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton2.gridx = 1;
 		gbc_btnNewButton2.gridy = 18;
-		contentPane.add(btnNewButton2, gbc_btnNewButton2);
+		this.add(btnNewButton2, gbc_btnNewButton2);
 		
 		JButton btnNewButton3 = new JButton("");
 		btnNewButton3.setBorderPainted(false);
@@ -589,7 +585,7 @@ public class DoctorPatientFr extends JPanel {
 		gbc_btnNewButton3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton3.gridx = 2;
 		gbc_btnNewButton3.gridy = 18;
-		contentPane.add(btnNewButton3, gbc_btnNewButton3);
+		this.add(btnNewButton3, gbc_btnNewButton3);
 		
 	}
 }

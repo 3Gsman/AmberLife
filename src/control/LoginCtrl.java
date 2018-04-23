@@ -32,7 +32,7 @@ import control.doctor.DoctorCtrl;
 
 public class LoginCtrl implements ActionListener, KeyListener {
 
-    private LoginFr vistaLogin;
+    private LoginFr vistaLogin = new LoginFr();
 
    /**
     * Class constructor, set associated window.
@@ -63,7 +63,6 @@ public class LoginCtrl implements ActionListener, KeyListener {
     		try {
     			/*vistaLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     			vistaLogin.dispose();*/
-				vistaLogin = new LoginFr();
 				vistaLogin.addController(this);
 				vistaLogin.initialize();
 				vistaLogin.setVisible(true);
@@ -153,12 +152,12 @@ public class LoginCtrl implements ActionListener, KeyListener {
     public void openDoctor(String usuario) throws IOException {
 
     	MainCtrl.window.toBackStack(vistaLogin);	//Cierra la ventana de inicio
-        DoctorFr vp = new DoctorFr();	//crea nueva ventana
+        DoctorFr vp = new DoctorFr(getClass().getResource("/resources/BG.png"));	//crea nueva ventana
         DoctorCtrl dc = new DoctorCtrl(usuario,vp);
         
         vp.addController(dc);
-        vp.initialize();
         MainCtrl.window.setContentPane(vp);
+        vp.initialize();
         MainCtrl.window.setVisible(true);
         
     }
@@ -173,7 +172,7 @@ public class LoginCtrl implements ActionListener, KeyListener {
     public void openAssistant(String usuario) throws IOException {
 
     	MainCtrl.window.toBackStack(vistaLogin);	
-        AssistFr vm = new AssistFr();
+        AssistFr vm = new AssistFr(getClass().getResource("/resources/BG.png"));
         AssistCtrl tc = new AssistCtrl(usuario, vm);
         vm.addController(tc);
         vm.initialize();
@@ -191,7 +190,7 @@ public class LoginCtrl implements ActionListener, KeyListener {
     public void openAdmin(String usuario) throws IOException {
 
     	MainCtrl.window.toBackStack(vistaLogin);	
-        AdminFr vm = new AdminFr();	//crea nueva ventana
+        AdminFr vm = new AdminFr(getClass().getResource("/resources/BG.png"));	//crea nueva ventana
         AdminCtrl ac = new AdminCtrl(vm);
         vm.addController(ac);
         vm.initialize(true, ac.getDoctorList(),new Dimension(0,0));

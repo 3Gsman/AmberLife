@@ -10,7 +10,8 @@ import java.awt.event.WindowListener;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import control.ReturnsToFrame;
+
+import control.MainCtrl;
 import model.ECG;
 import model.FileManagement;
 import view.assistant.AssistMeasureFr;
@@ -20,7 +21,7 @@ import view.dialogs.FileChooserErrorDialog;
 import view.dialogs.NewMessageDialog;
 import view.panels.MessagePanel;
 
-public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener, KeyListener, WindowListener{
+public class AssistPatientCtrl  implements ActionListener, KeyListener{
 	
 	private AssistPatientFr patient;
 	
@@ -88,13 +89,12 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 		    	   System.out.println(" ECG");
 					try {
 						   ecg = f.readECG(filename);
-					       AssistMeasureFr tef = new AssistMeasureFr();
+					       AssistMeasureFr tef = new AssistMeasureFr(getClass().getResource("/resources/BG.png"));
 					       AssistMeasureCtrl tec = new AssistMeasureCtrl(tef,ecg);
-					       tec.setPreviousWindow(patient);
-					       patient.setVisible(false);
+					       MainCtrl.window.toBackStack(patient);
 					       tef.addController(tec);
 					       tef.initialize();
-					       tef.setVisible(true);
+					       MainCtrl.window.setContentPane(tef);  		       
 					       System.out.println("Pantalla ECG");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -108,8 +108,7 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 
 		}else  if (e.getActionCommand().equals("BACK")){ 
 			System.out.println(" Back");
-			returnToPrevious();
-			patient.dispose();
+			MainCtrl.window.popBackStack();
 			
 		}else  if (e.getActionCommand().equals("REPLY")){ 	
 			 System.out.println(" Reply");
@@ -135,56 +134,5 @@ public class AssistPatientCtrl extends ReturnsToFrame implements ActionListener,
 	}
 
 
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * Asks for a confirmation before the window is closed.
-	 * 
-	 * @param	e	WindowEvent triggering the method, in this case, the window closing.
-	 * @see         ExitDialog
-	 */
-	@Override
-	public void windowClosing(WindowEvent e) {
-		ExitDialog.confirmExit();
-	}
-
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

@@ -76,7 +76,7 @@ public class DoctorMeasureCtrl implements ActionListener{
 		 else if (ev.getActionCommand().equals("COMPARE")){
 			 try {
 			 	DoctorPatientCtrl dpc = ((DoctorPatientFr)MainCtrl.window.backstack.peek()).getController();
-			 	ECGchooserFr ecgf = new ECGchooserFr();
+			 	ECGchooserFr ecgf = new ECGchooserFr(getClass().getResource("/resources/BG.png"));
 			 	ECGchooserCtrl ecgc = new ECGchooserCtrl(dpc, ecgf, e);;
 			 	ecgf.addController(ecgc);
 			 	ecgf.initialize();

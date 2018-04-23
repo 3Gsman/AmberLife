@@ -7,8 +7,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
@@ -16,7 +14,6 @@ import control.MainCtrl;
 import model.Doctor;
 import model.FileManagement;
 import model.Patient;
-import view.dialogs.ExitDialog;
 import view.dialogs.PatientDialog;
 import view.doctor.DoctorFr;
 import view.doctor.DoctorPatientFr;
@@ -120,7 +117,7 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 		try {
 			PatientPanel p = (PatientPanel) e.getSource();
 			df.setVisible(false);
-			DoctorPatientFr dpf = new DoctorPatientFr();
+			DoctorPatientFr dpf = new DoctorPatientFr(getClass().getResource("/resources/BG.png"));
 			DoctorPatientCtrl dpc = new DoctorPatientCtrl(dpf,doctor,p.getPatient());
 	        MainCtrl.window.toBackStack(df);
 	        dpf.addController(dpc);
@@ -189,7 +186,7 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 			System.out.println("Patient found.\n");		
 			
 			df.setVisible(false);
-			DoctorPatientFr dpf = new DoctorPatientFr();
+			DoctorPatientFr dpf = new DoctorPatientFr(getClass().getResource("/resources/BG.png"));
 			DoctorPatientCtrl dpc = new DoctorPatientCtrl(dpf,doctor, resultado);
 			MainCtrl.window.toBackStack(df);
 	        dpf.addController(dpc);
@@ -226,7 +223,6 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 		if(df.getText().length() > 0 || lastTyped.length() > 0) {
 			df.initializeList();
 	        df.repaint();
-	        df.setVisible(true);
 		}
 		lastTyped = df.getText();
 	}

@@ -4,14 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import model.ECG;
-import view.dialogs.AssistDialog;
 import view.doctor.ECGchooserFr;
 import view.panels.EcgPanel;
 
-public class ECGchooserCtrl implements ActionListener, MouseListener, WindowListener{
+public class ECGchooserCtrl implements ActionListener, MouseListener{
 	
 	private ECGchooserFr frame;
 	private ECG first;
@@ -53,7 +50,6 @@ public class ECGchooserCtrl implements ActionListener, MouseListener, WindowList
 		try {
 			EcgPanel ecg = (EcgPanel) e.getSource();
 			controller.compare(first,ecg.getECG());
-			frame.dispose();
 			//this.returnToPrevious();
 			System.out.println("Selected ECG: " + ecg.getECG().getName());
 		}
@@ -93,52 +89,5 @@ public class ECGchooserCtrl implements ActionListener, MouseListener, WindowList
 		
 	}
 
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * Closes the current frame and returns to previous.
-	 *  
-	 * @param	e	WindowEvent triggering the method, in this case, the window closing.
-	 * @see         AssistDialog
-	 */
-	@Override
-	public void windowClosing(WindowEvent e) {
-		returnToPrevious();
-		frame.dispose();	
-	}
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		
-		
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

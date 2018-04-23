@@ -2,21 +2,19 @@ package control.admin;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.Vector;
-import control.ReturnsToFrame;
+
+import control.MainCtrl;
 import model.FileManagement;
 import model.Doctor;
 import model.Assistant;
 import view.admin.AdminFr;
 import view.dialogs.AssistDialog;
 import view.dialogs.DoctorDialog;
-import view.dialogs.ExitDialog;
 
 
-public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowListener {
+public class AdminCtrl implements ActionListener {
 
 	private AdminFr af;
 	private Vector<Assistant> listatecnicos;
@@ -72,8 +70,7 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowL
     		}
     	}
     	else if (e.getActionCommand().equals("BACK")){
-    		af.dispose();
-    		returnToPrevious();  		
+    		MainCtrl.window.popBackStack();	
     	}else if (e.getActionCommand().equals("NEWDOCTOR")) {
 			newDoctor();
 		}else if (e.getActionCommand().equals("NEWASSIST")) {
@@ -110,7 +107,7 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowL
 	 */
 	public void newDoctor() {
 		try {
-			 dd = new DoctorDialog(af);
+			 dd = new DoctorDialog(MainCtrl.window);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -126,59 +123,11 @@ public class AdminCtrl extends ReturnsToFrame implements ActionListener, WindowL
 	 */
 	public void newAssist() {
 		try {
-			ad = new AssistDialog(af);
+			ad = new AssistDialog(MainCtrl.window);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	}
-
-	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * Asks for a confirmation before the window is closed.
-	 * 
-	 * @param	e	WindowEvent triggering the method, in this case, the window closing.
-	 * @see         ExitDialog
-	 */
-	@Override
-    public void windowClosing(WindowEvent e)
-    { 
-    	ExitDialog.confirmExit();
-    }
-
-	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 	

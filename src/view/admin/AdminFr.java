@@ -1,7 +1,6 @@
 package view.admin;
 
 import java.awt.BorderLayout;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import control.admin.AdminCtrl;
@@ -11,6 +10,7 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Vector;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -28,9 +28,13 @@ import view.panels.JPanelWithBackground;
 import view.panels.UserPanel;
 
 @SuppressWarnings("serial")
-public class AdminFr extends JPanel {
+public class AdminFr extends JPanelWithBackground {
 
-	private JPanel contentPane;
+	public AdminFr(URL url) throws IOException {
+		super(url);
+		// TODO Auto-generated constructor stub
+	}
+
 	private AdminCtrl controller;
 	private boolean mode;
 	private JButton btnAssistants = new JButton(LocalizationService.getWord("assistants"));
@@ -39,10 +43,7 @@ public class AdminFr extends JPanel {
 	JPanel jpanel2 = new JPanel();
 	JPanel jpanel = new JPanel();
 
-	public AdminFr() {
-		
-	}
-	
+
 	public boolean getMode() {
 		return mode;
 	}
@@ -204,20 +205,13 @@ public class AdminFr extends JPanel {
 	 */
 	public void initialize(boolean doctors, Vector<? extends User> users, Dimension d) throws IOException {
 		this.mode = doctors;
-		setBounds(100, 100, 850, 722);
-		contentPane = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.add(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{40, 60, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0};
-		gbl_contentPane.rowHeights = new int[]{60, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
-		if(d.getHeight()==0 || d.getWidth() == 0) d = new Dimension(600,400);
-		this.setMinimumSize(new Dimension(800,600));
-		this.setSize(d);
-		
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		GridBagLayout gbl_this = new GridBagLayout();
+		gbl_this.columnWidths = new int[]{40, 60, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0};
+		gbl_this.rowHeights = new int[]{60, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0};
+		gbl_this.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_this.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		this.setLayout(gbl_this);
 		
 		//Get PROMETHEUS font
 		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
@@ -245,7 +239,7 @@ public class AdminFr extends JPanel {
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 2;
 		jpanel.add(btnNewButton,BorderLayout.CENTER);
-		contentPane.add(jpanel, gbc_btnNewButton);
+		this.add(jpanel, gbc_btnNewButton);
 	
 		jpanel2.setBackground(new Color(255,255,255,255));
 		jpanel2.setOpaque(false);
@@ -259,7 +253,7 @@ public class AdminFr extends JPanel {
 		gbc_btnAssistants.gridx = 2;
 		gbc_btnAssistants.gridy = 2;
 		jpanel2.add(btnAssistants,BorderLayout.CENTER);
-		contentPane.add(jpanel2, gbc_btnAssistants);
+		this.add(jpanel2, gbc_btnAssistants);
 		
 		setButtons();
 		
@@ -275,7 +269,7 @@ public class AdminFr extends JPanel {
 		display.setBackground(new Color(255,255,255,140));
 		display.setLayout(new BorderLayout());
 		initializeDoctors(users);
-		contentPane.add(new AlphaContainer(display), gbc_panel);	
+		this.add(new AlphaContainer(display), gbc_panel);	
 		
 		JButton btnLogout = new JButton("");
 		btnLogout.setBorderPainted(false);
@@ -289,7 +283,7 @@ public class AdminFr extends JPanel {
 		gbc_btnLogout.fill = GridBagConstraints.BOTH;
 		gbc_btnLogout.gridx = 0;
 		gbc_btnLogout.gridy = 18;
-		contentPane.add(btnLogout, gbc_btnLogout);
+		this.add(btnLogout, gbc_btnLogout);
 		
 		this.setVisible(true);
 

@@ -1,21 +1,20 @@
 	package view.assistant;
 	
-	import javax.swing.JFrame;
 	import javax.swing.JButton;
 	import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+	import java.awt.Color;
 	import java.awt.GridBagLayout;
 	import java.awt.GridBagConstraints;
 	import java.awt.Insets;
 	import java.io.IOException;
+	import java.net.URL;
 	import java.awt.FlowLayout;
 	import javax.swing.JPanel;
 	import javax.swing.JLabel;
 
-import control.assistant.AssistCtrl;
-import model.LocalizationService;
-import view.panels.JPanelWithBackground;
+	import control.assistant.AssistCtrl;
+	import model.LocalizationService;
+	import view.panels.JPanelWithBackground;
 	import javax.swing.ImageIcon;
 	import javax.swing.JTextField;
 	import javax.swing.SwingConstants;
@@ -23,8 +22,14 @@ import view.panels.JPanelWithBackground;
 	import java.awt.FontFormatException;
 	
 	@SuppressWarnings("serial")
-	public class AssistFr extends JPanel {
+	public class AssistFr extends JPanelWithBackground {
 		
+		public AssistFr(URL url) throws IOException {
+			super(url);
+			// TODO Auto-generated constructor stub
+		}
+
+
 		public JTextField textField;
 		AssistCtrl controller;
 		JButton btnNewButton = new JButton(LocalizationService.getWord("id"));
@@ -45,10 +50,7 @@ import view.panels.JPanelWithBackground;
 		/**
 		 * Create the application.
 		 */
-		
-		public  AssistFr() {
-			
-		}
+
 		
 		public String getID() {
 			return textField.getText();
@@ -132,12 +134,8 @@ import view.panels.JPanelWithBackground;
 		 */
 		public void initialize() throws IOException {
 			this.setBackground(new Color(204, 0, 0));
-			this.setBounds(100, 100, 798, 913);
 			this.setLayout(new BorderLayout(0, 0));	
-			Dimension d = new Dimension(1280,720);
-			this.setMinimumSize(d);
-			this.setSize(d);
-			
+
 			Color grey = new Color(80, 77, 77, 255);
 			
 			//Get PROMETHEUS font
