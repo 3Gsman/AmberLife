@@ -24,8 +24,9 @@ public class MainFr extends JFrame{
 	public void popBackStack() {
 		JPanel panel = backstack.pop();
 		this.remove(this.getContentPane());
-		panel.setVisible(true);
+		panel.setSize(this.getSize());	
 		this.setContentPane(panel);
+		panel.setVisible(true);
 		this.repaint();
 	}
 	

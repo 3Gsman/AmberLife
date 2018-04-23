@@ -91,7 +91,7 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 			frame.setVisible(false);
 			dmf.addController(dmc);
 			dmf.initialize();
-			dmf.setVisible(true);
+			MainCtrl.window.setContentPane(dmf);
 			System.out.println("Selected ECG: " + ecg.getECG().getName());
 		}
 		catch(ClassCastException cce){
@@ -195,7 +195,7 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 			CompareGraphPanel cgp = new CompareGraphPanel(first, second);
 			DoctorMeasureFr dmf = new DoctorMeasureFr(getClass().getResource("/resources/BG.png"));
 			DoctorMeasureCtrl dmc = new DoctorMeasureCtrl(dmf,cgp);
-			MainCtrl.window.toBackStack(frame);
+			//MainCtrl.window.toBackStack(frame);
 			frame.setVisible(false);
 			dmf.addController(dmc);
 			dmf.initialize();

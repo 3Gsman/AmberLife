@@ -21,7 +21,6 @@ import java.awt.Insets;
 import java.io.IOException;
 import java.net.URL;
 import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -225,6 +224,8 @@ public class DoctorMeasureFr extends JPanelWithBackground {
 			gbc_button.gridx = 20;
 			gbc_button.gridy = 13;
 			panel.add(button, gbc_button);
+		
+		this.setVisible(true);
 		}
 	}
 

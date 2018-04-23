@@ -50,7 +50,6 @@ public class ECGchooserCtrl implements ActionListener, MouseListener{
 		try {
 			EcgPanel ecg = (EcgPanel) e.getSource();
 			controller.compare(first,ecg.getECG());
-			//this.returnToPrevious();
 			System.out.println("Selected ECG: " + ecg.getECG().getName());
 		}
 		catch(ClassCastException cce){

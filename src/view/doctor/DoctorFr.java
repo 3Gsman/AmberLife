@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import control.MainCtrl;
 import control.doctor.DoctorCtrl;
 
 import java.awt.GridBagLayout;

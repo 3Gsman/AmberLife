@@ -29,7 +29,6 @@ public class AssistMeasureFr extends JPanelWithBackground {
 		// TODO Auto-generated constructor stub
 	}
 
-	private JPanel contentPane;
 	AssistMeasureCtrl controller;
 	
 	public void addController(AssistMeasureCtrl c) {
@@ -42,15 +41,13 @@ public class AssistMeasureFr extends JPanelWithBackground {
 	 */
 	public void initialize() throws IOException {
 		setBounds(100, 100, 757, 535);
-		contentPane =  new JPanelWithBackground(getClass().getResource("/resources/BG.png"));	
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.add(contentPane);
-		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{1.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.5, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{1.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.5, Double.MIN_VALUE};
-		contentPane.setLayout(gbl_contentPane);
+		this.setBorder(new EmptyBorder(5, 5, 5, 5));
+		GridBagLayout gbl_this = new GridBagLayout();
+		gbl_this.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_this.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_this.columnWeights = new double[]{1.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.5, Double.MIN_VALUE};
+		gbl_this.rowWeights = new double[]{1.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.5, Double.MIN_VALUE};
+		this.setLayout(gbl_this);
 		
 		Color grey = new Color(80, 77, 77, 255);
 		
@@ -75,7 +72,7 @@ public class AssistMeasureFr extends JPanelWithBackground {
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 1;
 		gbc_panel.gridy = 1;
-		contentPane.add(panel, gbc_panel);
+		this.add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{30, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 20, 20, 30, 0};
 		gbl_panel.rowHeights = new int[]{30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 50, 30, 0};
