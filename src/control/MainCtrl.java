@@ -56,6 +56,7 @@ public class MainCtrl implements WindowListener{
 			ResultSet rs = stmt.executeQuery( "SELECT * FROM User;" );
 			System.out.println(rs.getString("iduser"));
 			System.out.println(rs.getString("iduser"));
+			rs.close()
 			stmt.close();
 			c.close();*/
 		} catch (Exception e) {
