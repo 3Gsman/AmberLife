@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="libraries/jfreechart-1.0.1.jar"/>
 	<classpathentry kind="lib" path="libraries/junit.jar"/>
 	<classpathentry kind="lib" path="libraries/servlet.jar"/>
+	<classpathentry kind="lib" path="sqlite-jdbc-3.21.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
