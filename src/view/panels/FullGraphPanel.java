@@ -149,7 +149,7 @@ public class FullGraphPanel extends JPanel {
 
 	private JFreeChart createChart(final XYDataset dataset) {
 
-		final JFreeChart chart = ChartFactory.createXYLineChart(ECGData.getName(), // chart
+		final JFreeChart chart = ChartFactory.createXYLineChart("", // chart
 																	// title
 				"mS", // x axis label
 				"mV", // y axis label

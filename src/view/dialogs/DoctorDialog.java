@@ -66,7 +66,7 @@ public class DoctorDialog extends JDialog {
 		
 		Color grey = new Color(80, 77, 77, 255);
 		
-		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 		Font sf = font; // will use sf to change the style;
 		try {
@@ -88,7 +88,7 @@ public class DoctorDialog extends JDialog {
 			gbc_panel.gridy = 0;
 			getContentPane().add(panel, gbc_panel);
 			{
-				JLabel lblNewLabel_2 = new JLabel("introduce new doctor data");
+				JLabel lblNewLabel_2 = new JLabel("Introduce new doctor data");
 				lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel_2.setForeground(Color.WHITE);
 				lblNewLabel_2.setFont(sf);
@@ -122,7 +122,7 @@ public class DoctorDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblNewLabel = new JLabel("name");
+					JLabel lblNewLabel = new JLabel("Name");
 					lblNewLabel.setFont(sf);
 					lblNewLabel.setForeground(Color.WHITE);
 					panel_1.add(lblNewLabel);
@@ -185,7 +185,7 @@ public class DoctorDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel label = new JLabel("surname");
+					JLabel label = new JLabel("Surname");
 					label.setForeground(Color.WHITE);
 					label.setFont(sf);
 					panel_1.add(label);
@@ -247,7 +247,7 @@ public class DoctorDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblPassword = new JLabel("pass");
+					JLabel lblPassword = new JLabel("Pass");
 					lblPassword.setForeground(Color.WHITE);
 					lblPassword.setFont(sf);
 					panel_1.add(lblPassword);
@@ -309,7 +309,7 @@ public class DoctorDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblConfirm = new JLabel("confirm");
+					JLabel lblConfirm = new JLabel("Confirm");
 					lblConfirm.setForeground(Color.WHITE);
 					lblConfirm.setFont(sf);
 					panel_1.add(lblConfirm);
@@ -371,7 +371,7 @@ public class DoctorDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblId = new JLabel("i.d.");
+					JLabel lblId = new JLabel("I.D.");
 					lblId.setForeground(Color.WHITE);
 					lblId.setFont(sf);
 					panel_1.add(lblId);
@@ -433,7 +433,7 @@ public class DoctorDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblSsn = new JLabel("s.s.n.");
+					JLabel lblSsn = new JLabel("S.S.N.");
 					lblSsn.setForeground(Color.WHITE);
 					lblSsn.setFont(sf);
 					panel_1.add(lblSsn);
@@ -495,7 +495,7 @@ public class DoctorDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblHosp = new JLabel("hospital");
+					JLabel lblHosp = new JLabel("Hospital");
 					lblHosp.setForeground(Color.WHITE);
 					lblHosp.setFont(sf);
 					panel_1.add(lblHosp);
@@ -557,7 +557,7 @@ public class DoctorDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblPhone = new JLabel("phone");
+					JLabel lblPhone = new JLabel("Phone");
 					lblPhone.setForeground(Color.WHITE);
 					lblPhone.setFont(sf);
 					panel_1.add(lblPhone);
@@ -595,7 +595,7 @@ public class DoctorDialog extends JDialog {
 		}
 		sf = font.deriveFont(22f);
 		{
-			JButton btnNewButton = new JButton("cancel");
+			JButton btnNewButton = new JButton("CANCEL");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();				}
@@ -614,7 +614,7 @@ public class DoctorDialog extends JDialog {
 			getContentPane().add(btnNewButton, gbc_btnNewButton);
 		}
 		{
-			JButton btnConfirm = new JButton("confirm");
+			JButton btnConfirm = new JButton("CONFIRM");
 			btnConfirm.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("Doctor creation confirmed");

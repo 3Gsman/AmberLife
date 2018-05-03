@@ -54,7 +54,7 @@ public class NewMessageDialog extends JDialog {
 		this.setResizable(false);
 		this.setTitle("New Message: " + name + " " + lastname);
 		
-		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 		Font sf = font; // will use sf to change the style;
 		try {
@@ -79,7 +79,7 @@ public class NewMessageDialog extends JDialog {
 			gbc_panel.gridy = 0;
 			contentPanel.add(panel, gbc_panel);
 			
-			JLabel lblNewLabel = new JLabel("new message");
+			JLabel lblNewLabel = new JLabel("New message");
 			lblNewLabel.setForeground(Color.WHITE);
 			lblNewLabel.setFont(sf);
 			panel.add(lblNewLabel);
@@ -102,7 +102,7 @@ public class NewMessageDialog extends JDialog {
 		contentPanel.add(area,gbc_text);
 		
 		
-		JButton btnCancel = new JButton("cancel");
+		JButton btnCancel = new JButton("CANCEL");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -120,7 +120,7 @@ public class NewMessageDialog extends JDialog {
 		gbc_btnCancel.gridy = 9;
 		contentPanel.add(btnCancel, gbc_btnCancel);
 		
-		JButton btnNewButton = new JButton("ok");
+		JButton btnNewButton = new JButton("OK");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("New Message confirmed");

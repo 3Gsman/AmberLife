@@ -16,129 +16,129 @@ public  class LocalizationService {
 	 */
 	public static void initialize() {
 		//This needs to read a JSON in the future, for now it's hardcoded
-		english.put("username", "username");
-		spanish.put("username", "usuario");
-		galician.put("username", "usuario");
+		english.put("username", "Username");
+		spanish.put("username", "Usuario");
+		galician.put("username", "Usuario");
 		
-		english.put("password", "password");
-		spanish.put("password", "contraseña");
-		galician.put("password", "contraseña");
+		english.put("password", "Password");
+		spanish.put("password", "Contraseña");
+		galician.put("password", "Contraseña");
 		
-		english.put("patient", "patient");
-		spanish.put("patient", "paciente");
-		galician.put("patient", "paciente");
+		english.put("patient", "Patient");
+		spanish.put("patient", "Paciente");
+		galician.put("patient", "Paciente");
 		
-		english.put("name", "name");
-		spanish.put("name", "nombre");
-		galician.put("name", "nome");
+		english.put("name", "Name");
+		spanish.put("name", "Nombre");
+		galician.put("name", "Nome");
 		
-		english.put("surname", "surname");
-		spanish.put("surname", "apellido");
-		galician.put("surname", "apellido");
+		english.put("surname", "Surname");
+		spanish.put("surname", "Apellido");
+		galician.put("surname", "Apellido");
 		
-		english.put("surname", "surname");
-		spanish.put("surname", "apellido");
-		galician.put("surname", "apellido");
+		english.put("surname", "Surname");
+		spanish.put("surname", "Apellido");
+		galician.put("surname", "Apellido");
 		
-		english.put("id", "i.d");
-		spanish.put("id", "d.n.i");
-		galician.put("id", "d.n.i");
+		english.put("id", "I.D");
+		spanish.put("id", "D.N.I");
+		galician.put("id", "D.N.I");
 		
-		english.put("nomessages", "no messages");
-		spanish.put("nomessages", "sin mensajes");
-		galician.put("nomessages", "sin mensaxes");
+		english.put("nomessages", "No messages");
+		spanish.put("nomessages", "Sin mensajes");
+		galician.put("nomessages", "Sin mensaxes");
 		
 		english.put("adminconsole", "Administrator Console");
 		spanish.put("adminconsole", "Consola de Administrador");
 		galician.put("adminconsole", "Consola do Administrador");
 		
-		english.put("searchpatient", "search patient");
-		spanish.put("searchpatient", "buscar paciente");
-		galician.put("searchpatient", "buscar paciente");
+		english.put("searchpatient", "Search patient");
+		spanish.put("searchpatient", "Buscar paciente");
+		galician.put("searchpatient", "Buscar paciente");
 		
-		english.put("user", "user");
-		spanish.put("user", "usuario");
-		galician.put("user", "usuario");
+		english.put("user", "User");
+		spanish.put("user", "Usuario");
+		galician.put("user", "Usuario");
 		
-		english.put("measure", "measure");
-		spanish.put("measure", "medir");
-		galician.put("measure", "medir");
+		english.put("measure", "MEASURE");
+		spanish.put("measure", "MEDIR");
+		galician.put("measure", "MEDIR");
 		
-		english.put("ssn", "s.s.n");
-		spanish.put("ssn", "n.s.s");
-		galician.put("ssn", "n.s.s");
+		english.put("ssn", "S.S.N");
+		spanish.put("ssn", "N.S.S");
+		galician.put("ssn", "N.S.S");
 		
-		english.put("login", "login");
-		spanish.put("login", "entrar");
-		galician.put("login", "entrar");
+		english.put("login", "LOGIN");
+		spanish.put("login", "ENTRAR");
+		galician.put("login", "ENTRAR");
 		
-		english.put("doctors", "doctors");
-		spanish.put("doctors", "doctores");
-		galician.put("doctors", "doctores");
+		english.put("doctors", "Doctors");
+		spanish.put("doctors", "Doctores");
+		galician.put("doctors", "Doctores");
 		
-		english.put("assistants", "assistants");
-		spanish.put("assistants", "técnicos");
-		galician.put("assistants", "técnicos");
+		english.put("assistants", "Assistants");
+		spanish.put("assistants", "Técnicos");
+		galician.put("assistants", "Técnicos");
 		
-		english.put("search", "search");
-		spanish.put("search", "buscar");
-		galician.put("search", "buscar");
+		english.put("search", "SEARCH");
+		spanish.put("search", "BUSCAR");
+		galician.put("search", "BUSCAR");
 		
-		english.put("patients", "patients");
-		spanish.put("patients", "pacientes");
-		galician.put("patients", "pacientes");
+		english.put("patients", "Patients");
+		spanish.put("patients", "Pacientes");
+		galician.put("patients", "Pacientes");
 		
-		english.put("sex", "sex");
-		spanish.put("sex", "sexo");
-		galician.put("sex", "sexo");
+		english.put("sex", "Sex");
+		spanish.put("sex", "Sexo");
+		galician.put("sex", "Sexo");
 		
-		english.put("municipality", "municipality");
-		spanish.put("municipality", "municipio");
-		galician.put("municipality", "municipio");
+		english.put("municipality", "Municipality");
+		spanish.put("municipality", "Municipio");
+		galician.put("municipality", "Municipio");
 		
-		english.put("address", "address");
-		spanish.put("address", "dir.");
-		galician.put("address", "dir.");
+		english.put("address", "Address");
+		spanish.put("address", "Dir.");
+		galician.put("address", "Dir.");
 		
-		english.put("status", "status");
-		spanish.put("status", "estado");
-		galician.put("status", "estado");
+		english.put("status", "Status");
+		spanish.put("status", "Estado");
+		galician.put("status", "Estado");
 		
-		english.put("date", "date");
-		spanish.put("date", "fecha");
-		galician.put("date", "fecha");
+		english.put("date", "Date");
+		spanish.put("date", "Fecha");
+		galician.put("date", "Fecha");
 		
-		english.put("freq", "freq");
-		spanish.put("freq", "frec");
-		galician.put("freq", "frec");
+		english.put("freq", "Freq");
+		spanish.put("freq", "Frec");
+		galician.put("freq", "Frec");
 		
-		english.put("assist", "assist");
-		spanish.put("assist", "tecn");
-		galician.put("assist", "tecn");
+		english.put("assist", "Assist");
+		spanish.put("assist", "Tecn");
+		galician.put("assist", "Tecn");
 
-		english.put("cancel", "cancel");
-		spanish.put("cancel", "cancelar");
-		galician.put("cancel", "cancelar");
+		english.put("cancel", "CANCEL");
+		spanish.put("cancel", "CANCELAR");
+		galician.put("cancel", "CANCELAR");
 		
-		english.put("confirm", "confirm");
-		spanish.put("confirm", "confirmar");
-		galician.put("confirm", "confirmar");
+		english.put("confirm", "COMFIRM");
+		spanish.put("confirm", "CONFIRMAR");
+		galician.put("confirm", "CONFIRMAR");
 		
-		english.put("compare", "compare");
-		spanish.put("compare", "comparar");
-		galician.put("compare", "comparar");
+		english.put("compare", "COMPARE");
+		spanish.put("compare", "COMPARAR");
+		galician.put("compare", "COMPARAR");
 		
-		english.put("from", "from");
-		spanish.put("from", "de");
-		galician.put("from", "de");
+		english.put("from", "From");
+		spanish.put("from", "De");
+		galician.put("from", "De");
 		
-		english.put("date", "date");
-		spanish.put("date", "fecha");
-		galician.put("date", "fecha");
+		english.put("date", "Date");
+		spanish.put("date", "Fecha");
+		galician.put("date", "Fecha");
 		
-		english.put("frequency", "frequency");
-		spanish.put("frequency", "frecuencia");
-		galician.put("frequency", "frecuencia");
+		english.put("frequency", "Frequency");
+		spanish.put("frequency", "Frecuencia");
+		galician.put("frequency", "Frecuencia");
 		
 	}
 	
