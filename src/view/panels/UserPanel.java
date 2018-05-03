@@ -57,7 +57,7 @@ public class UserPanel extends JPanel {
 		Color grey = new Color(80, 77, 77, 255);
 		
 		//Get PROMETHEUS font
-		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
+				java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
 				Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 				Font sf = font; // will use sf to change the style;
 				try {

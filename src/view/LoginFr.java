@@ -76,17 +76,12 @@ public class LoginFr extends JPanel {
 		Color grey = new Color(80, 77, 77, 255);
 		
 		//Get PROMETHEUS font
-		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
-		java.io.InputStream is2 = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
-		Font font2 = new Font("Verdana", Font.PLAIN, 28); //Default font;
 		Font sf = font; // will use sf to change the style;
-		Font sf2 = font2; 
 		try {
 			font = Font.createFont(Font.TRUETYPE_FONT, is);
 			sf = font;
-			font2 = Font.createFont(Font.TRUETYPE_FONT, is2);
-			sf2 = font2;
 		} catch (FontFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,7 +101,7 @@ public class LoginFr extends JPanel {
 
 		
 		JLabel lblNewLabel_3 = new JLabel("V1.1");
-		sf = font.deriveFont(Font.BOLD, 21f);
+		sf = font.deriveFont(Font.BOLD, 11f);
 		lblNewLabel_3.setFont(sf);
 		lblNewLabel_3.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
@@ -142,18 +137,17 @@ public class LoginFr extends JPanel {
 		panel.add(panel_1, gbc_panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		
 		JLabel lblNewLabel = new JLabel("amberlife");
-		sf2 = font2.deriveFont(148f);
-		lblNewLabel.setFont(sf2);
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		sf = font.deriveFont(148f);
+		lblNewLabel.setFont(sf);
 		lblNewLabel.setOpaque(false);
 		panel_1.add(lblNewLabel, BorderLayout.CENTER);
 		
 		JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("username"));
-		sf = font.deriveFont(36f);
+		sf = font.deriveFont(28f);
 		lblNewLabel_2.setFont(sf);
 		lblNewLabel_2.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -180,7 +174,7 @@ public class LoginFr extends JPanel {
 		
 		JLabel lblNewLabel_1 = new JLabel(LocalizationService.getWord("password"));
 		lblNewLabel_1.setForeground(Color.WHITE);
-		sf = font.deriveFont(36f);
+		sf = font.deriveFont(28f);
 		lblNewLabel_1.setFont(sf);
 		lblNewLabel_1.setVerticalAlignment(SwingConstants.BOTTOM);
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();

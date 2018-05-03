@@ -58,7 +58,7 @@ public class PatientDialog extends JDialog {
 		
 		Color grey = new Color(80, 77, 77, 255);
 		
-		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 		Font sf = font; // will use sf to change the style;
 		try {
@@ -80,7 +80,7 @@ public class PatientDialog extends JDialog {
 			gbc_panel.gridy = 0;
 			getContentPane().add(panel, gbc_panel);
 			{
-				JLabel lblNewLabel_2 = new JLabel("Introduce new patient data");
+				JLabel lblNewLabel_2 = new JLabel("introduce new patient data");
 				lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel_2.setForeground(Color.WHITE);
 				lblNewLabel_2.setFont(sf);
@@ -114,7 +114,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblNewLabel = new JLabel("Name");
+					JLabel lblNewLabel = new JLabel("name");
 					lblNewLabel.setFont(sf);
 					lblNewLabel.setForeground(Color.WHITE);
 					panel_1.add(lblNewLabel);
@@ -177,7 +177,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel label = new JLabel("Surname");
+					JLabel label = new JLabel("surname");
 					label.setForeground(Color.WHITE);
 					label.setFont(sf);
 					panel_1.add(label);
@@ -240,7 +240,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblId = new JLabel("I.D.");
+					JLabel lblId = new JLabel("i.d.");
 					lblId.setForeground(Color.WHITE);
 					lblId.setFont(sf);
 					panel_1.add(lblId);
@@ -302,7 +302,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblSsn = new JLabel("S.S.N.");
+					JLabel lblSsn = new JLabel("s.s.n.");
 					lblSsn.setForeground(Color.WHITE);
 					lblSsn.setFont(sf);
 					panel_1.add(lblSsn);
@@ -364,7 +364,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblHosp = new JLabel("Hospital");
+					JLabel lblHosp = new JLabel("hospital");
 					lblHosp.setForeground(Color.WHITE);
 					lblHosp.setFont(sf);
 					panel_1.add(lblHosp);
@@ -426,7 +426,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblPhone = new JLabel("Phone");
+					JLabel lblPhone = new JLabel("phone");
 					lblPhone.setForeground(Color.WHITE);
 					lblPhone.setFont(sf);
 					panel_1.add(lblPhone);
@@ -489,7 +489,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel label = new JLabel("Municip.");
+					JLabel label = new JLabel("municip.");
 					label.setForeground(Color.WHITE);
 					label.setFont(sf);
 					panel_1.add(label);
@@ -552,7 +552,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel label = new JLabel("Address");
+					JLabel label = new JLabel("address");
 					label.setForeground(Color.WHITE);
 					label.setFont(sf);
 					panel_1.add(label);
@@ -614,7 +614,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel label = new JLabel("Gender");
+					JLabel label = new JLabel("gender");
 					label.setForeground(Color.WHITE);
 					label.setFont(sf);
 					panel_1.add(label);
@@ -670,7 +670,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel label = new JLabel("Status");
+					JLabel label = new JLabel("status");
 					label.setForeground(Color.WHITE);
 					label.setFont(sf);
 					panel_1.add(label);
@@ -701,7 +701,7 @@ public class PatientDialog extends JDialog {
 		}
 		sf = font.deriveFont(22f);
 		{
-			JButton btnNewButton = new JButton("CANCEL");
+			JButton btnNewButton = new JButton("cancel");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();				}
@@ -720,7 +720,7 @@ public class PatientDialog extends JDialog {
 			getContentPane().add(btnNewButton, gbc_btnNewButton);
 		}
 		{
-			JButton btnConfirm = new JButton("CONFIRM");
+			JButton btnConfirm = new JButton("confirm");
 			btnConfirm.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("Patient creation confirmed");
