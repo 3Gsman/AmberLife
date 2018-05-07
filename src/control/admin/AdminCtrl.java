@@ -3,12 +3,14 @@ package control.admin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Vector;
 
 import control.MainCtrl;
 import model.FileManagement;
 import model.Doctor;
 import model.Assistant;
+import model.DBManagement;
 import view.admin.AdminFr;
 import view.dialogs.AssistDialog;
 import view.dialogs.DoctorDialog;
@@ -27,15 +29,17 @@ public class AdminCtrl implements ActionListener {
 	 *
 	 * @throws IOException
 	 * @param  fr	Frame related to the controller	
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * @see    AdminFr
 	 */
-	public AdminCtrl(AdminFr fr) throws IOException {
-		FileManagement conseguirListas = new FileManagement();
-		//DBManagement conseguirListas = new FileManagement();
+	public AdminCtrl(AdminFr fr) throws IOException, ClassNotFoundException, SQLException {
+		FileManagement conseguirListas2 = new FileManagement();
+		DBManagement conseguirListas = new DBManagement();
 		
 		af = fr;
 		listatecnicos = conseguirListas.getAssistants();
-		listamedicos = conseguirListas.getDoctors();
+		listamedicos = conseguirListas2.getDoctors();
 	}
 	
 	
