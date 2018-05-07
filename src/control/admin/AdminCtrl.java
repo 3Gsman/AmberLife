@@ -31,6 +31,7 @@ public class AdminCtrl implements ActionListener {
 	 */
 	public AdminCtrl(AdminFr fr) throws IOException {
 		FileManagement conseguirListas = new FileManagement();
+		//DBManagement conseguirListas = new FileManagement();
 		
 		af = fr;
 		listatecnicos = conseguirListas.getAssistants();

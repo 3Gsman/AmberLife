@@ -5,6 +5,7 @@
  */
 package control;
 
+import model.DBManagement;
 import model.FileManagement;
 import model.LocalizationService;
 import view.*;
@@ -22,6 +23,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -56,7 +59,15 @@ public class LoginCtrl implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent e) {
     	System.out.print("Action received: " + e.getActionCommand());
     	if (e.getActionCommand().equals("LOGIN")){
-    		aceptarVentana();
+    		try {
+				aceptarVentana();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
     	}
     	else if (e.getActionCommand().equals("LANGUAGE")){
     		LocalizationService.rotate();
@@ -87,7 +98,15 @@ public class LoginCtrl implements ActionListener, KeyListener {
     public void keyPressed(KeyEvent e) {
     	System.out.println("Key pressed");
     	if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            aceptarVentana();
+            try {
+				aceptarVentana();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         } 
     }
     
@@ -105,12 +124,15 @@ public class LoginCtrl implements ActionListener, KeyListener {
 	/**
 	 * Get username and password, check if such an user exists and what kind of user it is, and then open a window
 	 * corresponding to the user's privileges.
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-    public void aceptarVentana() {
+    public void aceptarVentana() throws ClassNotFoundException, SQLException {
         String usuario = vistaLogin.getUsername();	//recoge el contenido del JTextField
         char caracteres[] = vistaLogin.getPassword();	//array de caracteres que coge los elementos que se encuentran en el JPasswordField
         String Password = String.valueOf(caracteres);	//Convierte los elementos del array en un String
-        FileManagement comprobar = new FileManagement();	//crea un nuevo gestor de ficheros
+        DBManagement comprobar = new DBManagement();
+        
         try {
             String resultado[] = comprobar.checkUser(usuario, Password);
             if (resultado[0] == "true") {
