@@ -12,114 +12,151 @@ public class DBManagement {
 	public String[] checkUser(String usuario, String Password) throws ClassNotFoundException, SQLException {
 		String iduser;
 		String user[] = new String[2];
-    	String database = "src/resources/BDAmberLife.db";
-    	Connection c = null;
-    	Class.forName("org.sqlite.JDBC");
-    	c = DriverManager.getConnection("jdbc:sqlite:" + database);
-    	
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery( "select IDUser from User where username='" 
-										+ usuario + "' and password='"
-										+ Password + "'");
-		
-		if(rs.next() == false) {
+		ResultSet rs = stmt.executeQuery(
+				"select IDUser from User where username='" + usuario + "' and password='" + Password + "'");
+
+		if (rs.next() == false) {
 			user[0] = "false";
-		}else {
-			user[0]= "true";
-		
-		
+		} else {
+			user[0] = "true";
+
 			iduser = rs.getString("IDUser");
-			
-			rs = stmt.executeQuery( "select IDUser from clinical where iduser='" + iduser +"'");
-	
-			if(rs.next() == false) {
+
+			rs = stmt.executeQuery("select IDUser from clinical where iduser='" + iduser + "'");
+
+			if (rs.next() == false) {
 				user[1] = "admin";
-			}else {
-			
-				rs = stmt.executeQuery( "select IDUser from doctor where iduser='" + iduser +"'");
-				
-				if(rs.next() == false) {
+			} else {
+
+				rs = stmt.executeQuery("select IDUser from doctor where iduser='" + iduser + "'");
+
+				if (rs.next() == false) {
 					user[1] = "tecnico";
-				}else {
+				} else {
 					user[1] = "medico";
 				}
 			}
 		}
-		
-		
-		
+
 		rs.close();
 		stmt.close();
 		c.close();
-		
-		
+
 		return user;
 	}
+
+	public Vector<Assistant> getAssistants() throws ClassNotFoundException, SQLException {
+		Vector<Assistant> v = new Vector<>();
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+
+		Statement stmt = null;
+		stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery(
+				"SELECT Assistant.IDuser, assistant.Municipality, user.Username, user.Name, user.LastName\r\n"
+						+ "from Assistant\r\n" + "join User\r\n" + "on assistant.iduser = user.iduser");
+
+		while (rs.next()) {
+			v.add(new Assistant(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDUser"),
+					rs.getString("Municipality"), rs.getString("Username")));
+
+		}
+
+		rs.close();
+		stmt.close();
+		c.close();
+
+		return v;
+
+	}
+
+	public Vector<Doctor> getDoctors() throws SQLException, ClassNotFoundException {
+		Vector<Doctor> v = new Vector<>();
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+
+		Statement stmt = null;
+		stmt = c.createStatement();
+		ResultSet rs = stmt
+				.executeQuery("SELECT Doctor.IDuser, user.Username, user.Name, user.LastName, clinical.ssn\r\n"
+						+ "from doctor\r\n" + "join User\r\n" + "on doctor.iduser = user.iduser\r\n"
+						+ "join CLINICAL\r\n" + "on doctor.iduser = clinical.iduser");
+
+		while (rs.next()) {
+			Statement stmt2 = null;
+			stmt2 = c.createStatement();
+			ResultSet rs2 = stmt2.executeQuery("SELECT user.IDuser, telephone.number\r\n" + "from User\r\n"
+					+ "join Telephone\r\n" + "on telephone.id = user.IDuser\r\n" + "where user.iduser ='"
+					+ rs.getString("IDUser") + "'");
+
+			v.add(new Doctor(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDUser"),
+					rs.getString("SSN"), rs2.getString("Number")));
+
+			rs2.close();
+		}
+
+		rs.close();
+		stmt.close();
+		c.close();
+
+		return v;
+
+	}
 	
-	 public Vector<Assistant> getAssistants() throws ClassNotFoundException, SQLException{
-		 Vector<Assistant> v = new Vector<>();
-	    	String database = "src/resources/BDAmberLife.db";
-	    	Connection c = null;
-	    	Class.forName("org.sqlite.JDBC");
-	    	c = DriverManager.getConnection("jdbc:sqlite:" + database);
-	    	
-			Statement stmt = null;
-			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery( "SELECT Assistant.IDuser, assistant.Municipality, user.Username, user.Name, user.LastName\r\n" + 
-												"from Assistant\r\n" + 
-												"join User\r\n" + 
-												"on assistant.iduser = user.iduser");
-			
-			while ( rs.next() ) {
-				v.add(new Assistant(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDUser"), rs.getString("Municipality"), rs.getString("Username")));
-			
-			}
-		 
-			rs.close();
-			stmt.close();
-			c.close();
-		 
-		 return v;
-		 
-	 }
-	 
-	 public Vector<Doctor> getDoctors() throws SQLException, ClassNotFoundException{
-		 Vector<Doctor> v = new Vector<>();
-	    	String database = "src/resources/BDAmberLife.db";
-	    	Connection c = null;
-	    	Class.forName("org.sqlite.JDBC");
-	    	c = DriverManager.getConnection("jdbc:sqlite:" + database);
-	    	
-			Statement stmt = null;
-			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery( "SELECT Doctor.IDuser, user.Username, user.Name, user.LastName, clinical.ssn\r\n" + 
-					"from doctor\r\n" + 
-					"join User\r\n" + 
-					"on doctor.iduser = user.iduser\r\n" + 
-					"join CLINICAL\r\n" + 
-					"on doctor.iduser = clinical.iduser");
-			
-			while ( rs.next() ) {
-				Statement stmt2 = null;
-				stmt2 = c.createStatement();
-				ResultSet rs2 = stmt2.executeQuery( "SELECT user.IDuser, telephone.number\r\n" + 
-						"from User\r\n" + 
-						"join Telephone\r\n" + 
-						"on telephone.id = user.IDuser\r\n" + 
-						"where user.iduser ='" + rs.getString("IDUser") + "'");
-				
-				v.add(new Doctor(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDUser"), rs.getString("SSN"), rs2.getString("Number")));
-				
-				rs2.close();
-			}
-		 
-			rs.close();
-			stmt.close();
-			c.close();
-			
-		 return v;
-		 
-	 }
-	
+	//SE NECESITA PASAR A READECG el IDecg en vez del fichero
+	public ECG readECG(String IDecg) throws ClassNotFoundException, SQLException {
+
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Statement stmt = null;
+		stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery("select * from ECG where ecg.IDecg ='" + IDecg + "'");
+
+		ECG ecg = new ECG();
+		Vector<Double> num = new Vector<>();
+
+		ecg.setName(IDecg);
+		ecg.setFrequency(rs.getInt("Frequency"));
+		ecg.setReport(rs.getString("Diagnostic"));
+
+		rs.getString("Data");
+
+		// rs.getBlob("Data");
+
+		String data = rs.getString("Data");
+		// byte[] bdata = blobdata.getBytes(1, (int) blobdata.length());
+		// String data = new String(bdata);
+
+		String[] numeros = null;
+
+		numeros = data.toString().split(";");
+		for (int i = 0; i < numeros.length; i++) {
+			num.add(Double.valueOf(numeros[i]));
+		}
+
+		ecg.setData(num);
+
+		rs.close();
+		stmt.close();
+		c.close();
+
+		// Check the reading of the ecgs
+		// System.out.print(ecg.toString());
+		return ecg;
+
+	}
+
 }
