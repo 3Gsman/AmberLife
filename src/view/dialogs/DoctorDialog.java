@@ -625,8 +625,11 @@ public class DoctorDialog extends JDialog {
 						//JOptionPane.showMessageDialog((JFrame)this, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
 						JOptionPane.showMessageDialog(f, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
 					}
-					if(!(Arrays.equals(passField.getPassword(), confirmField.getPassword()))) {
+					else if(!(Arrays.equals(passField.getPassword(), confirmField.getPassword()))) {
 						JOptionPane.showMessageDialog(f, "The password doesn't match", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					else {
+						//Add to DB
 					}
 				}
 			});

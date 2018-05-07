@@ -19,8 +19,8 @@ import view.dialogs.ExitDialog;
 
 public class MainCtrl implements WindowListener{
 	
+	public static String DATABASE = "src/resources/BDAmberLife.db";
 	
-
 	
 	/**
 	 * Creates an initial LoginFr and a controller for it, initializes services, and starts the program.
@@ -33,12 +33,12 @@ public class MainCtrl implements WindowListener{
 	
     public static void main(String[] args) throws ClassNotFoundException {
     	LocalizationService.initialize();
-    	String database = "src/resources/BDAmberLife.db";
+    	
     	Connection c = null;
 
         try {
         	Class.forName("org.sqlite.JDBC");
-        	c = DriverManager.getConnection("jdbc:sqlite:" + database);
+        	c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
         	UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName()); 
             MainCtrl m = new MainCtrl();
 			LoginFr p = new LoginFr();
