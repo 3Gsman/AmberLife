@@ -76,7 +76,7 @@ public class DBManagement {
 			
 			}
 		 
-		 
+		 int i = 0;
 		 
 		 return v;
 		 
