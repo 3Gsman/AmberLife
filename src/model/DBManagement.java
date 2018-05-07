@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 
 public class DBManagement {
 
@@ -55,5 +56,37 @@ public class DBManagement {
 		
 		return user;
 	}
+	
+	 public Vector<Assistant> getAssistants() throws ClassNotFoundException, SQLException{
+		 Vector<Assistant> v = new Vector<>();
+	    	String database = "src/resources/BDAmberLife.db";
+	    	Connection c = null;
+	    	Class.forName("org.sqlite.JDBC");
+	    	c = DriverManager.getConnection("jdbc:sqlite:" + database);
+	    	
+			Statement stmt = null;
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery( "SELECT Assistant.IDuser, assistant.Municipality, user.Username, user.Name, user.LastName\r\n" + 
+												"from Assistant\r\n" + 
+												"join User\r\n" + 
+												"on assistant.iduser = user.iduser");
+			
+			while ( rs.next() ) {
+				v.add(new Assistant(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDUser"), rs.getString("Municipality"), rs.getString("Username")));
+			
+			}
+		 
+		 
+		 
+		 return v;
+		 
+	 }
+	 
+	 public Vector<Doctor> getDoctors(){
+		 Vector<Doctor> v = new Vector<>();
+		 
+		 return v;
+		 
+	 }
 	
 }

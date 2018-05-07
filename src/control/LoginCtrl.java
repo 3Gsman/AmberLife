@@ -210,9 +210,11 @@ public class LoginCtrl implements ActionListener, KeyListener {
 	 * 
 	 * @param usuario	the name of the program's user registered in the DB
 	 * @throws IOException
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * @see AdminFr, AdminCtrl
 	 */
-    public void openAdmin(String usuario) throws IOException {
+    public void openAdmin(String usuario) throws IOException, ClassNotFoundException, SQLException {
 
     	MainCtrl.window.toBackStack(vistaLogin);	
         AdminFr vm = new AdminFr(getClass().getResource("/resources/BG.png"));	//crea nueva ventana
