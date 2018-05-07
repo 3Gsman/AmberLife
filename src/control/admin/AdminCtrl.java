@@ -34,12 +34,11 @@ public class AdminCtrl implements ActionListener {
 	 * @see    AdminFr
 	 */
 	public AdminCtrl(AdminFr fr) throws IOException, ClassNotFoundException, SQLException {
-		FileManagement conseguirListas2 = new FileManagement();
 		DBManagement conseguirListas = new DBManagement();
 		
 		af = fr;
 		listatecnicos = conseguirListas.getAssistants();
-		listamedicos = conseguirListas2.getDoctors();
+		listamedicos = conseguirListas.getDoctors();
 	}
 	
 	

@@ -180,7 +180,7 @@ public class FileManagement {
     	
     	linea = lectorm.readLine();
     	String[] lineatxt = linea.split(";");
-    	Doctor medico = new Doctor(lineatxt[0],lineatxt[1],lineatxt[2],lineatxt[3],lineatxt[4],lineatxt[5]);
+    	Doctor medico = new Doctor(lineatxt[0],lineatxt[1],lineatxt[2],lineatxt[3],lineatxt[5]);
     	
     	while((linea=lectorm.readLine())!=null){
     		Patient p = new Patient(linea);
