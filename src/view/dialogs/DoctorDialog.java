@@ -771,16 +771,16 @@ public class DoctorDialog extends JDialog {
 										"VALUES(?,?,?,?,?,?,?)";
 						String sql2	 = "INSERT INTO CLINICAL(IDUser, SSN) VALUES(?,?)";
 						String sql3	 = "INSERT INTO Doctor(IDUser, MLN) VALUES(?,?)";
-						String sql4 = "INSERT INTO Telephoens(ID, Number) VALUES (?,?)";
-						int ID = Integer.parseInt(idField.getText());
+						String sql4 = "INSERT INTO Telephones(ID, Number) VALUES (?,?)";
+						String ID = idField.getText();
 						Connection c = null;
 						try {
 							c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 							PreparedStatement st1 = c.prepareStatement(sql1);
-							st1.setInt(1, ID);
+							st1.setString(1, ID);
 							//Doubt this is the best for security, consider this only temporal
 							st1.setString(2, String.valueOf(passField.getPassword()));
-							st1.setBoolean(3, true);
+							st1.setString(3, "YES");
 							st1.setString(4, nameField.getText());
 							st1.setString(5, surnameField.getText());
 							st1.setString(6, usernameField.getText());
@@ -788,18 +788,18 @@ public class DoctorDialog extends JDialog {
 							st1.executeUpdate();			
 							st1.close();
 							PreparedStatement st2 = c.prepareStatement(sql2);
-							st2.setInt(1, ID);
-							st2.setInt(2, Integer.parseInt(ssnField.getText()));
+							st2.setString(1, ID);
+							st2.setString(2, ssnField.getText());
 							st2.executeUpdate();
 							st2.close();
 							PreparedStatement st3 = c.prepareStatement(sql3);
-							st3.setInt(1, ID);
-							st3.setInt(2, Integer.parseInt(mlnField.getText()));
+							st3.setString(1, ID);
+							st3.setString(2, mlnField.getText());
 							st3.executeUpdate();
 							st3.close();
 							PreparedStatement st4 = c.prepareStatement(sql4);
-							st4.setInt(1, ID);
-							st4.setInt(2, Integer.parseInt(phoneField.getText()));
+							st4.setString(1, ID);
+							st4.setString(2,phoneField.getText());
 							st4.close();
 							c.close();
 						}
