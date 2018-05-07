@@ -15,6 +15,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.Arrays;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -27,6 +30,9 @@ import java.awt.FontFormatException;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import control.MainCtrl;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -39,9 +45,12 @@ public class DoctorDialog extends JDialog {
 	private JPasswordField confirmField;
 	private JTextField idField;
 	private JTextField ssnField;
-	private JTextField hospitalField;
+	private JTextField usernameField;
+	private JTextField emailField;
+	private JTextField mlnField;
 	private JTextField phoneField;
 
+	//FIELDS AREKINDA DESORGANIZED
 
 	/**
 	 * Create the dialog.
@@ -52,14 +61,14 @@ public class DoctorDialog extends JDialog {
 		setBounds(100, 100, 644, 468);
 		setContentPane( new JPanelWithBackground(getClass().getResource("/resources/BG.png")));
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{10, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 10};
-		gridBagLayout.rowHeights = new int[]{40, 10, 20, 10, 0, 20, 0, 10, 0, 20, 30, 0 , 0, 10};
+		gridBagLayout.columnWidths = new int[]{10, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0,0, 0, 10};
+		gridBagLayout.rowHeights = new int[]{40, 10, 20, 10, 0, 20, 0, 10, 0, 20, 0, 10, 30, 0 , 0, 10};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.2, 0.0, 0.2, 0.0, 0.5, 0.0, 0.2, 0.0, 0.5, 0.0, 0.0, 0.2, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.2, 0.0, 0.2, 0.0, 0.2, 0.0, 0.2, 0.0, 0.2, 0.0, 0.5, 0.0, 0.0, 0.2, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
 		this.setIconImage(img.getImage());
-		Dimension d = new Dimension(600, 400);
+		Dimension d = new Dimension(720, 480);
 		this.setSize(d);
 		this.setResizable(false);
 		this.setTitle("New Doctor");
@@ -495,7 +504,7 @@ public class DoctorDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblHosp = new JLabel("Hospital");
+					JLabel lblHosp = new JLabel("Username");
 					lblHosp.setForeground(Color.WHITE);
 					lblHosp.setFont(sf);
 					panel_1.add(lblHosp);
@@ -510,15 +519,15 @@ public class DoctorDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				hospitalField = new JTextField();
-				hospitalField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				hospitalField.setColumns(10);
-				hospitalField.setBorder(null);
-				GridBagConstraints gbc_hospitalField = new GridBagConstraints();
-				gbc_hospitalField.fill = GridBagConstraints.BOTH;
-				gbc_hospitalField.gridx = 2;
-				gbc_hospitalField.gridy = 1;
-				panel.add(hospitalField, gbc_hospitalField);
+				usernameField = new JTextField();
+				usernameField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				usernameField.setColumns(10);
+				usernameField.setBorder(null);
+				GridBagConstraints gbc_usernameField = new GridBagConstraints();
+				gbc_usernameField.fill = GridBagConstraints.BOTH;
+				gbc_usernameField.gridx = 2;
+				gbc_usernameField.gridy = 1;
+				panel.add(usernameField, gbc_usernameField);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -531,6 +540,7 @@ public class DoctorDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 			}
 		}
+		//Email Field
 		{
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.WHITE);
@@ -540,6 +550,132 @@ public class DoctorDialog extends JDialog {
 			gbc_panel.fill = GridBagConstraints.BOTH;
 			gbc_panel.gridx = 8;
 			gbc_panel.gridy = 8;
+			getContentPane().add(panel, gbc_panel);
+			GridBagLayout gbl_panel = new GridBagLayout();
+			gbl_panel.columnWidths = new int[]{110, 10, 80, 0};
+			gbl_panel.rowHeights = new int[]{0, 30, 3, 0};
+			gbl_panel.columnWeights = new double[]{0.0, 0.2, 1.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+			panel.setLayout(gbl_panel);
+			{
+				JPanel panel_1 = new JPanel();
+				panel_1.setBackground(grey);
+				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+				gbc_panel_1.fill = GridBagConstraints.BOTH;
+				gbc_panel_1.gridx = 0;
+				gbc_panel_1.gridy = 1;
+				panel.add(panel_1, gbc_panel_1);
+				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+				{
+					JLabel lblEmail = new JLabel("Email");
+					lblEmail.setForeground(Color.WHITE);
+					lblEmail.setFont(sf);
+					panel_1.add(lblEmail);
+				}
+			}
+			{
+				JLabel label = new JLabel(" ");
+				GridBagConstraints gbc_label = new GridBagConstraints();
+				gbc_label.anchor = GridBagConstraints.EAST;
+				gbc_label.gridx = 1;
+				gbc_label.gridy = 1;
+				panel.add(label, gbc_label);
+			}
+			{
+				emailField = new JTextField();
+				emailField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				emailField.setColumns(10);
+				emailField.setBorder(null);
+				GridBagConstraints gbc_emailField = new GridBagConstraints();
+				gbc_emailField.fill = GridBagConstraints.BOTH;
+				gbc_emailField.gridx = 2;
+				gbc_emailField.gridy = 1;
+				panel.add(emailField, gbc_emailField);
+			}
+			{
+				JPanel panel_1 = new JPanel();
+				panel_1.setBackground(grey);
+				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+				gbc_panel_1.fill = GridBagConstraints.BOTH;
+				gbc_panel_1.gridwidth = 3;
+				gbc_panel_1.gridx = 0;
+				gbc_panel_1.gridy = 2;
+				panel.add(panel_1, gbc_panel_1);
+			}
+		}
+		//MLN Field
+		{
+			JPanel panel = new JPanel();
+			panel.setBackground(Color.WHITE);
+			GridBagConstraints gbc_panel = new GridBagConstraints();
+			gbc_panel.gridwidth = 6;
+			gbc_panel.insets = new Insets(0, 0, 5, 5);
+			gbc_panel.fill = GridBagConstraints.BOTH;
+			gbc_panel.gridx = 1;
+			gbc_panel.gridy = 10;
+			getContentPane().add(panel, gbc_panel);
+			GridBagLayout gbl_panel = new GridBagLayout();
+			gbl_panel.columnWidths = new int[]{110, 10, 80, 0};
+			gbl_panel.rowHeights = new int[]{0, 30, 3, 0};
+			gbl_panel.columnWeights = new double[]{0.0, 0.2, 1.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+			panel.setLayout(gbl_panel);
+			{
+				JPanel panel_1 = new JPanel();
+				panel_1.setBackground(grey);
+				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+				gbc_panel_1.fill = GridBagConstraints.BOTH;
+				gbc_panel_1.gridx = 0;
+				gbc_panel_1.gridy = 1;
+				panel.add(panel_1, gbc_panel_1);
+				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+				{
+					JLabel lblMLN = new JLabel("M.L.N.");
+					lblMLN.setForeground(Color.WHITE);
+					lblMLN.setFont(sf);
+					panel_1.add(lblMLN);
+				}
+			}
+			{
+				JLabel label = new JLabel(" ");
+				GridBagConstraints gbc_label = new GridBagConstraints();
+				gbc_label.anchor = GridBagConstraints.EAST;
+				gbc_label.gridx = 1;
+				gbc_label.gridy = 1;
+				panel.add(label, gbc_label);
+			}
+			{
+				mlnField = new JTextField();
+				mlnField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				mlnField.setColumns(10);
+				mlnField.setBorder(null);
+				GridBagConstraints gbc_emailField = new GridBagConstraints();
+				gbc_emailField.fill = GridBagConstraints.BOTH;
+				gbc_emailField.gridx = 2;
+				gbc_emailField.gridy = 1;
+				panel.add(mlnField, gbc_emailField);
+			}
+			{
+				JPanel panel_1 = new JPanel();
+				panel_1.setBackground(grey);
+				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+				gbc_panel_1.fill = GridBagConstraints.BOTH;
+				gbc_panel_1.gridwidth = 3;
+				gbc_panel_1.gridx = 0;
+				gbc_panel_1.gridy = 2;
+				panel.add(panel_1, gbc_panel_1);
+			}
+		}
+		//PhoneField
+		{
+			JPanel panel = new JPanel();
+			panel.setBackground(Color.WHITE);
+			GridBagConstraints gbc_panel = new GridBagConstraints();
+			gbc_panel.gridwidth = 6;
+			gbc_panel.insets = new Insets(0, 0, 5, 5);
+			gbc_panel.fill = GridBagConstraints.BOTH;
+			gbc_panel.gridx = 8;
+			gbc_panel.gridy = 10;
 			getContentPane().add(panel, gbc_panel);
 			GridBagLayout gbl_panel = new GridBagLayout();
 			gbl_panel.columnWidths = new int[]{110, 10, 80, 0};
@@ -576,11 +712,11 @@ public class DoctorDialog extends JDialog {
 				phoneField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
 				phoneField.setColumns(10);
 				phoneField.setBorder(null);
-				GridBagConstraints gbc_phoneField = new GridBagConstraints();
-				gbc_phoneField.fill = GridBagConstraints.BOTH;
-				gbc_phoneField.gridx = 2;
-				gbc_phoneField.gridy = 1;
-				panel.add(phoneField, gbc_phoneField);
+				GridBagConstraints gbc_emailField = new GridBagConstraints();
+				gbc_emailField.fill = GridBagConstraints.BOTH;
+				gbc_emailField.gridx = 2;
+				gbc_emailField.gridy = 1;
+				panel.add(phoneField, gbc_emailField);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -593,6 +729,8 @@ public class DoctorDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 			}
 		}
+		
+		//BUTTONS START HERE
 		sf = font.deriveFont(22f);
 		{
 			JButton btnNewButton = new JButton("CANCEL");
@@ -610,7 +748,7 @@ public class DoctorDialog extends JDialog {
 			gbc_btnNewButton.gridwidth = 3;
 			gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 			gbc_btnNewButton.gridx = 4;
-			gbc_btnNewButton.gridy = 10;
+			gbc_btnNewButton.gridy = 12;
 			getContentPane().add(btnNewButton, gbc_btnNewButton);
 		}
 		{
@@ -619,10 +757,9 @@ public class DoctorDialog extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("Doctor creation confirmed");
 					if(nameField.getText().isEmpty() || surnameField.getText().isEmpty() || passField.getPassword().toString().isEmpty()
-							|| confirmField.getPassword().toString().isEmpty()	|| idField.getText().isEmpty() || ssnField.getText().isEmpty() 
-							|| hospitalField.getText().isEmpty() || phoneField.getText().isEmpty()) {
-						
-						//JOptionPane.showMessageDialog((JFrame)this, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
+								|| confirmField.getPassword().toString().isEmpty()	|| idField.getText().isEmpty() 
+								|| ssnField.getText().isEmpty() || usernameField.getText().isEmpty() || emailField.getText().isEmpty()  
+								|| mlnField.getText().isEmpty() || phoneField.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(f, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 					else if(!(Arrays.equals(passField.getPassword(), confirmField.getPassword()))) {
@@ -630,6 +767,45 @@ public class DoctorDialog extends JDialog {
 					}
 					else {
 						//Add to DB
+						String sql1 = "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)" +
+										"VALUES(?,?,?,?,?,?,?)";
+						String sql2	 = "INSERT INTO CLINICAL(IDUser, SSN) VALUES(?,?)";
+						String sql3	 = "INSERT INTO Doctor(IDUser, MLN) VALUES(?,?)";
+						String sql4 = "INSERT INTO Telephoens(ID, Number) VALUES (?,?)";
+						int ID = Integer.parseInt(idField.getText());
+						Connection c = null;
+						try {
+							c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+							PreparedStatement st1 = c.prepareStatement(sql1);
+							st1.setInt(1, ID);
+							//Doubt this is the best for security, consider this only temporal
+							st1.setString(2, String.valueOf(passField.getPassword()));
+							st1.setBoolean(3, true);
+							st1.setString(4, nameField.getText());
+							st1.setString(5, surnameField.getText());
+							st1.setString(6, usernameField.getText());
+							st1.setString(7, emailField.getText());
+							st1.executeUpdate();			
+							st1.close();
+							PreparedStatement st2 = c.prepareStatement(sql2);
+							st2.setInt(1, ID);
+							st2.setInt(2, Integer.parseInt(ssnField.getText()));
+							st2.executeUpdate();
+							st2.close();
+							PreparedStatement st3 = c.prepareStatement(sql3);
+							st3.setInt(1, ID);
+							st3.setInt(2, Integer.parseInt(mlnField.getText()));
+							st3.executeUpdate();
+							st3.close();
+							PreparedStatement st4 = c.prepareStatement(sql4);
+							st4.setInt(1, ID);
+							st4.setInt(2, Integer.parseInt(phoneField.getText()));
+							st4.close();
+							c.close();
+						}
+						catch (Exception ex) {
+							ex.printStackTrace();
+						}
 					}
 				}
 			});
@@ -644,7 +820,7 @@ public class DoctorDialog extends JDialog {
 			gbc_btnConfirm.gridwidth = 3;
 			gbc_btnConfirm.insets = new Insets(0, 0, 5, 5);
 			gbc_btnConfirm.gridx = 8;
-			gbc_btnConfirm.gridy = 10;
+			gbc_btnConfirm.gridy = 12;
 			getContentPane().add(btnConfirm, gbc_btnConfirm);
 		}
 		this.setVisible(true);

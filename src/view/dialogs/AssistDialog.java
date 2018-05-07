@@ -15,6 +15,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.Arrays;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -27,6 +30,9 @@ import java.awt.FontFormatException;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import control.MainCtrl;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -38,8 +44,9 @@ public class AssistDialog extends JDialog {
 	private JPasswordField confirmField;
 	private JTextField idField;
 	private JTextField cityField;
-
-
+	private JTextField usernameField;
+	private JTextField emailField;
+	private JTextField ssnField;
 
 	/**
 	 * Create the dialog.
@@ -51,13 +58,13 @@ public class AssistDialog extends JDialog {
 		setContentPane( new JPanelWithBackground(getClass().getResource("/resources/BG.png")));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{10, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 10};
-		gridBagLayout.rowHeights = new int[]{40, 10, 20, 10, 0, 20, 0, 10, 0, 20, 30, 0 , 0, 10};
+		gridBagLayout.rowHeights = new int[]{40, 10, 20, 10, 0, 20, 0, 10, 0, 20, 0, 10, 30, 0 , 0, 10};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.2, 0.0, 0.2, 0.0, 0.5, 0.0, 0.2, 0.0, 0.5, 0.0, 0.0, 0.2, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.2, 0.0, 0.2, 0.0, 0.5, 0.0, 0.2, 0.0, 0.2, 0.0, 0.5, 0.0, 0.0, 0.2, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
 		this.setIconImage(img.getImage());
-		Dimension d = new Dimension(600, 400);
+		Dimension d = new Dimension(720, 480);
 		this.setSize(d);
 		this.setResizable(false);
 		this.setTitle("New Assistant");
@@ -467,6 +474,194 @@ public class AssistDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 			}
 		}
+		{
+			JPanel panel = new JPanel();
+			panel.setBackground(Color.WHITE);
+			GridBagConstraints gbc_panel = new GridBagConstraints();
+			gbc_panel.gridwidth = 6;
+			gbc_panel.insets = new Insets(0, 0, 5, 5);
+			gbc_panel.fill = GridBagConstraints.BOTH;
+			gbc_panel.gridx = 1;
+			gbc_panel.gridy = 8;
+			getContentPane().add(panel, gbc_panel);
+			GridBagLayout gbl_panel = new GridBagLayout();
+			gbl_panel.columnWidths = new int[]{110, 10, 80, 0};
+			gbl_panel.rowHeights = new int[]{0, 30, 3, 0};
+			gbl_panel.columnWeights = new double[]{0.0, 0.2, 1.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+			panel.setLayout(gbl_panel);
+			{
+				JPanel panel_1 = new JPanel();
+				panel_1.setBackground(grey);
+				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+				gbc_panel_1.fill = GridBagConstraints.BOTH;
+				gbc_panel_1.gridx = 0;
+				gbc_panel_1.gridy = 1;
+				panel.add(panel_1, gbc_panel_1);
+				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+				{
+					JLabel lblUsername = new JLabel("Username");
+					lblUsername.setForeground(Color.WHITE);
+					lblUsername.setFont(sf);
+					panel_1.add(lblUsername);
+				}
+			}
+			{
+				JLabel label = new JLabel(" ");
+				GridBagConstraints gbc_label = new GridBagConstraints();
+				gbc_label.anchor = GridBagConstraints.EAST;
+				gbc_label.gridx = 1;
+				gbc_label.gridy = 1;
+				panel.add(label, gbc_label);
+			}
+			{
+				usernameField = new JTextField();
+				usernameField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				usernameField.setColumns(10);
+				usernameField.setBorder(null);
+				GridBagConstraints gbc_cityField = new GridBagConstraints();
+				gbc_cityField.fill = GridBagConstraints.BOTH;
+				gbc_cityField.gridx = 2;
+				gbc_cityField.gridy = 1;
+				panel.add(usernameField, gbc_cityField);
+			}
+			{
+				JPanel panel_1 = new JPanel();
+				panel_1.setBackground(grey);
+				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+				gbc_panel_1.fill = GridBagConstraints.BOTH;
+				gbc_panel_1.gridwidth = 3;
+				gbc_panel_1.gridx = 0;
+				gbc_panel_1.gridy = 2;
+				panel.add(panel_1, gbc_panel_1);
+			}
+		}
+		{
+			JPanel panel = new JPanel();
+			panel.setBackground(Color.WHITE);
+			GridBagConstraints gbc_panel = new GridBagConstraints();
+			gbc_panel.gridwidth = 6;
+			gbc_panel.insets = new Insets(0, 0, 5, 5);
+			gbc_panel.fill = GridBagConstraints.BOTH;
+			gbc_panel.gridx = 8;
+			gbc_panel.gridy = 8;
+			getContentPane().add(panel, gbc_panel);
+			GridBagLayout gbl_panel = new GridBagLayout();
+			gbl_panel.columnWidths = new int[]{110, 10, 80, 0};
+			gbl_panel.rowHeights = new int[]{0, 30, 3, 0};
+			gbl_panel.columnWeights = new double[]{0.0, 0.2, 1.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+			panel.setLayout(gbl_panel);
+			{
+				JPanel panel_1 = new JPanel();
+				panel_1.setBackground(grey);
+				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+				gbc_panel_1.fill = GridBagConstraints.BOTH;
+				gbc_panel_1.gridx = 0;
+				gbc_panel_1.gridy = 1;
+				panel.add(panel_1, gbc_panel_1);
+				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+				{
+					JLabel lblEmail = new JLabel("E-Mail");
+					lblEmail.setForeground(Color.WHITE);
+					lblEmail.setFont(sf);
+					panel_1.add(lblEmail);
+				}
+			}
+			{
+				JLabel label = new JLabel(" ");
+				GridBagConstraints gbc_label = new GridBagConstraints();
+				gbc_label.anchor = GridBagConstraints.EAST;
+				gbc_label.gridx = 1;
+				gbc_label.gridy = 1;
+				panel.add(label, gbc_label);
+			}
+			{
+				cityField = new JTextField();
+				cityField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				cityField.setColumns(10);
+				cityField.setBorder(null);
+				GridBagConstraints gbc_cityField = new GridBagConstraints();
+				gbc_cityField.fill = GridBagConstraints.BOTH;
+				gbc_cityField.gridx = 2;
+				gbc_cityField.gridy = 1;
+				panel.add(cityField, gbc_cityField);
+			}
+			{
+				JPanel panel_1 = new JPanel();
+				panel_1.setBackground(grey);
+				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+				gbc_panel_1.fill = GridBagConstraints.BOTH;
+				gbc_panel_1.gridwidth = 3;
+				gbc_panel_1.gridx = 0;
+				gbc_panel_1.gridy = 2;
+				panel.add(panel_1, gbc_panel_1);
+			}
+		}
+		{
+			JPanel panel = new JPanel();
+			panel.setBackground(Color.WHITE);
+			GridBagConstraints gbc_panel = new GridBagConstraints();
+			gbc_panel.gridwidth = 6;
+			gbc_panel.insets = new Insets(0, 0, 5, 5);
+			gbc_panel.fill = GridBagConstraints.BOTH;
+			gbc_panel.gridx = 1;
+			gbc_panel.gridy = 10;
+			getContentPane().add(panel, gbc_panel);
+			GridBagLayout gbl_panel = new GridBagLayout();
+			gbl_panel.columnWidths = new int[]{110, 10, 80, 0};
+			gbl_panel.rowHeights = new int[]{0, 30, 3, 0};
+			gbl_panel.columnWeights = new double[]{0.0, 0.2, 1.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+			panel.setLayout(gbl_panel);
+			{
+				JPanel panel_1 = new JPanel();
+				panel_1.setBackground(grey);
+				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+				gbc_panel_1.fill = GridBagConstraints.BOTH;
+				gbc_panel_1.gridx = 0;
+				gbc_panel_1.gridy = 1;
+				panel.add(panel_1, gbc_panel_1);
+				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+				{
+					JLabel lblSSN = new JLabel("S.S.N.");
+					lblSSN.setForeground(Color.WHITE);
+					lblSSN.setFont(sf);
+					panel_1.add(lblSSN);
+				}
+			}
+			{
+				JLabel label = new JLabel(" ");
+				GridBagConstraints gbc_label = new GridBagConstraints();
+				gbc_label.anchor = GridBagConstraints.EAST;
+				gbc_label.gridx = 1;
+				gbc_label.gridy = 1;
+				panel.add(label, gbc_label);
+			}
+			{
+				ssnField = new JTextField();
+				ssnField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				ssnField.setColumns(10);
+				ssnField.setBorder(null);
+				GridBagConstraints gbc_cityField = new GridBagConstraints();
+				gbc_cityField.fill = GridBagConstraints.BOTH;
+				gbc_cityField.gridx = 2;
+				gbc_cityField.gridy = 1;
+				panel.add(ssnField, gbc_cityField);
+			}
+			{
+				JPanel panel_1 = new JPanel();
+				panel_1.setBackground(grey);
+				GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+				gbc_panel_1.fill = GridBagConstraints.BOTH;
+				gbc_panel_1.gridwidth = 3;
+				gbc_panel_1.gridx = 0;
+				gbc_panel_1.gridy = 2;
+				panel.add(panel_1, gbc_panel_1);
+			}
+		}
+		
+		//BUTTONS START HERE
 		sf = font.deriveFont(22f);
 		{
 			JButton btnNewButton = new JButton("CANCEL");
@@ -484,7 +679,7 @@ public class AssistDialog extends JDialog {
 			gbc_btnNewButton.gridwidth = 3;
 			gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 			gbc_btnNewButton.gridx = 4;
-			gbc_btnNewButton.gridy = 10;
+			gbc_btnNewButton.gridy = 12;
 			getContentPane().add(btnNewButton, gbc_btnNewButton);
 		}
 		{
@@ -493,7 +688,8 @@ public class AssistDialog extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("Assistant creation confirmed");
 					if(nameField.getText().isEmpty() || surnameField.getText().isEmpty() || passField.getPassword().toString().isEmpty()
-							|| confirmField.getPassword().toString().isEmpty() || idField.getText().isEmpty() || cityField.getText().isEmpty()) {
+							|| confirmField.getPassword().toString().isEmpty() || idField.getText().isEmpty() || cityField.getText().isEmpty()
+							|| emailField.getText().isEmpty() || usernameField.getText().isEmpty() || ssnField.getText().isEmpty()){
 						
 						JOptionPane.showMessageDialog(f, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
 					}
@@ -502,7 +698,42 @@ public class AssistDialog extends JDialog {
 						
 						JOptionPane.showMessageDialog(f, "The password doesn't match", "Error", JOptionPane.ERROR_MESSAGE);
 					}
-					
+					else {
+						//Add to DB
+						String sql1 = "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)" +
+										"VALUES(?,?,?,?,?,?,?)";
+						String sql2	 = "INSERT INTO CLINICAL(IDUser, SSN) VALUES(?,?)";
+						String sql3	 = "INSERT INTO Assistant(IDUser, Municipality) VALUES(?,?)";
+						int ID = Integer.parseInt(idField.getText());
+						Connection c = null;
+						try {
+							c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+							PreparedStatement st1 = c.prepareStatement(sql1);
+							st1.setInt(1, ID);
+							//Doubt this is the best for security, consider this only temporal
+							st1.setString(2, String.valueOf(passField.getPassword()));
+							st1.setBoolean(3, true);
+							st1.setString(4, nameField.getText());
+							st1.setString(5, surnameField.getText());
+							st1.setString(6, usernameField.getText());
+							st1.setString(7, emailField.getText());
+							st1.executeUpdate();			
+							st1.close();
+							PreparedStatement st2 = c.prepareStatement(sql2);
+							st2.setInt(1, ID);
+							st2.setInt(2, Integer.parseInt(ssnField.getText()));
+							st2.executeUpdate();
+							st2.close();
+							PreparedStatement st3 = c.prepareStatement(sql3);
+							st3.setInt(1, ID);
+							st3.setString(2, cityField.getText());
+							st3.close();
+							c.close();
+						}
+						catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
 				}
 			});
 			
@@ -516,7 +747,7 @@ public class AssistDialog extends JDialog {
 			gbc_btnConfirm.gridwidth = 3;
 			gbc_btnConfirm.insets = new Insets(0, 0, 5, 5);
 			gbc_btnConfirm.gridx = 8;
-			gbc_btnConfirm.gridy = 10;
+			gbc_btnConfirm.gridy = 12;
 			getContentPane().add(btnConfirm, gbc_btnConfirm);
 		}
 		this.setVisible(true);
