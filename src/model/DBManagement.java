@@ -76,7 +76,9 @@ public class DBManagement {
 			
 			}
 		 
-		 int i = 0;
+			rs.close();
+			stmt.close();
+			c.close();
 		 
 		 return v;
 		 
@@ -113,7 +115,6 @@ public class DBManagement {
 			}
 		 
 			rs.close();
-			
 			stmt.close();
 			c.close();
 			
