@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import view.panels.JPanelWithBackground;
 
@@ -13,39 +14,52 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.FontFormatException;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import control.MainCtrl;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class PatientDialog extends JDialog {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-
-
+	private JTextField nameField;
+	private JTextField surnameField;
+	private JTextField idField;
+	private JTextField ssnField;
+	//private JTextField hospField;
+	//private JTextField phoneField;
+	private JTextField cityField;
+	private JTextField addressField;
+	private JComboBox<Object> boxstatus;
+	private JComboBox<Object> boxgenders;
+	
+	
+	
 	/**
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public PatientDialog() throws IOException {
+	public PatientDialog(JPanelWithBackground f) throws IOException {
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 468);
 		setContentPane( new JPanelWithBackground(getClass().getResource("/resources/BG.png")));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{10, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 10};
-		gridBagLayout.rowHeights = new int[]{40, 10, 20, 10, 20, 10, 20, 10, 20, 10, 20, 30, 0 , 0, 10};
+		gridBagLayout.rowHeights = new int[]{40, 10, 20, 10, 20, 10, 0, 10, 20, 10, 20, 30, 0 , 0, 10};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.2, 0.0, 0.2, 0.0, 0.2, 0.0, 0.2, 0.0, 0.2, 0.0, 0.5, 0.0, 0.0, 0.2, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
@@ -130,15 +144,15 @@ public class PatientDialog extends JDialog {
 				panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 			}
 			{
-				textField = new JTextField();
-				textField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField.setBorder(null);
+				nameField = new JTextField();
+				nameField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				nameField.setBorder(null);
 				GridBagConstraints gbc_textField = new GridBagConstraints();
 				gbc_textField.fill = GridBagConstraints.BOTH;
 				gbc_textField.gridx = 2;
 				gbc_textField.gridy = 1;
-				panel.add(textField, gbc_textField);
-				textField.setColumns(10);
+				panel.add(nameField, gbc_textField);
+				nameField.setColumns(10);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -192,15 +206,15 @@ public class PatientDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_1 = new JTextField();
-				textField_1.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_1.setColumns(10);
-				textField_1.setBorder(null);
+				surnameField = new JTextField();
+				surnameField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				surnameField.setColumns(10);
+				surnameField.setBorder(null);
 				GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 				gbc_textField_1.fill = GridBagConstraints.BOTH;
 				gbc_textField_1.gridx = 2;
 				gbc_textField_1.gridy = 1;
-				panel.add(textField_1, gbc_textField_1);
+				panel.add(surnameField, gbc_textField_1);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -255,15 +269,15 @@ public class PatientDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_4 = new JTextField();
-				textField_4.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_4.setColumns(10);
-				textField_4.setBorder(null);
+				idField = new JTextField();
+				idField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				idField.setColumns(10);
+				idField.setBorder(null);
 				GridBagConstraints gbc_textField_4 = new GridBagConstraints();
 				gbc_textField_4.fill = GridBagConstraints.BOTH;
 				gbc_textField_4.gridx = 2;
 				gbc_textField_4.gridy = 1;
-				panel.add(textField_4, gbc_textField_4);
+				panel.add(idField, gbc_textField_4);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -317,15 +331,15 @@ public class PatientDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_5 = new JTextField();
-				textField_5.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_5.setColumns(10);
-				textField_5.setBorder(null);
+				ssnField = new JTextField();
+				ssnField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				ssnField.setColumns(10);
+				ssnField.setBorder(null);
 				GridBagConstraints gbc_textField_5 = new GridBagConstraints();
 				gbc_textField_5.fill = GridBagConstraints.BOTH;
 				gbc_textField_5.gridx = 2;
 				gbc_textField_5.gridy = 1;
-				panel.add(textField_5, gbc_textField_5);
+				panel.add(ssnField, gbc_textField_5);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -338,7 +352,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 			}
 		}
-		{
+		/*{
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.WHITE);
 			GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -379,15 +393,15 @@ public class PatientDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_6 = new JTextField();
-				textField_6.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_6.setColumns(10);
-				textField_6.setBorder(null);
+				hospField = new JTextField();
+				hospField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				hospField.setColumns(10);
+				hospField.setBorder(null);
 				GridBagConstraints gbc_textField_6 = new GridBagConstraints();
 				gbc_textField_6.fill = GridBagConstraints.BOTH;
 				gbc_textField_6.gridx = 2;
 				gbc_textField_6.gridy = 1;
-				panel.add(textField_6, gbc_textField_6);
+				panel.add(hospField, gbc_textField_6);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -441,15 +455,15 @@ public class PatientDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_7 = new JTextField();
-				textField_7.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_7.setColumns(10);
-				textField_7.setBorder(null);
+				phoneField = new JTextField();
+				phoneField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				phoneField.setColumns(10);
+				phoneField.setBorder(null);
 				GridBagConstraints gbc_textField_7 = new GridBagConstraints();
 				gbc_textField_7.fill = GridBagConstraints.BOTH;
 				gbc_textField_7.gridx = 2;
 				gbc_textField_7.gridy = 1;
-				panel.add(textField_7, gbc_textField_7);
+				panel.add(phoneField, gbc_textField_7);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -461,7 +475,7 @@ public class PatientDialog extends JDialog {
 				gbc_panel_1.gridy = 2;
 				panel.add(panel_1, gbc_panel_1);
 			}
-		}
+		}*/
 		{
 			//MARK
 			JPanel panel = new JPanel();
@@ -504,15 +518,15 @@ public class PatientDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_1 = new JTextField();
-				textField_1.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_1.setColumns(10);
-				textField_1.setBorder(null);
+				cityField = new JTextField();
+				cityField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				cityField.setColumns(10);
+				cityField.setBorder(null);
 				GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 				gbc_textField_1.fill = GridBagConstraints.BOTH;
 				gbc_textField_1.gridx = 2;
 				gbc_textField_1.gridy = 1;
-				panel.add(textField_1, gbc_textField_1);
+				panel.add(cityField, gbc_textField_1);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -567,15 +581,15 @@ public class PatientDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_1 = new JTextField();
-				textField_1.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_1.setColumns(10);
-				textField_1.setBorder(null);
+				addressField = new JTextField();
+				addressField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				addressField.setColumns(10);
+				addressField.setBorder(null);
 				GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 				gbc_textField_1.fill = GridBagConstraints.BOTH;
 				gbc_textField_1.gridx = 2;
 				gbc_textField_1.gridy = 1;
-				panel.add(textField_1, gbc_textField_1);
+				panel.add(addressField, gbc_textField_1);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -622,7 +636,7 @@ public class PatientDialog extends JDialog {
 			}
 			{
 				Object[] genders = {"Male", "Female"};
-				JComboBox<Object> boxgenders = new JComboBox<Object>(genders);
+				boxgenders = new JComboBox<Object>(genders);
 				boxgenders.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
 				boxgenders.setBorder(null);
 				boxgenders.setOpaque(false);
@@ -679,7 +693,7 @@ public class PatientDialog extends JDialog {
 
 			{
 				Object[] status = {"Low", "Mild", "Moderate", "Critical"};
-				JComboBox<Object> boxstatus = new JComboBox<Object>(status);
+				boxstatus = new JComboBox<Object>(status);
 				boxstatus.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
 				GridBagConstraints gbc_boxstatus = new GridBagConstraints();
 				gbc_boxstatus.fill = GridBagConstraints.BOTH;
@@ -723,8 +737,36 @@ public class PatientDialog extends JDialog {
 			JButton btnConfirm = new JButton("CONFIRM");
 			btnConfirm.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					System.out.println("Patient creation confirmed");
+					if (idField.getText().isEmpty() || nameField.getText().isEmpty() || surnameField.getText().isEmpty()
+								|| cityField.getText().isEmpty()	|| addressField.getText().isEmpty() || ssnField.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(f, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
+					}else {
+						//Add to DB
+						String sql1 = "INSERT INTO Patient(IDptt, Name, LastName, Municipality, Address, Sex, Status, SSN, Doctor)" +
+										"VALUES(?,?,?,?,?,?,?,?,?)";
+						Connection c = null;
+						try {
+							c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+							PreparedStatement st1 = c.prepareStatement(sql1);
+							st1.setString(1, idField.getText());
+							//Doubt this is the best for security, consider this only temporal
+							st1.setString(2, nameField.getName());
+							st1.setString(3, surnameField.getName());
+							st1.setString(4, cityField.getText());
+							st1.setString(5, addressField.getText());
+							st1.setString(6, boxgenders.getSelectedObjects().toString());
+							st1.setString(7, boxstatus.getSelectedObjects().toString());
+							st1.setString(8, ssnField.getText());
+							st1.executeUpdate();		
+							st1.close();
+							c.close();
+						}
+						catch (Exception ex) {
+							ex.printStackTrace();
+						}
+					}
 				}
+				
 			});
 			btnConfirm.setActionCommand("CONFIRM");
 			btnConfirm.setBorderPainted(false);

@@ -18,6 +18,8 @@ import view.dialogs.PatientDialog;
 import view.doctor.DoctorFr;
 import view.doctor.DoctorPatientFr;
 import view.panels.PatientPanel;
+import javax.swing.JFrame;
+
 
 public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 
@@ -55,7 +57,7 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 	 */
 	public void registerPatient() {
 		try {
-			PatientDialog pd = new PatientDialog();
+			PatientDialog pd = new PatientDialog(df);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
