@@ -766,7 +766,19 @@ public class DoctorDialog extends JDialog {
 						JOptionPane.showMessageDialog(f, "The password doesn't match", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 					else {
+						//CHECK THAT USER DOESN'T ALREADY EXIST
+						//MAKE A MODE FOR EDITING AND ONE FOR CREATING NEW
 						//Add to DB
+						
+						//Alternative code for updates
+						/*if(update == true){
+						String sql1 = "UPDATE User SET IDuser = ?, Password = ?, Active = ?, Name = ?,+"
+						+" LastName = ?, Username=?, Email =?";		
+						String sql2	 = "Update CLINICAL Set IDUser = ?, SSN = ?";
+						String sql3	 = "Update  Doctor Set IDUser = ?, MLN = ?";
+						String sql4 = "Update Telephones Set ID = ?, Number = ?";	
+						}*/
+						
 						String sql1 = "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)" +
 										"VALUES(?,?,?,?,?,?,?)";
 						String sql2	 = "INSERT INTO CLINICAL(IDUser, SSN) VALUES(?,?)";
@@ -806,6 +818,9 @@ public class DoctorDialog extends JDialog {
 						catch (Exception ex) {
 							ex.printStackTrace();
 						}
+						
+						
+						
 					}
 				}
 			});
