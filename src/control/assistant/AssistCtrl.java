@@ -120,7 +120,7 @@ public class AssistCtrl implements ActionListener, KeyListener{
 	
 					messages = id.readPatientMessages(resultado.getNumber());
 					System.out.println("Patient found.\n");
-					System.out.println("Technician: " + getName());			
+					System.out.println("Assistant: " + getName());			
 					
 					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), resultado.getSsn(), messages, name);
 					
@@ -136,7 +136,7 @@ public class AssistCtrl implements ActionListener, KeyListener{
 	
 					messages = id.readPatientMessages(resultado.getNumber());
 					System.out.println("Patient found.\n");
-					System.out.println("Technician: " + getName());			
+					System.out.println("Assistant: " + getName());			
 					
 					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), resultado.getSsn(), messages, name);
 					
