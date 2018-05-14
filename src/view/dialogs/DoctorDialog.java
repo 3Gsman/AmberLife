@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -56,7 +59,7 @@ public class DoctorDialog extends JDialog {
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public DoctorDialog(JFrame f) throws IOException {
+	public DoctorDialog(JFrame f, String id) throws IOException {
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 468);
 		setContentPane( new JPanelWithBackground(getClass().getResource("/resources/BG.png")));
@@ -755,70 +758,26 @@ public class DoctorDialog extends JDialog {
 			JButton btnConfirm = new JButton("CONFIRM");
 			btnConfirm.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					System.out.println("Doctor creation confirmed");
-					if(nameField.getText().isEmpty() || surnameField.getText().isEmpty() || passField.getPassword().toString().isEmpty()
-								|| confirmField.getPassword().toString().isEmpty()	|| idField.getText().isEmpty() 
-								|| ssnField.getText().isEmpty() || usernameField.getText().isEmpty() || emailField.getText().isEmpty()  
-								|| mlnField.getText().isEmpty() || phoneField.getText().isEmpty()) {
+					System.out.println("Doctor creation started");
+						
+					if(checkBoxesFilled()) 
 						JOptionPane.showMessageDialog(f, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
-					}
-					else if(!(Arrays.equals(passField.getPassword(), confirmField.getPassword()))) {
+					else if(!(Arrays.equals(passField.getPassword(), confirmField.getPassword()))) 
 						JOptionPane.showMessageDialog(f, "The password doesn't match", "Error", JOptionPane.ERROR_MESSAGE);
-					}
 					else {
-						//CHECK THAT USER DOESN'T ALREADY EXIST
+						try {
+							if (id == null) createNewDoctor();
+							else updateDoctor(id);
+						
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
 						//MAKE A MODE FOR EDITING AND ONE FOR CREATING NEW
 						//Add to DB
 						
 						//Alternative code for updates
-						/*if(update == true){
-						String sql1 = "UPDATE User SET IDuser = ?, Password = ?, Active = ?, Name = ?,+"
-						+" LastName = ?, Username=?, Email =?";		
-						String sql2	 = "Update CLINICAL Set IDUser = ?, SSN = ?";
-						String sql3	 = "Update  Doctor Set IDUser = ?, MLN = ?";
-						String sql4 = "Update Telephones Set ID = ?, Number = ?";	
-						}*/
-						
-						String sql1 = "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)" +
-										"VALUES(?,?,?,?,?,?,?)";
-						String sql2	 = "INSERT INTO CLINICAL(IDUser, SSN) VALUES(?,?)";
-						String sql3	 = "INSERT INTO Doctor(IDUser, MLN) VALUES(?,?)";
-						String sql4 = "INSERT INTO Telephones(ID, Number) VALUES (?,?)";
-						String ID = idField.getText();
-						Connection c = null;
-						try {
-							c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
-							PreparedStatement st1 = c.prepareStatement(sql1);
-							st1.setString(1, ID);
-							//Doubt this is the best for security, consider this only temporal
-							st1.setString(2, String.valueOf(passField.getPassword()));
-							st1.setString(3, "YES");
-							st1.setString(4, nameField.getText());
-							st1.setString(5, surnameField.getText());
-							st1.setString(6, usernameField.getText());
-							st1.setString(7, emailField.getText());
-							st1.executeUpdate();			
-							st1.close();
-							PreparedStatement st2 = c.prepareStatement(sql2);
-							st2.setString(1, ID);
-							st2.setString(2, ssnField.getText());
-							st2.executeUpdate();
-							st2.close();
-							PreparedStatement st3 = c.prepareStatement(sql3);
-							st3.setString(1, ID);
-							st3.setString(2, mlnField.getText());
-							st3.executeUpdate();
-							st3.close();
-							PreparedStatement st4 = c.prepareStatement(sql4);
-							st4.setString(1, ID);
-							st4.setString(2,phoneField.getText());
-							st4.close();
-							c.close();
-						}
-						catch (Exception ex) {
-							ex.printStackTrace();
-						}
-						
 						
 						
 					}
@@ -838,7 +797,179 @@ public class DoctorDialog extends JDialog {
 			gbc_btnConfirm.gridy = 12;
 			getContentPane().add(btnConfirm, gbc_btnConfirm);
 		}
+		if(id != null) initializeFields(id);
 		this.setVisible(true);
+	}
+	
+	void initializeFields(String id) {
+		try {
+		Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+		Statement stmt =  c.createStatement();
+		ResultSet rs_doctor  = stmt.executeQuery("SELECT * FROM Doctor where IDuser LIKE " + id);
+		ResultSet rs_clinical = stmt.executeQuery("SELECT * FROM Clinical where IDuser LIKE " + id);
+		ResultSet rs_user = stmt.executeQuery("SELECT * FROM User where IDuser LIKE " + id);
+		ResultSet rs_tlph = stmt.executeQuery("SELECT * FROM Telephone where IDuser LIKE " + id);
+
+		nameField.setText(rs_user.getString("Name"));
+		surnameField.setText(rs_user.getString("LastName"));
+		passField.setText(rs_user.getString("Password"));
+		confirmField.setText(rs_user.getString("Password"));
+		idField.setText(id);
+		ssnField.setText(rs_clinical.getString("SSN"));
+		usernameField.setText(rs_user.getString("Username"));
+		emailField.setText(rs_user.getString("Email"));
+		mlnField.setText(rs_doctor.getString("MLN"));
+		phoneField.setText(rs_tlph.getString("Number"));
+		
+		rs_doctor.close();
+		rs_clinical.close();
+		rs_user.close();
+		rs_tlph.close();
+		stmt.close();
+		c.close();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	void createNewDoctor() {
+		try {
+			Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			String sql = "SELECT IDuser FROM Doctor where IDuser LIKE " + idField.getText();
+			Statement stmt =  c.createStatement();
+			ResultSet rs  = stmt.executeQuery(sql);
+			stmt.close();
+			c.close();
+			
+			if(rs.next() == true) System.out.println("A Doctor with that ID already exists");
+			else uploadNewDoctor();	
+			
+			rs.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+	}
+	
+	void uploadNewDoctor() {
+		String sql1 = "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)" +
+				"VALUES(?,?,?,?,?,?,?)";
+		String sql2	 = "INSERT INTO CLINICAL(IDUser, SSN) VALUES(?,?)";
+		String sql3	 = "INSERT INTO Doctor(IDUser, MLN) VALUES(?,?)";
+		String sql4 = "INSERT INTO Telephones(ID, Number) VALUES (?,?)";
+		String ID = idField.getText();
+		
+		Connection c = null;
+		try {
+			c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			PreparedStatement st1 = c.prepareStatement(sql1);
+			st1.setString(1, ID);
+			//Doubt this is the best for security, consider this only temporal
+			st1.setString(2, String.valueOf(passField.getPassword()));
+			st1.setString(3, "YES");
+			st1.setString(4, nameField.getText());
+			st1.setString(5, surnameField.getText());
+			st1.setString(6, usernameField.getText());
+			st1.setString(7, emailField.getText());
+			st1.executeUpdate();			
+			st1.close();
+			PreparedStatement st2 = c.prepareStatement(sql2);
+			st2.setString(1, ID);
+			st2.setString(2, ssnField.getText());
+			st2.executeUpdate();
+			st2.close();
+			PreparedStatement st3 = c.prepareStatement(sql3);
+			st3.setString(1, ID);
+			st3.setString(2, mlnField.getText());
+			st3.executeUpdate();
+			st3.close();
+			PreparedStatement st4 = c.prepareStatement(sql4);
+			st4.setString(1, ID);
+			st4.setString(2,phoneField.getText());
+			st4.close();
+			c.close();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	void updateDoctor(String id) throws SQLException {
+		
+		Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+		String sql = "SELECT IDuser FROM Doctor where IDuser LIKE " + idField.getText();
+		Statement stmt =  c.createStatement();
+		ResultSet rs  = stmt.executeQuery(sql);
+		stmt.close();
+		c.close();
+		
+		if(id == idField.getText() ) { //IF we are not changing the ID, update it normally
+			Connection c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			//Update code
+			String sql1 = "UPDATE User SET IDuser = ?, Password = ?, Active = ?, Name = ?,+"
+					+" LastName = ?, Username=?, Email =?";		
+			String sql2	 = "Update CLINICAL Set IDUser = ?, SSN = ?";
+			String sql3	 = "Update  Doctor Set IDUser = ?, MLN = ?";
+			String sql4 = "Update Telephones Set ID = ?, Number = ?";
+			String ID = idField.getText();
+			c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			PreparedStatement st1 = c2.prepareStatement(sql1);
+			st1.setString(1, ID);
+			//Doubt this is the best for security, consider this only temporal
+			st1.setString(2, String.valueOf(passField.getPassword()));
+			st1.setString(3, "YES");
+			st1.setString(4, nameField.getText());
+			st1.setString(5, surnameField.getText());
+			st1.setString(6, usernameField.getText());
+			st1.setString(7, emailField.getText());
+			st1.executeUpdate();			
+			st1.close();
+			PreparedStatement st2 = c2.prepareStatement(sql2);
+			st2.setString(1, ID);
+			st2.setString(2, ssnField.getText());
+			st2.executeUpdate();
+			st2.close();
+			PreparedStatement st3 = c2.prepareStatement(sql3);
+			st3.setString(1, ID);
+			st3.setString(2, mlnField.getText());
+			st3.executeUpdate();
+			st3.close();
+			PreparedStatement st4 = c2.prepareStatement(sql4);
+			st4.setString(1, ID);
+			st4.setString(2,phoneField.getText());
+			st4.close();
+			c2.close();
+			rs.close();
+		}
+		else { //If the ID is changed, delete the table and instead create another one?
+			Connection c3 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);	
+			Statement stmt3=  c3.createStatement();
+			//Delete the old one and create a new one with the new ID and data
+			stmt3.execute("DELETE FROM Doctor WHERE IDuser LIKE " + id);
+			stmt3.execute("DELETE FROM User WHERE IDuser LIKE " + id);
+			stmt3.execute("DELETE FROM Clinical WHERE IDuser LIKE " + id);
+			stmt3.execute("DELETE FROM Telephone WHERE ID LIKE " + id);
+			
+			uploadNewDoctor();
+			
+			//UPDATE PATIENTS AND MESSAGES FOR NEW ID NOW
+			stmt3.execute("UPDATE Patient SET Doctor = " + idField.getText() + " WHERE Doctor LIKE " + id);
+			stmt3.execute("UPDATE Message SET IDuser = " + idField.getText() + " WHERE IDuser LIKE " + id);
+			stmt3.close();
+			c3.close();
+		}
+		
+		
+	}
+	
+	boolean checkBoxesFilled() {
+		return nameField.getText().isEmpty() || surnameField.getText().isEmpty() || passField.getPassword().toString().isEmpty()
+				|| confirmField.getPassword().toString().isEmpty()	|| idField.getText().isEmpty() 
+				|| ssnField.getText().isEmpty() || usernameField.getText().isEmpty() || emailField.getText().isEmpty()  
+				|| mlnField.getText().isEmpty() || phoneField.getText().isEmpty();
 	}
 
 }

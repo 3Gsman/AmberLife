@@ -52,7 +52,7 @@ public class AssistDialog extends JDialog {
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public AssistDialog(JFrame f) throws IOException {
+	public AssistDialog(JFrame f, String id) throws IOException {
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 468);
 		setContentPane( new JPanelWithBackground(getClass().getResource("/resources/BG.png")));

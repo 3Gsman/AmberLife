@@ -111,7 +111,7 @@ public class AdminCtrl implements ActionListener {
 	 */
 	public void newDoctor() {
 		try {
-			 dd = new DoctorDialog(MainCtrl.window);
+			 dd = new DoctorDialog(MainCtrl.window, null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -127,7 +127,7 @@ public class AdminCtrl implements ActionListener {
 	 */
 	public void newAssist() {
 		try {
-			ad = new AssistDialog(MainCtrl.window);
+			ad = new AssistDialog(MainCtrl.window, null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
