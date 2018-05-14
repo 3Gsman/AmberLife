@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Vector;
 
 import control.MainCtrl;
@@ -14,6 +15,7 @@ import view.dialogs.InvalidPatientDialog;
 import model.FileManagement;
 import model.Patient;
 import model.Assistant;
+import model.DBManagement;
 
 public class AssistCtrl implements ActionListener, KeyListener{
 
@@ -55,6 +57,12 @@ public class AssistCtrl implements ActionListener, KeyListener{
 				searchPatient();
 			} catch (IOException e1) {
 				e1.printStackTrace();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		 }else if (e.getActionCommand().equals("BACK")) {
 			 MainCtrl.window.popBackStack();
@@ -87,6 +95,12 @@ public class AssistCtrl implements ActionListener, KeyListener{
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
         } 
     }
@@ -107,18 +121,22 @@ public class AssistCtrl implements ActionListener, KeyListener{
 	 * new window with the patient data as argument.
 	 *
 	 * @throws	IOException
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public void searchPatient() throws IOException {
+	public void searchPatient() throws IOException, ClassNotFoundException, SQLException {
 		String dni = tf.getID();
-		FileManagement id = new FileManagement();
+		DBManagement id = new DBManagement();
+		FileManagement id2 = new FileManagement();
 		Vector<String> messages = new Vector<>();
 		if(tf.getMode() == true) {
 			if(dni != null) {
 				Patient resultado = id.checkId(dni);
+				System.out.println(resultado.getId());
 				
-				if(resultado.getNumber() != "null") {
+				if(resultado.getId() != "null") {
 	
-					messages = id.readPatientMessages(resultado.getNumber());
+					messages = id2.readPatientMessages(resultado.getNumber());
 					System.out.println("Patient found.\n");
 					System.out.println("Assistant: " + getName());			
 					
@@ -132,9 +150,11 @@ public class AssistCtrl implements ActionListener, KeyListener{
 			if(dni != null) {
 				Patient resultado = id.checkSsn(dni);
 				
-				if(resultado.getNumber() != "null") {
-	
-					messages = id.readPatientMessages(resultado.getNumber());
+				System.out.println(resultado.getSsn());
+				
+				if(resultado.getSsn() != "null") {
+					
+					messages = id2.readPatientMessages(resultado.getNumber());
 					System.out.println("Patient found.\n");
 					System.out.println("Assistant: " + getName());			
 					

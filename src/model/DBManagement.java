@@ -158,5 +158,76 @@ public class DBManagement {
 		return ecg;
 
 	}
+	
+	public Patient checkId(String dni) throws SQLException, ClassNotFoundException {
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Statement stmt = null;
+		stmt = c.createStatement();
+		
+		Patient pt = new Patient("null","null","null","null");
+		
+		stmt.executeUpdate("create view PatientMinInfo as select IDPtt, Name,LastName,SSN from Patient");
+		
+		ResultSet rs = stmt.executeQuery("SELECT * FROM PatientMinInfo WHERE IDPtt='" + dni + "'");
+		
+		
+		
+		if (rs.next() == true) {
+			pt.setId(rs.getString("IDPtt"));
+			pt.setName(rs.getString("Name"));
+			pt.setLastname(rs.getString("LastName"));
+			pt.setSsn(rs.getString("SSN"));
+		}
+		
+		
+		stmt.executeUpdate("drop view PatientMinInfo");
+		
+		rs.close();
+		stmt.close();
+		c.close();
+
+		
+		return pt;
+		
+		
+		
+	}
+	
+	public Patient checkSsn(String ssn) throws SQLException, ClassNotFoundException {
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Statement stmt = null;
+		stmt = c.createStatement();
+		
+		Patient pt = new Patient("null","null","null","null");
+		
+		stmt.executeUpdate("create view PatientMinInfo as select IDPtt, Name,LastName,SSN from Patient");
+		
+		ResultSet rs = stmt.executeQuery("SELECT * FROM PatientMinInfo WHERE SSN='" + ssn + "'");
+		
+		if (rs.next() == true) {
+			pt.setId(rs.getString("IDPtt"));
+			pt.setName(rs.getString("Name"));
+			pt.setLastname(rs.getString("LastName"));
+			pt.setSsn(rs.getString("SSN"));
+		}
+		
+		stmt.executeUpdate("drop view PatientMinInfo");
+		
+		rs.close();
+		stmt.close();
+		c.close();
+
+		
+		return pt;
+		
+		
+		
+	}
 
 }
