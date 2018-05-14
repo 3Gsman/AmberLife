@@ -33,12 +33,9 @@ public class MainCtrl implements WindowListener{
 	
     public static void main(String[] args) throws ClassNotFoundException {
     	LocalizationService.initialize();
-    	
-    	Connection c = null;
 
         try {
-        	Class.forName("org.sqlite.JDBC");
-        	c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+
         	UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName()); 
             MainCtrl m = new MainCtrl();
 			LoginFr p = new LoginFr();
@@ -49,16 +46,7 @@ public class MainCtrl implements WindowListener{
 			window.initialize();
 			window.setContentPane(p);
 			window.setVisible(true);
-			
-			
-			Statement stmt = null;
-			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery( "SELECT * FROM User;" );
-			System.out.println(rs.getString("iduser"));
-			System.out.println(rs.getString("iduser"));
-			rs.close();
-			stmt.close();
-			c.close();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
