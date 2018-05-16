@@ -64,7 +64,7 @@ public class AssistCtrl implements ActionListener, KeyListener{
 		 if (e.getActionCommand().equals("SEARCH")){;
 			try {
 				searchPatient();
-			} catch (IOException e1) {
+			} catch (ClassNotFoundException | SQLException  | IOException e1) {
 				e1.printStackTrace();
 			}
 		 }else if (e.getActionCommand().equals("BACK")) {
@@ -95,7 +95,7 @@ public class AssistCtrl implements ActionListener, KeyListener{
             try {
             	if(tf.getID() != "")
             		searchPatient();
-			} catch (IOException e1) {
+			} catch (ClassNotFoundException | SQLException  | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
