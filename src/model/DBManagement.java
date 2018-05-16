@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -157,6 +158,94 @@ public class DBManagement {
 		// System.out.print(ecg.toString());
 		return ecg;
 
+	}
+	
+	//Funcion en fase de testing no se aseguran resultados coherentes
+	public Patient readPatient(String IDptt) throws IOException, SQLException, ClassNotFoundException {
+
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Statement stmt = null;
+		stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery("select * from patient where patient.IDptt ='" + IDptt + "'");
+
+		Patient p = new Patient(IDptt);
+
+		p.setId(IDptt);
+		p.setName(rs.getString("Name"));
+		p.setLastname(rs.getString("LastName"));
+		p.setSsn(rs.getString("SSN"));
+		p.setMunicipality(rs.getString("Municipality"));
+		p.setAddress(rs.getString("Address"));
+		p.setGender(rs.getString("Gender"));
+		p.setStatus(rs.getString("Status"));
+		// p.setMessage
+
+		ECG ecg = new ECG();
+
+		Vector<ECG> ecgList = ecgList(IDptt);
+
+		p.setECGs(ecgList);
+
+		rs.close();
+		stmt.close();
+		c.close();
+
+		return p;
+	}
+
+	//Funcion en fase de testing no se aseguran resultados coherentes
+	public Vector<String> ecgIDList(String IDptt) throws IOException, ClassNotFoundException, SQLException {
+
+		Vector<String> vector = new Vector<String>();
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+
+		Statement stmt = null;
+		stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery("select ecg.IDecg from ecg where ecg.IDptt ='" + IDptt + "'");
+		while (rs.next()) {
+			vector.add(rs.getString("IDecg"));
+
+		}
+
+		rs.close();
+		stmt.close();
+		c.close();
+
+		return vector;
+	}
+	
+	//Funcion en fase de testing no se aseguran resultados coherentes
+	public Vector<ECG> ecgList(String IDptt) throws IOException, ClassNotFoundException, SQLException {
+		
+		Vector<ECG> vector = new Vector<ECG>();
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+
+		Statement stmt = null;
+		stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery("select * from ecg where ecg.IDptt ='" + IDptt + "'");
+		while (rs.next()) {
+			vector.add(new ECG());
+					
+					//(rs.getString("IDecg"),rs.getString("IDuser"),
+					//rs.getString("IDptt"),rs.getInt("Frequency"),rs.getString("Data"),
+					//rs.getString("Date"),rs.getString("Seen"),rs.getString("Diagnostic")));
+
+		}
+
+		rs.close();
+		stmt.close();
+		c.close();
+
+		return vector;
 	}
 
 }
