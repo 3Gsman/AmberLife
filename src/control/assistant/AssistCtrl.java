@@ -138,7 +138,6 @@ public class AssistCtrl implements ActionListener, KeyListener {
 	 */
 	public void searchPatient() throws IOException, ClassNotFoundException, SQLException {
 		String dni = tf.getID();
-		String ssn2 = tf.getSSN();
 		DBManagement id = new DBManagement();
 		FileManagement id2 = new FileManagement();
 		Vector<String> messages = new Vector<>();
@@ -172,8 +171,8 @@ public class AssistCtrl implements ActionListener, KeyListener {
 			
 			System.out.println("\nMODO SSN");
 			
-			if (ssn2 != null) {
-				Patient resultado = id.checkSsn(ssn2);
+			if (dni != null) {
+				Patient resultado = id.checkSsn(dni);
 
 				System.out.println("SSN: " +resultado.getSsn());
 
