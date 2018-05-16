@@ -768,18 +768,11 @@ public class DoctorDialog extends JDialog {
 						try {
 							if (id == null) createNewDoctor();
 							else updateDoctor(id);
-						
+							
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
-						}
-						
-						//MAKE A MODE FOR EDITING AND ONE FOR CREATING NEW
-						//Add to DB
-						
-						//Alternative code for updates
-						
-						
+						}									
 					}
 				}
 			});

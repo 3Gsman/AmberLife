@@ -197,8 +197,9 @@ public class UserPanel extends JPanel {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("User Deletion initiated");
-				boolean confirm = true; //DELET CONFIRMATION GOES HERE
-				if(confirm) {
+				int confirm = JOptionPane.showConfirmDialog (null, "Are you sure you want to delete this user?",
+															"Warning",JOptionPane.YES_NO_OPTION);
+				if(confirm == JOptionPane.YES_OPTION){
 					try {
 						Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 						Statement stmt =  c.createStatement();
@@ -210,7 +211,7 @@ public class UserPanel extends JPanel {
 						e1.printStackTrace();
 					}
 				} else System.out.println("Deletion Cancelled");
-			}
+		}
 		});
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.setBorder(null);

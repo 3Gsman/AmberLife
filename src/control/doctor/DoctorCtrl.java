@@ -57,7 +57,7 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 	 */
 	public void registerPatient() {
 		try {
-			PatientDialog pd = new PatientDialog(df);
+			PatientDialog pd = new PatientDialog(MainCtrl.window,doctor.getId(),null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

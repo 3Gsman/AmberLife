@@ -93,15 +93,17 @@ public class DoctorFr extends JPanelWithBackground {
 		//Contents go here
 		//Si el bool es true, se inicia con doctores, si no, con assistants
 		String search = textField.getText();
+		String doctorID = this.getController().getDoctor().getId();
+		
 		if(search != null)
 			for(Patient d : patients) {	
 				if ((d.getName() + " " + d.getLastname()).toLowerCase().contains(search.toLowerCase()) ||	
 					d.getId().toLowerCase().contains(search.toLowerCase()) ||
 					d.getSsn().toLowerCase().contains(search.toLowerCase())){
-						viewport.add(new PatientPanel(d, controller));
+						viewport.add(new PatientPanel(d, controller,doctorID));
 				}	
 		}	
-		else for(Patient d : patients) viewport.add(new PatientPanel(d, controller));
+		else for(Patient d : patients) viewport.add(new PatientPanel(d, controller,doctorID));
 				
 		//str1.toLowerCase().contains(str2.toLowerCase())
 		
