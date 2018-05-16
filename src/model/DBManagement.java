@@ -158,7 +158,7 @@ public class DBManagement {
 		return ecg;
 
 	}
-	
+	//*
 	public static Vector<Patient> readPatients(String doctorID) throws ClassNotFoundException, SQLException {
 		
 		String database = "src/resources/BDAmberLife.db";
