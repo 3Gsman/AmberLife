@@ -74,7 +74,7 @@ public class FileManagement {
 			if (lineatxt[3].equals(id)) { // equalsIgnoreCases
 
 				busqueda = true;
-				pt.setNumber(lineatxt[0]);
+				//pt.setNumber(lineatxt[0]);
 				pt.setName(lineatxt[1]);
 				pt.setLastname(lineatxt[2]);
 				pt.setId(lineatxt[3]);
@@ -107,7 +107,7 @@ public class FileManagement {
 			if (lineatxt[4].equals(id)) { // equalsIgnoreCases
 
 				busqueda = true;
-				pt.setNumber(lineatxt[0]);
+				//pt.setNumber(lineatxt[0]);
 				pt.setName(lineatxt[1]);
 				pt.setLastname(lineatxt[2]);
 				pt.setId(lineatxt[3]);
@@ -189,12 +189,12 @@ public class FileManagement {
 
 		linea = lectorm.readLine();
 		String[] lineatxt = linea.split(";");
-		Doctor medico = new Doctor(lineatxt[0], lineatxt[1], lineatxt[2], lineatxt[3], lineatxt[5]);
+		Doctor medico = new Doctor(lineatxt[0], lineatxt[1], lineatxt[2], lineatxt[3]);
 
 		while ((linea = lectorm.readLine()) != null) {
-			Patient p = new Patient(linea);
+			//Patient p = new Patient(linea);
 
-			listapacientes.add(p);
+			//listapacientes.add(p);
 
 		}
 
@@ -291,6 +291,7 @@ public class FileManagement {
 	 * @return the resultant Patient file
 	 * @throws IOException
 	 */
+	@Deprecated
 	public Patient readPatient(String username) throws IOException {
 		Patient p = new Patient(username);
 		lectorp = new BufferedReader(new FileReader("src/resources/" + username + ".txt"));
@@ -307,7 +308,7 @@ public class FileManagement {
 		p.setAddress(lineatxt[5]);
 		p.setGender(lectorp.readLine());
 		p.setStatus(lectorp.readLine());
-		p.setMessage(lectorp.readLine());
+		//p.setMessage(lectorp.readLine());
 
 		//SE NECESITA PASAR A READECG el IDecg en vez del fichero en DBMANAGEMENT
 		while ((linea = lectorp.readLine()) != null) {
@@ -337,7 +338,7 @@ public class FileManagement {
 
 		Vector<String> messages = new Vector<String>();
 		Patient p = readPatient(number);
-		messages.add(p.getMessage());
+		//messages.add(p.getMessage());
 
 		return messages;
 	}

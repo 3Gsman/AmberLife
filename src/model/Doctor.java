@@ -5,7 +5,8 @@ import java.util.Vector;
 public class Doctor extends User {
 	
 	private String number;
-	private String phone;
+	private String mln;
+	private Vector<Integer> phone;
 	private Vector<Patient> patientlist;
 	
 	/**
@@ -17,12 +18,11 @@ public class Doctor extends User {
 	 * @param num	ssn of the doctor
 	 * @param p		list of the doctor's patients
 	 */
-	public Doctor(String n, String ln, String dni, String num, String p) {	
+	public Doctor(String n, String ln, String dni, String num) {	
 		super.setName(n);
 		super.setLastname(ln);
 		super.setId(dni);
 		setNumber(num);
-		setPhone(p);
 		setPatientlist(null);		
 	}
 	
@@ -50,7 +50,7 @@ public class Doctor extends User {
 	 * 
 	 * @return the phone field of the Doctor
 	 */
-	public String getPhone() {
+	public Vector<Integer> getPhone() {
 		return phone;
 	}
 	
@@ -59,7 +59,7 @@ public class Doctor extends User {
 	 * 
 	 * @param phone		the phone where the doctor works
 	 */
-	public void setPhone(String phone) {
+	public void setPhone(Vector<Integer> phone) {
 		this.phone = phone;
 	}
 	
@@ -79,6 +79,14 @@ public class Doctor extends User {
 	 */
 	public void setPatientlist(Vector<Patient> patientlist) {
 		this.patientlist = patientlist;
+	}
+
+	public String getMln() {
+		return mln;
+	}
+
+	public void setMln(String mln) {
+		this.mln = mln;
 	}
 	
 	

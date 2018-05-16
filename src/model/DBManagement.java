@@ -101,7 +101,7 @@ public class DBManagement {
 					+ rs.getString("IDUser") + "'");
 
 			v.add(new Doctor(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDUser"),
-					rs.getString("SSN"), rs2.getString("Number")));
+					rs.getString("SSN")));
 
 			rs2.close();
 		}
@@ -158,5 +158,58 @@ public class DBManagement {
 		return ecg;
 
 	}
-
+	
+	public static Vector<Patient> readPatients(String doctorID) throws ClassNotFoundException, SQLException {
+		
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Statement stmt = null;
+		stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT * FROM Patient WHERE IDuser LIKE " + doctorID);
+		
+		Vector<Patient> patients = new Vector<Patient>();
+		
+		while(rs.next()) {
+			Patient p = new Patient(rs.getString("SSN"), rs.getString("Name"),
+							rs.getString("LastName"),rs.getString("IDptt"));
+			p.setMunicipality(rs.getString("Municipality"));
+			p.setAddress(rs.getString("Address"));
+			p.setGender(rs.getString("Sex"));
+			p.setStatus(rs.getString("Status"));
+			
+			patients.add(p);
+		}
+		
+		return patients;
+	}
+	
+	public static Doctor readDoctor(String username) throws SQLException, ClassNotFoundException {
+		
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Statement stmt = null;
+		stmt = c.createStatement();
+		ResultSet rs_user = stmt.executeQuery("SELECT * FROM User WHERE Username LIKE " + username);
+		ResultSet rs_clinical = stmt.executeQuery("SELECT SSN FROM Clinical where IDuser LIKE " + rs_user.getString("IDuser"));
+		ResultSet rs_doctor = stmt.executeQuery("SELECT MLN FROM Doctor where IDuser LIKE " + rs_user.getString("IDuser"));
+		ResultSet rs_tlph = stmt.executeQuery("SELECT Number FROM Telephone where IDuser LIKE " + rs_user.getString("IDuser"));
+		
+		
+		Vector<Integer> phones = new Vector<Integer>();
+		
+		while(rs_tlph.next()) {
+			rs_tlph.getInt("Number");
+		}
+		Doctor d = new Doctor(rs_user.getString("Name"), rs_user.getString("LastName"), rs_user.getString("IDuser"),
+								rs_clinical.getString("SSN"));
+		d.setMln(rs_doctor.getString("MLN"));
+		d.setPhone(phones);
+		//public Doctor(String n, String ln, String dni, String num, String p)
+		
+		return null;
+	}
 }

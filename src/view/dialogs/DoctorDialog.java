@@ -795,6 +795,7 @@ public class DoctorDialog extends JDialog {
 	}
 	
 	void initializeFields(String id) {
+		System.out.println("Initialize Fields");
 		try {
 		Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 		Statement stmt =  c.createStatement();
@@ -828,6 +829,7 @@ public class DoctorDialog extends JDialog {
 	}
 	
 	void createNewDoctor() {
+		System.out.println("Creating new doctor");
 		try {
 			Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 			String sql = "SELECT IDuser FROM Doctor where IDuser LIKE " + idField.getText();
@@ -848,6 +850,7 @@ public class DoctorDialog extends JDialog {
 	}
 	
 	void uploadNewDoctor() {
+		System.out.println("Upload new doctor launched");
 		String sql1 = "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)" +
 				"VALUES(?,?,?,?,?,?,?)";
 		String sql2	 = "INSERT INTO CLINICAL(IDUser, SSN) VALUES(?,?)";
@@ -891,6 +894,7 @@ public class DoctorDialog extends JDialog {
 	}
 	
 	void updateDoctor(String id) throws SQLException {
+		System.out.println("Update Doctor launched");
 		
 		Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 		String sql = "SELECT IDuser FROM Doctor where IDuser LIKE " + idField.getText();
