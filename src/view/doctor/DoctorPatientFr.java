@@ -11,6 +11,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -24,9 +25,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import control.doctor.DoctorPatientCtrl;
+import model.DBManagement;
 import model.ECG;
 import model.FileManagement;
 import model.LocalizationService;
+import model.Message;
 import model.User;
 import view.assistant.AssistPatientFr;
 import view.layouts.WrapLayout;
@@ -59,7 +62,7 @@ public class DoctorPatientFr extends JPanelWithBackground {
 	
 	
 	//DOESN'T REALLY WORK
-	private JPanel initializeMessages() throws IOException {
+	private JPanel initializeMessages() throws IOException, ClassNotFoundException, SQLException {
 		
 			//Get PROMETHEUS font
 		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
@@ -102,8 +105,12 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			btnNewButton2.setContentAreaFilled(false);
 			new_msg.add(btnNewButton2);
 			
-			FileManagement id = new FileManagement();
-			Vector<String> messages = id.readPatientMessages(controller.getPatient().getNumber());
+			//controller.getPatient().getID()
+			
+			
+			
+			Vector<Message> messages = DBManagement.readMessages(controller.getPatient().getId());
+			
 			if(messages.equals(null)) {
 				JPanel jp = new JPanel();
 				jp.setLayout(new BorderLayout());
@@ -119,8 +126,9 @@ public class DoctorPatientFr extends JPanelWithBackground {
 				JPanel jp = new JPanel();
 				jp.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
 				jp.setOpaque(false);
-				for(String s : messages) {
-					MessagePanel mp = new MessagePanel(controller, new User("234553X", "John", "Doe"), "24-3-18", s);
+				for(Message s : messages) {
+					MessagePanel mp = new MessagePanel(controller, new User(s.getAuthorID(), s.getAuthorname(), 
+										s.getAuthorsurname()), String.valueOf(s.getTimestamp()), s.getMessage());
 					jp.add(mp);
 				}
 				panel_2.setViewportView(jp);
@@ -161,7 +169,7 @@ public class DoctorPatientFr extends JPanelWithBackground {
 		}
 	}
 	
-	public void setModeMessages() throws IOException {
+	public void setModeMessages() throws IOException, ClassNotFoundException, SQLException {
 		if(mode != "MESSAGES") {
 			//this.getthis().remove(messagePanel);
 			messagePanel.removeAll();

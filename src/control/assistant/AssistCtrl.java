@@ -147,7 +147,8 @@ public class AssistCtrl implements ActionListener, KeyListener{
 					System.out.println("Patient found.\n");
 					System.out.println("Assistant: " + getName());			
 					
-					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), resultado.getSsn(), messages, name);
+					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), 
+									resultado.getSsn(), messages, name);
 					
 				}else {
 					InvalidPatientDialog.noPatientFound();
@@ -178,7 +179,8 @@ public class AssistCtrl implements ActionListener, KeyListener{
 					System.out.println("Patient found.\n");
 					System.out.println("Assistant: " + getName());			
 					
-					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), resultado.getSsn(), messages, name);
+					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), 
+									resultado.getSsn(), messages, name);
 					
 				}else {
 					InvalidPatientDialog.noPatientFound();

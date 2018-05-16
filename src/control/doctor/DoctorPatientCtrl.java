@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import control.MainCtrl;
 import model.Doctor;
@@ -176,7 +177,7 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 				frame.setModeMessages();
 				frame.setVisible(true);
 				MainCtrl.window.validate();
-			} catch (IOException e1) {
+			} catch (ClassNotFoundException | SQLException | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}

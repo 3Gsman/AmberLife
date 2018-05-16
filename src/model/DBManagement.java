@@ -78,6 +78,33 @@ public class DBManagement {
 		return v;
 
 	}
+	
+	public static Vector<Message> readMessages(String patientID) throws ClassNotFoundException, SQLException {
+		Vector<Message> messages = new Vector<>();
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+
+		Statement stmt = null;
+		stmt = c.createStatement();
+		ResultSet rs_message = stmt.executeQuery("SELECT * FROM Message WHERE IDptt LIKE " + patientID);
+		
+		while (rs_message.next()) {
+			ResultSet rs_author = stmt.executeQuery("SELECT User.IDuser, User.Name, User.LastName, Clinical.SSN "
+					+ "FROM	User, Clinical WHERE IDUser LIKE" + rs_message.getString("IDuser"));
+			Message m = new Message(Double.parseDouble(rs_message.getString("Date")), rs_message.getString("Data"), rs_author.getString("User.Name"),
+					rs_author.getString("User.LastName"), rs_author.getString("User.IDuser"),rs_author.getString("Clinical.SSN"));
+			messages.add(m);
+			rs_author.close();
+		}
+		
+		rs_message.close();
+		stmt.close();
+		c.close();
+
+		return messages;
+	}
 
 	public Vector<Doctor> getDoctors() throws SQLException, ClassNotFoundException {
 		Vector<Doctor> v = new Vector<>();

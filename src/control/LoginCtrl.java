@@ -172,9 +172,11 @@ public class LoginCtrl implements ActionListener, KeyListener {
 	 * 
 	 * @param usuario	the name of the program's user registered in the DB
 	 * @throws IOException
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * @see DoctorFr, DoctorCtrl
 	 */
-    public void openDoctor(String usuario) throws IOException {
+    public void openDoctor(String usuario) throws IOException, ClassNotFoundException, SQLException {
 
     	MainCtrl.window.toBackStack(vistaLogin);	//Cierra la ventana de inicio
         DoctorFr vp = new DoctorFr(getClass().getResource("/resources/BG.png"));	//crea nueva ventana
