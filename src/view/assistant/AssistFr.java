@@ -56,6 +56,10 @@
 			return textField.getText();
 		}
 		
+		public String getSSN() {
+			return textField.getText();
+		}
+		
 		public void addController(AssistCtrl controlador){
 			this.controller = controlador;
 		}

@@ -205,6 +205,7 @@ public class DBManagement {
 		stmt = c.createStatement();
 		
 		Patient pt = new Patient("null","null","null","null");
+		pt.setSsn("null");
 		
 		stmt.executeUpdate("create view PatientMinInfo as select IDPtt, Name,LastName,SSN from Patient");
 		
