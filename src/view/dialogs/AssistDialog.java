@@ -763,13 +763,13 @@ public class AssistDialog extends JDialog {
 		System.out.println("Creating new assistant");
 		try {
 			Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
-			String sql = "SELECT IDuser FROM Assistant where IDuser LIKE " + idField.getText();
+			String sql = "SELECT IDuser FROM User where IDuser LIKE '" + idField.getText() + "'"; 
 			Statement stmt =  c.createStatement();
 			ResultSet rs  = stmt.executeQuery(sql);
 			stmt.close();
 			c.close();
 			
-			if(rs.next() == true) System.out.println("An Assistant with that ID already exists");
+			if(rs.next() == true) System.out.println("An User with that ID already exists");
 			else uploadNewAssist();	
 			
 			rs.close();

@@ -221,9 +221,9 @@ public class DBManagement {
 		Statement stmt = null;
 		stmt = c.createStatement();
 		ResultSet rs_user = stmt.executeQuery("SELECT * FROM User WHERE Username LIKE " + username);
-		ResultSet rs_clinical = stmt.executeQuery("SELECT SSN FROM Clinical where IDuser LIKE " + rs_user.getString("IDuser"));
-		ResultSet rs_doctor = stmt.executeQuery("SELECT MLN FROM Doctor where IDuser LIKE " + rs_user.getString("IDuser"));
-		ResultSet rs_tlph = stmt.executeQuery("SELECT Number FROM Telephone where IDuser LIKE " + rs_user.getString("IDuser"));
+		ResultSet rs_clinical = stmt.executeQuery("SELECT SSN FROM Clinical WHERE IDuser LIKE " + rs_user.getString("IDuser"));
+		ResultSet rs_doctor = stmt.executeQuery("SELECT MLN FROM Doctor WHERE IDuser LIKE " + rs_user.getString("IDuser"));
+		ResultSet rs_tlph = stmt.executeQuery("SELECT Number FROM Telephone WHERE IDuser LIKE " + rs_user.getString("IDuser"));
 		
 		
 		Vector<Integer> phones = new Vector<Integer>();
