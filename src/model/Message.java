@@ -2,14 +2,14 @@ package model;
 
 public class Message {
 	
-	private double timestamp;
+	private String timestamp;
 	private String message;
 	private String authorname;
 	private String authorsurname;
 	private String authorID;
 	private String authorSSN;
 	
-	public Message(double timestamp, String message, String authorname, String authorsurname, String authorID, String authorSSN) {
+	public Message(String timestamp, String message, String authorname, String authorsurname, String authorID, String authorSSN) {
 		this.timestamp = timestamp;
 		this.message = message;
 		this.authorname = authorname;
@@ -18,10 +18,10 @@ public class Message {
 		this.authorSSN = authorSSN;	
 	}
 	
-	public double getTimestamp() {
+	public String getTimestamp() {
 		return timestamp;
 	}
-	public void setTimestamp(double timestamp) {
+	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
 	public String getMessage() {

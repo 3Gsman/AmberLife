@@ -122,7 +122,7 @@ public class AssistCtrl implements ActionListener, KeyListener{
 	 */
 	public void searchPatient() throws ClassNotFoundException, SQLException, IOException {
 		String dni = tf.getID();
-		Vector<String> messages = new Vector<>();
+		Vector<model.Message> messages = new Vector<>();
 		//DBManagement id = new DBManagement();
 		
 		if(tf.getMode() == true) {
@@ -185,7 +185,7 @@ public class AssistCtrl implements ActionListener, KeyListener{
 	 * @see     AssistPatientCtrl, AssistPatientFr
 	 * @throws	IOException
 	 */
-	public void openPatientTecn(String name, String lastname, String id, String ssn, Vector<String> messages, String user) throws IOException {
+	public void openPatientTecn(String name, String lastname, String id, String ssn, Vector<model.Message> messages, String user) throws IOException {
         AssistPatientFr vm = new AssistPatientFr(getClass().getResource("/resources/BG.png"));
         AssistPatientCtrl tc = new AssistPatientCtrl(vm);
         MainCtrl.window.toBackStack(tf);

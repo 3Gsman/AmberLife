@@ -94,7 +94,7 @@ public class DBManagement {
 		while (rs_message.next()) {
 			ResultSet rs_author = stmt.executeQuery("SELECT User.IDuser, User.Name, User.LastName, Clinical.SSN "
 					+ "FROM	User, Clinical WHERE IDUser LIKE" + rs_message.getString("IDuser"));
-			Message m = new Message(Double.parseDouble(rs_message.getString("Date")), rs_message.getString("Data"),
+			Message m = new Message(rs_message.getString("Date"), rs_message.getString("Data"),
 					rs_author.getString("User.Name"), rs_author.getString("User.LastName"),
 					rs_author.getString("User.IDuser"), rs_author.getString("Clinical.SSN"));
 			messages.add(m);
@@ -308,22 +308,26 @@ public class DBManagement {
 
 	}
 	
-	public static Vector<String> readPatientMessages(String idptt) throws IOException, ClassNotFoundException, SQLException {
+	public static Vector<Message> readPatientMessages(String idptt) throws IOException, ClassNotFoundException, SQLException {
 
 		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
-		Vector<String> messages = new Vector<>();
+		Vector<Message> messages = new Vector<>();
 		Class.forName("org.sqlite.JDBC");
 		c = DriverManager.getConnection("jdbc:sqlite:" + database);
 		Statement stmt = null;
 		stmt = c.createStatement();
 		
-		ResultSet rs = stmt.executeQuery(
-				"select Data from Message where IDptt = '" + idptt + "'");
+		ResultSet rs_ms = stmt.executeQuery("SELECT Patient.name, Patient.LastName, Patient.SSN, Message.Data, Message.Date "
+				+ "FROM	Patient, Message WHERE Patient.IDPtt = '" + idptt + "' and Message.IDPtt = '" + idptt + "'");
+		Message ms = new Message(rs_ms.getString("Date"), rs_ms.getString("Data"),
+				rs_ms.getString("Name"), rs_ms.getString("LastName"),
+				idptt, rs_ms.getString("SSN"));
 		
 		
-		while(rs.next()) {
-			messages.add(rs.getString("Data"));
+		while(rs_ms.next()) {
+			messages.add(ms);
+			rs_ms.close();
 		}
 		
 		return messages;

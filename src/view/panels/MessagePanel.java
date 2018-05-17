@@ -23,12 +23,12 @@ import javax.swing.ScrollPaneConstants;
 @SuppressWarnings("serial")
 public class MessagePanel extends JPanel {
 
-	String message;
+	model.Message message;
 	User u;
-	String date;
+	//String date;
 	ActionListener controller;
 	
-	public String getMessage(){
+	public model.Message getMessage(){
 		return message;
 	}
 	
@@ -36,17 +36,15 @@ public class MessagePanel extends JPanel {
 		return u;
 	}
 	
-	public String getDate() {
-		return date;
-	}
+
 	/**
 	 * Create the panel.
 	 * @throws IOException 
 	 */
-	public MessagePanel(ActionListener controller, User u, String date, String message) throws IOException {
+	public MessagePanel(ActionListener controller, User u, model.Message message) throws IOException {
 		this.message = message;
 		this.u = u;
-		this.date = date;
+
 		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{15, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 20, 60, 15, 0};
@@ -171,7 +169,7 @@ public class MessagePanel extends JPanel {
 		lblDate.setFont(sf);
 		panel_7.add(lblDate, BorderLayout.CENTER);
 		
-		JLabel label = new JLabel(date);
+		JLabel label = new JLabel(message.getTimestamp());
 		label.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.gridx = 2;
@@ -222,7 +220,7 @@ public class MessagePanel extends JPanel {
 		jta.setLineWrap(true);
 		jta.setEditable(false);
 		jta.setOpaque(false);
-		jta.setText(message);
+		jta.setText(message.getMessage());
 		scrollPane.setViewportView(jta);
 		
 

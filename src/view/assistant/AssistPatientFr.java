@@ -80,7 +80,7 @@ public class AssistPatientFr extends JPanelWithBackground {
 	 * Initialize the frame.
 	 * @throws IOException 
 	 */
-	public void initialize(String pname, String psurname, String id, String ssn, Vector<String> messages, String user) throws IOException {
+	public void initialize(String pname, String psurname, String id, String ssn, Vector<model.Message> messages, String user) throws IOException {
 		this.name = pname;
 		this.psurname = psurname;
 		this.id = id;
@@ -351,8 +351,8 @@ public class AssistPatientFr extends JPanelWithBackground {
 			JPanel jp = new JPanel();
 			jp.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
 			jp.setOpaque(false);
-			for(String s : messages) {
-				MessagePanel mp = new MessagePanel(controller, new User("234553X", "John", "Doe"), "24-3-18", s);
+			for(model.Message s : messages) {
+				MessagePanel mp = new MessagePanel(controller, new User(id, name, psurname), s);
 				jp.add(mp);
 			}
 			panel_2.setViewportView(jp);
