@@ -124,7 +124,7 @@ public class DBManagement {
 			Statement stmt2 = null;
 			stmt2 = c.createStatement();
 			ResultSet rs2 = stmt2.executeQuery("SELECT user.IDuser, telephone.number\r\n" + "from User\r\n"
-					+ "join Telephone\r\n" + "on telephone.id = user.IDuser\r\n" + "where user.iduser ='"
+					+ "join Telephone\r\n" + "on telephone.IDdoctor = user.IDuser\r\n" + "where user.iduser ='"
 					+ rs.getString("IDUser") + "'");
 
 			v.add(new Doctor(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDUser"),
