@@ -194,7 +194,7 @@ public class DBManagement {
 		c = DriverManager.getConnection("jdbc:sqlite:" + database);
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM Patient WHERE IDuser LIKE " + doctorID);
+		ResultSet rs = stmt.executeQuery("SELECT * FROM Patient WHERE IDuser LIKE '" + doctorID +"'");
 		
 		Vector<Patient> patients = new Vector<Patient>();
 		
@@ -220,22 +220,31 @@ public class DBManagement {
 		c = DriverManager.getConnection("jdbc:sqlite:" + database);
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs_user = stmt.executeQuery("SELECT * FROM User WHERE Username LIKE " + username);
-		ResultSet rs_clinical = stmt.executeQuery("SELECT SSN FROM Clinical WHERE IDuser LIKE " + rs_user.getString("IDuser"));
-		ResultSet rs_doctor = stmt.executeQuery("SELECT MLN FROM Doctor WHERE IDuser LIKE " + rs_user.getString("IDuser"));
-		ResultSet rs_tlph = stmt.executeQuery("SELECT Number FROM Telephone WHERE IDuser LIKE " + rs_user.getString("IDuser"));
+
+		ResultSet rs_user = stmt.executeQuery("SELECT * FROM User WHERE Username LIKE '" + username + "'");
+		String id = "'" +  rs_user.getString("IDuser")+ "'";
+		System.out.println(id);
+		ResultSet rs_clinical = stmt.executeQuery("SELECT SSN FROM Clinical WHERE IDuser LIKE " + id);
+		ResultSet rs_doctor = stmt.executeQuery("SELECT MLN FROM Doctor WHERE IDuser LIKE " + id);
+		ResultSet rs_tlph = stmt.executeQuery("SELECT Number FROM Telephone WHERE IDuser LIKE " + id);
+		stmt.close();
+		c.close();
+		
 		
 		
 		Vector<Integer> phones = new Vector<Integer>();
 		
-		while(rs_tlph.next()) {
+		while(rs_tlph.next()) 
 			rs_tlph.getInt("Number");
-		}
 		Doctor d = new Doctor(rs_user.getString("Name"), rs_user.getString("LastName"), rs_user.getString("IDuser"),
 								rs_clinical.getString("SSN"));
 		d.setMln(rs_doctor.getString("MLN"));
 		d.setPhone(phones);
 		//public Doctor(String n, String ln, String dni, String num, String p)
+		rs_user.close();
+		rs_clinical.close();
+		rs_doctor.close();
+		rs_tlph.close();
 		
 		return null;
 	}
