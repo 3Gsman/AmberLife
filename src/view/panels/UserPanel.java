@@ -203,7 +203,7 @@ public class UserPanel extends JPanel {
 					try {
 						Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 						Statement stmt =  c.createStatement();
-						stmt.execute("UPDATE User SET Active = \"NO\" WHERE IDuser LIKE " + id);
+						stmt.execute("UPDATE User SET Active = 0 WHERE IDuser LIKE '" + id + "'");
 						stmt.close();
 						c.close();
 					} catch (SQLException e1) {
