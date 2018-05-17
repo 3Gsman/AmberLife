@@ -8,6 +8,8 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import view.MainFr;
 import view.panels.JPanelWithBackground;
 
 import java.awt.GridBagLayout;
@@ -17,6 +19,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Arrays;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -36,6 +42,7 @@ import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class PatientDialog extends JDialog {
+	
 	private JTextField nameField;
 	private JTextField surnameField;
 	private JTextField idField;
@@ -47,13 +54,11 @@ public class PatientDialog extends JDialog {
 	private JComboBox<Object> boxstatus;
 	private JComboBox<Object> boxgenders;
 	
-	
-	
 	/**
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public PatientDialog(JPanelWithBackground f) throws IOException {
+	public PatientDialog(MainFr f, String doctorID, String patientID) throws IOException {
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 468);
 		setContentPane( new JPanelWithBackground(getClass().getResource("/resources/BG.png")));
@@ -737,33 +742,18 @@ public class PatientDialog extends JDialog {
 			JButton btnConfirm = new JButton("CONFIRM");
 			btnConfirm.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if (idField.getText().isEmpty() || nameField.getText().isEmpty() || surnameField.getText().isEmpty()
-								|| cityField.getText().isEmpty()	|| addressField.getText().isEmpty() || ssnField.getText().isEmpty()) {
+					System.out.println("Patient creation confirmed");
+					if (checkBoxesFilled()) {
 						JOptionPane.showMessageDialog(f, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
-					}else {
-						//Add to DB
-						String sql1 = "INSERT INTO Patient(IDptt, Name, LastName, Municipality, Address, Sex, Status, SSN, Doctor)" +
-										"VALUES(?,?,?,?,?,?,?,?,?)";
-						Connection c = null;
+					}
+					else {
 						try {
-							c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
-							PreparedStatement st1 = c.prepareStatement(sql1);
-							st1.setString(1, idField.getText());
-							//Doubt this is the best for security, consider this only temporal
-							st1.setString(2, nameField.getName());
-							st1.setString(3, surnameField.getName());
-							st1.setString(4, cityField.getText());
-							st1.setString(5, addressField.getText());
-							st1.setString(6, boxgenders.getSelectedObjects().toString());
-							st1.setString(7, boxstatus.getSelectedObjects().toString());
-							st1.setString(8, ssnField.getText());
-							st1.executeUpdate();		
-							st1.close();
-							c.close();
-						}
-						catch (Exception ex) {
-							ex.printStackTrace();
-						}
+							if (patientID == null) createNewPatient(doctorID);
+							else updatePatient(patientID, doctorID);			
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}		
 					}
 				}
 				
@@ -781,7 +771,142 @@ public class PatientDialog extends JDialog {
 			gbc_btnConfirm.gridy = 12;
 			getContentPane().add(btnConfirm, gbc_btnConfirm);
 		}
+		if(patientID != null) initializeFields(patientID);
 		this.setVisible(true);
+	}
+	
+	void initializeFields(String id) {
+		System.out.println("Initialize Fields");
+		try {
+		Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+		Statement stmt =  c.createStatement();
+		ResultSet rs_ptt  = stmt.executeQuery("SELECT * FROM Patient where IDptt LIKE " + id);
+		nameField.setText(rs_ptt.getString("Name"));
+		surnameField.setText(rs_ptt.getString("LastName"));
+		idField.setText(id);
+		ssnField.setText(rs_ptt.getString("SSN"));
+		cityField.setText(rs_ptt.getString("Municipality"));
+		addressField.setText(rs_ptt.getString("Address"));
+		
+		//FALTAN AQUI QUE SEAN OBJECT
+		//
+		/*String status = rs_ptt.getString("Status");
+		boxstatus.setSelectedItem(anObject);
+		*/
+		
+		boxgenders.setSelectedIndex((rs_ptt.getString("Sex") == "Male") ? 0 : 1);
+		rs_ptt.close();
+		stmt.close();
+		c.close();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	void createNewPatient(String doctorID) {
+		System.out.println("Creating new patient");
+		try {
+			Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			String sql = "SELECT IDptt FROM Patient where IDptt LIKE " + idField.getText();
+			Statement stmt =  c.createStatement();
+			ResultSet rs  = stmt.executeQuery(sql);
+			stmt.close();
+			c.close();
+			
+			if(rs.next() == true) System.out.println("A Patient with that ID already exists");
+			else uploadNewPatient(doctorID);	
+			
+			rs.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+	}
+	
+	void uploadNewPatient(String doctorID) {
+		String sql1 = "INSERT INTO Patient(IDptt, Name, LastName, Municipality, Address, Sex, Status, SSN, Doctor)" +
+				"VALUES(?,?,?,?,?,?,?,?,?)";
+		try {
+			Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			PreparedStatement st1 = c.prepareStatement(sql1);
+			st1.setString(1, idField.getText());
+			//Doubt this is the best for security, consider this only temporal
+			st1.setString(2, nameField.getName());
+			st1.setString(3, surnameField.getName());
+			st1.setString(4, cityField.getText());
+			st1.setString(5, addressField.getText());
+			st1.setString(6, boxgenders.getSelectedObjects().toString());
+			st1.setString(7, boxstatus.getSelectedObjects().toString());
+			st1.setString(8, ssnField.getText());
+			st1.setString(9, doctorID);
+			//DOCTOR GOES HERE
+			st1.executeUpdate();		
+			st1.close();
+			c.close();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	void updatePatient(String id,String docID) throws SQLException {
+		System.out.println("Update Doctor launched");
+		
+		Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+		String sql = "SELECT IDuser FROM Doctor where IDuser LIKE " + idField.getText();
+		Statement stmt =  c.createStatement();
+		ResultSet rs  = stmt.executeQuery(sql);
+		stmt.close();
+		c.close();
+		
+		if(id == idField.getText() ) { //IF we are not changing the ID, update it normally
+			Connection c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			//Update code
+			String sql1 = "UPDATE Patient SET IIDptt = ?, Name = ?, LastName = ?, Municipality = ?, Address = ?, Sex = ?, "
+					+ "Status = ?, SSN = ?, Doctor = ?";
+			String ID = idField.getText();
+			c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			PreparedStatement st1 = c2.prepareStatement(sql1);
+			st1.setString(1, idField.getText());
+			//Doubt this is the best for security, consider this only temporal
+			st1.setString(2, nameField.getName());
+			st1.setString(3, surnameField.getName());
+			st1.setString(4, cityField.getText());
+			st1.setString(5, addressField.getText());
+			st1.setString(6, boxgenders.getSelectedObjects().toString());
+			st1.setString(7, boxstatus.getSelectedObjects().toString());
+			st1.setString(8, ssnField.getText());
+			st1.setString(9, docID);
+			//DOCTOR GOES HERE
+			st1.executeUpdate();		
+			st1.close();
+			c.close();
+		}
+		else { //If the ID is changed, delete the table and instead create another one?
+			Connection c3 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);	
+			Statement stmt3=  c3.createStatement();
+			//Delete the old one and create a new one with the new ID and data
+			stmt3.execute("DELETE FROM Patient WHERE IDuser LIKE " + id);
+			
+			uploadNewPatient(docID);
+			
+			//UPDATE PATIENTS AND MESSAGES FOR NEW ID NOW
+			stmt3.execute("UPDATE ECG SET IDptt = " + idField.getText() + " WHERE IDptt LIKE " + id);
+			stmt3.execute("UPDATE Message SET IDptt = " + idField.getText() + " WHERE IDptt LIKE " + id);
+			stmt3.close();
+			c3.close();
+		}
+		
+		
+	}
+	
+	boolean checkBoxesFilled() {
+		return idField.getText().isEmpty() || nameField.getText().isEmpty() || surnameField.getText().isEmpty()
+				|| cityField.getText().isEmpty() || addressField.getText().isEmpty() || ssnField.getText().isEmpty();
 	}
 
 }
+

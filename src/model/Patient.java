@@ -4,7 +4,6 @@ import java.util.Vector;
 
 public class Patient {
 	
-	private String number;
 	private String name;
 	private String lastname;
 	private String id;
@@ -13,16 +12,10 @@ public class Patient {
 	private String address;
 	private String gender;
 	private String status;
-	private String message;
 	private Vector<ECG> ecgs;
 	
-	/**
-	 * Class constructor. Sets the patient's SSN 
-	 * 
-	 * @param num	the ssn of the patient
-	 */
 	public Patient(String num) {
-		setNumber(num);
+		setSsn(num);
 	}
 	
 	/**
@@ -34,11 +27,12 @@ public class Patient {
 	 * @param dni	the id of the patient
 	 */
 	public Patient(String num, String n, String ln, String dni) {
-		setNumber(num);
+		setSsn(num);
 		setName(n);
 		setLastname(ln);
 		setId(dni);
 	}
+	
 	
 	/**
 	 * Getter for the ecgs attribute.
@@ -55,22 +49,6 @@ public class Patient {
 	 */
 	public void setECGs(Vector<ECG> ecgs) {
 		this.ecgs = ecgs;
-	}
-	/**
-	 * Getter for the number attribute.
-	 * 
-	 * @return the ssn of the patient
-	 */
-	public String getNumber() {
-		return number;
-	}
-	/**
-	 * Setter for the number attribute.
-	 * 
-	 * @param number		the ssn of the patient
-	 */
-	public void setNumber(String number) {
-		this.number = number;
 	}
 	/**
 	 * Getter for the name attribute.
@@ -125,17 +103,21 @@ public class Patient {
 	 * 
 	 * @return the ssn of the patient
 	 */
+	
 	public String getSsn() {
 		return ssn;
 	}
+	
 	/**
 	 * Setter for the ssn attribute.
 	 * 
 	 * @param ssn		the ssn of the patient
 	 */
+	
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
 	}
+	
 	/**
 	 * Getter for the municipality attribute.
 	 * 
@@ -200,21 +182,4 @@ public class Patient {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	/**
-	 * Getter for the message attribute.
-	 * 
-	 * @return the message of the patient
-	 */
-	public String getMessage() {
-		return message;
-	}
-	/**
-	 * Setter for the message attribute.
-	 * 
-	 * @param message		the message of the patient
-	 */
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	
 }

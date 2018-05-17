@@ -19,6 +19,7 @@ import view.dialogs.InvalidPatientDialog;
 import model.FileManagement;
 import model.Patient;
 import model.Assistant;
+import model.DBManagement;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -64,7 +65,7 @@ public class AssistCtrl implements ActionListener, KeyListener{
 		 if (e.getActionCommand().equals("SEARCH")){;
 			try {
 				searchPatient();
-			} catch (IOException e1) {
+			} catch (ClassNotFoundException | SQLException  | IOException e1) {
 				e1.printStackTrace();
 			}
 		 }else if (e.getActionCommand().equals("BACK")) {
@@ -95,7 +96,7 @@ public class AssistCtrl implements ActionListener, KeyListener{
             try {
             	if(tf.getID() != "")
             		searchPatient();
-			} catch (IOException e1) {
+			} catch (ClassNotFoundException | SQLException  | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -121,33 +122,26 @@ public class AssistCtrl implements ActionListener, KeyListener{
 	 */
 	public void searchPatient() throws ClassNotFoundException, SQLException, IOException {
 		String dni = tf.getID();
-		FileManagement id = new FileManagement();
 		Vector<String> messages = new Vector<>();
+		//DBManagement id = new DBManagement();
+		
 		if(tf.getMode() == true) {
 			if(dni != null) {
-				Patient resultado = id.checkId(dni);
+				Patient resultado = DBManagement.checkId(dni);
+				System.out.println("DNI: " + resultado.getId());
 				
-				if(resultado.getNumber() != "null") {
+				if (resultado.getId() != "null") {
 					//Mensajes de DB
 					//messages = id.readPatientMessages(resultado.getNumber());
-					String database = "src/resources/BDAmberLife.db";
-					Connection c = null;
-					Class.forName("org.sqlite.JDBC");
-					c = DriverManager.getConnection("jdbc:sqlite:" + database);
-					Statement stmt = null;
-					stmt = c.createStatement();
-					ResultSet rs = stmt.executeQuery(
-							"select Data from Message where IDuser='" + dni + "'");
 					
+					messages = DBManagement.readPatientMessages(resultado.getId());
 					
-					while(rs.next()) {
-					messages.add(rs.getString("Data"));
-					}
 					
 					System.out.println("Patient found.\n");
 					System.out.println("Assistant: " + getName());			
 					
-					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), resultado.getSsn(), messages, name);
+					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), 
+									resultado.getSsn(), messages, name);
 					
 				}else {
 					InvalidPatientDialog.noPatientFound();
@@ -155,30 +149,21 @@ public class AssistCtrl implements ActionListener, KeyListener{
 			}
 		}else {
 			if(dni != null) {
-				Patient resultado = id.checkSsn(dni);
+				Patient resultado = DBManagement.checkSsn(dni);
 				
-				if(resultado.getNumber() != "null") {
+				System.out.println("SSN: " +resultado.getSsn());
+				
+				if (resultado.getSsn() != "null") {
 	
 					//messages = id.readPatientMessages(resultado.getNumber());
 					
-					String database = "src/resources/BDAmberLife.db";
-					Connection c = null;
-					Class.forName("org.sqlite.JDBC");
-					c = DriverManager.getConnection("jdbc:sqlite:" + database);
-					Statement stmt = null;
-					stmt = c.createStatement();
-					ResultSet rs = stmt.executeQuery(
-							"select Data from Message where IDuser='" + dni + "'");
-					
-					
-					while(rs.next()) {
-					messages.add(rs.getString("Data"));
-					}
+					messages = DBManagement.readPatientMessages(resultado.getId());
 					
 					System.out.println("Patient found.\n");
 					System.out.println("Assistant: " + getName());			
 					
-					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), resultado.getSsn(), messages, name);
+					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), 
+									resultado.getSsn(), messages, name);
 					
 				}else {
 					InvalidPatientDialog.noPatientFound();

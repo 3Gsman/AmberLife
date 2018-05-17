@@ -8,9 +8,12 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
 
 import control.MainCtrl;
+import model.DBManagement;
 import model.Doctor;
 import model.FileManagement;
 import model.Patient;
@@ -23,7 +26,7 @@ import javax.swing.JFrame;
 
 public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 
-	private String name;
+	private String username;
 	private DoctorFr df;
 	private Doctor doctor;
 	private String lastTyped = "";
@@ -35,19 +38,16 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 	 * @param  user	Username of the current user	
 	 * @param  f	Frame related to the controller	
 	 * @throws IOException
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * @see    DoctorFr
 	 */
-	public DoctorCtrl(String user, DoctorFr f) throws IOException {
-		FileManagement file = new FileManagement();
+	public DoctorCtrl(String user, DoctorFr f) throws IOException, ClassNotFoundException, SQLException {
 		df = f;
-		name = user;
-		doctor = file.readDoctor(name);
-		
-		FileManagement getpatients = new FileManagement();
-		for(int i = 0; i < doctor.getPatientlist().size(); i ++) {
+		username = user;
+		doctor = DBManagement.readDoctor(username);
 			
-			doctor.getPatientlist().set(i,getpatients.readPatient(doctor.getPatientlist().get(i).getNumber()));
-		}
+		doctor.setPatientlist(DBManagement.readPatients(doctor.getId()));
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 	 */
 	public void registerPatient() {
 		try {
-			PatientDialog pd = new PatientDialog(df);
+			PatientDialog pd = new PatientDialog(MainCtrl.window,doctor.getId(),null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
