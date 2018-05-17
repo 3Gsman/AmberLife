@@ -118,7 +118,7 @@ public class DBManagement {
 	}
 
 	// SE NECESITA PASAR A READECG el IDecg en vez del fichero
-	public ECG readECG(String IDecg) throws ClassNotFoundException, SQLException {
+	public static ECG readECG(String IDecg) throws ClassNotFoundException, SQLException {
 
 		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
@@ -162,7 +162,7 @@ public class DBManagement {
 
 	}
 
-	public Patient checkId(String dni) throws SQLException, ClassNotFoundException {
+	public static Patient checkId(String dni) throws SQLException, ClassNotFoundException {
 		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
 		Class.forName("org.sqlite.JDBC");
@@ -226,6 +226,41 @@ public class DBManagement {
 	}
 
 	public Patient readPatient(String IDptt) throws IOException, SQLException, ClassNotFoundException {
+
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Statement stmt = null;
+		stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery("select * from patient where patient.IDptt ='" + IDptt + "'");
+
+		Patient p = new Patient(IDptt);
+
+		p.setId(IDptt);
+		p.setName(rs.getString("Name"));
+		p.setLastname(rs.getString("LastName"));
+		p.setSsn(rs.getString("SSN"));
+		p.setMunicipality(rs.getString("Municipality"));
+		p.setAddress(rs.getString("Address"));
+		p.setGender(rs.getString("Gender"));
+		p.setStatus(rs.getString("Status"));
+		// p.setMessage
+
+		ECG ecg = new ECG();
+
+		Vector<ECG> ecgList = ecgList(IDptt);
+
+		p.setECGs(ecgList);
+
+		rs.close();
+		stmt.close();
+		c.close();
+
+		return p;
+	}
+	
+	public Patient readPatientAssist(String IDptt) throws IOException, SQLException, ClassNotFoundException {
 
 		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
