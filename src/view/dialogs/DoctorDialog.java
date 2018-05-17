@@ -832,13 +832,13 @@ public class DoctorDialog extends JDialog {
 		System.out.println("Creating new doctor");
 		try {
 			Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
-			String sql = "SELECT IDuser FROM Doctor where IDuser LIKE " + idField.getText();
+			String sql = "SELECT IDuser FROM User WHERE IDuser = '" + idField.getText()+ "'";
 			Statement stmt =  c.createStatement();
 			ResultSet rs  = stmt.executeQuery(sql);
 			stmt.close();
 			c.close();
 			
-			if(rs.next() == true) System.out.println("A Doctor with that ID already exists");
+			if(rs.next() == true) System.out.println("A User with that ID already exists");
 			else uploadNewDoctor();	
 			
 			rs.close();
@@ -855,7 +855,7 @@ public class DoctorDialog extends JDialog {
 				"VALUES(?,?,?,?,?,?,?)";
 		String sql2	 = "INSERT INTO CLINICAL(IDUser, SSN) VALUES(?,?)";
 		String sql3	 = "INSERT INTO Doctor(IDUser, MLN) VALUES(?,?)";
-		String sql4 = "INSERT INTO Telephones(ID, Number) VALUES (?,?)";
+		String sql4 = "INSERT INTO Telephone(ID, Number) VALUES (?,?)";
 		String ID = idField.getText();
 		
 		Connection c = null;
@@ -910,7 +910,7 @@ public class DoctorDialog extends JDialog {
 					+" LastName = ?, Username=?, Email =?";		
 			String sql2	 = "Update CLINICAL Set IDUser = ?, SSN = ?";
 			String sql3	 = "Update  Doctor Set IDUser = ?, MLN = ?";
-			String sql4 = "Update Telephones Set ID = ?, Number = ?";
+			String sql4 = "Update Telephone Set ID = ?, Number = ?";
 			String ID = idField.getText();
 			c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 			PreparedStatement st1 = c2.prepareStatement(sql1);
