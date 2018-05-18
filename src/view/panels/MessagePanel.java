@@ -198,7 +198,6 @@ public class MessagePanel extends JPanel {
 		gbc_btnNewButton.gridy = 1;
 		add(btnNewButton, gbc_btnNewButton);
 		
-		//Comentario para commit 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setOpaque(false);

@@ -128,7 +128,7 @@ public class DoctorPatientFr extends JPanelWithBackground {
 				jp.setOpaque(false);
 				for(Message s : messages) {
 					MessagePanel mp = new MessagePanel(controller, new User(s.getAuthorID(), s.getAuthorname(), 
-										s.getAuthorsurname()), String.valueOf(s.getTimestamp()), s.getMessage());
+										s.getAuthorsurname()), s);
 					jp.add(mp);
 				}
 				panel_2.setViewportView(jp);
