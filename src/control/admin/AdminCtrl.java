@@ -23,6 +23,8 @@ public class AdminCtrl implements ActionListener {
 	private Vector<Doctor> listamedicos;
 	private DoctorDialog dd;
 	private AssistDialog ad;
+	boolean doctor_mode = true;
+	
 	
 	/**
 	 * Class constructor, sets the related frame and gets the lists of Doctors and Assistants
@@ -60,7 +62,9 @@ public class AdminCtrl implements ActionListener {
     				af.initializeDoctors(listamedicos);
     				af.setButtons();
     				af.repaint();
-    				af.setVisible(true);	
+    				af.setVisible(true);
+    				af.validate();
+    				doctor_mode = true;
     		}
     	}
     	else if (e.getActionCommand().equals("ASSISTANTS")){
@@ -69,6 +73,8 @@ public class AdminCtrl implements ActionListener {
     				af.setButtons();
     				af.repaint();
     				af.setVisible(true);
+    				af.validate();
+    				doctor_mode = false;
     		}
     	}
     	else if (e.getActionCommand().equals("BACK")){
@@ -77,6 +83,32 @@ public class AdminCtrl implements ActionListener {
 			newDoctor();
 		}else if (e.getActionCommand().equals("NEWASSIST")) {
 			newAssist();
+		}else if (e.getActionCommand().equals("USER_UPDATE")) {
+			if(doctor_mode) {
+				try {
+					listamedicos = DBManagement.getDoctors();
+					af.initializeDoctors(listamedicos);
+    				af.setButtons();
+    				af.repaint();
+    				af.setVisible(true);
+    				af.validate();
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}else {
+				try {
+					listatecnicos = DBManagement.getAssistants();
+    				af.initializeAssistants(listatecnicos);
+    				af.setButtons();
+    				af.repaint();
+    				af.setVisible(true);
+    				af.validate();
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
 		}else System.out.println("Invalid Action");
     
     	
@@ -109,7 +141,7 @@ public class AdminCtrl implements ActionListener {
 	 */
 	public void newDoctor() {
 		try {
-			 dd = new DoctorDialog(MainCtrl.window, null);
+			 dd = new DoctorDialog(MainCtrl.window, this, null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -125,7 +157,7 @@ public class AdminCtrl implements ActionListener {
 	 */
 	public void newAssist() {
 		try {
-			ad = new AssistDialog(MainCtrl.window, null);
+			ad = new AssistDialog(MainCtrl.window, this, null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

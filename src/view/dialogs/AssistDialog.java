@@ -41,6 +41,9 @@ import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class AssistDialog extends JDialog {
+	
+	private ActionListener windowToRefresh;
+	
 	private JTextField nameField;
 	private JTextField surnameField;
 	private JPasswordField passField;
@@ -55,7 +58,8 @@ public class AssistDialog extends JDialog {
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public AssistDialog(JFrame f, String id) throws IOException {
+	public AssistDialog(JFrame f, ActionListener windowToRefresh,  String id) throws IOException {
+		this.windowToRefresh = windowToRefresh;
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 468);
 		setContentPane( new JPanelWithBackground(getClass().getResource("/resources/BG.png")));
@@ -96,7 +100,10 @@ public class AssistDialog extends JDialog {
 			gbc_panel.gridy = 0;
 			getContentPane().add(panel, gbc_panel);
 			{
-				JLabel lblNewLabel_2 = new JLabel("Introduce new assistant data");
+				JLabel lblNewLabel_2;
+				if(id != null) {
+					lblNewLabel_2 = new JLabel("Introduce new assistant data");
+				} else {lblNewLabel_2 = new JLabel("Editing assistant"); }
 				lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel_2.setForeground(Color.WHITE);
 				lblNewLabel_2.setFont(sf);
@@ -815,6 +822,7 @@ public class AssistDialog extends JDialog {
 			st3.executeUpdate();
 			st3.close();
 			c.close();
+			windowToRefresh.actionPerformed(new ActionEvent(this, 0, "USER_UPDATE"));
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
@@ -862,6 +870,7 @@ public class AssistDialog extends JDialog {
 			st3.executeUpdate();
 			st3.close();
 			c2.close();
+			windowToRefresh.actionPerformed(new ActionEvent(this, 0, "USER_UPDATE"));
 		}
 		else { //If the ID is changed, delete the table and instead create another one?
 			Connection c3 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);	

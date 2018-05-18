@@ -35,6 +35,8 @@ import javax.swing.ImageIcon;
 @SuppressWarnings("serial")
 public class UserPanel extends JPanel {	
 	
+	private ActionListener windowToRefresh;
+	
 	private String name;
 	private String id;
 	
@@ -44,14 +46,17 @@ public class UserPanel extends JPanel {
 	public UserPanel() {
 		try {
 			initialize("John Doe", "XXXXXXX");
+			windowToRefresh = new ActionListener(){
+				public void actionPerformed(ActionEvent e) {	}};
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public UserPanel(String name, String id) {
+	public UserPanel(ActionListener windowToRefresh, String name, String id) {
 		try {
+			this.windowToRefresh = windowToRefresh;
 			initialize(name, id);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -162,10 +167,10 @@ public class UserPanel extends JPanel {
 						ResultSet rs = stmt.executeQuery("select IDUser from doctor where iduser='" + id + "'");
 
 						if (rs.next() == false) {
-							AssistDialog ad = new AssistDialog(MainCtrl.window, id);
+							AssistDialog ad = new AssistDialog(MainCtrl.window, windowToRefresh, id);
 						}
 						else {
-							DoctorDialog dd = new DoctorDialog(MainCtrl.window, id);
+							DoctorDialog dd = new DoctorDialog(MainCtrl.window, windowToRefresh, id);
 						}
 						stmt.close();
 						c.close();
@@ -207,6 +212,7 @@ public class UserPanel extends JPanel {
 						stmt.execute("UPDATE User SET Active = 0 WHERE IDuser LIKE '" + id + "'");
 						stmt.close();
 						c.close();
+						windowToRefresh.actionPerformed(new ActionEvent(this, 0, "USER_UPDATE"));
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

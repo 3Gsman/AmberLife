@@ -43,6 +43,8 @@ import java.awt.event.ActionEvent;
 @SuppressWarnings("serial")
 public class DoctorDialog extends JDialog {
 	
+	private ActionListener windowToRefresh;
+	
 	private JTextField nameField;
 	private JTextField surnameField;
 	private JPasswordField passField;
@@ -60,7 +62,7 @@ public class DoctorDialog extends JDialog {
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public DoctorDialog(JFrame f, String id) throws IOException {
+	public DoctorDialog(JFrame f, ActionListener windowToRefresh, String id) throws IOException {
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 468);
 		setContentPane( new JPanelWithBackground(getClass().getResource("/resources/BG.png")));
@@ -101,7 +103,10 @@ public class DoctorDialog extends JDialog {
 			gbc_panel.gridy = 0;
 			getContentPane().add(panel, gbc_panel);
 			{
-				JLabel lblNewLabel_2 = new JLabel("Introduce new doctor data");
+				JLabel lblNewLabel_2;
+				if(id != null) {
+					lblNewLabel_2 = new JLabel("Introduce new doctor data");
+				} else {lblNewLabel_2 = new JLabel("Editing doctor"); }
 				lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel_2.setForeground(Color.WHITE);
 				lblNewLabel_2.setFont(sf);
@@ -769,7 +774,6 @@ public class DoctorDialog extends JDialog {
 						try {
 							if (id == null) createNewDoctor();
 							else updateDoctor(id);
-							
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -791,7 +795,10 @@ public class DoctorDialog extends JDialog {
 			gbc_btnConfirm.gridy = 12;
 			getContentPane().add(btnConfirm, gbc_btnConfirm);
 		}
-		if(id != null) initializeFields(id);
+		if(id != null) {
+			initializeFields(id);
+		}
+		
 		this.setVisible(true);
 	}
 	
@@ -896,6 +903,7 @@ public class DoctorDialog extends JDialog {
 			st4.setString(2,phoneField.getText());
 			st4.close();
 			c.close();
+			windowToRefresh.actionPerformed(new ActionEvent(this, 0, "USER_UPDATE"));
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
@@ -949,6 +957,7 @@ public class DoctorDialog extends JDialog {
 			st4.close();
 			c2.close();
 			rs.close();
+			windowToRefresh.actionPerformed(new ActionEvent(this, 0, "USER_UPDATE"));
 		}
 		else { //If the ID is changed, delete the table and instead create another one?
 			Connection c3 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);	
