@@ -43,6 +43,8 @@ import java.awt.event.ActionEvent;
 @SuppressWarnings("serial")
 public class PatientDialog extends JDialog {
 	
+	ActionListener controller;
+	
 	private JTextField nameField;
 	private JTextField surnameField;
 	private JTextField idField;
@@ -58,7 +60,8 @@ public class PatientDialog extends JDialog {
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public PatientDialog(MainFr f, String doctorID, String patientID) throws IOException {
+	public PatientDialog(MainFr f, ActionListener controller, String doctorID, String patientID) throws IOException {
+		this.controller = controller;
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 468);
 		setContentPane( new JPanelWithBackground(getClass().getResource("/resources/BG.png")));
@@ -780,7 +783,7 @@ public class PatientDialog extends JDialog {
 		try {
 		Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 		Statement stmt =  c.createStatement();
-		ResultSet rs_ptt  = stmt.executeQuery("SELECT * FROM Patient where IDptt LIKE " + id);
+		ResultSet rs_ptt  = stmt.executeQuery("SELECT * FROM Patient where IDptt LIKE '" + id + "'");
 		nameField.setText(rs_ptt.getString("Name"));
 		surnameField.setText(rs_ptt.getString("LastName"));
 		idField.setText(id);
@@ -794,7 +797,7 @@ public class PatientDialog extends JDialog {
 		boxstatus.setSelectedItem(anObject);
 		*/
 		
-		boxgenders.setSelectedIndex((rs_ptt.getString("Sex") == "Male") ? 0 : 1);
+		boxgenders.setSelectedIndex((rs_ptt.getString("Sex").equals("Male")) ? 0 : 1);
 		rs_ptt.close();
 		stmt.close();
 		c.close();
@@ -834,8 +837,8 @@ public class PatientDialog extends JDialog {
 			PreparedStatement st1 = c.prepareStatement(sql1);
 			st1.setString(1, idField.getText());
 			//Doubt this is the best for security, consider this only temporal
-			st1.setString(2, nameField.getName());
-			st1.setString(3, surnameField.getName());
+			st1.setString(2, nameField.getText());
+			st1.setString(3, surnameField.getText());
 			st1.setString(4, cityField.getText());
 			st1.setString(5, addressField.getText());
 			st1.setString(6, boxgenders.getSelectedObjects().toString());
@@ -846,6 +849,8 @@ public class PatientDialog extends JDialog {
 			st1.executeUpdate();		
 			st1.close();
 			c.close();
+			
+			controller.actionPerformed(new ActionEvent(this, 0, "PATIENT_UPDATE"));
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
@@ -884,6 +889,7 @@ public class PatientDialog extends JDialog {
 			st1.executeUpdate();		
 			st1.close();
 			c.close();
+			controller.actionPerformed(new ActionEvent(this, 0, "PATIENT_UPDATE"));
 		}
 		else { //If the ID is changed, delete the table and instead create another one?
 			Connection c3 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);	

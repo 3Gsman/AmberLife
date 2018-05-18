@@ -580,15 +580,15 @@ public class AssistDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				cityField = new JTextField();
-				cityField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				cityField.setColumns(10);
-				cityField.setBorder(null);
+				emailField = new JTextField();
+				emailField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				emailField.setColumns(10);
+				emailField.setBorder(null);
 				GridBagConstraints gbc_cityField = new GridBagConstraints();
 				gbc_cityField.fill = GridBagConstraints.BOTH;
 				gbc_cityField.gridx = 2;
 				gbc_cityField.gridy = 1;
-				panel.add(cityField, gbc_cityField);
+				panel.add(emailField, gbc_cityField);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -733,23 +733,26 @@ public class AssistDialog extends JDialog {
 		try {
 		Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 		Statement stmt =  c.createStatement();
-		ResultSet rs_assist  = stmt.executeQuery("SELECT * FROM Assistant where IDuser LIKE " + id);
-		ResultSet rs_clinical = stmt.executeQuery("SELECT * FROM Clinical where IDuser LIKE " + id);
-		ResultSet rs_user = stmt.executeQuery("SELECT * FROM User where IDuser LIKE " + id);
-
-		nameField.setText(rs_user.getString("Name"));
-		surnameField.setText(rs_user.getString("LastName"));
-		passField.setText(rs_user.getString("Password"));
-		confirmField.setText(rs_user.getString("Password"));
+		
+		ResultSet rs = stmt.executeQuery("SELECT User.Name, User.LastName, User.Password, User.Username," +
+										"User.Email, Assistant.Municipality, CLINICAL.SSN FROM User, Assistant, CLINICAL " +
+										"WHERE User.IDUser LIKE '" + id + "' AND Assistant.IDUser LIKE '" + id + "' AND "
+										+ " CLINICAL.IDUser LIKE '" + id + "'");
+		
+		nameField.setText(rs.getString("Name"));
+		surnameField.setText(rs.getString("LastName"));
+		passField.setText(rs.getString("Password"));
+		confirmField.setText(rs.getString("Password"));
 		idField.setText(id);
-		ssnField.setText(rs_clinical.getString("SSN"));
-		usernameField.setText(rs_user.getString("Username"));
-		emailField.setText(rs_user.getString("Email"));
-		cityField.setText(rs_assist.getString("Municipality"));
 
-		rs_assist.close();
-		rs_clinical.close();
-		rs_user.close();
+		usernameField.setText(rs.getString("Username"));
+		emailField.setText(rs.getString("Email"));
+		cityField.setText(rs.getString("Municipality"));
+		ssnField.setText(String.valueOf(rs.getInt("SSN")));
+
+		rs.close();
+		rs.close();
+		rs.close();
 		stmt.close();
 		c.close();
 		
@@ -822,7 +825,7 @@ public class AssistDialog extends JDialog {
 		System.out.println("Update Doctor launched");
 		
 		Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
-		String sql = "SELECT IDuser FROM Doctor where IDuser LIKE " + idField.getText();
+		String sql = "SELECT IDuser FROM Doctor where IDuser LIKE '" + idField.getText() + "'";
 		Statement stmt =  c.createStatement();
 		ResultSet rs  = stmt.executeQuery(sql);
 		stmt.close();
@@ -864,15 +867,15 @@ public class AssistDialog extends JDialog {
 			Connection c3 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);	
 			Statement stmt3=  c3.createStatement();
 			//Delete the old one and create a new one with the new ID and data
-			stmt3.execute("DELETE FROM Assistant WHERE IDuser LIKE " + id);
-			stmt3.execute("DELETE FROM User WHERE IDuser LIKE " + id);
-			stmt3.execute("DELETE FROM Clinical WHERE IDuser LIKE " + id);
+			stmt3.execute("DELETE FROM Assistant WHERE IDuser LIKE '" + id + "'");
+			stmt3.execute("DELETE FROM User WHERE IDuser LIKE '" + id + "'");
+			stmt3.execute("DELETE FROM Clinical WHERE IDuser LIKE '" + id + "'");
 			
 			uploadNewAssist();
 			
 			//UPDATE PATIENTS AND MESSAGES FOR NEW ID NOW
-			stmt3.execute("UPDATE ECG SET IDuser = " + idField.getText() + " WHERE IDuser LIKE " + id);
-			stmt3.execute("UPDATE Message SET IDuser = " + idField.getText() + " WHERE IDuser LIKE " + id);
+			stmt3.execute("UPDATE ECG SET IDuser = " + idField.getText() + " WHERE IDuser LIKE '" + id + "'");
+			stmt3.execute("UPDATE Message SET IDuser = " + idField.getText() + " WHERE IDuser LIKE '" + id + "'");
 			stmt3.close();
 			c3.close();
 		}

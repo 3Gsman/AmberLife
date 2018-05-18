@@ -159,16 +159,17 @@ public class UserPanel extends JPanel {
 					try {
 						Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 						Statement stmt =  c.createStatement();
-						ResultSet rs = stmt.executeQuery("SELECT IDuser FROM Doctor WHERE IDuser LIKE " + id);
+						ResultSet rs = stmt.executeQuery("select IDUser from doctor where iduser='" + id + "'");
+
+						if (rs.next() == false) {
+							AssistDialog ad = new AssistDialog(MainCtrl.window, id);
+						}
+						else {
+							DoctorDialog dd = new DoctorDialog(MainCtrl.window, id);
+						}
 						stmt.close();
 						c.close();
 						
-						if(rs.next() == true) {
-							DoctorDialog dd = new DoctorDialog(MainCtrl.window, id);
-						}
-						else {
-							AssistDialog ad = new AssistDialog(MainCtrl.window, id);
-						}
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

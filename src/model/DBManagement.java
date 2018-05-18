@@ -53,7 +53,7 @@ public class DBManagement {
 		return user;
 	}
 
-	public Vector<Assistant> getAssistants() throws ClassNotFoundException, SQLException {
+	public static Vector<Assistant> getAssistants() throws ClassNotFoundException, SQLException {
 		Vector<Assistant> v = new Vector<>();
 		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
@@ -64,7 +64,7 @@ public class DBManagement {
 		stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery(
 				"SELECT Assistant.IDuser, assistant.Municipality, user.Username, user.Name, user.LastName\r\n"
-						+ "from Assistant\r\n" + "join User\r\n" + "on assistant.iduser = user.iduser where Active = 'Yes'");
+						+ "from Assistant\r\n" + "join User\r\n" + "on assistant.iduser = user.iduser where Active != 0");
 
 		while (rs.next()) {
 			v.add(new Assistant(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDUser"),
@@ -108,7 +108,7 @@ public class DBManagement {
 		return messages;
 	}
 
-	public Vector<Doctor> getDoctors() throws SQLException, ClassNotFoundException {
+	public static Vector<Doctor> getDoctors() throws SQLException, ClassNotFoundException {
 		Vector<Doctor> v = new Vector<>();
 		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
@@ -120,13 +120,13 @@ public class DBManagement {
 		ResultSet rs = stmt
 				.executeQuery("SELECT Doctor.IDuser, user.Username, user.Name, user.LastName, clinical.ssn\r\n"
 						+ "from doctor\r\n" + "join User\r\n" + "on doctor.iduser = user.iduser\r\n"
-						+ "join CLINICAL\r\n" + "on doctor.iduser = clinical.iduser where active = 'Yes'");
+						+ "join CLINICAL\r\n" + "on doctor.iduser = clinical.iduser where active != 0");
 
 		while (rs.next()) {
 			Statement stmt2 = null;
 			stmt2 = c.createStatement();
 			ResultSet rs2 = stmt2.executeQuery("SELECT user.IDuser, telephone.number\r\n" + "from User\r\n"
-					+ "join Telephone\r\n" + "on telephone.id = user.IDuser\r\n" + "where user.iduser ='"
+					+ "join Telephone\r\n" + "on telephone.iduser = user.IDuser\r\n" + "where user.iduser ='"
 					+ rs.getString("IDUser") + "'");
 
 			v.add(new Doctor(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDUser"),
@@ -144,7 +144,7 @@ public class DBManagement {
 	}
 
 	// SE NECESITA PASAR A READECG el IDecg en vez del fichero
-	public ECG readECG(String IDecg) throws ClassNotFoundException, SQLException {
+	public static ECG readECG(String IDecg) throws ClassNotFoundException, SQLException {
 
 		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
@@ -197,7 +197,7 @@ public class DBManagement {
 		c = DriverManager.getConnection("jdbc:sqlite:" + database);
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM Patient WHERE IDuser LIKE " + doctorID);
+		ResultSet rs = stmt.executeQuery("SELECT * FROM Patient WHERE Doctor LIKE '" + doctorID + "'");
 
 		Vector<Patient> patients = new Vector<Patient>();
 
@@ -221,28 +221,42 @@ public class DBManagement {
 		Connection c = null;
 		Class.forName("org.sqlite.JDBC");
 		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs_user = stmt.executeQuery("SELECT * FROM User WHERE Username LIKE " + username);
-		ResultSet rs_clinical = stmt
-				.executeQuery("SELECT SSN FROM Clinical where IDuser LIKE " + rs_user.getString("IDuser"));
-		ResultSet rs_doctor = stmt
-				.executeQuery("SELECT MLN FROM Doctor where IDuser LIKE " + rs_user.getString("IDuser"));
-		ResultSet rs_tlph = stmt
-				.executeQuery("SELECT Number FROM Telephone where IDuser LIKE " + rs_user.getString("IDuser"));
+		ResultSet rs_id = stmt.executeQuery("SELECT IDUser FROM User WHERE Username LIKE '" + username + "'");
+		String id = rs_id.getString("IDuser");
+		rs_id.close();
+		stmt.close();
+		
+		Statement stmt2 =  c.createStatement();
+		ResultSet rs = stmt2.executeQuery("SELECT User.Name, User.LastName, User.Password, User.Username," +
+				"User.Email, Doctor.MLN, CLINICAL.SSN FROM User, Doctor, CLINICAL " +
+				"WHERE User.IDUser LIKE '" + id + "' AND Doctor.IDUser LIKE '" + id + "' AND "
+				+ " CLINICAL.IDUser LIKE '" + id + "'");
+		
+		Statement stmt3 = c.createStatement();
+		ResultSet rs_tlph = 
+				stmt3.executeQuery("SELECT Number FROM Telephone where IDuser LIKE '" + id + "'");
 
 		Vector<Integer> phones = new Vector<Integer>();
 
 		while (rs_tlph.next()) {
-			rs_tlph.getInt("Number");
+			phones.add(rs_tlph.getInt("Number"));
 		}
-		Doctor d = new Doctor(rs_user.getString("Name"), rs_user.getString("LastName"), rs_user.getString("IDuser"),
-				rs_clinical.getString("SSN"));
-		d.setMln(rs_doctor.getString("MLN"));
+		
+		Doctor d = new Doctor(rs.getString("Name"), rs.getString("LastName"), id,
+				String.valueOf(rs.getInt("SSN")));
+		d.setMln(String.valueOf(rs.getInt("MLN")));
 		d.setPhone(phones);
 		// public Doctor(String n, String ln, String dni, String num, String p)
 
-		return null;
+		rs.close();
+		stmt2.close();
+		rs_tlph.close();
+		stmt3.close();
+		c.close();
+		return d;
 	}
 
 	public static Patient checkId(String dni) throws SQLException, ClassNotFoundException {

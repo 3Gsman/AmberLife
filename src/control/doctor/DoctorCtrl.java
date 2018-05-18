@@ -57,12 +57,20 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 	 */
 	public void registerPatient() {
 		try {
-			PatientDialog pd = new PatientDialog(MainCtrl.window,doctor.getId(),null);
+			PatientDialog pd = new PatientDialog(MainCtrl.window,this,doctor.getId(),null);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void updateList() {
+		df.initializeList();
+	    df.repaint();
+		lastTyped = df.getText();
+		MainCtrl.window.validate();
 	}
 
 	/**
@@ -84,6 +92,15 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 		}
 		else if (e.getActionCommand().equals("NEW")) {
 			registerPatient();
+		}
+		else if (e.getActionCommand().equals("PATIENT_UPDATE")) {
+			try {
+				doctor.setPatientlist(DBManagement.readPatients(doctor.getId()));
+				updateList();
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		else System.out.println("Invalid Action");
 		//DEPRECATED OPTION

@@ -100,10 +100,10 @@ public class DoctorFr extends JPanelWithBackground {
 				if ((d.getName() + " " + d.getLastname()).toLowerCase().contains(search.toLowerCase()) ||	
 					d.getId().toLowerCase().contains(search.toLowerCase()) ||
 					d.getSsn().toLowerCase().contains(search.toLowerCase())){
-						viewport.add(new PatientPanel(d, controller,doctorID));
+						viewport.add(new PatientPanel(d, controller, controller,doctorID));
 				}	
 		}	
-		else for(Patient d : patients) viewport.add(new PatientPanel(d, controller,doctorID));
+		else for(Patient d : patients) viewport.add(new PatientPanel(d, controller, controller,doctorID));
 				
 		//str1.toLowerCase().contains(str2.toLowerCase())
 		

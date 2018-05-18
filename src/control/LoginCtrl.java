@@ -131,10 +131,9 @@ public class LoginCtrl implements ActionListener, KeyListener {
         String usuario = vistaLogin.getUsername();	//recoge el contenido del JTextField
         char caracteres[] = vistaLogin.getPassword();	//array de caracteres que coge los elementos que se encuentran en el JPasswordField
         String Password = String.valueOf(caracteres);	//Convierte los elementos del array en un String
-        DBManagement comprobar = new DBManagement();
         
         try {
-            String resultado[] = comprobar.checkUser(usuario, Password);
+            String resultado[] = DBManagement.checkUser(usuario, Password);
             if (resultado[0] == "true") {
             	vistaLogin.resetText();
                 switch (resultado[1]) {

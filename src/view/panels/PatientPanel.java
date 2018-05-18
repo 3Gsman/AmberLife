@@ -36,6 +36,7 @@ public class PatientPanel extends JPanel {
 	
 	private Patient p;
 	private String doctorID;
+	private ActionListener windowToRefresh;
 	/**
 	 * Create the panel.
 	 */
@@ -50,9 +51,10 @@ public class PatientPanel extends JPanel {
 		}
 	}
 	
-	public PatientPanel(Patient p, MouseListener con, String doctorID) {
+	public PatientPanel(Patient p, MouseListener con, ActionListener windowToRefresh, String doctorID) {
 		this.p = p;
 		this.doctorID = doctorID;
+		this.windowToRefresh = windowToRefresh;
 		try {
 			initialize(p,con);
 		} catch (IOException e) {
@@ -162,7 +164,7 @@ public class PatientPanel extends JPanel {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					PatientDialog pd = new PatientDialog(MainCtrl.window, doctorID ,p.getId());
+					PatientDialog pd = new PatientDialog(MainCtrl.window,windowToRefresh, doctorID ,p.getId());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -197,12 +199,11 @@ public class PatientPanel extends JPanel {
 						stmt.execute("DELETE FROM Patient WHERE IDptt LIKE " + p.getId());
 						stmt.close();
 						c.close();
+						windowToRefresh.actionPerformed(new ActionEvent(this, 0, "PATIENT_UPDATE"));
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-						
-						
-						
+
 					}
 				} else System.out.println("Deletion Cancelled");
 		}
