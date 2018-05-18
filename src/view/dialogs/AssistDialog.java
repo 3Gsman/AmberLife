@@ -852,7 +852,7 @@ public class AssistDialog extends JDialog {
 			st1.setString(1, ID);
 			//Doubt this is the best for security, consider this only temporal
 			st1.setString(2, String.valueOf(passField.getPassword()));
-			st1.setString(3, "YES");
+			st1.setInt(3, 1);
 			st1.setString(4, nameField.getText());
 			st1.setString(5, surnameField.getText());
 			st1.setString(6, usernameField.getText());
@@ -877,8 +877,8 @@ public class AssistDialog extends JDialog {
 			Statement stmt3=  c3.createStatement();
 			//Delete the old one and create a new one with the new ID and data
 			stmt3.execute("DELETE FROM Assistant WHERE IDuser LIKE '" + id + "'");
-			stmt3.execute("DELETE FROM User WHERE IDuser LIKE '" + id + "'");
 			stmt3.execute("DELETE FROM Clinical WHERE IDuser LIKE '" + id + "'");
+			stmt3.execute("DELETE FROM User WHERE IDuser LIKE '" + id + "'");
 			
 			uploadNewAssist();
 			

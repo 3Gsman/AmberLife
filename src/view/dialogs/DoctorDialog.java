@@ -871,7 +871,7 @@ public class DoctorDialog extends JDialog {
 				"VALUES(?,?,?,?,?,?,?)";
 		String sql2	 = "INSERT INTO CLINICAL(IDUser, SSN) VALUES(?,?)";
 		String sql3	 = "INSERT INTO Doctor(IDUser, MLN) VALUES(?,?)";
-		String sql4 = "INSERT INTO Telephone(ID, Number) VALUES (?,?)";
+		String sql4 = "INSERT INTO Telephone(IDuser, Number) VALUES (?,?)";
 		String ID = idField.getText();
 		
 		Connection c = null;
@@ -934,7 +934,7 @@ public class DoctorDialog extends JDialog {
 			st1.setString(1, ID);
 			//Doubt this is the best for security, consider this only temporal
 			st1.setString(2, String.valueOf(passField.getPassword()));
-			st1.setString(3, "YES");
+			st1.setInt(3, 1);
 			st1.setString(4, nameField.getText());
 			st1.setString(5, surnameField.getText());
 			st1.setString(6, usernameField.getText());
@@ -964,9 +964,9 @@ public class DoctorDialog extends JDialog {
 			Statement stmt3=  c3.createStatement();
 			//Delete the old one and create a new one with the new ID and data
 			stmt3.execute("DELETE FROM Doctor WHERE IDuser LIKE '" + id + "'");
-			stmt3.execute("DELETE FROM User WHERE IDuser LIKE '" + id + "'");
 			stmt3.execute("DELETE FROM Clinical WHERE IDuser LIKE '" + id + "'");
 			stmt3.execute("DELETE FROM Telephone WHERE ID LIKE '" + id + "'");
+			stmt3.execute("DELETE FROM User WHERE IDuser LIKE '" + id + "'");
 			
 			uploadNewDoctor();
 			

@@ -180,14 +180,15 @@ public class DoctorPatientFr extends JPanelWithBackground {
 	}
 	
 	public void loadECGPanel(Vector<ECG> v, JPanel viewport) {		
-		
-		for(ECG e : v)
-			try {
-				viewport.add(new EcgPanel(e,this.controller));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+		if(v!= null) {
+			for(ECG e : v)
+				try {
+					viewport.add(new EcgPanel(e,this.controller));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		}else {System.out.println("NULL ECG VECTOR");}
 	}
 	
 	/**

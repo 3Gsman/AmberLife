@@ -24,6 +24,9 @@ import view.panels.MessagePanel;
 public class AssistPatientCtrl  implements ActionListener, KeyListener{
 	
 	private AssistPatientFr patient;
+	private String assistID;
+	private String patientID;
+	
 	
 	/**
 	 * Class constructor, sets the related frame.
@@ -31,9 +34,10 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 	 * @param  f	Frame related to the controller	
 	 * @see    AssistPatientFr
 	 */
-	public AssistPatientCtrl(AssistPatientFr f) {
+	public AssistPatientCtrl(AssistPatientFr f, String assistID, String patientID) {
 		patient = f;
-		
+		this.assistID = assistID;
+		this.patientID = patientID;
 	}
 
 	@Override
@@ -114,7 +118,7 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 			 System.out.println(" Reply");
 			 try {
 				MessagePanel mp = (MessagePanel) ((Component) e.getSource()).getParent();
-				NewMessageDialog nmd = new NewMessageDialog(patient.getName(), patient.getLastname(),
+				NewMessageDialog nmd = new NewMessageDialog(patient.getName() + " " + patient.getLastname(), assistID, patientID,
 						"From: " + mp.getUser().getName() + " " + mp.getUser().getLastname() + " on " + mp.getMessage().getTimestamp() + "\n"
 						+ "RE: " + mp.getMessage() + "\n");
 			} catch (IOException e1) {
@@ -124,7 +128,7 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 			
 		}else  if (e.getActionCommand().equals("NEWMESSAGE")){ 
 			try {
-				NewMessageDialog nmd = new NewMessageDialog(patient.getName(), patient.getLastname(),"");
+				NewMessageDialog nmd = new NewMessageDialog(patient.getName()+ " " + patient.getLastname(),assistID, patientID,"");
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

@@ -15,6 +15,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import javax.swing.SwingConstants;
 import model.LocalizationService;
+import model.Message;
 import model.User;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -23,12 +24,12 @@ import javax.swing.ScrollPaneConstants;
 @SuppressWarnings("serial")
 public class MessagePanel extends JPanel {
 
-	model.Message message;
+	Message message;
 	User u;
 	//String date;
 	ActionListener controller;
 	
-	public model.Message getMessage(){
+	public Message getMessage(){
 		return message;
 	}
 	
@@ -41,7 +42,7 @@ public class MessagePanel extends JPanel {
 	 * Create the panel.
 	 * @throws IOException 
 	 */
-	public MessagePanel(ActionListener controller, User u, model.Message message) throws IOException {
+	public MessagePanel(ActionListener controller, User u, Message message) throws IOException {
 		this.message = message;
 		this.u = u;
 

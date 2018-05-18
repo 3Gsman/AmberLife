@@ -187,7 +187,7 @@ public class AssistCtrl implements ActionListener, KeyListener{
 	 */
 	public void openPatientTecn(String name, String lastname, String id, String ssn, Vector<model.Message> messages, String user) throws IOException {
         AssistPatientFr vm = new AssistPatientFr(getClass().getResource("/resources/BG.png"));
-        AssistPatientCtrl tc = new AssistPatientCtrl(vm);
+        AssistPatientCtrl tc = new AssistPatientCtrl(vm,tecnico.getId(),id);
         MainCtrl.window.toBackStack(tf);
         vm.addController(tc);
         vm.initialize(name, lastname, id, ssn, messages, user);

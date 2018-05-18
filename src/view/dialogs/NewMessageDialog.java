@@ -35,7 +35,7 @@ public class NewMessageDialog extends JDialog {
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public NewMessageDialog(String name, String lastname, String text) throws IOException {
+	public NewMessageDialog(String fullname, String IDuser, String IDptt, String text) throws IOException {
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 491, 349);
 		getContentPane().setLayout(new BorderLayout());
@@ -52,7 +52,7 @@ public class NewMessageDialog extends JDialog {
 		Dimension d = new Dimension(400, 300);
 		this.setSize(d);
 		this.setResizable(false);
-		this.setTitle("New Message: " + name + " " + lastname);
+		this.setTitle("New Message: " + fullname);
 		
 		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
@@ -123,6 +123,13 @@ public class NewMessageDialog extends JDialog {
 		JButton btnNewButton = new JButton("OK");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//UPLOAD MESSAGE TO DB GOES HERE
+				
+				
+				
+				
+				
 				System.out.println("New Message confirmed");
 			}
 		});
