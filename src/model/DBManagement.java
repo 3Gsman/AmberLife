@@ -96,7 +96,7 @@ public class DBManagement {
 					+ "FROM	User, Clinical WHERE IDUser LIKE" + rs_message.getString("IDuser"));
 			Message m = new Message(rs_message.getString("Date"), rs_message.getString("Data"),
 					rs_author.getString("User.Name"), rs_author.getString("User.LastName"),
-					rs_author.getString("User.IDuser"), rs_author.getString("Clinical.SSN"));
+					rs_author.getString("User.IDuser"), rs_author.getString("Clinical.SSN"), patientID);
 			messages.add(m);
 			rs_author.close();
 		}
@@ -395,17 +395,18 @@ public class DBManagement {
 		Statement stmt = null;
 		stmt = c.createStatement();
 		
-		ResultSet rs_ms = stmt.executeQuery("SELECT Patient.name, Patient.LastName, Patient.SSN, Message.Data, Message.Date "
-				+ "FROM	Patient, Message WHERE Patient.IDPtt = '" + idptt + "' and Message.IDPtt = '" + idptt + "'");
-		Message ms = new Message(rs_ms.getString("Date"), rs_ms.getString("Data"),
-				rs_ms.getString("Name"), rs_ms.getString("LastName"),
-				idptt, rs_ms.getString("SSN"));
+		ResultSet rs_ms = stmt.executeQuery("SELECT User.name, User.LastName, CLINICAL.SSN, Message.Data, Message.Date "
+				+ "FROM	User, Message, CLINICAL WHERE CLINICAL.IDuser LIKE Message.IDuser AND User.IDuser LIKE Message.IDuser "
+				+ "AND Message.IDPtt = '" + idptt + "'");
 		
-		
+
 		while(rs_ms.next()) {
+			Message ms = new Message(rs_ms.getString("Date"), rs_ms.getString("Data"),
+					rs_ms.getString("Name"), rs_ms.getString("LastName"),
+					idptt, rs_ms.getString("SSN"), idptt);
 			messages.add(ms);
-			rs_ms.close();
 		}
+		rs_ms.close();
 		
 		return messages;
 		

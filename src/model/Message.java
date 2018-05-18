@@ -8,14 +8,17 @@ public class Message {
 	private String authorsurname;
 	private String authorID;
 	private String authorSSN;
+	private String patientID;
 	
-	public Message(String timestamp, String message, String authorname, String authorsurname, String authorID, String authorSSN) {
+	public Message(String timestamp, String message, String authorname, String authorsurname,
+					String authorID, String authorSSN, String patientID) {
 		this.timestamp = timestamp;
 		this.message = message;
 		this.authorname = authorname;
 		this.authorsurname = authorsurname;
 		this.authorID = authorID;	
-		this.authorSSN = authorSSN;	
+		this.patientID = patientID;
+		this.setAuthorSSN(authorSSN);	
 	}
 	
 	public String getTimestamp() {
@@ -47,6 +50,22 @@ public class Message {
 	}
 	public void setAuthorsurname(String authorsurname) {
 		this.authorsurname = authorsurname;
+	}
+
+	public String getAuthorSSN() {
+		return authorSSN;
+	}
+
+	public void setAuthorSSN(String authorSSN) {
+		this.authorSSN = authorSSN;
+	}
+
+	public String getPatientID() {
+		return patientID;
+	}
+
+	public void setPatientID(String patientID) {
+		this.patientID = patientID;
 	}
 
 }

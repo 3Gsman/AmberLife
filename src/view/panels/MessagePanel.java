@@ -111,7 +111,7 @@ public class MessagePanel extends JPanel {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_6.add(lblNewLabel, BorderLayout.CENTER);
 		
-		JLabel lblNewLabel_1 = new JLabel(u.getName() + " " + u.getLastname());
+		JLabel lblNewLabel_1 = new JLabel(message.getAuthorname() + " " + message.getAuthorsurname());
 		lblNewLabel_1.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.gridx = 2;
