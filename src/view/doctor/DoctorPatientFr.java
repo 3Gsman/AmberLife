@@ -40,6 +40,8 @@ import view.panels.MessagePanel;
 
 @SuppressWarnings("serial")
 public class DoctorPatientFr extends JPanelWithBackground {
+	
+	private Font font;
 
 
 	public DoctorPatientFr(URL url) throws IOException {
@@ -188,7 +190,15 @@ public class DoctorPatientFr extends JPanelWithBackground {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-		}else {System.out.println("NULL ECG VECTOR");}
+		}else {
+			JLabel noecgs = new JLabel();
+			System.out.println("NULL ECG VECTOR");	
+			Font sf = font.deriveFont(28f);
+			noecgs.setFont(sf);
+			noecgs.setForeground( new Color(255, 255, 255, 140) );
+			viewport.add(noecgs);
+			}
+		
 	}
 	
 	/**
@@ -207,7 +217,7 @@ public class DoctorPatientFr extends JPanelWithBackground {
 
 		//Get PROMETHEUS font
 		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
-		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
+		font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 		Font sf = font; // will use sf to change the style;
 		try {
 			font = Font.createFont(Font.TRUETYPE_FONT, is);

@@ -89,15 +89,20 @@ public class DBManagement {
 
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs_message = stmt.executeQuery("SELECT * FROM Message WHERE IDptt LIKE " + patientID);
+		ResultSet rs_message = stmt.executeQuery("SELECT * FROM Message WHERE IDptt LIKE '" + patientID + "'");
 
 		while (rs_message.next()) {
-			ResultSet rs_author = stmt.executeQuery("SELECT User.IDuser, User.Name, User.LastName, Clinical.SSN "
-					+ "FROM	User, Clinical WHERE IDUser LIKE" + rs_message.getString("IDuser"));
+			Statement stmt2 = c.createStatement();
+			ResultSet rs_author = stmt2.executeQuery("SELECT User.IDuser, User.Name, User.LastName, Clinical.SSN "
+						+ "FROM	User, Clinical WHERE User.IDUser LIKE '" + rs_message.getString("IDuser") + "' AND "
+						+ "CLINICAL.IDuser LIKE '"  + rs_message.getString("IDuser") + "'");
+			
+			
 			Message m = new Message(rs_message.getString("Date"), rs_message.getString("Data"),
-					rs_author.getString("User.Name"), rs_author.getString("User.LastName"),
-					rs_author.getString("User.IDuser"), rs_author.getString("Clinical.SSN"), patientID);
+					rs_author.getString("Name"), rs_author.getString("LastName"),
+					rs_author.getString("IDuser"), rs_author.getString("SSN"), patientID);
 			messages.add(m);
+			stmt2.close();
 			rs_author.close();
 		}
 
