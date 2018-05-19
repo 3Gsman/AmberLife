@@ -52,6 +52,24 @@ public class DBManagement {
 
 		return user;
 	}
+	
+	public static Assistant readAssistant(String username) throws SQLException, ClassNotFoundException {
+		
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+
+		Statement stmt = null;
+		stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT * FROM Assistant JOIN User ON Assistant.IDUser = User.IDUser"
+				+ " WHERE username = '" + username + "'");
+		
+		Assistant ass = new Assistant(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDuser"), 
+				rs.getString("Municipality"), rs.getString("Username"));
+		
+		return ass;
+	}
 
 	public static Vector<Assistant> getAssistants() throws ClassNotFoundException, SQLException {
 		Vector<Assistant> v = new Vector<>();

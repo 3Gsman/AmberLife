@@ -2,6 +2,7 @@ package model;
 
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Assistant extends User {
 	
@@ -30,15 +31,16 @@ public class Assistant extends User {
 	 * 
 	 * @param un	username to be read from the DB
 	 * @throws IOException
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public Assistant(String un) throws IOException {
-		FileManagement t = new FileManagement();
-		String t2[] = t.readAssistant(un);
-		name = t2[0];
-		lastname = t2[1];
-		id = t2[2];
-		city = t2[3];
-		username = t2[4];
+	public Assistant(String un) throws IOException, ClassNotFoundException, SQLException {
+		Assistant ass = DBManagement.readAssistant(un);
+		name = ass.name;
+		lastname = ass.lastname;
+		id = ass.id;
+		city = ass.city;
+		username = ass.username;
 		
 	}
 

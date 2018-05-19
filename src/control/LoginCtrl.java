@@ -193,9 +193,11 @@ public class LoginCtrl implements ActionListener, KeyListener {
 	 * 
 	 * @param usuario	the name of the program's user registered in the DB
 	 * @throws IOException
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * @see AssistFr, AssistCtrl
 	 */
-    public void openAssistant(String usuario) throws IOException {
+    public void openAssistant(String usuario) throws IOException, ClassNotFoundException, SQLException {
 
     	MainCtrl.window.toBackStack(vistaLogin);	
         AssistFr vm = new AssistFr(getClass().getResource("/resources/BG.png"));

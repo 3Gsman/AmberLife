@@ -39,9 +39,11 @@ public class AssistCtrl implements ActionListener, KeyListener{
 	 * @param  user	Name of the current user
 	 * @param  fr	Frame related to the controller	
 	 * @throws IOException
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * @see    AssistFr
 	 */
-	public AssistCtrl(String user, AssistFr fr) throws IOException {
+	public AssistCtrl(String user, AssistFr fr) throws IOException, ClassNotFoundException, SQLException {
 		tf = fr;
 		name = user;
 		tecnico = new Assistant(user);
