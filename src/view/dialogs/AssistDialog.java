@@ -709,7 +709,8 @@ public class AssistDialog extends JDialog {
 					else {
 						try {
 							if (id == null) createNewAssist();
-							else updateAssist(id);				
+							else updateAssist(id);	
+							dispose();
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

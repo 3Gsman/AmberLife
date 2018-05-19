@@ -775,6 +775,7 @@ public class DoctorDialog extends JDialog {
 						try {
 							if (id == null) createNewDoctor();
 							else updateDoctor(id);
+							dispose();
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -924,11 +925,11 @@ public class DoctorDialog extends JDialog {
 		stmt.close();
 		c.close();
 		
-		if(id == idField.getText() ) { //IF we are not changing the ID, update it normally
+		if(idField.getText().equals(id) ) { //IF we are not changing the ID, update it normally
 			Connection c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 			//Update code
-			String sql1 = "UPDATE User SET IDuser = ?, Password = ?, Active = ?, Name = ?,+"
-					+" LastName = ?, Username=?, Email =?";		
+			String sql1 = "UPDATE User SET IDuser = ?, Password = ?, Active = ?, Name = ?,"
+					+ " LastName = ?, Username=?, Email =?";		
 			String sql2	 = "Update CLINICAL Set IDUser = ?, SSN = ?";
 			String sql3	 = "Update  Doctor Set IDUser = ?, MLN = ?";
 			String sql4 = "Update Telephone Set ID = ?, Number = ?";
@@ -969,14 +970,14 @@ public class DoctorDialog extends JDialog {
 			//Delete the old one and create a new one with the new ID and data
 			stmt3.execute("DELETE FROM Doctor WHERE IDuser LIKE '" + id + "'");
 			stmt3.execute("DELETE FROM Clinical WHERE IDuser LIKE '" + id + "'");
-			stmt3.execute("DELETE FROM Telephone WHERE ID LIKE '" + id + "'");
+			stmt3.execute("DELETE FROM Telephone WHERE IDuser LIKE '" + id + "'");
 			stmt3.execute("DELETE FROM User WHERE IDuser LIKE '" + id + "'");
 			
 			uploadNewDoctor();
 			
 			//UPDATE PATIENTS AND MESSAGES FOR NEW ID NOW
-			stmt3.execute("UPDATE Patient SET Doctor = " + idField.getText() + " WHERE Doctor LIKE '" + id + "'");
-			stmt3.execute("UPDATE Message SET IDuser = " + idField.getText() + " WHERE IDuser LIKE '" + id + "'");
+			stmt3.execute("UPDATE Patient SET Doctor = '" + idField.getText() + "' WHERE Doctor LIKE '" + id + "' ");
+			stmt3.execute("UPDATE Message SET IDuser = '" + idField.getText() + "' WHERE IDuser LIKE '" + id + "'");
 			stmt3.close();
 			c3.close();
 		}
