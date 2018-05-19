@@ -167,6 +167,7 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			messagePanel.removeAll();
 			messagePanel.add(initializeECG(), BorderLayout.CENTER);
 			this.repaint();
+			this.validate();
 			mode = "ECGS";
 		}
 	}
@@ -177,7 +178,18 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			messagePanel.removeAll();
 			messagePanel.add(new AlphaContainer(initializeMessages()), BorderLayout.CENTER);
 			this.repaint();
+			this.validate();
 			mode = "MESSAGES";
+		}
+	}
+	
+	public void refreshMessages() throws IOException, ClassNotFoundException, SQLException{
+		if(mode == "MESSAGES") {
+			//this.getthis().remove(messagePanel);
+			messagePanel.removeAll();
+			messagePanel.add(new AlphaContainer(initializeMessages()), BorderLayout.CENTER);
+			this.repaint();
+			this.validate();
 		}
 	}
 	

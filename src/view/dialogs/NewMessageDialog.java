@@ -9,10 +9,15 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import control.MainCtrl;
 import view.panels.JPanelWithBackground;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -24,6 +29,7 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.sql.Timestamp;
 
 @SuppressWarnings("serial")
 public class NewMessageDialog extends JDialog {
@@ -35,7 +41,7 @@ public class NewMessageDialog extends JDialog {
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public NewMessageDialog(String fullname, String IDuser, String IDptt, String text) throws IOException {
+	public NewMessageDialog(ActionListener windowToRefresh, String fullname, String IDuser, String IDptt, String text) throws IOException {
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 491, 349);
 		getContentPane().setLayout(new BorderLayout());
@@ -126,9 +132,24 @@ public class NewMessageDialog extends JDialog {
 				
 				//UPLOAD MESSAGE TO DB GOES HERE
 				
-				
-				
-				
+				String sql = "INSERT INTO Message(IDuser, IDptt, Data, Date, Seen) VALUES(?,?,?,?,?)";
+				Connection c;
+				try {
+					c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+					PreparedStatement st = c.prepareStatement(sql);
+					st.setString(1, IDuser);
+					st.setString(2, IDptt);
+					st.setString(3, area.getText());
+					st.setString(4, String.valueOf(new Timestamp(System.currentTimeMillis())));
+					st.setInt(5,1);
+					st.executeUpdate();			
+					st.close();
+					c.close();
+					windowToRefresh.actionPerformed(new ActionEvent(this, 0, "MESSAGE_UPDATE"));
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 				System.out.println("New Message confirmed");
 			}

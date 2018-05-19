@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import control.assistant.AssistPatientCtrl;
 import model.LocalizationService;
+import model.Message;
 import model.User;
 import view.layouts.WrapLayout;
 import view.panels.AlphaContainer;
@@ -44,6 +45,9 @@ public class AssistPatientFr extends JPanelWithBackground {
 
 
 	public AssistPatientCtrl controller;
+	public JPanel messageboard;
+	private MessagePanel mp;
+	private Vector<Message> messages;
 	
 	private String name;
 	private String psurname;
@@ -81,6 +85,7 @@ public class AssistPatientFr extends JPanelWithBackground {
 	 * @throws IOException 
 	 */
 	public void initialize(String pname, String psurname, String id, String ssn, Vector<model.Message> messages, String user) throws IOException {
+		this.messages = messages;
 		this.name = pname;
 		this.psurname = psurname;
 		this.id = id;
@@ -337,25 +342,22 @@ public class AssistPatientFr extends JPanelWithBackground {
 		//If there's messages
 		
 		if(messages.equals(null)) {
-			JPanel jp = new JPanel();
-			jp.setLayout(new BorderLayout());
-			jp.setOpaque(false);
+			messageboard = new JPanel();
+			messageboard.setLayout(new BorderLayout());
+			messageboard.setOpaque(false);
 			JLabel lblNewLabel_2 = new JLabel(LocalizationService.getWord("nomessages"));
 			sf = font.deriveFont(28f);
 			lblNewLabel_2.setFont(sf);
 			lblNewLabel_2.setForeground(new Color(80, 77, 77, 255));
 			lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-			jp.add(lblNewLabel_2, BorderLayout.CENTER);
-			panel_2.setViewportView(jp);
+			messageboard.add(lblNewLabel_2, BorderLayout.CENTER);
+			panel_2.setViewportView(messageboard);
 		}else {
-			JPanel jp = new JPanel();
-			jp.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
-			jp.setOpaque(false);
-			for(model.Message s : messages) {
-				MessagePanel mp = new MessagePanel(controller, new User(id, name, psurname), s);
-				jp.add(mp);
-			}
-			panel_2.setViewportView(jp);
+			messageboard = new JPanel();
+			messageboard.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
+			messageboard.setOpaque(false);
+			refreshMessages(messageboard);
+			panel_2.setViewportView(messageboard);
 		}
 		
 		JButton btnNewButton = new JButton("");
@@ -399,5 +401,24 @@ public class AssistPatientFr extends JPanelWithBackground {
 		gbc_btnMeasure.gridy = 18;
 		this.add(btnMeasure, gbc_btnMeasure);
 	}
+
+
+
+	public void refreshMessages(JPanel jp) {
+		jp.removeAll();
+		for(Message s : messages) {
+			try {
+				mp = new MessagePanel(controller, new User(id, name, psurname), s);
+				jp.add(mp);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		this.validate();
+		
+	}
+
 
 }
