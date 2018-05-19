@@ -97,7 +97,7 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 			try {
 				doctor.setPatientlist(DBManagement.readPatients(doctor.getId()));
 				updateList();
-			} catch (ClassNotFoundException | SQLException e1) {
+			} catch (ClassNotFoundException | SQLException | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}

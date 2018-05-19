@@ -194,7 +194,7 @@ public class DBManagement {
 	}
 
 	// *
-	public static Vector<Patient> readPatients(String doctorID) throws ClassNotFoundException, SQLException {
+	public static Vector<Patient> readPatients(String doctorID) throws ClassNotFoundException, SQLException, IOException {
 
 		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
@@ -213,6 +213,7 @@ public class DBManagement {
 			p.setAddress(rs.getString("Address"));
 			p.setGender(rs.getString("Sex"));
 			p.setStatus(rs.getString("Status"));
+			p.setECGs(ecgList(rs.getString("IDptt")));
 
 			patients.add(p);
 		}
