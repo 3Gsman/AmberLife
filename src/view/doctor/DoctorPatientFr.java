@@ -191,7 +191,7 @@ public class DoctorPatientFr extends JPanelWithBackground {
 					e1.printStackTrace();
 				}
 		}else {
-			JLabel noecgs = new JLabel();
+			JLabel noecgs = new JLabel("Patient has no ECGs to display");
 			System.out.println("NULL ECG VECTOR");	
 			Font sf = font.deriveFont(28f);
 			noecgs.setFont(sf);
