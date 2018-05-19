@@ -63,6 +63,7 @@ public class DoctorDialog extends JDialog {
 	 * @throws IOException 
 	 */
 	public DoctorDialog(JFrame f, ActionListener windowToRefresh, String id) throws IOException {
+		this.windowToRefresh = windowToRefresh;
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 468);
 		setContentPane( new JPanelWithBackground(getClass().getResource("/resources/BG.png")));
@@ -782,7 +783,7 @@ public class DoctorDialog extends JDialog {
 				}
 			});
 			
-			btnConfirm.setActionCommand("CONFIRM");
+			//btnConfirm.setActionCommand("CONFIRM");
 			btnConfirm.setBorderPainted(false);
 			btnConfirm.setBackground(grey);
 			btnConfirm.setForeground(Color.WHITE);
@@ -832,10 +833,12 @@ public class DoctorDialog extends JDialog {
 			phones.add(rs_tlph.getInt("Number"));
 		}
 		
-		phoneField.setText(String.valueOf(phones.get(0)));
+		phoneField.setText(String.valueOf(phones.firstElement()));
 		
 		rs.close();
 		stmt.close();
+		stmt2.close();
+		rs_tlph.close();
 		c.close();
 		
 		} catch (SQLException e) {
@@ -868,7 +871,7 @@ public class DoctorDialog extends JDialog {
 	void uploadNewDoctor() {
 		System.out.println("Upload new doctor launched");
 		String sql1 = "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)" +
-				"VALUES(?,?,?,?,?,?,?)";
+						"VALUES(?,?,?,?,?,?,?)";
 		String sql2	 = "INSERT INTO CLINICAL(IDUser, SSN) VALUES(?,?)";
 		String sql3	 = "INSERT INTO Doctor(IDUser, MLN) VALUES(?,?)";
 		String sql4 = "INSERT INTO Telephone(IDuser, Number) VALUES (?,?)";
@@ -901,6 +904,7 @@ public class DoctorDialog extends JDialog {
 			PreparedStatement st4 = c.prepareStatement(sql4);
 			st4.setString(1, ID);
 			st4.setString(2,phoneField.getText());
+			st4.executeUpdate();
 			st4.close();
 			c.close();
 			windowToRefresh.actionPerformed(new ActionEvent(this, 0, "USER_UPDATE"));
