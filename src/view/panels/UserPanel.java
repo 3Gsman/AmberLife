@@ -3,24 +3,39 @@ package view.panels;
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Arrays;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 
 import javax.swing.SwingConstants;
 
+import control.MainCtrl;
 import model.LocalizationService;
+import view.dialogs.AssistDialog;
+import view.dialogs.DoctorDialog;
 
 import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
-public class UserPanel extends JPanel {
+public class UserPanel extends JPanel {	
 	
+	private ActionListener windowToRefresh;
 	
 	private String name;
 	private String id;
@@ -31,14 +46,17 @@ public class UserPanel extends JPanel {
 	public UserPanel() {
 		try {
 			initialize("John Doe", "XXXXXXX");
+			windowToRefresh = new ActionListener(){
+				public void actionPerformed(ActionEvent e) {	}};
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public UserPanel(String name, String id) {
+	public UserPanel(ActionListener windowToRefresh, String name, String id) {
 		try {
+			this.windowToRefresh = windowToRefresh;
 			initialize(name, id);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -57,7 +75,7 @@ public class UserPanel extends JPanel {
 		Color grey = new Color(80, 77, 77, 255);
 		
 		//Get PROMETHEUS font
-				java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
 				Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 				Font sf = font; // will use sf to change the style;
 				try {
@@ -140,6 +158,34 @@ public class UserPanel extends JPanel {
 		panel_1.add(label);
 		
 		JButton button = new JButton("");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					try {
+						Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+						Statement stmt =  c.createStatement();
+						ResultSet rs = stmt.executeQuery("select IDUser from doctor where iduser='" + id + "'");
+
+						if (rs.next() == false) {
+							AssistDialog ad = new AssistDialog(MainCtrl.window, windowToRefresh, id);
+						}
+						else {
+							DoctorDialog dd = new DoctorDialog(MainCtrl.window, windowToRefresh, id);
+						}
+						stmt.close();
+						c.close();
+						
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		button.setBorderPainted(false);
 		button.setBorder(null);
 		button.setMargin(new Insets(0, 0, 0, 0));
@@ -154,6 +200,26 @@ public class UserPanel extends JPanel {
 		add(button, gbc_button);
 		
 		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("User Deletion initiated");
+				int confirm = JOptionPane.showConfirmDialog (null, "Are you sure you want to delete this user?",
+															"Warning",JOptionPane.YES_NO_OPTION);
+				if(confirm == JOptionPane.YES_OPTION){
+					try {
+						Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+						Statement stmt =  c.createStatement();
+						stmt.execute("UPDATE User SET Active = 0 WHERE IDuser LIKE '" + id + "'");
+						stmt.close();
+						c.close();
+						windowToRefresh.actionPerformed(new ActionEvent(this, 0, "USER_UPDATE"));
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} else System.out.println("Deletion Cancelled");
+		}
+		});
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.setBorder(null);
 		btnNewButton.setMargin(new Insets(0, 0, 0, 0));

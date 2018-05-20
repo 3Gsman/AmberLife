@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import control.MainCtrl;
 import model.Doctor;
@@ -156,9 +157,9 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 		}else  if (e.getActionCommand().equals("REPLY")){ 	
 			 try {
 				 MessagePanel mp = (MessagePanel) ((Component) e.getSource()).getParent();
-				 NewMessageDialog nmd = new NewMessageDialog(p.getName(), p.getLastname(),
-							"From: " + mp.getUser().getName() + " " + mp.getUser().getLastname() + " on " + mp.getDate() + "\n"
-							 + "RE: " + mp.getMessage() + "\n") ;
+				 NewMessageDialog nmd = new NewMessageDialog(this,p.getName() + " " + p.getLastname(), d.getId() , p.getId(),
+							"From: " + mp.getUser().getName() + " " + mp.getUser().getLastname() + " on " + mp.getMessage().getTimestamp() + "\n"
+							 + "RE: " + mp.getMessage().getMessage() + "\n") ;
 			} catch (IOException ex) {
 				// TODO Auto-generated catch block
 				ex.printStackTrace();
@@ -166,7 +167,7 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 		}else if (e.getActionCommand().equals("NEWMESSAGE")){ 
 			System.out.println("New Message");
 			try {
-				NewMessageDialog nmd = new NewMessageDialog(p.getName(),p.getLastname(),"");
+				NewMessageDialog nmd = new NewMessageDialog(this,p.getName() + " " + p.getLastname(),d.getId(),p.getId(),"");
 			} catch (IOException ex) {
 				// TODO Auto-generated catch block
 				ex.printStackTrace();
@@ -176,7 +177,14 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 				frame.setModeMessages();
 				frame.setVisible(true);
 				MainCtrl.window.validate();
-			} catch (IOException e1) {
+			} catch (ClassNotFoundException | SQLException | IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}else if (e.getActionCommand().equals("MESSAGE_UPDATE")){
+			try {
+				frame.refreshMessages();
+			} catch (ClassNotFoundException | IOException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}

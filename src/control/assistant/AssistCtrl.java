@@ -5,6 +5,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Iterator;
 import java.util.Vector;
 
 import control.MainCtrl;
@@ -14,6 +19,13 @@ import view.dialogs.InvalidPatientDialog;
 import model.FileManagement;
 import model.Patient;
 import model.Assistant;
+import model.DBManagement;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class AssistCtrl implements ActionListener, KeyListener{
 
@@ -27,9 +39,11 @@ public class AssistCtrl implements ActionListener, KeyListener{
 	 * @param  user	Name of the current user
 	 * @param  fr	Frame related to the controller	
 	 * @throws IOException
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * @see    AssistFr
 	 */
-	public AssistCtrl(String user, AssistFr fr) throws IOException {
+	public AssistCtrl(String user, AssistFr fr) throws IOException, ClassNotFoundException, SQLException {
 		tf = fr;
 		name = user;
 		tecnico = new Assistant(user);
@@ -53,7 +67,7 @@ public class AssistCtrl implements ActionListener, KeyListener{
 		 if (e.getActionCommand().equals("SEARCH")){;
 			try {
 				searchPatient();
-			} catch (IOException e1) {
+			} catch (ClassNotFoundException | SQLException  | IOException e1) {
 				e1.printStackTrace();
 			}
 		 }else if (e.getActionCommand().equals("BACK")) {
@@ -84,7 +98,7 @@ public class AssistCtrl implements ActionListener, KeyListener{
             try {
             	if(tf.getID() != "")
             		searchPatient();
-			} catch (IOException e1) {
+			} catch (ClassNotFoundException | SQLException  | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -108,21 +122,28 @@ public class AssistCtrl implements ActionListener, KeyListener{
 	 *
 	 * @throws	IOException
 	 */
-	public void searchPatient() throws IOException {
+	public void searchPatient() throws ClassNotFoundException, SQLException, IOException {
 		String dni = tf.getID();
-		FileManagement id = new FileManagement();
-		Vector<String> messages = new Vector<>();
+		Vector<model.Message> messages = new Vector<>();
+		//DBManagement id = new DBManagement();
+		
 		if(tf.getMode() == true) {
 			if(dni != null) {
-				Patient resultado = id.checkId(dni);
+				Patient resultado = DBManagement.checkId(dni);
+				System.out.println("DNI: " + resultado.getId());
 				
-				if(resultado.getNumber() != "null") {
-	
-					messages = id.readPatientMessages(resultado.getNumber());
-					System.out.println("Patient found.\n");
-					System.out.println("Technician: " + getName());			
+				if (resultado.getId() != "null") {
+					//Mensajes de DB
+					//messages = id.readPatientMessages(resultado.getNumber());
 					
-					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), resultado.getSsn(), messages, name);
+					messages = DBManagement.readPatientMessages(resultado.getId());
+					
+					
+					System.out.println("Patient found.\n");
+					System.out.println("Assistant: " + getName());			
+					
+					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), 
+									resultado.getSsn(), messages, name);
 					
 				}else {
 					InvalidPatientDialog.noPatientFound();
@@ -130,15 +151,21 @@ public class AssistCtrl implements ActionListener, KeyListener{
 			}
 		}else {
 			if(dni != null) {
-				Patient resultado = id.checkSsn(dni);
+				Patient resultado = DBManagement.checkSsn(dni);
 				
-				if(resultado.getNumber() != "null") {
+				System.out.println("SSN: " +resultado.getSsn());
+				
+				if (resultado.getSsn() != "null") {
 	
-					messages = id.readPatientMessages(resultado.getNumber());
-					System.out.println("Patient found.\n");
-					System.out.println("Technician: " + getName());			
+					//messages = id.readPatientMessages(resultado.getNumber());
 					
-					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), resultado.getSsn(), messages, name);
+					messages = DBManagement.readPatientMessages(resultado.getId());
+					
+					System.out.println("Patient found.\n");
+					System.out.println("Assistant: " + getName());			
+					
+					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), 
+									resultado.getSsn(), messages, name);
 					
 				}else {
 					InvalidPatientDialog.noPatientFound();
@@ -160,9 +187,9 @@ public class AssistCtrl implements ActionListener, KeyListener{
 	 * @see     AssistPatientCtrl, AssistPatientFr
 	 * @throws	IOException
 	 */
-	public void openPatientTecn(String name, String lastname, String id, String ssn, Vector<String> messages, String user) throws IOException {
+	public void openPatientTecn(String name, String lastname, String id, String ssn, Vector<model.Message> messages, String user) throws IOException {
         AssistPatientFr vm = new AssistPatientFr(getClass().getResource("/resources/BG.png"));
-        AssistPatientCtrl tc = new AssistPatientCtrl(vm);
+        AssistPatientCtrl tc = new AssistPatientCtrl(vm,tecnico.getId(),id);
         MainCtrl.window.toBackStack(tf);
         vm.addController(tc);
         vm.initialize(name, lastname, id, ssn, messages, user);

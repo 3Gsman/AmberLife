@@ -1,8 +1,0 @@
-Eva;Gonzalez Marquez;41212154H;159942551077;Ortigueira;Rua Madalena 2
-Mujer.png
-Bajo
-Una prueba cada 6 meses es suficiente para monitorizar a la paciente
-ECG2
-ECG4
-ECG6
-ECG8

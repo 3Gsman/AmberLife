@@ -11,6 +11,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -24,9 +25,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import control.doctor.DoctorPatientCtrl;
+import model.DBManagement;
 import model.ECG;
 import model.FileManagement;
 import model.LocalizationService;
+import model.Message;
 import model.User;
 import view.assistant.AssistPatientFr;
 import view.layouts.WrapLayout;
@@ -37,6 +40,8 @@ import view.panels.MessagePanel;
 
 @SuppressWarnings("serial")
 public class DoctorPatientFr extends JPanelWithBackground {
+	
+	private Font font;
 
 
 	public DoctorPatientFr(URL url) throws IOException {
@@ -59,10 +64,10 @@ public class DoctorPatientFr extends JPanelWithBackground {
 	
 	
 	//DOESN'T REALLY WORK
-	private JPanel initializeMessages() throws IOException {
+	private JPanel initializeMessages() throws IOException, ClassNotFoundException, SQLException {
 		
 			//Get PROMETHEUS font
-				java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
 				Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 				Font sf = font; // will use sf to change the style;
 				try {
@@ -102,8 +107,12 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			btnNewButton2.setContentAreaFilled(false);
 			new_msg.add(btnNewButton2);
 			
-			FileManagement id = new FileManagement();
-			Vector<String> messages = id.readPatientMessages(controller.getPatient().getNumber());
+			//controller.getPatient().getID()
+			
+			
+			
+			Vector<Message> messages = DBManagement.readMessages(controller.getPatient().getId());
+			
 			if(messages.equals(null)) {
 				JPanel jp = new JPanel();
 				jp.setLayout(new BorderLayout());
@@ -119,8 +128,9 @@ public class DoctorPatientFr extends JPanelWithBackground {
 				JPanel jp = new JPanel();
 				jp.setLayout(new WrapLayout(FlowLayout.LEFT, 30, 40));
 				jp.setOpaque(false);
-				for(String s : messages) {
-					MessagePanel mp = new MessagePanel(controller, new User("234553X", "John", "Doe"), "24-3-18", s);
+				for(Message s : messages) {
+					MessagePanel mp = new MessagePanel(controller, new User(s.getAuthorID(), s.getAuthorname(), 
+										s.getAuthorsurname()), s);
 					jp.add(mp);
 				}
 				panel_2.setViewportView(jp);
@@ -157,29 +167,50 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			messagePanel.removeAll();
 			messagePanel.add(initializeECG(), BorderLayout.CENTER);
 			this.repaint();
+			this.validate();
 			mode = "ECGS";
 		}
 	}
 	
-	public void setModeMessages() throws IOException {
+	public void setModeMessages() throws IOException, ClassNotFoundException, SQLException {
 		if(mode != "MESSAGES") {
 			//this.getthis().remove(messagePanel);
 			messagePanel.removeAll();
 			messagePanel.add(new AlphaContainer(initializeMessages()), BorderLayout.CENTER);
 			this.repaint();
+			this.validate();
 			mode = "MESSAGES";
 		}
 	}
 	
+	public void refreshMessages() throws IOException, ClassNotFoundException, SQLException{
+		if(mode == "MESSAGES") {
+			//this.getthis().remove(messagePanel);
+			messagePanel.removeAll();
+			messagePanel.add(new AlphaContainer(initializeMessages()), BorderLayout.CENTER);
+			this.repaint();
+			this.validate();
+		}
+	}
+	
 	public void loadECGPanel(Vector<ECG> v, JPanel viewport) {		
-		
-		for(ECG e : v)
-			try {
-				viewport.add(new EcgPanel(e,this.controller));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+		if(v!= null) {
+			for(ECG e : v)
+				try {
+					viewport.add(new EcgPanel(e,this.controller));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		}else {
+			JLabel noecgs = new JLabel("Patient has no ECGs to display");
+			System.out.println("NULL ECG VECTOR");	
+			Font sf = font.deriveFont(28f);
+			noecgs.setFont(sf);
+			noecgs.setForeground( new Color(255, 255, 255, 140) );
+			viewport.add(noecgs);
 			}
+		
 	}
 	
 	/**
@@ -197,8 +228,8 @@ public class DoctorPatientFr extends JPanelWithBackground {
 		this.setLayout(gbl_this);
 
 		//Get PROMETHEUS font
-		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
-		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
+		font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 		Font sf = font; // will use sf to change the style;
 		try {
 			font = Font.createFont(Font.TRUETYPE_FONT, is);

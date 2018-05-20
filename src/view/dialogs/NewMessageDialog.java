@@ -9,10 +9,15 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import control.MainCtrl;
 import view.panels.JPanelWithBackground;
 
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -24,6 +29,7 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.sql.Timestamp;
 
 @SuppressWarnings("serial")
 public class NewMessageDialog extends JDialog {
@@ -35,7 +41,7 @@ public class NewMessageDialog extends JDialog {
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public NewMessageDialog(String name, String lastname, String text) throws IOException {
+	public NewMessageDialog(ActionListener windowToRefresh, String fullname, String IDuser, String IDptt, String text) throws IOException {
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 491, 349);
 		getContentPane().setLayout(new BorderLayout());
@@ -52,9 +58,9 @@ public class NewMessageDialog extends JDialog {
 		Dimension d = new Dimension(400, 300);
 		this.setSize(d);
 		this.setResizable(false);
-		this.setTitle("New Message: " + name + " " + lastname);
+		this.setTitle("New Message: " + fullname);
 		
-		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 		Font sf = font; // will use sf to change the style;
 		try {
@@ -79,7 +85,7 @@ public class NewMessageDialog extends JDialog {
 			gbc_panel.gridy = 0;
 			contentPanel.add(panel, gbc_panel);
 			
-			JLabel lblNewLabel = new JLabel("new message");
+			JLabel lblNewLabel = new JLabel("New message");
 			lblNewLabel.setForeground(Color.WHITE);
 			lblNewLabel.setFont(sf);
 			panel.add(lblNewLabel);
@@ -102,7 +108,7 @@ public class NewMessageDialog extends JDialog {
 		contentPanel.add(area,gbc_text);
 		
 		
-		JButton btnCancel = new JButton("cancel");
+		JButton btnCancel = new JButton("CANCEL");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -120,9 +126,31 @@ public class NewMessageDialog extends JDialog {
 		gbc_btnCancel.gridy = 9;
 		contentPanel.add(btnCancel, gbc_btnCancel);
 		
-		JButton btnNewButton = new JButton("ok");
+		JButton btnNewButton = new JButton("OK");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				//UPLOAD MESSAGE TO DB GOES HERE
+				
+				String sql = "INSERT INTO Message(IDuser, IDptt, Data, Date, Seen) VALUES(?,?,?,?,?)";
+				Connection c;
+				try {
+					c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+					PreparedStatement st = c.prepareStatement(sql);
+					st.setString(1, IDuser);
+					st.setString(2, IDptt);
+					st.setString(3, area.getText());
+					st.setString(4, String.valueOf(new Timestamp(System.currentTimeMillis())));
+					st.setInt(5,1);
+					st.executeUpdate();			
+					st.close();
+					c.close();
+					windowToRefresh.actionPerformed(new ActionEvent(this, 0, "MESSAGE_UPDATE"));
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				System.out.println("New Message confirmed");
 			}
 		});

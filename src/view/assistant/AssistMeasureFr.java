@@ -52,7 +52,7 @@ public class AssistMeasureFr extends JPanelWithBackground {
 		Color grey = new Color(80, 77, 77, 255);
 		
 		//Get PROMETHEUS font
-		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 		Font sf = font; // will use sf to change the style;
 		try {

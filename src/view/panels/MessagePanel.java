@@ -15,6 +15,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import javax.swing.SwingConstants;
 import model.LocalizationService;
+import model.Message;
 import model.User;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -23,12 +24,12 @@ import javax.swing.ScrollPaneConstants;
 @SuppressWarnings("serial")
 public class MessagePanel extends JPanel {
 
-	String message;
+	Message message;
 	User u;
-	String date;
+	//String date;
 	ActionListener controller;
 	
-	public String getMessage(){
+	public Message getMessage(){
 		return message;
 	}
 	
@@ -36,17 +37,15 @@ public class MessagePanel extends JPanel {
 		return u;
 	}
 	
-	public String getDate() {
-		return date;
-	}
+
 	/**
 	 * Create the panel.
 	 * @throws IOException 
 	 */
-	public MessagePanel(ActionListener controller, User u, String date, String message) throws IOException {
+	public MessagePanel(ActionListener controller, User u, Message message) throws IOException {
 		this.message = message;
 		this.u = u;
-		this.date = date;
+
 		setBackground(Color.WHITE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{15, 0, 0, 0, 0, 0, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 20, 60, 15, 0};
@@ -56,7 +55,7 @@ public class MessagePanel extends JPanel {
 		setLayout(gridBagLayout);
 		
 		//Get PROMETHEUS font
-		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 		Font sf = font; // will use sf to change the style;
 		try {
@@ -113,7 +112,7 @@ public class MessagePanel extends JPanel {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_6.add(lblNewLabel, BorderLayout.CENTER);
 		
-		JLabel lblNewLabel_1 = new JLabel(u.getName() + " " + u.getLastname());
+		JLabel lblNewLabel_1 = new JLabel(message.getAuthorname() + " " + message.getAuthorsurname());
 		lblNewLabel_1.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.gridx = 2;
@@ -171,7 +170,7 @@ public class MessagePanel extends JPanel {
 		lblDate.setFont(sf);
 		panel_7.add(lblDate, BorderLayout.CENTER);
 		
-		JLabel label = new JLabel(date);
+		JLabel label = new JLabel(message.getTimestamp());
 		label.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.gridx = 2;
@@ -200,7 +199,6 @@ public class MessagePanel extends JPanel {
 		gbc_btnNewButton.gridy = 1;
 		add(btnNewButton, gbc_btnNewButton);
 		
-		//Comentario para commit 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setOpaque(false);
@@ -222,7 +220,7 @@ public class MessagePanel extends JPanel {
 		jta.setLineWrap(true);
 		jta.setEditable(false);
 		jta.setOpaque(false);
-		jta.setText(message);
+		jta.setText(message.getMessage());
 		scrollPane.setViewportView(jta);
 		
 

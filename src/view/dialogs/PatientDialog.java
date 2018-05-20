@@ -6,46 +6,68 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import view.MainFr;
 import view.panels.JPanelWithBackground;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Arrays;
 import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.FontFormatException;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import control.MainCtrl;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class PatientDialog extends JDialog {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-
-
+	
+	ActionListener controller;
+	
+	private JTextField nameField;
+	private JTextField surnameField;
+	private JTextField idField;
+	private JTextField ssnField;
+	//private JTextField hospField;
+	//private JTextField phoneField;
+	private JTextField cityField;
+	private JTextField addressField;
+	private JComboBox<Object> boxstatus;
+	private JComboBox<Object> boxgenders;
+	
 	/**
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public PatientDialog() throws IOException {
+	public PatientDialog(MainFr f, ActionListener controller, String doctorID, String patientID) throws IOException {
+		this.controller = controller;
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 468);
 		setContentPane( new JPanelWithBackground(getClass().getResource("/resources/BG.png")));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{10, 0, 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 10};
-		gridBagLayout.rowHeights = new int[]{40, 10, 20, 10, 20, 10, 20, 10, 20, 10, 20, 30, 0 , 0, 10};
+		gridBagLayout.rowHeights = new int[]{40, 10, 20, 10, 20, 10, 0, 10, 20, 10, 20, 30, 0 , 0, 10};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.2, 0.0, 0.2, 0.0, 0.2, 0.0, 0.2, 0.0, 0.2, 0.0, 0.5, 0.0, 0.0, 0.2, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
@@ -58,7 +80,7 @@ public class PatientDialog extends JDialog {
 		
 		Color grey = new Color(80, 77, 77, 255);
 		
-		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 		Font sf = font; // will use sf to change the style;
 		try {
@@ -80,7 +102,7 @@ public class PatientDialog extends JDialog {
 			gbc_panel.gridy = 0;
 			getContentPane().add(panel, gbc_panel);
 			{
-				JLabel lblNewLabel_2 = new JLabel("introduce new patient data");
+				JLabel lblNewLabel_2 = new JLabel("Introduce new patient data");
 				lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel_2.setForeground(Color.WHITE);
 				lblNewLabel_2.setFont(sf);
@@ -114,7 +136,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblNewLabel = new JLabel("name");
+					JLabel lblNewLabel = new JLabel("Name");
 					lblNewLabel.setFont(sf);
 					lblNewLabel.setForeground(Color.WHITE);
 					panel_1.add(lblNewLabel);
@@ -130,15 +152,15 @@ public class PatientDialog extends JDialog {
 				panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 			}
 			{
-				textField = new JTextField();
-				textField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField.setBorder(null);
+				nameField = new JTextField();
+				nameField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				nameField.setBorder(null);
 				GridBagConstraints gbc_textField = new GridBagConstraints();
 				gbc_textField.fill = GridBagConstraints.BOTH;
 				gbc_textField.gridx = 2;
 				gbc_textField.gridy = 1;
-				panel.add(textField, gbc_textField);
-				textField.setColumns(10);
+				panel.add(nameField, gbc_textField);
+				nameField.setColumns(10);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -177,7 +199,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel label = new JLabel("surname");
+					JLabel label = new JLabel("Surname");
 					label.setForeground(Color.WHITE);
 					label.setFont(sf);
 					panel_1.add(label);
@@ -192,15 +214,15 @@ public class PatientDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_1 = new JTextField();
-				textField_1.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_1.setColumns(10);
-				textField_1.setBorder(null);
+				surnameField = new JTextField();
+				surnameField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				surnameField.setColumns(10);
+				surnameField.setBorder(null);
 				GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 				gbc_textField_1.fill = GridBagConstraints.BOTH;
 				gbc_textField_1.gridx = 2;
 				gbc_textField_1.gridy = 1;
-				panel.add(textField_1, gbc_textField_1);
+				panel.add(surnameField, gbc_textField_1);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -240,7 +262,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblId = new JLabel("i.d.");
+					JLabel lblId = new JLabel("I.D.");
 					lblId.setForeground(Color.WHITE);
 					lblId.setFont(sf);
 					panel_1.add(lblId);
@@ -255,15 +277,15 @@ public class PatientDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_4 = new JTextField();
-				textField_4.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_4.setColumns(10);
-				textField_4.setBorder(null);
+				idField = new JTextField();
+				idField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				idField.setColumns(10);
+				idField.setBorder(null);
 				GridBagConstraints gbc_textField_4 = new GridBagConstraints();
 				gbc_textField_4.fill = GridBagConstraints.BOTH;
 				gbc_textField_4.gridx = 2;
 				gbc_textField_4.gridy = 1;
-				panel.add(textField_4, gbc_textField_4);
+				panel.add(idField, gbc_textField_4);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -302,7 +324,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblSsn = new JLabel("s.s.n.");
+					JLabel lblSsn = new JLabel("S.S.N.");
 					lblSsn.setForeground(Color.WHITE);
 					lblSsn.setFont(sf);
 					panel_1.add(lblSsn);
@@ -317,15 +339,15 @@ public class PatientDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_5 = new JTextField();
-				textField_5.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_5.setColumns(10);
-				textField_5.setBorder(null);
+				ssnField = new JTextField();
+				ssnField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				ssnField.setColumns(10);
+				ssnField.setBorder(null);
 				GridBagConstraints gbc_textField_5 = new GridBagConstraints();
 				gbc_textField_5.fill = GridBagConstraints.BOTH;
 				gbc_textField_5.gridx = 2;
 				gbc_textField_5.gridy = 1;
-				panel.add(textField_5, gbc_textField_5);
+				panel.add(ssnField, gbc_textField_5);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -338,7 +360,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 			}
 		}
-		{
+		/*{
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.WHITE);
 			GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -364,7 +386,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblHosp = new JLabel("hospital");
+					JLabel lblHosp = new JLabel("Hospital");
 					lblHosp.setForeground(Color.WHITE);
 					lblHosp.setFont(sf);
 					panel_1.add(lblHosp);
@@ -379,15 +401,15 @@ public class PatientDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_6 = new JTextField();
-				textField_6.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_6.setColumns(10);
-				textField_6.setBorder(null);
+				hospField = new JTextField();
+				hospField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				hospField.setColumns(10);
+				hospField.setBorder(null);
 				GridBagConstraints gbc_textField_6 = new GridBagConstraints();
 				gbc_textField_6.fill = GridBagConstraints.BOTH;
 				gbc_textField_6.gridx = 2;
 				gbc_textField_6.gridy = 1;
-				panel.add(textField_6, gbc_textField_6);
+				panel.add(hospField, gbc_textField_6);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -426,7 +448,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel lblPhone = new JLabel("phone");
+					JLabel lblPhone = new JLabel("Phone");
 					lblPhone.setForeground(Color.WHITE);
 					lblPhone.setFont(sf);
 					panel_1.add(lblPhone);
@@ -441,15 +463,15 @@ public class PatientDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_7 = new JTextField();
-				textField_7.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_7.setColumns(10);
-				textField_7.setBorder(null);
+				phoneField = new JTextField();
+				phoneField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				phoneField.setColumns(10);
+				phoneField.setBorder(null);
 				GridBagConstraints gbc_textField_7 = new GridBagConstraints();
 				gbc_textField_7.fill = GridBagConstraints.BOTH;
 				gbc_textField_7.gridx = 2;
 				gbc_textField_7.gridy = 1;
-				panel.add(textField_7, gbc_textField_7);
+				panel.add(phoneField, gbc_textField_7);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -461,7 +483,7 @@ public class PatientDialog extends JDialog {
 				gbc_panel_1.gridy = 2;
 				panel.add(panel_1, gbc_panel_1);
 			}
-		}
+		}*/
 		{
 			//MARK
 			JPanel panel = new JPanel();
@@ -489,7 +511,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel label = new JLabel("municip.");
+					JLabel label = new JLabel("Municip.");
 					label.setForeground(Color.WHITE);
 					label.setFont(sf);
 					panel_1.add(label);
@@ -504,15 +526,15 @@ public class PatientDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_1 = new JTextField();
-				textField_1.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_1.setColumns(10);
-				textField_1.setBorder(null);
+				cityField = new JTextField();
+				cityField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				cityField.setColumns(10);
+				cityField.setBorder(null);
 				GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 				gbc_textField_1.fill = GridBagConstraints.BOTH;
 				gbc_textField_1.gridx = 2;
 				gbc_textField_1.gridy = 1;
-				panel.add(textField_1, gbc_textField_1);
+				panel.add(cityField, gbc_textField_1);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -552,7 +574,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel label = new JLabel("address");
+					JLabel label = new JLabel("Address");
 					label.setForeground(Color.WHITE);
 					label.setFont(sf);
 					panel_1.add(label);
@@ -567,15 +589,15 @@ public class PatientDialog extends JDialog {
 				panel.add(label, gbc_label);
 			}
 			{
-				textField_1 = new JTextField();
-				textField_1.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-				textField_1.setColumns(10);
-				textField_1.setBorder(null);
+				addressField = new JTextField();
+				addressField.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+				addressField.setColumns(10);
+				addressField.setBorder(null);
 				GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 				gbc_textField_1.fill = GridBagConstraints.BOTH;
 				gbc_textField_1.gridx = 2;
 				gbc_textField_1.gridy = 1;
-				panel.add(textField_1, gbc_textField_1);
+				panel.add(addressField, gbc_textField_1);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -614,7 +636,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel label = new JLabel("gender");
+					JLabel label = new JLabel("Gender");
 					label.setForeground(Color.WHITE);
 					label.setFont(sf);
 					panel_1.add(label);
@@ -622,7 +644,7 @@ public class PatientDialog extends JDialog {
 			}
 			{
 				Object[] genders = {"Male", "Female"};
-				JComboBox<Object> boxgenders = new JComboBox<Object>(genders);
+				boxgenders = new JComboBox<Object>(genders);
 				boxgenders.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
 				boxgenders.setBorder(null);
 				boxgenders.setOpaque(false);
@@ -670,7 +692,7 @@ public class PatientDialog extends JDialog {
 				panel.add(panel_1, gbc_panel_1);
 				panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 				{
-					JLabel label = new JLabel("status");
+					JLabel label = new JLabel("Status");
 					label.setForeground(Color.WHITE);
 					label.setFont(sf);
 					panel_1.add(label);
@@ -679,7 +701,7 @@ public class PatientDialog extends JDialog {
 
 			{
 				Object[] status = {"Low", "Mild", "Moderate", "Critical"};
-				JComboBox<Object> boxstatus = new JComboBox<Object>(status);
+				boxstatus = new JComboBox<Object>(status);
 				boxstatus.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
 				GridBagConstraints gbc_boxstatus = new GridBagConstraints();
 				gbc_boxstatus.fill = GridBagConstraints.BOTH;
@@ -701,7 +723,7 @@ public class PatientDialog extends JDialog {
 		}
 		sf = font.deriveFont(22f);
 		{
-			JButton btnNewButton = new JButton("cancel");
+			JButton btnNewButton = new JButton("CANCEL");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();				}
@@ -720,11 +742,24 @@ public class PatientDialog extends JDialog {
 			getContentPane().add(btnNewButton, gbc_btnNewButton);
 		}
 		{
-			JButton btnConfirm = new JButton("confirm");
+			JButton btnConfirm = new JButton("CONFIRM");
 			btnConfirm.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					System.out.println("Patient creation confirmed");
+					if (checkBoxesFilled()) {
+						JOptionPane.showMessageDialog(f, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					else {
+						try {
+							if (patientID == null) createNewPatient(doctorID);
+							else updatePatient(patientID, doctorID);			
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}		
+					}
 				}
+				
 			});
 			btnConfirm.setActionCommand("CONFIRM");
 			btnConfirm.setBorderPainted(false);
@@ -739,7 +774,145 @@ public class PatientDialog extends JDialog {
 			gbc_btnConfirm.gridy = 12;
 			getContentPane().add(btnConfirm, gbc_btnConfirm);
 		}
+		if(patientID != null) initializeFields(patientID);
 		this.setVisible(true);
+	}
+	
+	void initializeFields(String id) {
+		System.out.println("Initialize Fields");
+		try {
+		Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+		Statement stmt =  c.createStatement();
+		ResultSet rs_ptt  = stmt.executeQuery("SELECT * FROM Patient where IDptt LIKE '" + id + "'");
+		nameField.setText(rs_ptt.getString("Name"));
+		surnameField.setText(rs_ptt.getString("LastName"));
+		idField.setText(id);
+		ssnField.setText(rs_ptt.getString("SSN"));
+		cityField.setText(rs_ptt.getString("Municipality"));
+		addressField.setText(rs_ptt.getString("Address"));
+		
+		//FALTAN AQUI QUE SEAN OBJECT
+		//
+		/*String status = rs_ptt.getString("Status");
+		boxstatus.setSelectedItem(anObject);
+		*/
+		
+		boxgenders.setSelectedIndex((rs_ptt.getString("Sex").equals("Male")) ? 0 : 1);
+		rs_ptt.close();
+		stmt.close();
+		c.close();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	void createNewPatient(String doctorID) {
+		System.out.println("Creating new patient");
+		try {
+			Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			String sql = "SELECT IDptt FROM Patient where IDptt LIKE " + idField.getText();
+			Statement stmt =  c.createStatement();
+			ResultSet rs  = stmt.executeQuery(sql);
+			stmt.close();
+			c.close();
+			
+			if(rs.next() == true) System.out.println("A Patient with that ID already exists");
+			else uploadNewPatient(doctorID);	
+			
+			rs.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+	}
+	
+	void uploadNewPatient(String doctorID) {
+		String sql1 = "INSERT INTO Patient(IDptt, Name, LastName, Municipality, Address, Sex, Status, SSN, Doctor)" +
+				"VALUES(?,?,?,?,?,?,?,?,?)";
+		try {
+			Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			PreparedStatement st1 = c.prepareStatement(sql1);
+			st1.setString(1, idField.getText());
+			//Doubt this is the best for security, consider this only temporal
+			st1.setString(2, nameField.getText());
+			st1.setString(3, surnameField.getText());
+			st1.setString(4, cityField.getText());
+			st1.setString(5, addressField.getText());
+			st1.setString(6, boxgenders.getSelectedObjects().toString());
+			st1.setString(7, boxstatus.getSelectedObjects().toString());
+			st1.setString(8, ssnField.getText());
+			st1.setString(9, doctorID);
+			//DOCTOR GOES HERE
+			st1.executeUpdate();		
+			st1.close();
+			c.close();
+			
+			controller.actionPerformed(new ActionEvent(this, 0, "PATIENT_UPDATE"));
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	void updatePatient(String id,String docID) throws SQLException {
+		System.out.println("Update Doctor launched");
+		
+		Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+		String sql = "SELECT IDuser FROM Doctor where IDuser LIKE " + idField.getText();
+		Statement stmt =  c.createStatement();
+		ResultSet rs  = stmt.executeQuery(sql);
+		stmt.close();
+		c.close();
+		
+		if(id == idField.getText() ) { //IF we are not changing the ID, update it normally
+			Connection c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			//Update code
+			String sql1 = "UPDATE Patient SET IIDptt = ?, Name = ?, LastName = ?, Municipality = ?, Address = ?, Sex = ?, "
+					+ "Status = ?, SSN = ?, Doctor = ?";
+			String ID = idField.getText();
+			c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			PreparedStatement st1 = c2.prepareStatement(sql1);
+			st1.setString(1, idField.getText());
+			//Doubt this is the best for security, consider this only temporal
+			st1.setString(2, nameField.getName());
+			st1.setString(3, surnameField.getName());
+			st1.setString(4, cityField.getText());
+			st1.setString(5, addressField.getText());
+			st1.setString(6, boxgenders.getSelectedObjects().toString());
+			st1.setString(7, boxstatus.getSelectedObjects().toString());
+			st1.setString(8, ssnField.getText());
+			st1.setString(9, docID);
+			//DOCTOR GOES HERE
+			st1.executeUpdate();		
+			st1.close();
+			c.close();
+			controller.actionPerformed(new ActionEvent(this, 0, "PATIENT_UPDATE"));
+		}
+		else { //If the ID is changed, delete the table and instead create another one?
+			Connection c3 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);	
+			Statement stmt3=  c3.createStatement();
+			//Delete the old one and create a new one with the new ID and data
+			stmt3.execute("DELETE FROM Patient WHERE IDuser LIKE " + id);
+			
+			uploadNewPatient(docID);
+			
+			//UPDATE PATIENTS AND MESSAGES FOR NEW ID NOW
+			stmt3.execute("UPDATE ECG SET IDptt = " + idField.getText() + " WHERE IDptt LIKE " + id);
+			stmt3.execute("UPDATE Message SET IDptt = " + idField.getText() + " WHERE IDptt LIKE " + id);
+			stmt3.close();
+			c3.close();
+		}
+		
+		
+	}
+	
+	boolean checkBoxesFilled() {
+		return idField.getText().isEmpty() || nameField.getText().isEmpty() || surnameField.getText().isEmpty()
+				|| cityField.getText().isEmpty() || addressField.getText().isEmpty() || ssnField.getText().isEmpty();
 	}
 
 }
+

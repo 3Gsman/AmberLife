@@ -143,7 +143,7 @@ public class AdminFr extends JPanelWithBackground {
 	}
 	
 	public void setButtons() {
-		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 		Font sf = font; // will use sf to change the style;
 		try {
@@ -214,7 +214,7 @@ public class AdminFr extends JPanelWithBackground {
 		this.setLayout(gbl_this);
 		
 		//Get PROMETHEUS font
-		java.io.InputStream is = getClass().getResourceAsStream("/resources/PROMETHEUS.ttf");
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
 		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
 		Font sf = font; // will use sf to change the style;
 		try {
@@ -291,7 +291,7 @@ public class AdminFr extends JPanelWithBackground {
 	
 	public void loadUserPane(Vector<? extends User> v, JPanel viewport) {		
 		
-		for(User d : v) viewport.add(new UserPanel(d.getName() + " " + d.getLastname(),d.getId()));
+		for(User d : v) viewport.add(new UserPanel(this.controller,d.getName() + " " + d.getLastname(),d.getId()));
 	}
 
 	//For test only

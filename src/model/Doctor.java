@@ -5,8 +5,8 @@ import java.util.Vector;
 public class Doctor extends User {
 	
 	private String number;
-	private String hospital;
-	private String phone;
+	private String mln;
+	private Vector<Integer> phone;
 	private Vector<Patient> patientlist;
 	
 	/**
@@ -16,16 +16,13 @@ public class Doctor extends User {
 	 * @param ln	last name of the doctor
 	 * @param dni	id of the doctor
 	 * @param num	ssn of the doctor
-	 * @param h		hospital where the doctor works
 	 * @param p		list of the doctor's patients
 	 */
-	public Doctor(String n, String ln, String dni, String num, String h, String p) {	
+	public Doctor(String n, String ln, String dni, String num) {	
 		super.setName(n);
 		super.setLastname(ln);
 		super.setId(dni);
 		setNumber(num);
-		setHospital(h);
-		setPhone(p);
 		setPatientlist(null);		
 	}
 	
@@ -47,30 +44,13 @@ public class Doctor extends User {
 		this.number = number;
 	}
 	
-	/**
-	 * Getter for the hospital attribute.
-	 * 
-	 * @return the hospital field of the Doctor
-	 */
-	public String getHospital() {
-		return hospital;
-	}
-	
-	/**
-	 * Setter for the hospital attribute.
-	 * 
-	 * @param hospital		the hospital where the doctor works
-	 */
-	public void setHospital(String hospital) {
-		this.hospital = hospital;
-	}
 	
 	/**
 	 * Getter for the phone attribute.
 	 * 
 	 * @return the phone field of the Doctor
 	 */
-	public String getPhone() {
+	public Vector<Integer> getPhone() {
 		return phone;
 	}
 	
@@ -79,7 +59,7 @@ public class Doctor extends User {
 	 * 
 	 * @param phone		the phone where the doctor works
 	 */
-	public void setPhone(String phone) {
+	public void setPhone(Vector<Integer> phone) {
 		this.phone = phone;
 	}
 	
@@ -99,6 +79,14 @@ public class Doctor extends User {
 	 */
 	public void setPatientlist(Vector<Patient> patientlist) {
 		this.patientlist = patientlist;
+	}
+
+	public String getMln() {
+		return mln;
+	}
+
+	public void setMln(String mln) {
+		this.mln = mln;
 	}
 	
 	
