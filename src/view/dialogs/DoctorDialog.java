@@ -922,45 +922,38 @@ public class DoctorDialog extends JDialog {
 		String sql = "SELECT IDuser, Username FROM User where IDuser LIKE '" + idField.getText() + "'";
 		Statement stmt =  c.createStatement();
 		ResultSet rs  = stmt.executeQuery(sql);
-		String username = rs.getString("Username");
-		rs.close();
 		stmt.close();
 		c.close();
 		
-		if(idField.getText().equals(id) && usernameField.getText().equals(username)) { //IF we are not changing the ID, update it normally
+		if(idField.getText().equals(id) ) { //IF we are not changing the ID, update it normally
 			Connection c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 			//Update code
 			String sql1 = "UPDATE User SET Password = ?, Name = ?,"
-					+ " LastName = ?,  Email =?";		
-			String sql2	 = "Update CLINICAL Set IDUser = ?, SSN = ?";
-			String sql3	 = "Update  Doctor Set IDUser = ?, MLN = ?";
-			String sql4 = "Update Telephone Set ID = ?, Number = ?";
+					+ " LastName = ?, Username=?, Email =? WHERE IDuser LIKE '" + id + "'";	
+			String sql2	 = "Update CLINICAL Set SSN = ? WHERE IDuser LIKE '" + id + "'";	
+			String sql3	 = "Update  Doctor Set  MLN = ? WHERE IDuser LIKE '" + id + "'";	
+			String sql4 = "Update Telephone Set  Number = ? WHERE IDuser LIKE '" + id + "'";	
 			String ID = idField.getText();
 			c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 			PreparedStatement st1 = c2.prepareStatement(sql1);
-			//st1.setString(1, ID);
 			//Doubt this is the best for security, consider this only temporal
 			st1.setString(1, String.valueOf(passField.getPassword()));
-			//st1.setInt(2, 1);
 			st1.setString(2, nameField.getText());
 			st1.setString(3, surnameField.getText());
-			//st1.setString(5, usernameField.getText());
-			st1.setString(4, emailField.getText());
+			st1.setString(4, usernameField.getText());
+			st1.setString(5, emailField.getText());
 			st1.executeUpdate();			
 			st1.close();
 			PreparedStatement st2 = c2.prepareStatement(sql2);
-			st2.setString(1, ID);
-			st2.setString(2, ssnField.getText());
+			st2.setString(1, ssnField.getText());
 			st2.executeUpdate();
 			st2.close();
 			PreparedStatement st3 = c2.prepareStatement(sql3);
-			st3.setString(1, ID);
-			st3.setString(2, mlnField.getText());
+			st3.setString(1, mlnField.getText());
 			st3.executeUpdate();
 			st3.close();
 			PreparedStatement st4 = c2.prepareStatement(sql4);
-			st4.setString(1, ID);
-			st4.setString(2,phoneField.getText());
+			st4.setString(1,phoneField.getText());
 			st4.close();
 			c2.close();
 			rs.close();
