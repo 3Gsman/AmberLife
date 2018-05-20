@@ -932,9 +932,8 @@ public class DoctorDialog extends JDialog {
 			ResultSet rs_check = check.executeQuery("SELECT Username From User WHERE Username LIKE '" + usernameField.getText() + 
 								"' AND NOT IDuser LIKE '" + id + "'");
 			if(rs_check.next()) {
-				JOptionPane.showConfirmDialog (null, "That Username is already in use",
-						"Warning",JOptionPane.OK_OPTION);
-				updateDoctor(id);
+				JOptionPane.showMessageDialog(MainCtrl.window, "That username is already in use");
+				dispose();
 			}
 			check.close();
 			rs_check.close();
@@ -976,9 +975,8 @@ public class DoctorDialog extends JDialog {
 			Statement check = c3.createStatement();
 			ResultSet rs_check = check.executeQuery("SELECT IDuser From User WHERE Username LIKE '" + usernameField.getText() + "'");
 			if(rs_check.next()) {
-				JOptionPane.showConfirmDialog (null, "That ID is already in use",
-						"Warning",JOptionPane.OK_OPTION);
-				updateDoctor(id);
+				JOptionPane.showMessageDialog(MainCtrl.window, "That ID is already in use");
+				dispose();
 			}
 			check.close();
 			rs_check.close();
