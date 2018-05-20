@@ -930,7 +930,7 @@ public class DoctorDialog extends JDialog {
 			
 			Statement check = c2.createStatement();
 			ResultSet rs_check = check.executeQuery("SELECT Username From User WHERE Username LIKE '" + usernameField.getText() + 
-								"' AND NOT UserID LIKE '" + id + "'");
+								"' AND NOT IDuser LIKE '" + id + "'");
 			if(rs_check.next()) {
 				JOptionPane.showConfirmDialog (null, "That Username is already in use",
 						"Warning",JOptionPane.OK_OPTION);
@@ -972,6 +972,17 @@ public class DoctorDialog extends JDialog {
 		}
 		else { //If the ID is changed, delete the table and instead create another one?
 			Connection c3 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);	
+			
+			Statement check = c3.createStatement();
+			ResultSet rs_check = check.executeQuery("SELECT IDuser From User WHERE Username LIKE '" + usernameField.getText() + "'");
+			if(rs_check.next()) {
+				JOptionPane.showConfirmDialog (null, "That ID is already in use",
+						"Warning",JOptionPane.OK_OPTION);
+				updateDoctor(id);
+			}
+			check.close();
+			rs_check.close();
+			
 			Statement stmt3=  c3.createStatement();
 			//Delete the old one and create a new one with the new ID and data
 			stmt3.execute("DELETE FROM Doctor WHERE IDuser LIKE '" + id + "'");
