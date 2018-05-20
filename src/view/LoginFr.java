@@ -105,7 +105,7 @@ public class LoginFr extends JPanel {
 		panel.setLayout(gbl_panel);
 
 		
-		JLabel lblNewLabel_3 = new JLabel("V1.1");
+		JLabel lblNewLabel_3 = new JLabel("V2.0");
 		sf = font.deriveFont(Font.BOLD, 21f);
 		lblNewLabel_3.setFont(sf);
 		lblNewLabel_3.setForeground(Color.WHITE);
