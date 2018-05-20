@@ -68,6 +68,11 @@ public class DBManagement {
 		Assistant ass = new Assistant(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDuser"), 
 				rs.getString("Municipality"), rs.getString("Username"));
 		
+		rs.close();
+		stmt.close();
+		c.close();
+
+		
 		return ass;
 	}
 
