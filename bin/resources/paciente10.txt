@@ -1,5 +1,0 @@
-Maria;Pose Garcia;87677151R;154855640195;Oleiro;Rua Pablo Picasso 2
-Mujer.png
-Leve
-Monitorizacion normal de manera mensual
-ECG2
