@@ -21,7 +21,7 @@ public class DBManagement {
 		Statement stmt = null;
 		stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery(
-				"select IDUser from User where username='" + usuario + "' and password='" + Password + "'");
+				"select IDUser from User where username='" + usuario + "' and password='" + Password + "' and active != 0");
 
 		if (rs.next() == false) {
 			user[0] = "false";
