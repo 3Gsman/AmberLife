@@ -469,7 +469,7 @@ public class DBManagement {
 	public static void createDatabase() {
 		
 		try {
-		InputStream is = new FileInputStream("manifest.mf");
+		InputStream is = new FileInputStream("src/resources/BDAmberLife.sql");
 		
 		BufferedReader buf = new BufferedReader(new InputStreamReader(is));
 		        

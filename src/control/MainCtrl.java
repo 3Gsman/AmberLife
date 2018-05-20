@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import model.DBManagement;
 import model.LocalizationService;
 import view.LoginFr;
 import view.MainFr;
@@ -36,7 +37,7 @@ public class MainCtrl implements WindowListener{
     	LocalizationService.initialize();
 
         try {
-
+        	DBManagement.createDatabase();
         	UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName()); 
             MainCtrl m = new MainCtrl();
 			LoginFr p = new LoginFr();
