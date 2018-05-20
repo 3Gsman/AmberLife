@@ -936,39 +936,43 @@ public class DoctorDialog extends JDialog {
 				dispose();
 			}
 			else {
-			check.close();
-			rs_check.close();
-			//Update code
-			String sql1 = "UPDATE User SET Password = ?, Name = ?,"
-					+ " LastName = ?, Username=?, Email =? WHERE IDuser LIKE '" + id + "'";	
-			String sql2	 = "Update CLINICAL Set SSN = ? WHERE IDuser LIKE '" + id + "'";	
-			String sql3	 = "Update  Doctor Set  MLN = ? WHERE IDuser LIKE '" + id + "'";	
-			String sql4 = "Update Telephone Set  Number = ? WHERE IDuser LIKE '" + id + "'";	
-			String ID = idField.getText();
-			c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
-			PreparedStatement st1 = c2.prepareStatement(sql1);
-			//Doubt this is the best for security, consider this only temporal
-			st1.setString(1, String.valueOf(passField.getPassword()));
-			st1.setString(2, nameField.getText());
-			st1.setString(3, surnameField.getText());
-			st1.setString(4, usernameField.getText());
-			st1.setString(5, emailField.getText());
-			st1.executeUpdate();			
-			st1.close();
-			PreparedStatement st2 = c2.prepareStatement(sql2);
-			st2.setString(1, ssnField.getText());
-			st2.executeUpdate();
-			st2.close();
-			PreparedStatement st3 = c2.prepareStatement(sql3);
-			st3.setString(1, mlnField.getText());
-			st3.executeUpdate();
-			st3.close();
-			PreparedStatement st4 = c2.prepareStatement(sql4);
-			st4.setString(1,phoneField.getText());
-			st4.close();
-			c2.close();
-			rs.close();
-			windowToRefresh.actionPerformed(new ActionEvent(this, 0, "USER_UPDATE"));
+				try {
+				check.close();
+				rs_check.close();
+				//Update code
+				String sql1 = "UPDATE User SET Password = ?, Name = ?,"
+						+ " LastName = ?, Username=?, Email =? WHERE IDuser LIKE '" + id + "'";	
+				String sql2	 = "Update CLINICAL Set SSN = ? WHERE IDuser LIKE '" + id + "'";	
+				String sql3	 = "Update  Doctor Set  MLN = ? WHERE IDuser LIKE '" + id + "'";	
+				String sql4 = "Update Telephone Set  Number = ? WHERE IDuser LIKE '" + id + "'";	
+				String ID = idField.getText();
+				c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+				PreparedStatement st1 = c2.prepareStatement(sql1);
+				//Doubt this is the best for security, consider this only temporal
+				st1.setString(1, String.valueOf(passField.getPassword()));
+				st1.setString(2, nameField.getText());
+				st1.setString(3, surnameField.getText());
+				st1.setString(4, usernameField.getText());
+				st1.setString(5, emailField.getText());
+				st1.executeUpdate();			
+				st1.close();
+				PreparedStatement st2 = c2.prepareStatement(sql2);
+				st2.setString(1, ssnField.getText());
+				st2.executeUpdate();
+				st2.close();
+				PreparedStatement st3 = c2.prepareStatement(sql3);
+				st3.setString(1, mlnField.getText());
+				st3.executeUpdate();
+				st3.close();
+				PreparedStatement st4 = c2.prepareStatement(sql4);
+				st4.setString(1,phoneField.getText());
+				st4.close();
+				c2.close();
+				rs.close();
+				windowToRefresh.actionPerformed(new ActionEvent(this, 0, "USER_UPDATE"));
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		else { //If the ID is changed, delete the table and instead create another one?
