@@ -124,7 +124,7 @@ public class DBManagement {
 		Statement stmt = null;
 		stmt = c.createStatement();
 		ResultSet rs = stmt
-				.executeQuery("SELECT Assistant.IDuser, Assistant.Municipality, User.Username, User.Name, User.LastName"
+				.executeQuery("SELECT Assistant.IDuser, Assistant.Municipality, User.Username, User.Name, User.LastName "
 						+ "FROM Assistant JOIN User ON Assistant.IDuser = User.IDuser WHERE Active != 0");
 
 		while (rs.next()) {
@@ -199,14 +199,14 @@ public class DBManagement {
 
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT Doctor.IDuser, User.Username, User.Name, User.LastName, clinical.ssn"
-				+ "FROM Doctor JOIN User ON Doctor.IDuser = User.IDuser"
+		ResultSet rs = stmt.executeQuery("SELECT Doctor.IDuser, User.Username, User.Name, User.LastName, clinical.ssn "
+				+ "FROM Doctor JOIN User ON Doctor.IDuser = User.IDuser "
 				+ "JOIN CLINICAL ON Doctor.IDuser = clinical.IDuser WHERE Active != 0");
 
 		while (rs.next()) {
 			Statement stmt2 = null;
 			stmt2 = c.createStatement();
-			ResultSet rs2 = stmt2.executeQuery("SELECT User.IDuser, Telephone.number FROM User"
+			ResultSet rs2 = stmt2.executeQuery("SELECT User.IDuser, Telephone.number FROM User "
 					+ "JOIN Telephone ON Telephone.IDuser = user.IDuser WHERE User.IDuser ='" + rs.getString("IDUser")
 					+ "'");
 
@@ -290,7 +290,7 @@ public class DBManagement {
 		c = DriverManager.getConnection("jdbc:sqlite:" + database);
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT IDuser FROM Patient WHERE Doctor LIKE '" + doctorID + "'");
+		ResultSet rs = stmt.executeQuery("SELECT IDptt FROM Patient WHERE Doctor LIKE '" + doctorID + "'");
 
 		Vector<Patient> patients = new Vector<Patient>();
 
@@ -305,7 +305,7 @@ public class DBManagement {
 			 * p.setStatus(rs.getString("Status"));
 			 * p.setECGs(ecgList(rs.getString("IDptt")));
 			 */
-			patients.add(readPatient(rs.getString("IDuser")));
+			patients.add(readPatient(rs.getString("IDptt")));
 		}
 		rs.close();
 		stmt.close();
