@@ -935,6 +935,7 @@ public class DoctorDialog extends JDialog {
 				JOptionPane.showMessageDialog(MainCtrl.window, "That username is already in use");
 				dispose();
 			}
+			else {
 			check.close();
 			rs_check.close();
 			//Update code
@@ -968,6 +969,7 @@ public class DoctorDialog extends JDialog {
 			c2.close();
 			rs.close();
 			windowToRefresh.actionPerformed(new ActionEvent(this, 0, "USER_UPDATE"));
+			}
 		}
 		else { //If the ID is changed, delete the table and instead create another one?
 			Connection c3 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);	
