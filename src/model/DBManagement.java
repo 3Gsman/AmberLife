@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
+import control.MainCtrl;
+
 public class DBManagement {
 
 	public static String[] checkUser(String usuario, String Password) throws ClassNotFoundException, SQLException {
@@ -21,7 +23,7 @@ public class DBManagement {
 		Statement stmt = null;
 		stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery(
-				"select IDUser from User where username='" + usuario + "' and password='" + Password + "' and active != 0");
+				"SELECT IDUser FROM User WHERE Username='" + usuario + "' AND Password='" + Password + "' AND Active != 0");
 
 		if (rs.next() == false) {
 			user[0] = "false";
@@ -30,13 +32,13 @@ public class DBManagement {
 
 			iduser = rs.getString("IDUser");
 
-			rs = stmt.executeQuery("select IDUser from clinical where iduser='" + iduser + "'");
+			rs = stmt.executeQuery("SELECT IDUser FROM clinical WHERE IDuser='" + iduser + "'");
 
 			if (rs.next() == false) {
 				user[1] = "admin";
 			} else {
 
-				rs = stmt.executeQuery("select IDUser from doctor where iduser='" + iduser + "'");
+				rs = stmt.executeQuery("SELECT IDUser FROM doctor WHERE iduser='" + iduser + "'");
 
 				if (rs.next() == false) {
 					user[1] = "tecnico";
@@ -86,13 +88,12 @@ public class DBManagement {
 		Statement stmt = null;
 		stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery(
-				"SELECT Assistant.IDuser, assistant.Municipality, user.Username, user.Name, user.LastName\r\n"
-						+ "from Assistant\r\n" + "join User\r\n" + "on assistant.iduser = user.iduser where Active != 0");
+				"SELECT Assistant.IDuser, Assistant.Municipality, User.Username, User.Name, User.LastName"
+						+ "FROM Assistant JOIN User ON Assistant.IDuser = User.IDuser WHERE Active != 0");
 
 		while (rs.next()) {
 			v.add(new Assistant(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDUser"),
 					rs.getString("Municipality"), rs.getString("Username")));
-
 		}
 
 		rs.close();
@@ -124,6 +125,7 @@ public class DBManagement {
 			Message m = new Message(rs_message.getString("Date"), rs_message.getString("Data"),
 					rs_author.getString("Name"), rs_author.getString("LastName"),
 					rs_author.getString("IDuser"), rs_author.getString("SSN"), patientID);
+			
 			messages.add(m);
 			stmt2.close();
 			rs_author.close();
@@ -145,16 +147,15 @@ public class DBManagement {
 
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs = stmt
-				.executeQuery("SELECT Doctor.IDuser, user.Username, user.Name, user.LastName, clinical.ssn\r\n"
-						+ "from doctor\r\n" + "join User\r\n" + "on doctor.iduser = user.iduser\r\n"
-						+ "join CLINICAL\r\n" + "on doctor.iduser = clinical.iduser where active != 0");
+		ResultSet rs = stmt.executeQuery("SELECT Doctor.IDuser, User.Username, User.Name, User.LastName, clinical.ssn"
+							+ "FROM Doctor JOIN User ON Doctor.IDuser = User.IDuser"
+							+ "JOIN CLINICAL ON Doctor.IDuser = clinical.IDuser WHERE Active != 0");
 
 		while (rs.next()) {
 			Statement stmt2 = null;
 			stmt2 = c.createStatement();
-			ResultSet rs2 = stmt2.executeQuery("SELECT user.IDuser, telephone.number\r\n" + "from User\r\n"
-					+ "join Telephone\r\n" + "on telephone.iduser = user.IDuser\r\n" + "where user.iduser ='"
+			ResultSet rs2 = stmt2.executeQuery("SELECT User.IDuser, Telephone.number FROM User"
+					+ "JOIN Telephone ON Telephone.IDuser = user.IDuser WHERE User.IDuser ='"
 					+ rs.getString("IDUser") + "'");
 
 			v.add(new Doctor(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDUser"),
@@ -225,21 +226,23 @@ public class DBManagement {
 		c = DriverManager.getConnection("jdbc:sqlite:" + database);
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM Patient WHERE Doctor LIKE '" + doctorID + "'");
+		ResultSet rs = stmt.executeQuery("SELECT IDuser FROM Patient WHERE Doctor LIKE '" + doctorID + "'");
 
 		Vector<Patient> patients = new Vector<Patient>();
 
 		while (rs.next()) {
-			Patient p = new Patient(rs.getString("SSN"), rs.getString("Name"), rs.getString("LastName"),
+			/*Patient p = new Patient(rs.getString("SSN"), rs.getString("Name"), rs.getString("LastName"),
 					rs.getString("IDptt"));
 			p.setMunicipality(rs.getString("Municipality"));
 			p.setAddress(rs.getString("Address"));
 			p.setGender(rs.getString("Sex"));
 			p.setStatus(rs.getString("Status"));
-			p.setECGs(ecgList(rs.getString("IDptt")));
-
-			patients.add(p);
+			p.setECGs(ecgList(rs.getString("IDptt")));*/
+			patients.add(readPatient(rs.getString("IDuser")));
 		}
+		rs.close();
+		stmt.close();
+		c.close();
 
 		return patients;
 	}
@@ -450,8 +453,50 @@ public class DBManagement {
 			messages.add(ms);
 		}
 		rs_ms.close();
+		stmt.close();
+		c.close();
 		
 		return messages;
+		
+	}
+	
+	//Use to create DB and initialize initial values
+	public static void createDatabase() {
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE );
+			Statement create = conn.createStatement();
+			create.execute("CREATE TABLE 'User' ('IDuser' TEXT NOT NULL UNIQUE,'Password' TEXT NOT NULL," 
+						+"'Active' INTEGER NOT NULL, 'Name' TEXT NOT NULL, 'LastName' TEXT NOT NULL,"
+						+"'Username' TEXT NOT NULL UNIQUE, 'Email'TEXT NOT NULL, PRIMARY KEY('IDuser'));"
+					+"CREATE TABLE 'ADMIN' ('IDuser' TEXT NOT NULL, FOREIGN KEY('IDuser') REFERENCES "
+						+ "'User'('IDuser'),PRIMARY KEY('IDuser'));" 
+					+"CREATE TABLE 'CLINICAL' ('IDuser'	TEXT NOT NULL, 'SSN' INTEGER NOT NULL,"
+						+"FOREIGN KEY('IDuser') REFERENCES 'User'('IDuser'),PRIMARY KEY('IDuser'));"
+					+"CREATE TABLE 'Assistant' ('IDuser' TEXT NOT NULL, 'Municipality' TEXT NOT NULL,"
+							+ "FOREIGN KEY('IDuser') REFERENCES 'User'('IDuser'), PRIMARY KEY('IDuser'));"
+					+"CREATE TABLE 'Doctor'('IDuser'TEXT NOT NULL, 'MLN'INTEGER NOT NULL,"
+							+"FOREIGN KEY('IDuser') REFERENCES 'User'('IDuser'),PRIMARY KEY('IDuser'));"
+					+"CREATE TABLE 'Telephone' ('IDuser' TEXT NOT NULL,'Number' TEXT NOT NULL,"
+							+"PRIMARY KEY('IDuser','Number'), FOREIGN KEY('IDuser') REFERENCES 'Doctor'('IDuser'));"
+					+"CREATE TABLE 'Patient' ('IDptt' TEXT NOT NULL UNIQUE, 'Name' TEXT NOT NULL, 'LastName' TEXT NOT NULL,"
+							+"'Municipality' TEXT NOT NULL, 'Address' TEXT NOT NULL, 'Sex' TEXT NOT NULL,"
+							+"'Status'	TEXT NOT NULL, 'SSN' TEXT NOT NULL, 'Doctor' TEXT NOT NULL, PRIMARY KEY('IDptt'),"
+							+"FOREIGN KEY('Doctor') REFERENCES 'Doctor'('IDuser'));"
+					+"CREATE TABLE 'Message'('IDmsg' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+							+"'IDuser'	TEXT NOT NULL, 'IDptt' TEXT NOT NULL, 'Data' TEXT NOT NULL,"
+							+"'Date' TEXT NOT NULL,'Seen' INTEGER NOT NULL, FOREIGN KEY('IDuser') REFERENCES 'CLINICAL'('IDuser'),"
+							+"FOREIGN KEY('IDptt') REFERENCES 'Patient'('IDptt'));"
+					+"CREATE TABLE 'ECG'('IDecg' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+							+"'IDuser' TEXT NOT NULL, 'IDptt' TEXT NOT NULL, 'Frequency' INTEGER NOT NULL,"
+							+"'Data' BLOB NOT NULL, 'Date' TEXT NOT NULL, 'Seen' TEXT NOT NULL, 'Diagnostic' TEXT,"
+							+"FOREIGN KEY('IDuser') REFERENCES 'Assistant'('IDuser'), FOREIGN KEY('IDptt') REFERENCES 'Patient'('IDptt'));"
+					);
+			create.close();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 }

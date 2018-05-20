@@ -172,9 +172,9 @@ public class UserPanel extends JPanel {
 						else {
 							DoctorDialog dd = new DoctorDialog(MainCtrl.window, windowToRefresh, id);
 						}
+						rs.close();
 						stmt.close();
 						c.close();
-						
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
