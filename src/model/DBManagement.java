@@ -87,8 +87,8 @@ public class DBManagement {
 
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery(
-				"SELECT Assistant.IDuser, Assistant.Municipality, User.Username, User.Name, User.LastName"
+		ResultSet rs = stmt
+				.executeQuery("SELECT Assistant.IDuser, Assistant.Municipality, User.Username, User.Name, User.LastName "
 						+ "FROM Assistant JOIN User ON Assistant.IDuser = User.IDuser WHERE Active != 0");
 
 		while (rs.next()) {
@@ -147,14 +147,14 @@ public class DBManagement {
 
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT Doctor.IDuser, User.Username, User.Name, User.LastName, clinical.ssn"
-							+ "FROM Doctor JOIN User ON Doctor.IDuser = User.IDuser"
+		ResultSet rs = stmt.executeQuery("SELECT Doctor.IDuser, User.Username, User.Name, User.LastName, clinical.ssn "
+							+ "FROM Doctor JOIN User ON Doctor.IDuser = User.IDuser "
 							+ "JOIN CLINICAL ON Doctor.IDuser = clinical.IDuser WHERE Active != 0");
 
 		while (rs.next()) {
 			Statement stmt2 = null;
 			stmt2 = c.createStatement();
-			ResultSet rs2 = stmt2.executeQuery("SELECT User.IDuser, Telephone.number FROM User"
+			ResultSet rs2 = stmt2.executeQuery("SELECT User.IDuser, Telephone.number FROM User "
 					+ "JOIN Telephone ON Telephone.IDuser = user.IDuser WHERE User.IDuser ='"
 					+ rs.getString("IDUser") + "'");
 
