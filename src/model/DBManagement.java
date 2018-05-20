@@ -1,6 +1,11 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -460,8 +465,48 @@ public class DBManagement {
 		
 	}
 	
-	//Use to create DB and initialize initial values
+	//Reads an .sql file to create the database
 	public static void createDatabase() {
+		
+		try {
+		InputStream is = new FileInputStream("manifest.mf");
+		
+		BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+		        
+		String line = buf.readLine();
+		StringBuilder sb = new StringBuilder();
+		        
+		while(line != null){
+		   sb.append(line);
+		   line = buf.readLine();
+		}
+		        
+		String fileAsString = sb.toString();
+		
+		Connection conn = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE );
+		Statement create = conn.createStatement();
+		create.execute(fileAsString);
+		
+	
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
+	
+	
+	//Use to create DB and initialize initial values
+	/*public static void createDatabase() {
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE );
 			Statement create = conn.createStatement();
@@ -498,13 +543,19 @@ public class DBManagement {
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 
-	private static void populateDB() {
+	/*private static void populateDB() {
 		Connection conn;
 		try {
 			conn = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE );
 			Statement create = conn.createStatement();
+			create.execute(
+				"INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)" +
+						"VALUES(56566443J,m1#M0ra13s@uem.es,1,Maria de la Luz,Morales Botello,?,?);"
+				
+				
+				);
 			
 			
 			/*Insert Cheatsheet:
@@ -521,12 +572,12 @@ public class DBManagement {
 			"INSERT INTO Messages(IDuser, IDptt, Data, Date, Seen) VALUES (?,?,?,?,?);";
 			"INSERT INTO ECG(IDuser, IDptt, Frequency, Data, Date, Seen, Diagnostic)" +
 					+"VALUES(?,?,?,?,?,?,?);";
-			*/
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 }
