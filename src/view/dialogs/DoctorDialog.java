@@ -971,7 +971,7 @@ public class DoctorDialog extends JDialog {
 				rs.close();
 				windowToRefresh.actionPerformed(new ActionEvent(this, 0, "USER_UPDATE"));
 				}catch(Exception e) {
-					e.printStackTrace();
+					e	.printStackTrace();
 				}
 			}
 		}

@@ -5,6 +5,7 @@ import java.awt.event.WindowListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Stack;
 
@@ -93,6 +94,7 @@ public class MainCtrl implements WindowListener{
 		// TODO Auto-generated method stub
 		
 	}
+
 
 
 }
