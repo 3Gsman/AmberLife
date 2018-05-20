@@ -499,4 +499,34 @@ public class DBManagement {
 		}
 		
 	}
+
+	private static void populateDB() {
+		Connection conn;
+		try {
+			conn = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE );
+			Statement create = conn.createStatement();
+			
+			
+			/*Insert Cheatsheet:
+			 * 
+			 * "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)" +
+					"VALUES(?,?,?,?,?,?,?);";
+			"INSERT INTO ADMIN(IDuser) VALUES (?);";
+			"INSERT INTO CLINICAL(IDUser, SSN) VALUES(?,?);";
+			"INSERT INTO Doctor(IDUser, MLN) VALUES(?,?);";
+			"INSERT INTO Telephone(IDuser, Number) VALUES (?,?);";
+			"INSERT INTO Assistant(IDuser, Municipality VALUES (?,?);";
+			"INSERT INTO Patient(IDptt, Name, LastName, Municipality, Address, Sex, Status, SSN, Doctor)" +
+					"VALUES(?,?,?,?,?,?,?,?,?);";
+			"INSERT INTO Messages(IDuser, IDptt, Data, Date, Seen) VALUES (?,?,?,?,?);";
+			"INSERT INTO ECG(IDuser, IDptt, Frequency, Data, Date, Seen, Diagnostic)" +
+					+"VALUES(?,?,?,?,?,?,?);";
+			*/
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }
