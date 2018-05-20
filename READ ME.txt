@@ -1,11 +1,18 @@
 AMBERLIFE
 
-La versión actual del programa es la: 
+La versión actual del programa es la: v2.0
 Donde hemos eliminado la dependencia de trabajar con
 archivos .txt y hemos pasado a trabajar con una base
 de datos local, usando SQLite. También se han
 implementado nuevas funcionalidades con respecto a la
 versión anterior sobre la gestión de usuarios.
+
+También se le ha añadido un script para crear una base
+de datos completamente funcional con ciertos datos 
+insertados para ver el comportamiento del programa.
+Ademas de haber una función en BDManagement que crearia
+la base de datos en caso de no querer usar el script, 
+esta funcion no está siendo llamada actualmente.
 
 Los unicos archivos .txt actuales son dos ECGs para
 que el Assist (técnico) pueda cargarlos y visionarlos.
