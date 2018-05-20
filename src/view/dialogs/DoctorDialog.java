@@ -929,7 +929,7 @@ public class DoctorDialog extends JDialog {
 			Connection c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 			
 			Statement check = c2.createStatement();
-			ResultSet rs_check = check.executeQuery("SELECT User WHERE Username LIKE '" + usernameField.getText() + 
+			ResultSet rs_check = check.executeQuery("SELECT Username From User WHERE Username LIKE '" + usernameField.getText() + 
 								"' AND NOT UserID LIKE '" + id + "'");
 			if(rs_check.next()) {
 				JOptionPane.showConfirmDialog (null, "That Username is already in use",
