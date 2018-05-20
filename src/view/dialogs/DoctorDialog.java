@@ -922,10 +922,12 @@ public class DoctorDialog extends JDialog {
 		String sql = "SELECT IDuser, Username FROM User where IDuser LIKE '" + idField.getText() + "'";
 		Statement stmt =  c.createStatement();
 		ResultSet rs  = stmt.executeQuery(sql);
+		String username = rs.getString("Username");
+		rs.close();
 		stmt.close();
 		c.close();
 		
-		if(idField.getText().equals(id) && usernameField.getText().equals(rs.getString("Username"))) { //IF we are not changing the ID, update it normally
+		if(idField.getText().equals(id) && usernameField.getText().equals(username)) { //IF we are not changing the ID, update it normally
 			Connection c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 			//Update code
 			String sql1 = "UPDATE User SET Password = ?, Name = ?,"
