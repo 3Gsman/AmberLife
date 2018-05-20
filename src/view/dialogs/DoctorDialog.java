@@ -927,6 +927,17 @@ public class DoctorDialog extends JDialog {
 		
 		if(idField.getText().equals(id) ) { //IF we are not changing the ID, update it normally
 			Connection c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			
+			Statement check = c2.createStatement();
+			ResultSet rs_check = check.executeQuery("SELECT User WHERE Username LIKE '" + usernameField.getText() + 
+								"' AND NOT UserID LIKE '" + id + "'");
+			if(rs_check.next()) {
+				JOptionPane.showConfirmDialog (null, "That Username is already in use",
+						"Warning",JOptionPane.OK_OPTION);
+				updateDoctor(id);
+			}
+			check.close();
+			rs_check.close();
 			//Update code
 			String sql1 = "UPDATE User SET Password = ?, Name = ?,"
 					+ " LastName = ?, Username=?, Email =? WHERE IDuser LIKE '" + id + "'";	
