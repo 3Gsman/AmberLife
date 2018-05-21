@@ -812,7 +812,7 @@ public class PatientDialog extends JDialog {
 		System.out.println("Creating new patient");
 		try {
 			Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
-			String sql = "SELECT IDptt FROM Patient where IDptt LIKE " + idField.getText();
+			String sql = "SELECT IDptt FROM Patient where IDptt LIKE '" + idField.getText() +"'";
 			Statement stmt =  c.createStatement();
 			ResultSet rs  = stmt.executeQuery(sql);
 			stmt.close();
