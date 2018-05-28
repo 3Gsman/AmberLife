@@ -586,6 +586,47 @@ public class DBManagement {
 
 	}
 	
+	public static void reassignPatients(String IDuser) throws ClassNotFoundException, SQLException {
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		int i;
+		String idDoctor;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Statement stmt = null;
+		stmt = c.createStatement();
+		
+		ResultSet rd = stmt.executeQuery("SELECT count(Doctor)\r\n" + 
+				"from Patient\r\n" + 
+				"where Doctor = '" + IDuser + "'" +
+				"group by doctor\r\n" + 
+				"order by count(doctor) asc");
+		
+		int countid = rd.getInt("count(Doctor)");
+		
+		ResultSet rs = stmt.executeQuery("SELECT Doctor, count(Doctor)\r\n" + 
+				"from Patient\r\n" + 
+				"where Doctor != '" + IDuser + "'" +
+				"group by doctor\r\n" + 
+				"order by count(doctor) asc");
+		
+		
+			while (rs.next()) {
+				idDoctor = rs.getString("Doctor");
+				
+				stmt.executeUpdate("UPDATE Patient set Doctor ='" + idDoctor + "' where Doctor = '" + IDuser + "'");
+				System.out.println("Daniestasgaja\n");
+			}
+		
+		
+		rd.close();
+		rs.close();
+		stmt.close();
+		c.close();
+		
+		
+	}
+	
 	//Reads an .sql file to create the database
 	public static void createDatabase() {
 		

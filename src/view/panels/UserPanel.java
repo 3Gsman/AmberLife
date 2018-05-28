@@ -25,6 +25,7 @@ import java.awt.FontFormatException;
 import javax.swing.SwingConstants;
 
 import control.MainCtrl;
+import model.DBManagement;
 import model.LocalizationService;
 import view.dialogs.AssistDialog;
 import view.dialogs.DoctorDialog;
@@ -207,6 +208,7 @@ public class UserPanel extends JPanel {
 															"Warning",JOptionPane.YES_NO_OPTION);
 				if(confirm == JOptionPane.YES_OPTION){
 					try {
+						DBManagement.reassignPatients(id);
 						Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
 						Statement stmt =  c.createStatement();
 						stmt.execute("UPDATE User SET Active = 0 WHERE IDuser LIKE '" + id + "'");
@@ -214,6 +216,9 @@ public class UserPanel extends JPanel {
 						c.close();
 						windowToRefresh.actionPerformed(new ActionEvent(this, 0, "USER_UPDATE"));
 					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (ClassNotFoundException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
