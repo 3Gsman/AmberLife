@@ -590,6 +590,7 @@ public class DBManagement {
 		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
 		int i;
+		String idPatient;
 		String idDoctor;
 		Class.forName("org.sqlite.JDBC");
 		c = DriverManager.getConnection("jdbc:sqlite:" + database);
@@ -604,23 +605,35 @@ public class DBManagement {
 		
 		int countid = rd.getInt("count(Doctor)");
 		
-		ResultSet rs = stmt.executeQuery("SELECT Doctor, count(Doctor)\r\n" + 
-				"from Patient\r\n" + 
-				"where Doctor != '" + IDuser + "'" +
-				"group by doctor\r\n" + 
-				"order by count(doctor) asc");
-		
-		
-			while (rs.next()) {
-				idDoctor = rs.getString("Doctor");
+		while (countid > 0) {
+			
+			ResultSet rp = stmt.executeQuery("SELECT IDPtt\r\n" + 
+					"from Patient\r\n" + 
+					"where Doctor = '" + IDuser + "'");
+			
+					idPatient = rp.getString("IDPtt");
+			
+			ResultSet rs = stmt.executeQuery("SELECT Patient.Doctor, count(Patient.Doctor)\r\n" + 
+					"from Patient\r\n" + 
+					"join User on User.IDUser = Patient.Doctor\r\n" + 
+					"where Patient.Doctor != '" + IDuser + "' and User.Active != 0\r\n" + 
+					"group by Patient.Doctor\r\n" + 
+					"order by count(Patient.Doctor) asc");
+			
+					
+					idDoctor = rs.getString("Doctor");
+					
+					
+					stmt.executeUpdate("UPDATE Patient set Doctor ='" + idDoctor + "' where Doctor = '" + IDuser + "'"
+							+ "and IDPtt = '" + idPatient + "'");
 				
-				stmt.executeUpdate("UPDATE Patient set Doctor ='" + idDoctor + "' where Doctor = '" + IDuser + "'");
-				System.out.println("Daniestasgaja\n");
-			}
+					rp.close();
+					rs.close();
+					countid --;
+		}
 		
 		
 		rd.close();
-		rs.close();
 		stmt.close();
 		c.close();
 		
