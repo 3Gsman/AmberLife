@@ -841,8 +841,8 @@ public class PatientDialog extends JDialog {
 			st1.setString(3, surnameField.getText());
 			st1.setString(4, cityField.getText());
 			st1.setString(5, addressField.getText());
-			st1.setString(6, boxgenders.getSelectedObjects().toString());
-			st1.setString(7, boxstatus.getSelectedObjects().toString());
+			st1.setString(6, boxgenders.getSelectedItem().toString());
+			st1.setString(7, boxstatus.getSelectedItem().toString());
 			st1.setString(8, ssnField.getText());
 			st1.setString(9, doctorID);
 			//DOCTOR GOES HERE
