@@ -50,7 +50,7 @@ public class ECGchooserCtrl implements ActionListener, MouseListener{
 		try {
 			EcgPanel ecg = (EcgPanel) e.getSource();
 			controller.compare(first,ecg.getECG());
-			System.out.println("Selected ECG: " + ecg.getECG().getName());
+			System.out.println("Selected ECG: " + ecg.getECG().getId());
 		}
 		catch(ClassCastException cce){
 			System.out.println("BAD CAST at DoctorPatientCtrl");

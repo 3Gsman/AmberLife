@@ -234,7 +234,7 @@ public class DBManagement {
 	 *             SQLException
 	 */
 
-	public static ECG readECG(String IDecg) throws ClassNotFoundException, SQLException {
+	public static ECG readECG(int IDecg) throws ClassNotFoundException, SQLException {
 
 		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
@@ -244,19 +244,12 @@ public class DBManagement {
 		stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery("select * from ECG where ecg.IDecg ='" + IDecg + "'");
 
-		ECG ecg = new ECG();
+		ECG ecg = new ECG(IDecg,rs.getInt("Frequency"), new Vector<Double>(),rs.getString("Diagnostic"));
 		Vector<Double> num = new Vector<>();
 
-		ecg.setName(IDecg);
-		ecg.setFrequency(rs.getInt("Frequency"));
-		ecg.setReport(rs.getString("Diagnostic"));
-
 		rs.getString("Data");
-
 		String data = rs.getString("Data");
-
 		String[] numeros = null;
-
 		numeros = data.toString().split(";");
 		for (int i = 0; i < numeros.length; i++) {
 			num.add(Double.valueOf(numeros[i]));
@@ -521,12 +514,9 @@ public class DBManagement {
 		ResultSet rs = stmt.executeQuery("select * from ecg where ecg.IDptt ='" + IDptt + "'");
 
 		while (rs.next()) {
-			ECG ecg = new ECG();
+			ECG ecg = new ECG(rs.getInt("IDecg"),rs.getInt("Frequency"),new Vector<Double>(),rs.getString("Diagnostic"));
 			Vector<Double> num = new Vector<>();
 
-			ecg.setName(rs.getString("IDecg"));
-			ecg.setReport(rs.getString("Diagnostic"));
-			ecg.setFrequency(rs.getInt("Frequency"));
 
 			String data = rs.getString("Data");
 			String[] numeros = null;

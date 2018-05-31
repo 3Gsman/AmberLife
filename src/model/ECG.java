@@ -3,7 +3,7 @@ package model;
 import java.util.Vector;
 
 public class ECG {
-	private String name;
+	private int id;
 	private int frequency;
 	private Vector<Double> data;
 	private String report;
@@ -15,10 +15,11 @@ public class ECG {
 	 * @param f		number of measures per second
 	 * @param r		message attached to the ECG
 	 */		
-	public ECG(String n, int f, String r) {
-		name = n;
-		frequency = f;
-		report = r;
+	public ECG(int id, int frequency, Vector<Double> data, String report) {
+		this.setId(id);
+		this.frequency = frequency;
+		this.data = data;
+		this.report = report;
 	}
 	
 	/**
@@ -27,34 +28,12 @@ public class ECG {
 	 * @param n		name of the ECG file
 	 * @param f		number of measures per second
 	 */
-	public ECG(String n, int f) {
+	/*public ECG(String n, int f) {
 		name = n;
 		frequency = f;
 		report = "";
-	}
+	}*/
 
-	public ECG() {
-		
-	}
-	
-	/**
-	 * Getter for the name attribute.
-	 * 
-	 * @return the name of the file.
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * Setter for the name attribute.
-	 * 
-	 * @param name		the name of the file
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	
 	/**
 	 * Getter for the frequency attribute.
 	 * 
@@ -107,6 +86,14 @@ public class ECG {
 	 */
 	public void setReport(String report) {
 		this.report = report;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }

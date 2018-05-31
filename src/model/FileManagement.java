@@ -247,7 +247,7 @@ public class FileManagement {
 	 */
 	public ECG readECG(String filename) throws IOException {
 		lector = new BufferedReader(new FileReader("src/resources/" + filename));
-		ECG ecg = new ECG();
+
 		Vector<Double> num = new Vector<>();
 
 		String linea = null;
@@ -269,11 +269,8 @@ public class FileManagement {
 
 		if (info == null)
 			info = "";
-
-		ecg.setData(num);
-		ecg.setName(filename);
-		ecg.setFrequency(Integer.parseInt(frequency));
-		ecg.setReport(info);
+		
+		ECG ecg = new ECG(0,Integer.parseInt(frequency), num, info);
 
 		// Check the reading of the ecgs
 		// System.out.print(ecg.toString());
@@ -297,7 +294,7 @@ public class FileManagement {
 		lectorp = new BufferedReader(new FileReader("src/resources/" + username + ".txt"));
 		String linea = lectorp.readLine();
 		String[] lineatxt = linea.split(";");
-		ECG ecg = new ECG();
+		
 		Vector<ECG> vector = new Vector<>();
 
 		p.setName(lineatxt[0]);
@@ -309,15 +306,18 @@ public class FileManagement {
 		p.setGender(lectorp.readLine());
 		p.setStatus(lectorp.readLine());
 		//p.setMessage(lectorp.readLine());
+		;
 
 		//SE NECESITA PASAR A READECG el IDecg en vez del fichero en DBMANAGEMENT
 		while ((linea = lectorp.readLine()) != null) {
 
-			ecg = readECG(linea + ".txt");
+			ECG ecg = readECG(linea + ".txt");
 
 			vector.add(ecg);
 
 		}
+		
+		
 
 		p.setECGs(vector);
 

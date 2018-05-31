@@ -93,7 +93,7 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 			dmf.addController(dmc);
 			dmf.initialize();
 			MainCtrl.window.setContentPane(dmf);
-			System.out.println("Selected ECG: " + ecg.getECG().getName());
+			System.out.println("Selected ECG: " + ecg.getECG().getId());
 		}
 		catch(ClassCastException cce){
 			System.out.println("BAD CAST at DoctorPatientCtrl");

@@ -173,7 +173,7 @@ public class DoctorMeasureFr extends JPanelWithBackground {
 			text2.setEditable(false);
 			String nameword = LocalizationService.getWord("name");
 			String frequencyword = LocalizationService.getWord("frequency");
-			text2.setText(nameword.substring(0, 1).toUpperCase() + nameword.substring(1) + ": " + controller.getECG().getName() + "\n" +
+			text2.setText(nameword.substring(0, 1).toUpperCase() + nameword.substring(1) + ": " + controller.getECG().getId() + "\n" +
 						frequencyword.substring(0, 1).toUpperCase() + frequencyword.substring(1)  + ": " + controller.getECG().getFrequency());
 			viewport2.add(text2, BorderLayout.CENTER);
 			

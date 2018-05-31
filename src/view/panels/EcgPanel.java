@@ -79,7 +79,8 @@ public class EcgPanel extends JPanel {
 			label_1.setBackground(grey);
 			panel.add(label_1);
 			
-			JLabel label_4 = new JLabel(e.getName());
+			//Aqui se escribe la ID del ECG en el panel
+			JLabel label_4 = new JLabel(String.valueOf(e.getId()));
 			label_4.setVerticalAlignment(SwingConstants.BOTTOM);
 			label_4.setForeground(grey);
 			label_4.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
