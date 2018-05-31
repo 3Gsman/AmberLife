@@ -17,6 +17,7 @@ import view.assistant.AssistFr;
 import view.assistant.AssistPatientFr;
 import view.dialogs.InvalidPatientDialog;
 import model.FileManagement;
+import model.Message;
 import model.Patient;
 import model.Assistant;
 import model.DBManagement;
@@ -161,6 +162,7 @@ public class AssistCtrl implements ActionListener, KeyListener{
 					
 					messages = DBManagement.readPatientMessages(resultado.getId());
 					
+					
 					System.out.println("Patient found.\n");
 					System.out.println("Assistant: " + getName());			
 					
@@ -186,8 +188,10 @@ public class AssistCtrl implements ActionListener, KeyListener{
 	 * @param	user		Username of the Assistant using the program.
 	 * @see     AssistPatientCtrl, AssistPatientFr
 	 * @throws	IOException
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public void openPatientTecn(String name, String lastname, String id, String ssn, Vector<model.Message> messages, String user) throws IOException {
+	public void openPatientTecn(String name, String lastname, String id, String ssn, Vector<model.Message> messages, String user) throws IOException, ClassNotFoundException, SQLException {
         AssistPatientFr vm = new AssistPatientFr(getClass().getResource("/resources/BG.png"));
         AssistPatientCtrl tc = new AssistPatientCtrl(vm,tecnico.getId(),id);
         MainCtrl.window.toBackStack(tf);

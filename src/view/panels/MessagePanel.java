@@ -7,6 +7,8 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,6 +16,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import javax.swing.SwingConstants;
+
+import model.DBManagement;
 import model.LocalizationService;
 import model.Message;
 import model.User;
@@ -41,8 +45,10 @@ public class MessagePanel extends JPanel {
 	/**
 	 * Create the panel.
 	 * @throws IOException 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public MessagePanel(ActionListener controller, User u, Message message) throws IOException {
+	public MessagePanel(ActionListener controller, User u, Message message) throws IOException, ClassNotFoundException, SQLException {
 		this.message = message;
 		this.u = u;
 
@@ -112,7 +118,15 @@ public class MessagePanel extends JPanel {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_6.add(lblNewLabel, BorderLayout.CENTER);
 		
-		JLabel lblNewLabel_1 = new JLabel(message.getAuthorname() + " " + message.getAuthorsurname());
+		
+		JLabel lblNewLabel_1;
+		
+		if(DBManagement.checkDoctor(message.getAuthorID()) == true) {
+			lblNewLabel_1 = new JLabel("Dr. " + message.getAuthorname() + " " + message.getAuthorsurname());
+		}else {
+			lblNewLabel_1 = new JLabel(message.getAuthorname() + " " + message.getAuthorsurname());
+		}
+		
 		lblNewLabel_1.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.gridx = 2;
@@ -171,6 +185,7 @@ public class MessagePanel extends JPanel {
 		panel_7.add(lblDate, BorderLayout.CENTER);
 		
 		JLabel label = new JLabel(message.getTimestamp());
+		//JLabel label = new JLabel(message.getTimestamp().substring(0, 10));
 		label.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.gridx = 2;

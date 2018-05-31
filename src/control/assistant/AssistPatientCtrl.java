@@ -8,6 +8,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -136,7 +138,12 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 				e1.printStackTrace();
 			}
 		}else if (e.getActionCommand().equals("MESSAGE_UPDATE")){
-			patient.refreshMessages(patient.messageboard);
+			try {
+				patient.refreshMessages(patient.messageboard);
+			} catch (ClassNotFoundException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}else System.out.println("Invalid Action");{
 		
 		 }

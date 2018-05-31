@@ -33,6 +33,7 @@ import java.awt.FontFormatException;
 import java.awt.Color;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Vector;
 
 @SuppressWarnings("serial")
@@ -83,8 +84,10 @@ public class AssistPatientFr extends JPanelWithBackground {
 	/**
 	 * Initialize the frame.
 	 * @throws IOException 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	public void initialize(String pname, String psurname, String id, String ssn, Vector<model.Message> messages, String user) throws IOException {
+	public void initialize(String pname, String psurname, String id, String ssn, Vector<model.Message> messages, String user) throws IOException, ClassNotFoundException, SQLException {
 		this.messages = messages;
 		this.name = pname;
 		this.psurname = psurname;
@@ -404,11 +407,11 @@ public class AssistPatientFr extends JPanelWithBackground {
 
 
 
-	public void refreshMessages(JPanel jp) {
+	public void refreshMessages(JPanel jp) throws ClassNotFoundException, SQLException {
 		jp.removeAll();
 		for(Message s : messages) {
 			try {
-				mp = new MessagePanel(controller, new User(id, name, psurname), s);
+				mp = new MessagePanel(controller, new User(s.getAuthorID(), s.getAuthorname(), s.getAuthorsurname()), s);
 				jp.add(mp);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
