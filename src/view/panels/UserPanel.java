@@ -163,9 +163,22 @@ public class UserPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					try {
-						Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+						Connection c = null;
+
+						Class.forName("org.mariadb.jdbc.Driver");
+
+						String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+						String userdb = "pi2_amberlife";
+						String pass = "rdysdhsks";
+
+						//String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+						//String userdb = "dani";
+						//String pass = "gaja";
+						
+						c = DriverManager.getConnection(db, userdb, pass);
+						
 						Statement stmt =  c.createStatement();
-						ResultSet rs = stmt.executeQuery("select IDUser from doctor where iduser='" + id + "'");
+						ResultSet rs = stmt.executeQuery("select IDuser from Doctor where IDuser='" + id + "'");
 
 						if (rs.next() == false) {
 							AssistDialog ad = new AssistDialog(MainCtrl.window, windowToRefresh, id);
@@ -177,6 +190,9 @@ public class UserPanel extends JPanel {
 						stmt.close();
 						c.close();
 					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (ClassNotFoundException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
@@ -209,7 +225,19 @@ public class UserPanel extends JPanel {
 				if(confirm == JOptionPane.YES_OPTION){
 					try {
 						DBManagement.reassignPatients(id);
-						Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+						Connection c = null;
+
+						Class.forName("org.mariadb.jdbc.Driver");
+
+						String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+						String userdb = "pi2_amberlife";
+						String pass = "rdysdhsks";
+
+						//String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+						//String userdb = "dani";
+						//String pass = "gaja";
+						c = DriverManager.getConnection(db, userdb, pass);
+						
 						Statement stmt =  c.createStatement();
 						stmt.execute("UPDATE User SET Active = 0 WHERE IDuser LIKE '" + id + "'");
 						stmt.close();

@@ -168,6 +168,9 @@ public class PatientPanel extends JPanel {
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
@@ -192,7 +195,18 @@ public class PatientPanel extends JPanel {
 															"Warning",JOptionPane.YES_NO_OPTION);
 				if(confirm == JOptionPane.YES_OPTION){
 					try {
-						Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+						Connection c = null;
+
+						Class.forName("org.mariadb.jdbc.Driver");
+
+						String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+						String userdb = "pi2_amberlife";
+						String pass = "rdysdhsks";
+
+						//String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+						//String userdb = "dani";
+						//String pass = "gaja";
+						c = DriverManager.getConnection(db, userdb, pass);
 						Statement stmt =  c.createStatement();
 						stmt.execute("DELETE FROM Patient WHERE IDptt LIKE " + p.getId());
 						stmt.execute("DELETE FROM Patient WHERE IDptt LIKE " + p.getId());
@@ -204,6 +218,9 @@ public class PatientPanel extends JPanel {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
 				} else System.out.println("Deletion Cancelled");
 		}

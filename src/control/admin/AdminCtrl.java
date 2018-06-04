@@ -80,9 +80,19 @@ public class AdminCtrl implements ActionListener {
     	else if (e.getActionCommand().equals("BACK")){
     		MainCtrl.window.popBackStack();	
     	}else if (e.getActionCommand().equals("NEWDOCTOR")) {
-			newDoctor();
+			try {
+				newDoctor();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}else if (e.getActionCommand().equals("NEWASSIST")) {
-			newAssist();
+			try {
+				newAssist();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}else if (e.getActionCommand().equals("USER_UPDATE")) {
 			if(doctor_mode) {
 				try {
@@ -135,11 +145,12 @@ public class AdminCtrl implements ActionListener {
 	
 	/**
 	 * Creates a dialog for adding new doctors to the DB (Placeholder only)
+	 * @throws ClassNotFoundException 
 	 * 
 	 * @throws		IOException
 	 * @see         DoctorDialog
 	 */
-	public void newDoctor() {
+	public void newDoctor() throws ClassNotFoundException {
 		try {
 			 dd = new DoctorDialog(MainCtrl.window, this, null);
 		} catch (IOException e) {
@@ -151,11 +162,12 @@ public class AdminCtrl implements ActionListener {
 	
 	/**
 	 * Creates a dialog for adding new assistants to the DB (Placeholder only)
+	 * @throws ClassNotFoundException 
 	 * 
 	 * @throws		IOException
 	 * @see         AssistDialog
 	 */
-	public void newAssist() {
+	public void newAssist() throws ClassNotFoundException {
 		try {
 			ad = new AssistDialog(MainCtrl.window, this, null);
 		} catch (IOException e) {

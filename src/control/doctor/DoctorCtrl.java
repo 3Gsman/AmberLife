@@ -52,10 +52,11 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 
 	/**
 	 * Creates a dialog for adding new patients to the DB (Placeholder only)
+	 * @throws ClassNotFoundException 
 	 * 
 	 * @see         PatientDialog
 	 */
-	public void registerPatient() {
+	public void registerPatient() throws ClassNotFoundException {
 		try {
 			PatientDialog pd = new PatientDialog(MainCtrl.window,this,doctor.getId(),null);
 			
@@ -91,7 +92,12 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 			
 		}
 		else if (e.getActionCommand().equals("NEW")) {
-			registerPatient();
+			try {
+				registerPatient();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		else if (e.getActionCommand().equals("PATIENT_UPDATE")) {
 			try {

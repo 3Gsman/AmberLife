@@ -33,43 +33,52 @@ public class DBManagement {
 	public static String[] checkUser(String usuario, String Password) throws ClassNotFoundException, SQLException {
 		String iduser;
 		String user[] = new String[2];
-		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
 
-		Statement stmt = null;
-		stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT IDUser FROM User WHERE Username='" + usuario + "' AND Password='"
-				+ Password + "' AND Active != 0");
+			String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+			String userdb = "pi2_amberlife";
+			String pass = "rdysdhsks";
 
-		if (rs.next() == false) {
-			user[0] = "false";
-		} else {
-			user[0] = "true";
-
-			iduser = rs.getString("IDUser");
-
-			rs = stmt.executeQuery("SELECT IDUser FROM clinical WHERE IDuser='" + iduser + "'");
+			// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+			// String userdb = "dani";
+			// String pass = "gaja";
+			c = DriverManager.getConnection(db, userdb, pass);
+			Statement stmt = null;
+			stmt = c.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT IDUser FROM User WHERE Username='" + usuario + "' AND Password='"
+					+ Password + "' AND Active != 0");
 
 			if (rs.next() == false) {
-				user[1] = "admin";
+				user[0] = "false";
 			} else {
+				user[0] = "true";
 
-				rs = stmt.executeQuery("SELECT IDUser FROM doctor WHERE iduser='" + iduser + "'");
+				iduser = rs.getString("IDUser");
+
+				rs = stmt.executeQuery("SELECT IDUser FROM CLINICAL WHERE IDuser='" + iduser + "'");
 
 				if (rs.next() == false) {
-					user[1] = "tecnico";
+					user[1] = "admin";
 				} else {
-					user[1] = "medico";
+
+					rs = stmt.executeQuery("SELECT IDUser FROM Doctor WHERE iduser='" + iduser + "'");
+
+					if (rs.next() == false) {
+						user[1] = "tecnico";
+					} else {
+						user[1] = "medico";
+					}
 				}
 			}
+
+			rs.close();
+			stmt.close();
+			c.close();
+		} catch (java.sql.SQLException sqle) {
+			System.out.println("Error: " + sqle);
 		}
-
-		rs.close();
-		stmt.close();
-		c.close();
-
 		return user;
 	}
 
@@ -86,24 +95,39 @@ public class DBManagement {
 
 	public static Assistant readAssistant(String username) throws SQLException, ClassNotFoundException {
 
-		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		String userdb = "pi2_amberlife";
+		String pass = "rdysdhsks";
+
+		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		// String userdb = "dani";
+		// String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
 		stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT * FROM Assistant JOIN User ON Assistant.IDUser = User.IDUser"
-				+ " WHERE username = '" + username + "'");
+				+ " WHERE Username = '" + username + "'");
+		if (rs.next()) {
+			Assistant ass = new Assistant(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDuser"),
+					rs.getString("Municipality"), rs.getString("Username"));
+			rs.close();
+			stmt.close();
+			c.close();
+			return ass;
+		} else {
+			rs.close();
+			stmt.close();
+			c.close();
 
-		Assistant ass = new Assistant(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDuser"),
-				rs.getString("Municipality"), rs.getString("Username"));
+			Assistant ass = new Assistant(null, null, null, null, null);
 
-		rs.close();
-		stmt.close();
-		c.close();
-
-		return ass;
+			return ass;
+		}
 	}
 
 	/**
@@ -116,15 +140,22 @@ public class DBManagement {
 
 	public static Vector<Assistant> getAssistants() throws ClassNotFoundException, SQLException {
 		Vector<Assistant> v = new Vector<>();
-		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		String userdb = "pi2_amberlife";
+		String pass = "rdysdhsks";
+
+		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		// String userdb = "dani";
+		// String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs = stmt
-				.executeQuery("SELECT Assistant.IDuser, Assistant.Municipality, User.Username, User.Name, User.LastName "
+		ResultSet rs = stmt.executeQuery(
+				"SELECT Assistant.IDuser, Assistant.Municipality, User.Username, User.Name, User.LastName "
 						+ "FROM Assistant JOIN User ON Assistant.IDuser = User.IDuser WHERE Active != 0");
 
 		while (rs.next()) {
@@ -151,10 +182,17 @@ public class DBManagement {
 
 	public static Vector<Message> readMessages(String patientID) throws ClassNotFoundException, SQLException {
 		Vector<Message> messages = new Vector<>();
-		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		String userdb = "pi2_amberlife";
+		String pass = "rdysdhsks";
+
+		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		// String userdb = "dani";
+		// String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -162,8 +200,8 @@ public class DBManagement {
 
 		while (rs_message.next()) {
 			Statement stmt2 = c.createStatement();
-			ResultSet rs_author = stmt2.executeQuery("SELECT User.IDuser, User.Name, User.LastName, Clinical.SSN "
-					+ "FROM	User, Clinical WHERE User.IDUser LIKE '" + rs_message.getString("IDuser") + "' AND "
+			ResultSet rs_author = stmt2.executeQuery("SELECT User.IDuser, User.Name, User.LastName, CLINICAL.SSN "
+					+ "FROM	User, CLINICAL WHERE User.IDUser LIKE '" + rs_message.getString("IDuser") + "' AND "
 					+ "CLINICAL.IDuser LIKE '" + rs_message.getString("IDuser") + "'");
 
 			Message m = new Message(rs_message.getString("Date"), rs_message.getString("Data"),
@@ -192,22 +230,29 @@ public class DBManagement {
 
 	public static Vector<Doctor> getDoctors() throws SQLException, ClassNotFoundException {
 		Vector<Doctor> v = new Vector<>();
-		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		String userdb = "pi2_amberlife";
+		String pass = "rdysdhsks";
+
+		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		// String userdb = "dani";
+		// String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT Doctor.IDuser, User.Username, User.Name, User.LastName, clinical.ssn "
+		ResultSet rs = stmt.executeQuery("SELECT Doctor.IDuser, User.Username, User.Name, User.LastName, CLINICAL.ssn "
 				+ "FROM Doctor JOIN User ON Doctor.IDuser = User.IDuser "
-				+ "JOIN CLINICAL ON Doctor.IDuser = clinical.IDuser WHERE Active != 0");
+				+ "JOIN CLINICAL ON Doctor.IDuser = CLINICAL.IDuser WHERE Active != 0");
 
 		while (rs.next()) {
 			Statement stmt2 = null;
 			stmt2 = c.createStatement();
-			ResultSet rs2 = stmt2.executeQuery("SELECT User.IDuser, Telephone.number FROM User "
-					+ "JOIN Telephone ON Telephone.IDuser = user.IDuser WHERE User.IDuser ='" + rs.getString("IDUser")
+			ResultSet rs2 = stmt2.executeQuery("SELECT User.IDuser, Telephone.Number FROM User "
+					+ "JOIN Telephone ON Telephone.IDuser = User.IDuser WHERE User.IDuser ='" + rs.getString("IDUser")
 					+ "'");
 
 			v.add(new Doctor(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDUser"),
@@ -236,13 +281,21 @@ public class DBManagement {
 
 	public static ECG readECG(String IDecg) throws ClassNotFoundException, SQLException {
 
-		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		String userdb = "pi2_amberlife";
+		String pass = "rdysdhsks";
+
+		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		// String userdb = "dani";
+		// String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
+
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery("select * from ECG where ecg.IDecg ='" + IDecg + "'");
+		ResultSet rs = stmt.executeQuery("select * from ECG where ECG.IDecg ='" + IDecg + "'");
 
 		ECG ecg = new ECG();
 		Vector<Double> num = new Vector<>();
@@ -284,10 +337,18 @@ public class DBManagement {
 	public static Vector<Patient> readPatients(String doctorID)
 			throws ClassNotFoundException, SQLException, IOException {
 
-		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		String userdb = "pi2_amberlife";
+		String pass = "rdysdhsks";
+
+		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		// String userdb = "dani";
+		// String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
+
 		Statement stmt = null;
 		stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT IDptt FROM Patient WHERE Doctor LIKE '" + doctorID + "'");
@@ -328,22 +389,34 @@ public class DBManagement {
 
 	public static Doctor readDoctor(String username) throws SQLException, ClassNotFoundException {
 
-		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		String userdb = "pi2_amberlife";
+		String pass = "rdysdhsks";
+
+		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		// String userdb = "dani";
+		// String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs_id = stmt.executeQuery("SELECT IDUser FROM User WHERE Username LIKE '" + username + "'");
-		String id = rs_id.getString("IDuser");
+		ResultSet rs_id = stmt.executeQuery("SELECT IDuser FROM User WHERE Username LIKE '" + username + "'");
+		
+		String id = null;
+		
+		if(rs_id.next())
+			id = rs_id.getString("IDuser");
+		
 		rs_id.close();
 		stmt.close();
 
 		Statement stmt2 = c.createStatement();
 		ResultSet rs = stmt2.executeQuery("SELECT User.Name, User.LastName, User.Password, User.Username,"
 				+ "User.Email, Doctor.MLN, CLINICAL.SSN FROM User, Doctor, CLINICAL " + "WHERE User.IDUser LIKE '" + id
-				+ "' AND Doctor.IDUser LIKE '" + id + "' AND " + " CLINICAL.IDUser LIKE '" + id + "'");
+				+ "' AND Doctor.IDuser LIKE '" + id + "' AND " + " CLINICAL.IDuser LIKE '" + id + "'");
 
 		Statement stmt3 = c.createStatement();
 		ResultSet rs_tlph = stmt3.executeQuery("SELECT Number FROM Telephone where IDuser LIKE '" + id + "'");
@@ -353,7 +426,8 @@ public class DBManagement {
 		while (rs_tlph.next()) {
 			phones.add(rs_tlph.getInt("Number"));
 		}
-
+		
+		if(rs.next()){
 		Doctor d = new Doctor(rs.getString("Name"), rs.getString("LastName"), id, String.valueOf(rs.getInt("SSN")));
 		d.setMln(String.valueOf(rs.getInt("MLN")));
 		d.setPhone(phones);
@@ -364,6 +438,10 @@ public class DBManagement {
 		stmt3.close();
 		c.close();
 		return d;
+		}else{
+			Doctor d = new Doctor(null, null, null, null);
+			return d;
+		}
 	}
 
 	/**
@@ -380,10 +458,18 @@ public class DBManagement {
 	 */
 
 	public static Patient checkId(String dni) throws SQLException, ClassNotFoundException {
-		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		String userdb = "pi2_amberlife";
+		String pass = "rdysdhsks";
+
+		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		// String userdb = "dani";
+		// String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
+
 		Statement stmt = null;
 		stmt = c.createStatement();
 
@@ -424,10 +510,18 @@ public class DBManagement {
 	 */
 
 	public static Patient checkSsn(String ssn) throws SQLException, ClassNotFoundException {
-		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		String userdb = "pi2_amberlife";
+		String pass = "rdysdhsks";
+
+		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		// String userdb = "dani";
+		// String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
+
 		Statement stmt = null;
 		stmt = c.createStatement();
 
@@ -469,16 +563,25 @@ public class DBManagement {
 
 	public static Patient readPatient(String IDptt) throws IOException, SQLException, ClassNotFoundException {
 
-		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		String userdb = "pi2_amberlife";
+		String pass = "rdysdhsks";
+
+		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		// String userdb = "dani";
+		// String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
+
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery("select * from patient where patient.IDptt ='" + IDptt + "'");
-
+		ResultSet rs = stmt.executeQuery("select * from Patient where Patient.IDptt ='" + IDptt + "'");
+		
 		Patient p = new Patient(IDptt);
-
+		
+		if(rs.next()){
 		p.setId(IDptt);
 		p.setName(rs.getString("Name"));
 		p.setLastname(rs.getString("LastName"));
@@ -491,12 +594,19 @@ public class DBManagement {
 		Vector<ECG> ecgList = ecgList(IDptt);
 
 		p.setECGs(ecgList);
-
+		
 		rs.close();
 		stmt.close();
 		c.close();
 
 		return p;
+		}else{
+			rs.close();
+			stmt.close();
+			c.close();
+
+			return p;
+		}
 	}
 
 	/**
@@ -511,14 +621,21 @@ public class DBManagement {
 	public static Vector<ECG> ecgList(String IDptt) throws IOException, ClassNotFoundException, SQLException {
 
 		Vector<ECG> vector = new Vector<ECG>();
-		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		String userdb = "pi2_amberlife";
+		String pass = "rdysdhsks";
+
+		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		// String userdb = "dani";
+		// String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
 		stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery("select * from ecg where ecg.IDptt ='" + IDptt + "'");
+		ResultSet rs = stmt.executeQuery("select * from ECG where ECG.IDptt ='" + IDptt + "'");
 
 		while (rs.next()) {
 			ECG ecg = new ECG();
@@ -561,17 +678,27 @@ public class DBManagement {
 	public static Vector<Message> readPatientMessages(String idptt)
 			throws IOException, ClassNotFoundException, SQLException {
 
-		String database = "src/resources/BDAmberLife.db";
-		Connection c = null;
 		Vector<Message> messages = new Vector<>();
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+
+		Connection c = null;
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		String userdb = "pi2_amberlife";
+		String pass = "rdysdhsks";
+
+		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		// String userdb = "dani";
+		// String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
+
 		Statement stmt = null;
 		stmt = c.createStatement();
 
-		ResultSet rs_ms = stmt.executeQuery("SELECT User.name, User.LastName, User.IDuser, CLINICAL.SSN, Message.Data, Message.Date "
-				+ "FROM	User, Message, CLINICAL WHERE CLINICAL.IDuser LIKE Message.IDuser AND User.IDuser LIKE Message.IDuser "
-				+ "AND Message.IDPtt = '" + idptt + "'");
+		ResultSet rs_ms = stmt
+				.executeQuery("SELECT User.name, User.LastName, User.IDuser, CLINICAL.SSN, Message.Data, Message.Date "
+						+ "FROM	User, Message, CLINICAL WHERE CLINICAL.IDuser LIKE Message.IDuser AND User.IDuser LIKE Message.IDuser "
+						+ "AND Message.IDPtt = '" + idptt + "'");
 
 		while (rs_ms.next()) {
 			Message ms = new Message(rs_ms.getString("Date"), rs_ms.getString("Data"), rs_ms.getString("Name"),
@@ -585,76 +712,86 @@ public class DBManagement {
 		return messages;
 
 	}
-	
+
 	public static void reassignPatients(String IDuser) throws ClassNotFoundException, SQLException {
-		String database = "src/resources/BDAmberLife.db";
-		Connection c = null;
 		int i;
-		String idPatient;
-		String idDoctor;
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		String idPatient = null;
+		String idDoctor = null;
+
+		Connection c = null;
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		String userdb = "pi2_amberlife";
+		String pass = "rdysdhsks";
+
+		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		// String userdb = "dani";
+		// String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
+
 		Statement stmt = null;
 		stmt = c.createStatement();
+
+		ResultSet rd = stmt.executeQuery("SELECT count(Doctor)\r\n" + "from Patient\r\n" + "where Doctor = '" + IDuser
+				+ "'" + "group by Doctor\r\n" + "order by count(Doctor) asc");
 		
-		ResultSet rd = stmt.executeQuery("SELECT count(Doctor)\r\n" + 
-				"from Patient\r\n" + 
-				"where Doctor = '" + IDuser + "'" +
-				"group by doctor\r\n" + 
-				"order by count(doctor) asc");
-		
-		int countid = rd.getInt("count(Doctor)");
-		
+		int countid = 0;
+		if(rd.next())
+			countid = rd.getInt("count(Doctor)");
+
 		while (countid > 0) {
+
+			ResultSet rp = stmt
+					.executeQuery("SELECT IDPtt\r\n" + "from Patient\r\n" + "where Doctor = '" + IDuser + "'");
 			
-			ResultSet rp = stmt.executeQuery("SELECT IDPtt\r\n" + 
-					"from Patient\r\n" + 
-					"where Doctor = '" + IDuser + "'");
+			if(rd.next())
+				idPatient = rp.getString("IDPtt");
+
+			ResultSet rs = stmt.executeQuery("SELECT Patient.Doctor, count(Patient.Doctor)\r\n" + "from Patient\r\n"
+					+ "join User on User.IDUser = Patient.Doctor\r\n" + "where Patient.Doctor != '" + IDuser
+					+ "' and User.Active != 0\r\n" + "group by Patient.Doctor\r\n"
+					+ "order by count(Patient.Doctor) asc");
 			
-					idPatient = rp.getString("IDPtt");
-			
-			ResultSet rs = stmt.executeQuery("SELECT Patient.Doctor, count(Patient.Doctor)\r\n" + 
-					"from Patient\r\n" + 
-					"join User on User.IDUser = Patient.Doctor\r\n" + 
-					"where Patient.Doctor != '" + IDuser + "' and User.Active != 0\r\n" + 
-					"group by Patient.Doctor\r\n" + 
-					"order by count(Patient.Doctor) asc");
-			
-					
-					idDoctor = rs.getString("Doctor");
-					
-					
-					stmt.executeUpdate("UPDATE Patient set Doctor ='" + idDoctor + "' where Doctor = '" + IDuser + "'"
-							+ "and IDPtt = '" + idPatient + "'");
-				
-					rp.close();
-					rs.close();
-					countid --;
+			if(rd.next())
+				idDoctor = rs.getString("Doctor");
+
+			stmt.executeUpdate("UPDATE Patient set Doctor ='" + idDoctor + "' where Doctor = '" + IDuser + "'"
+					+ "and IDPtt = '" + idPatient + "'");
+
+			rp.close();
+			rs.close();
+			countid--;
 		}
-		
-		
+
 		rd.close();
 		stmt.close();
 		c.close();
-		
-		
+
 	}
-	
+
 	public static Boolean checkDoctor(String dni) throws SQLException, ClassNotFoundException {
-		String database = "src/resources/BDAmberLife.db";
 		Connection c = null;
-		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		String userdb = "pi2_amberlife";
+		String pass = "rdysdhsks";
+
+		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		// String userdb = "dani";
+		// String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
+
 		Statement stmt = null;
 		stmt = c.createStatement();
 		Boolean isdoctor;
-
 
 		ResultSet rs = stmt.executeQuery("SELECT * FROM Doctor WHERE IDUser='" + dni + "'");
 
 		if (rs.next() == true) {
 			isdoctor = true;
-		}else {
+		} else {
 			isdoctor = false;
 		}
 
@@ -665,120 +802,99 @@ public class DBManagement {
 		return isdoctor;
 
 	}
-	
-	//Reads an .sql file to create the database
-	public static void createDatabase() {
-		
-		try {
-		InputStream is = new FileInputStream("src/resources/BDAmberLife.sql");
-		
-		BufferedReader buf = new BufferedReader(new InputStreamReader(is));
-		        
-		String line = buf.readLine();
-		StringBuilder sb = new StringBuilder();
-		        
-		while(line != null){
-		   sb.append(line);
-		   line = buf.readLine();
-		}
-		        
-		String fileAsString = sb.toString();
-		
-		Connection conn = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE );
-		Statement create = conn.createStatement();
-		create.execute(fileAsString);
-		
-	
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-	}
-	
-	
-	
-	
-	//Use to create DB and initialize initial values
-	/*public static void createDatabase() {
-		try {
-			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE );
-			Statement create = conn.createStatement();
-			create.execute("CREATE TABLE 'User' ('IDuser' TEXT NOT NULL UNIQUE,'Password' TEXT NOT NULL," 
-						+"'Active' INTEGER NOT NULL, 'Name' TEXT NOT NULL, 'LastName' TEXT NOT NULL,"
-						+"'Username' TEXT NOT NULL UNIQUE, 'Email'TEXT NOT NULL, PRIMARY KEY('IDuser'));"
-					+"CREATE TABLE 'ADMIN' ('IDuser' TEXT NOT NULL, FOREIGN KEY('IDuser') REFERENCES "
-						+ "'User'('IDuser'),PRIMARY KEY('IDuser'));" 
-					+"CREATE TABLE 'CLINICAL' ('IDuser'	TEXT NOT NULL, 'SSN' INTEGER NOT NULL,"
-						+"FOREIGN KEY('IDuser') REFERENCES 'User'('IDuser'),PRIMARY KEY('IDuser'));"
-					+"CREATE TABLE 'Assistant' ('IDuser' TEXT NOT NULL, 'Municipality' TEXT NOT NULL,"
-							+ "FOREIGN KEY('IDuser') REFERENCES 'User'('IDuser'), PRIMARY KEY('IDuser'));"
-					+"CREATE TABLE 'Doctor'('IDuser'TEXT NOT NULL, 'MLN'INTEGER NOT NULL,"
-							+"FOREIGN KEY('IDuser') REFERENCES 'User'('IDuser'),PRIMARY KEY('IDuser'));"
-					+"CREATE TABLE 'Telephone' ('IDuser' TEXT NOT NULL,'Number' TEXT NOT NULL,"
-							+"PRIMARY KEY('IDuser','Number'), FOREIGN KEY('IDuser') REFERENCES 'Doctor'('IDuser'));"
-					+"CREATE TABLE 'Patient' ('IDptt' TEXT NOT NULL UNIQUE, 'Name' TEXT NOT NULL, 'LastName' TEXT NOT NULL,"
-							+"'Municipality' TEXT NOT NULL, 'Address' TEXT NOT NULL, 'Sex' TEXT NOT NULL,"
-							+"'Status'	TEXT NOT NULL, 'SSN' TEXT NOT NULL, 'Doctor' TEXT NOT NULL, PRIMARY KEY('IDptt'),"
-							+"FOREIGN KEY('Doctor') REFERENCES 'Doctor'('IDuser'));"
-					+"CREATE TABLE 'Message'('IDmsg' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
-							+"'IDuser'	TEXT NOT NULL, 'IDptt' TEXT NOT NULL, 'Data' TEXT NOT NULL,"
-							+"'Date' TEXT NOT NULL,'Seen' INTEGER NOT NULL, FOREIGN KEY('IDuser') REFERENCES 'CLINICAL'('IDuser'),"
-							+"FOREIGN KEY('IDptt') REFERENCES 'Patient'('IDptt'));"
-					+"CREATE TABLE 'ECG'('IDecg' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
-							+"'IDuser' TEXT NOT NULL, 'IDptt' TEXT NOT NULL, 'Frequency' INTEGER NOT NULL,"
-							+"'Data' BLOB NOT NULL, 'Date' TEXT NOT NULL, 'Seen' TEXT NOT NULL, 'Diagnostic' TEXT,"
-							+"FOREIGN KEY('IDuser') REFERENCES 'Assistant'('IDuser'), FOREIGN KEY('IDptt') REFERENCES 'Patient'('IDptt'));"
-					);
-			create.close();
-			conn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}*/
+	/*
+	 * // Reads an .sql file to create the database public static void
+	 * createDatabase() {
+	 * 
+	 * try { InputStream is = new
+	 * FileInputStream("src/resources/BDAmberLife.sql");
+	 * 
+	 * BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+	 * 
+	 * String line = buf.readLine(); StringBuilder sb = new StringBuilder();
+	 * 
+	 * while (line != null) { sb.append(line); line = buf.readLine(); }
+	 * 
+	 * String fileAsString = sb.toString();
+	 * 
+	 * Connection conn = DriverManager.getConnection("jdbc:sqlite:" +
+	 * MainCtrl.DATABASE); Statement create = conn.createStatement();
+	 * create.execute(fileAsString);
+	 * 
+	 * } catch (FileNotFoundException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); } catch (IOException e) { // TODO Auto-generated
+	 * catch block e.printStackTrace(); } catch (SQLException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); }
+	 * 
+	 * }
+	 * 
+	 * // Use to create DB and initialize initial values /* public static void
+	 * createDatabase() { try { Connection conn =
+	 * DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE );
+	 * Statement create = conn.createStatement(); create.
+	 * execute("CREATE TABLE 'User' ('IDuser' TEXT NOT NULL UNIQUE,'Password' TEXT NOT NULL,"
+	 * +"'Active' INTEGER NOT NULL, 'Name' TEXT NOT NULL, 'LastName' TEXT NOT NULL,"
+	 * +"'Username' TEXT NOT NULL UNIQUE, 'Email'TEXT NOT NULL, PRIMARY KEY('IDuser'));"
+	 * +"CREATE TABLE 'ADMIN' ('IDuser' TEXT NOT NULL, FOREIGN KEY('IDuser') REFERENCES "
+	 * + "'User'('IDuser'),PRIMARY KEY('IDuser'));"
+	 * +"CREATE TABLE 'CLINICAL' ('IDuser'	TEXT NOT NULL, 'SSN' INTEGER NOT NULL,"
+	 * +"FOREIGN KEY('IDuser') REFERENCES 'User'('IDuser'),PRIMARY KEY('IDuser'));"
+	 * +"CREATE TABLE 'Assistant' ('IDuser' TEXT NOT NULL, 'Municipality' TEXT NOT NULL,"
+	 * +
+	 * "FOREIGN KEY('IDuser') REFERENCES 'User'('IDuser'), PRIMARY KEY('IDuser'));"
+	 * +"CREATE TABLE 'Doctor'('IDuser'TEXT NOT NULL, 'MLN'INTEGER NOT NULL,"
+	 * +"FOREIGN KEY('IDuser') REFERENCES 'User'('IDuser'),PRIMARY KEY('IDuser'));"
+	 * +"CREATE TABLE 'Telephone' ('IDuser' TEXT NOT NULL,'Number' TEXT NOT NULL,"
+	 * +"PRIMARY KEY('IDuser','Number'), FOREIGN KEY('IDuser') REFERENCES 'Doctor'('IDuser'));"
+	 * +"CREATE TABLE 'Patient' ('IDptt' TEXT NOT NULL UNIQUE, 'Name' TEXT NOT NULL, 'LastName' TEXT NOT NULL,"
+	 * +"'Municipality' TEXT NOT NULL, 'Address' TEXT NOT NULL, 'Sex' TEXT NOT NULL,"
+	 * +"'Status'	TEXT NOT NULL, 'SSN' TEXT NOT NULL, 'Doctor' TEXT NOT NULL, PRIMARY KEY('IDptt'),"
+	 * +"FOREIGN KEY('Doctor') REFERENCES 'Doctor'('IDuser'));"
+	 * +"CREATE TABLE 'Message'('IDmsg' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+	 * +"'IDuser'	TEXT NOT NULL, 'IDptt' TEXT NOT NULL, 'Data' TEXT NOT NULL,"
+	 * +"'Date' TEXT NOT NULL,'Seen' INTEGER NOT NULL, FOREIGN KEY('IDuser') REFERENCES 'CLINICAL'('IDuser'),"
+	 * +"FOREIGN KEY('IDptt') REFERENCES 'Patient'('IDptt'));"
+	 * +"CREATE TABLE 'ECG'('IDecg' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
+	 * +"'IDuser' TEXT NOT NULL, 'IDptt' TEXT NOT NULL, 'Frequency' INTEGER NOT NULL,"
+	 * +"'Data' BLOB NOT NULL, 'Date' TEXT NOT NULL, 'Seen' TEXT NOT NULL, 'Diagnostic' TEXT,"
+	 * +"FOREIGN KEY('IDuser') REFERENCES 'Assistant'('IDuser'), FOREIGN KEY('IDptt') REFERENCES 'Patient'('IDptt'));"
+	 * ); create.close(); conn.close(); } catch (SQLException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); }
+	 * 
+	 * }
+	 */
 
-	/*private static void populateDB() {
-		Connection conn;
-		try {
-			conn = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE );
-			Statement create = conn.createStatement();
-			create.execute(
-				"INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)" +
-						"VALUES(56566443J,m1#M0ra13s@uem.es,1,Maria de la Luz,Morales Botello,?,?);"
-				
-				
-				);
-			
-			
-			/*Insert Cheatsheet:
-			 * 
-			 * "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)" +
-					"VALUES(?,?,?,?,?,?,?);";
-			"INSERT INTO ADMIN(IDuser) VALUES (?);";
-			"INSERT INTO CLINICAL(IDUser, SSN) VALUES(?,?);";
-			"INSERT INTO Doctor(IDUser, MLN) VALUES(?,?);";
-			"INSERT INTO Telephone(IDuser, Number) VALUES (?,?);";
-			"INSERT INTO Assistant(IDuser, Municipality VALUES (?,?);";
-			"INSERT INTO Patient(IDptt, Name, LastName, Municipality, Address, Sex, Status, SSN, Doctor)" +
-					"VALUES(?,?,?,?,?,?,?,?,?);";
-			"INSERT INTO Messages(IDuser, IDptt, Data, Date, Seen) VALUES (?,?,?,?,?);";
-			"INSERT INTO ECG(IDuser, IDptt, Frequency, Data, Date, Seen, Diagnostic)" +
-					+"VALUES(?,?,?,?,?,?,?);";
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}*/
+	/*
+	 * private static void populateDB() { Connection conn; try { conn =
+	 * DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE );
+	 * Statement create = conn.createStatement(); create.execute(
+	 * "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)"
+	 * +
+	 * "VALUES(56566443J,m1#M0ra13s@uem.es,1,Maria de la Luz,Morales Botello,?,?);"
+	 * 
+	 * 
+	 * );
+	 * 
+	 * 
+	 * /*Insert Cheatsheet:
+	 * 
+	 * "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)"
+	 * + "VALUES(?,?,?,?,?,?,?);"; "INSERT INTO ADMIN(IDuser) VALUES (?);";
+	 * "INSERT INTO CLINICAL(IDUser, SSN) VALUES(?,?);";
+	 * "INSERT INTO Doctor(IDUser, MLN) VALUES(?,?);";
+	 * "INSERT INTO Telephone(IDuser, Number) VALUES (?,?);";
+	 * "INSERT INTO Assistant(IDuser, Municipality VALUES (?,?);";
+	 * "INSERT INTO Patient(IDptt, Name, LastName, Municipality, Address, Sex, Status, SSN, Doctor)"
+	 * + "VALUES(?,?,?,?,?,?,?,?,?);";
+	 * "INSERT INTO Messages(IDuser, IDptt, Data, Date, Seen) VALUES (?,?,?,?,?);"
+	 * ;
+	 * "INSERT INTO ECG(IDuser, IDptt, Frequency, Data, Date, Seen, Diagnostic)"
+	 * + +"VALUES(?,?,?,?,?,?,?);";
+	 * 
+	 * 
+	 * } catch (SQLException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); }
+	 * 
+	 * }
+	 */
 }
