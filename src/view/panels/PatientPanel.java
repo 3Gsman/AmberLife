@@ -207,7 +207,9 @@ public class PatientPanel extends JPanel {
 						String userdb = "dani";
 						String pass = "gaja";
 						c = DriverManager.getConnection(db, userdb, pass);
+						
 						Statement stmt =  c.createStatement();
+						
 						stmt.execute("DELETE FROM Patient WHERE IDptt LIKE " + p.getId());
 						//stmt.execute("DELETE FROM Patient WHERE IDptt LIKE " + p.getId());
 						//stmt.execute("DELETE FROM Patient WHERE IDptt LIKE " + p.getId());

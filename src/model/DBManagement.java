@@ -29,20 +29,21 @@ public class DBManagement {
 	 * @throws ClassNotFoundException,
 	 *             SQLException
 	 */
-	
+
 	private static String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
 	private static String userdb = "dani";
 	private static String pass = "gaja";
-	
-	//private static String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-	//private static String userdb = "pi2_amberlife";
-	//private static String pass = "rdysdhsks";
-	
+
+	// private static String db =
+	// "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+	// private static String userdb = "pi2_amberlife";
+	// private static String pass = "rdysdhsks";
+
 	public static String[] checkUser(String usuario, String Password) throws ClassNotFoundException, SQLException {
 		String iduser;
 		String user[] = new String[2];
 		Connection c = null;
-		
+
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 
@@ -184,14 +185,15 @@ public class DBManagement {
 			ResultSet rs_author = stmt2.executeQuery("SELECT User.IDuser, User.Name, User.LastName, CLINICAL.SSN "
 					+ "FROM	User, CLINICAL WHERE User.IDUser LIKE '" + rs_message.getString("IDuser") + "' AND "
 					+ "CLINICAL.IDuser LIKE '" + rs_message.getString("IDuser") + "'");
+			if (rs_author.next()) {
+				Message m = new Message(rs_message.getString("Date"), rs_message.getString("Data"),
+						rs_author.getString("Name"), rs_author.getString("LastName"), rs_author.getString("IDuser"),
+						rs_author.getString("SSN"), patientID);
 
-			Message m = new Message(rs_message.getString("Date"), rs_message.getString("Data"),
-					rs_author.getString("Name"), rs_author.getString("LastName"), rs_author.getString("IDuser"),
-					rs_author.getString("SSN"), patientID);
-
-			messages.add(m);
-			stmt2.close();
-			rs_author.close();
+				messages.add(m);
+				stmt2.close();
+				rs_author.close();
+			}
 		}
 
 		rs_message.close();
@@ -357,12 +359,12 @@ public class DBManagement {
 		Statement stmt = null;
 		stmt = c.createStatement();
 		ResultSet rs_id = stmt.executeQuery("SELECT IDuser FROM User WHERE Username LIKE '" + username + "'");
-		
+
 		String id = null;
-		
-		if(rs_id.next())
+
+		if (rs_id.next())
 			id = rs_id.getString("IDuser");
-		
+
 		rs_id.close();
 		stmt.close();
 
@@ -379,19 +381,19 @@ public class DBManagement {
 		while (rs_tlph.next()) {
 			phones.add(rs_tlph.getInt("Number"));
 		}
-		
-		if(rs.next()){
-		Doctor d = new Doctor(rs.getString("Name"), rs.getString("LastName"), id, String.valueOf(rs.getInt("SSN")));
-		d.setMln(String.valueOf(rs.getInt("MLN")));
-		d.setPhone(phones);
 
-		rs.close();
-		stmt2.close();
-		rs_tlph.close();
-		stmt3.close();
-		c.close();
-		return d;
-		}else{
+		if (rs.next()) {
+			Doctor d = new Doctor(rs.getString("Name"), rs.getString("LastName"), id, String.valueOf(rs.getInt("SSN")));
+			d.setMln(String.valueOf(rs.getInt("MLN")));
+			d.setPhone(phones);
+
+			rs.close();
+			stmt2.close();
+			rs_tlph.close();
+			stmt3.close();
+			c.close();
+			return d;
+		} else {
 			Doctor d = new Doctor(null, null, null, null);
 			return d;
 		}
@@ -510,29 +512,29 @@ public class DBManagement {
 		Statement stmt = null;
 		stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery("select * from Patient where Patient.IDptt ='" + IDptt + "'");
-		
+
 		Patient p = new Patient(IDptt);
-		
-		if(rs.next()){
-		p.setId(IDptt);
-		p.setName(rs.getString("Name"));
-		p.setLastname(rs.getString("LastName"));
-		p.setSsn(rs.getString("SSN"));
-		p.setMunicipality(rs.getString("Municipality"));
-		p.setAddress(rs.getString("Address"));
-		p.setGender(rs.getString("Sex"));
-		p.setStatus(rs.getString("Status"));
 
-		Vector<ECG> ecgList = ecgList(IDptt);
+		if (rs.next()) {
+			p.setId(IDptt);
+			p.setName(rs.getString("Name"));
+			p.setLastname(rs.getString("LastName"));
+			p.setSsn(rs.getString("SSN"));
+			p.setMunicipality(rs.getString("Municipality"));
+			p.setAddress(rs.getString("Address"));
+			p.setGender(rs.getString("Sex"));
+			p.setStatus(rs.getString("Status"));
 
-		p.setECGs(ecgList);
-		
-		rs.close();
-		stmt.close();
-		c.close();
+			Vector<ECG> ecgList = ecgList(IDptt);
 
-		return p;
-		}else{
+			p.setECGs(ecgList);
+
+			rs.close();
+			stmt.close();
+			c.close();
+
+			return p;
+		} else {
 			rs.close();
 			stmt.close();
 			c.close();
@@ -608,9 +610,9 @@ public class DBManagement {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		//String userdb = "pi2_amberlife";
-		//String pass = "rdysdhsks";
+		// String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		// String userdb = "pi2_amberlife";
+		// String pass = "rdysdhsks";
 
 		String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
 		String userdb = "dani";
@@ -653,25 +655,25 @@ public class DBManagement {
 
 		ResultSet rd = stmt.executeQuery("SELECT count(Doctor)\r\n" + "from Patient\r\n" + "where Doctor = '" + IDuser
 				+ "'" + "group by Doctor\r\n" + "order by count(Doctor) asc");
-		
+
 		int countid = 0;
-		if(rd.next())
+		if (rd.next())
 			countid = rd.getInt("count(Doctor)");
 
 		while (countid > 0) {
 
 			ResultSet rp = stmt
 					.executeQuery("SELECT IDPtt\r\n" + "from Patient\r\n" + "where Doctor = '" + IDuser + "'");
-			
-			if(rd.next())
+
+			if (rd.next())
 				idPatient = rp.getString("IDPtt");
 
 			ResultSet rs = stmt.executeQuery("SELECT Patient.Doctor, count(Patient.Doctor)\r\n" + "from Patient\r\n"
 					+ "join User on User.IDUser = Patient.Doctor\r\n" + "where Patient.Doctor != '" + IDuser
 					+ "' and User.Active != 0\r\n" + "group by Patient.Doctor\r\n"
 					+ "order by count(Patient.Doctor) asc");
-			
-			if(rd.next())
+
+			if (rd.next())
 				idDoctor = rs.getString("Doctor");
 
 			stmt.executeUpdate("UPDATE Patient set Doctor ='" + idDoctor + "' where Doctor = '" + IDuser + "'"
