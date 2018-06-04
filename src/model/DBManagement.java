@@ -29,21 +29,23 @@ public class DBManagement {
 	 * @throws ClassNotFoundException,
 	 *             SQLException
 	 */
-
+	
+	private static String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+	private static String userdb = "dani";
+	private static String pass = "gaja";
+	
+	//private static String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+	//private static String userdb = "pi2_amberlife";
+	//private static String pass = "rdysdhsks";
+	
 	public static String[] checkUser(String usuario, String Password) throws ClassNotFoundException, SQLException {
 		String iduser;
 		String user[] = new String[2];
 		Connection c = null;
+		
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 
-			String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-			String userdb = "pi2_amberlife";
-			String pass = "rdysdhsks";
-
-			// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-			// String userdb = "dani";
-			// String pass = "gaja";
 			c = DriverManager.getConnection(db, userdb, pass);
 			Statement stmt = null;
 			stmt = c.createStatement();
@@ -99,13 +101,6 @@ public class DBManagement {
 
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
-
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
@@ -143,13 +138,6 @@ public class DBManagement {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
-
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
@@ -185,13 +173,6 @@ public class DBManagement {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
-
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
@@ -233,13 +214,6 @@ public class DBManagement {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
-
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
@@ -284,13 +258,6 @@ public class DBManagement {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
-
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
@@ -340,13 +307,6 @@ public class DBManagement {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
-
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
@@ -392,13 +352,6 @@ public class DBManagement {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
-
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
@@ -461,13 +414,6 @@ public class DBManagement {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
-
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
@@ -513,13 +459,6 @@ public class DBManagement {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
-
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
@@ -566,13 +505,6 @@ public class DBManagement {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
-
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
@@ -624,13 +556,6 @@ public class DBManagement {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
-
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
@@ -683,13 +608,13 @@ public class DBManagement {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
+		//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		//String userdb = "pi2_amberlife";
+		//String pass = "rdysdhsks";
 
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
+		String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		String userdb = "dani";
+		String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
@@ -721,13 +646,6 @@ public class DBManagement {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
-
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;
@@ -774,13 +692,6 @@ public class DBManagement {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
-
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
 		Statement stmt = null;

@@ -788,13 +788,13 @@ public class PatientDialog extends JDialog {
 			Connection c = null;
 			Class.forName("org.mariadb.jdbc.Driver");
 
-			// String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-			// String userdb = "pi2_amberlife";
-			// String pass = "rdysdhsks";
+			String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+			String userdb = "pi2_amberlife";
+			String pass = "rdysdhsks";
 
-			String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-			String userdb = "dani";
-			String pass = "gaja";
+			//String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+			//String userdb = "dani";
+			//String pass = "gaja";
 			c = DriverManager.getConnection(db, userdb, pass);
 		Statement stmt =  c.createStatement();
 		ResultSet rs_ptt  = stmt.executeQuery("SELECT * FROM Patient where IDptt LIKE '" + id + "'");

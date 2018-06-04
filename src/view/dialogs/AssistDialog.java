@@ -756,13 +756,13 @@ public class AssistDialog extends JDialog {
 			Connection c = null;
 			Class.forName("org.mariadb.jdbc.Driver");
 
-			String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-			String userdb = "pi2_amberlife";
-			String pass = "rdysdhsks";
+			//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+			//String userdb = "pi2_amberlife";
+			//String pass = "rdysdhsks";
 
-			// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-			// String userdb = "dani";
-			// String pass = "gaja";
+			String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+			String userdb = "dani";
+			String pass = "gaja";
 			c = DriverManager.getConnection(db, userdb, pass);
 			Statement stmt = c.createStatement();
 
@@ -800,13 +800,13 @@ public class AssistDialog extends JDialog {
 			Connection c = null;
 			Class.forName("org.mariadb.jdbc.Driver");
 
-			String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-			String userdb = "pi2_amberlife";
-			String pass = "rdysdhsks";
+			//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+			//String userdb = "pi2_amberlife";
+			//String pass = "rdysdhsks";
 
-			// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-			// String userdb = "dani";
-			// String pass = "gaja";
+			String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+			String userdb = "dani";
+			String pass = "gaja";
 			c = DriverManager.getConnection(db, userdb, pass);
 
 			String sql = "SELECT IDuser FROM User where IDuser LIKE '" + idField.getText() + "'";
@@ -834,13 +834,13 @@ public class AssistDialog extends JDialog {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
+		//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		//String userdb = "pi2_amberlife";
+		//String pass = "rdysdhsks";
 
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
+		String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		String userdb = "dani";
+		String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 		
 		String sql1 = "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)"
@@ -884,13 +884,13 @@ public class AssistDialog extends JDialog {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
+		//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		//String userdb = "pi2_amberlife";
+		//String pass = "rdysdhsks";
 
-		// String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		// String userdb = "dani";
-		// String pass = "gaja";
+		String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		String userdb = "dani";
+		String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
 		String sql = "SELECT IDuser FROM Doctor where IDuser LIKE '" + idField.getText() + "'";

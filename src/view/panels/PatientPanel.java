@@ -199,18 +199,18 @@ public class PatientPanel extends JPanel {
 
 						Class.forName("org.mariadb.jdbc.Driver");
 
-						String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-						String userdb = "pi2_amberlife";
-						String pass = "rdysdhsks";
+						//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+						//String userdb = "pi2_amberlife";
+						//String pass = "rdysdhsks";
 
-						//String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-						//String userdb = "dani";
-						//String pass = "gaja";
+						String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+						String userdb = "dani";
+						String pass = "gaja";
 						c = DriverManager.getConnection(db, userdb, pass);
 						Statement stmt =  c.createStatement();
 						stmt.execute("DELETE FROM Patient WHERE IDptt LIKE " + p.getId());
-						stmt.execute("DELETE FROM Patient WHERE IDptt LIKE " + p.getId());
-						stmt.execute("DELETE FROM Patient WHERE IDptt LIKE " + p.getId());
+						//stmt.execute("DELETE FROM Patient WHERE IDptt LIKE " + p.getId());
+						//stmt.execute("DELETE FROM Patient WHERE IDptt LIKE " + p.getId());
 						stmt.close();
 						c.close();
 						windowToRefresh.actionPerformed(new ActionEvent(this, 0, "PATIENT_UPDATE"));
