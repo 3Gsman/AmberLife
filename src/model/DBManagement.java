@@ -559,13 +559,13 @@ public class DBManagement {
 		Statement stmt = null;
 		stmt = c.createStatement();
 
-		ResultSet rs_ms = stmt.executeQuery("SELECT User.name, User.LastName, CLINICAL.SSN, Message.Data, Message.Date "
+		ResultSet rs_ms = stmt.executeQuery("SELECT User.name, User.LastName, User.IDuser, CLINICAL.SSN, Message.Data, Message.Date "
 				+ "FROM	User, Message, CLINICAL WHERE CLINICAL.IDuser LIKE Message.IDuser AND User.IDuser LIKE Message.IDuser "
 				+ "AND Message.IDPtt = '" + idptt + "'");
 
 		while (rs_ms.next()) {
 			Message ms = new Message(rs_ms.getString("Date"), rs_ms.getString("Data"), rs_ms.getString("Name"),
-					rs_ms.getString("LastName"), idptt, rs_ms.getString("SSN"), idptt);
+					rs_ms.getString("LastName"), rs_ms.getString("IDuser"), rs_ms.getString("SSN"), idptt);
 			messages.add(ms);
 		}
 		rs_ms.close();
@@ -628,6 +628,32 @@ public class DBManagement {
 		c.close();
 		
 		
+	}
+	
+	public static Boolean checkDoctor(String dni) throws SQLException, ClassNotFoundException {
+		String database = "src/resources/BDAmberLife.db";
+		Connection c = null;
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:" + database);
+		Statement stmt = null;
+		stmt = c.createStatement();
+		Boolean isdoctor;
+
+
+		ResultSet rs = stmt.executeQuery("SELECT * FROM Doctor WHERE IDUser='" + dni + "'");
+
+		if (rs.next() == true) {
+			isdoctor = true;
+		}else {
+			isdoctor = false;
+		}
+
+		rs.close();
+		stmt.close();
+		c.close();
+
+		return isdoctor;
+
 	}
 	
 	//Reads an .sql file to create the database
