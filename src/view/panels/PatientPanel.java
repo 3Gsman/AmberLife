@@ -210,7 +210,7 @@ public class PatientPanel extends JPanel {
 						
 						Statement stmt =  c.createStatement();
 						
-						stmt.execute("DELETE FROM Patient WHERE IDptt LIKE " + p.getId());
+						stmt.execute("DELETE FROM Patient WHERE IDptt LIKE '" + p.getId()+ "'");
 						//stmt.execute("DELETE FROM Patient WHERE IDptt LIKE " + p.getId());
 						//stmt.execute("DELETE FROM Patient WHERE IDptt LIKE " + p.getId());
 						stmt.close();
