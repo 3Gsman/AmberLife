@@ -316,9 +316,7 @@ public class FileManagement {
 			vector.add(ecg);
 
 		}
-		
-		
-
+	
 		p.setECGs(vector);
 
 		lectorp.close();
