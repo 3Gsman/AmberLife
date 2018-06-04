@@ -821,7 +821,9 @@ public class DoctorDialog extends JDialog {
 			String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
 			String userdb = "dani";
 			String pass = "gaja";
+			
 			c = DriverManager.getConnection(db, userdb, pass);
+			
 		Statement stmt =  c.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT User.Name, User.LastName, User.Password, User.Username," +
 				"User.Email, Doctor.MLN, CLINICAL.SSN FROM User, Doctor, CLINICAL " +
@@ -956,21 +958,23 @@ public class DoctorDialog extends JDialog {
 		Connection c = null;
 		Class.forName("org.mariadb.jdbc.Driver");
 
-		String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		String userdb = "pi2_amberlife";
-		String pass = "rdysdhsks";
+		//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		//String userdb = "pi2_amberlife";
+		//String pass = "rdysdhsks";
 
-		//String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		//String userdb = "dani";
-		//String pass = "gaja";
+		String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		String userdb = "dani";
+		String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
+		
 		String sql = "SELECT IDuser, Username FROM User where IDuser LIKE '" + idField.getText() + "'";
 		Statement stmt =  c.createStatement();
 		ResultSet rs  = stmt.executeQuery(sql);
+		rs.next();
 		stmt.close();
 		c.close();
 		
-		if(idField.getText().equals(id) ) { //IF we are not changing the ID, update it normally
+		if(idField.getText().equals(id) && usernameField.getText().equals(rs.getString("Username"))) { //IF we are not changing the ID, update it normally
 			Connection c2 = null;
 			Class.forName("org.mariadb.jdbc.Driver");
 
@@ -1029,20 +1033,20 @@ public class DoctorDialog extends JDialog {
 
 			c3 = DriverManager.getConnection(db, userdb, pass);	
 			
-			Statement check = c3.createStatement();
+			/*Statement check = c3.createStatement();
 			ResultSet rs_check = check.executeQuery("SELECT IDuser From User WHERE Username LIKE '" + usernameField.getText() + "'");
 			if(rs_check.next()) {
-				JOptionPane.showMessageDialog(MainCtrl.window, "That ID is already in use");
+				JOptionPane.showMessageDialog(MainCtrl.window, "That Username is already in use");
 				dispose();
 			}
 			check.close();
-			rs_check.close();
+			rs_check.close();*/
 			
 			Statement stmt3=  c3.createStatement();
 			//Delete the old one and create a new one with the new ID and data
-			stmt3.execute("DELETE FROM Doctor WHERE IDuser LIKE '" + id + "'");
-			stmt3.execute("DELETE FROM Clinical WHERE IDuser LIKE '" + id + "'");
 			stmt3.execute("DELETE FROM Telephone WHERE IDuser LIKE '" + id + "'");
+			stmt3.execute("DELETE FROM Doctor WHERE IDuser LIKE '" + id + "'");
+			stmt3.execute("DELETE FROM CLINICAL WHERE IDuser LIKE '" + id + "'");
 			stmt3.execute("DELETE FROM User WHERE IDuser LIKE '" + id + "'");
 			
 			uploadNewDoctor();

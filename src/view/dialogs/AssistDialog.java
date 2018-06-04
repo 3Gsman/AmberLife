@@ -905,7 +905,7 @@ public class AssistDialog extends JDialog {
 		ResultSet rs = stmt.executeQuery(sql);
 		rs.next();
 	
-		if (id == idField.getText()|| rs.getString("Username") == usernameField.getText()) { // IF we are not changing the ID or Username, update
+		if (idField.getText().equals(id) && usernameField.getText().equals(rs.getString("Username"))){ // IF we are not changing the ID or Username, update
 																							// it normally
 			Connection c2 = null;
 			Class.forName("org.mariadb.jdbc.Driver");
