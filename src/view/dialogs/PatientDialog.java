@@ -752,7 +752,8 @@ public class PatientDialog extends JDialog {
 					else {
 						try {
 							if (patientID == null) createNewPatient(doctorID);
-							else updatePatient(patientID, doctorID);			
+							else updatePatient(patientID, doctorID);	
+							dispose();
 						} catch (SQLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

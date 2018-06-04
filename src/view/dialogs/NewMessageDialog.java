@@ -146,6 +146,7 @@ public class NewMessageDialog extends JDialog {
 					st.close();
 					c.close();
 					windowToRefresh.actionPerformed(new ActionEvent(this, 0, "MESSAGE_UPDATE"));
+					dispose();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
