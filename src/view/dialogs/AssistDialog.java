@@ -58,8 +58,10 @@ public class AssistDialog extends JDialog {
 	 * Create the dialog.
 	 * 
 	 * @throws IOException
+	 * @throws ClassNotFoundException
 	 */
-	public AssistDialog(JFrame f, ActionListener windowToRefresh, String id) throws IOException {
+	public AssistDialog(JFrame f, ActionListener windowToRefresh, String id)
+			throws IOException, ClassNotFoundException {
 		this.windowToRefresh = windowToRefresh;
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 468);
@@ -708,7 +710,7 @@ public class AssistDialog extends JDialog {
 						JOptionPane.showMessageDialog(f, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 
-					else if  (!(Arrays.equals(passField.getPassword(), confirmField.getPassword()))) {
+					else if (!(Arrays.equals(passField.getPassword(), confirmField.getPassword()))) {
 
 						JOptionPane.showMessageDialog(f, "The password doesn't match", "Error",
 								JOptionPane.ERROR_MESSAGE);
@@ -720,6 +722,9 @@ public class AssistDialog extends JDialog {
 								updateAssist(id);
 							dispose();
 						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (ClassNotFoundException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
@@ -745,56 +750,81 @@ public class AssistDialog extends JDialog {
 		this.setVisible(true);
 	}
 
-	void initializeFields(String id) {
+	void initializeFields(String id) throws ClassNotFoundException {
 		System.out.println("Initialize Fields");
 		try {
-			Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			Connection c = null;
+			Class.forName("org.mariadb.jdbc.Driver");
+
+			//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+			//String userdb = "pi2_amberlife";
+			//String pass = "rdysdhsks";
+
+			String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+			String userdb = "dani";
+			String pass = "gaja";
+			c = DriverManager.getConnection(db, userdb, pass);
 			Statement stmt = c.createStatement();
 
 			ResultSet rs = stmt.executeQuery("SELECT User.Name, User.LastName, User.Password, User.Username,"
 					+ "User.Email, Assistant.Municipality, CLINICAL.SSN FROM User, Assistant, CLINICAL "
 					+ "WHERE User.IDUser LIKE '" + id + "' AND Assistant.IDUser LIKE '" + id + "' AND "
 					+ " CLINICAL.IDUser LIKE '" + id + "'");
+			if (rs.next()) {
+				nameField.setText(rs.getString("Name"));
+				surnameField.setText(rs.getString("LastName"));
+				passField.setText(rs.getString("Password"));
+				confirmField.setText(rs.getString("Password"));
+				idField.setText(id);
 
-			nameField.setText(rs.getString("Name"));
-			surnameField.setText(rs.getString("LastName"));
-			passField.setText(rs.getString("Password"));
-			confirmField.setText(rs.getString("Password"));
-			idField.setText(id);
+				usernameField.setText(rs.getString("Username"));
+				emailField.setText(rs.getString("Email"));
+				cityField.setText(rs.getString("Municipality"));
+				ssnField.setText(String.valueOf(rs.getInt("SSN")));
 
-			usernameField.setText(rs.getString("Username"));
-			emailField.setText(rs.getString("Email"));
-			cityField.setText(rs.getString("Municipality"));
-			ssnField.setText(String.valueOf(rs.getInt("SSN")));
-
-			rs.close();
-			rs.close();
-			rs.close();
-			stmt.close();
-			c.close();
-
+				rs.close();
+				rs.close();
+				rs.close();
+				stmt.close();
+				c.close();
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	void createNewAssist() {
+	void createNewAssist() throws ClassNotFoundException {
 		System.out.println("Creating new assistant");
 		try {
-			Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
-			String sql = "SELECT IDuser FROM User where IDuser LIKE '" + idField.getText() + "'";
+			Connection c = null;
+			Class.forName("org.mariadb.jdbc.Driver");
+
+			//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+			//String userdb = "pi2_amberlife";
+			//String pass = "rdysdhsks";
+
+			String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+			String userdb = "dani";
+			String pass = "gaja";
+			c = DriverManager.getConnection(db, userdb, pass);
+
+			String sql = "SELECT IDuser FROM User where IDuser LIKE '" + idField.getText() + "' OR Username LIKE '" + usernameField.getText() + "'";
 			Statement stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
+			
+
+			if (rs.next() == true){
+				//MAKE THIS A WARNING DIALOG FFS
+				System.out.println("An User with that ID or Username already exists");
+			}
+			else{
+				uploadNewAssist();
+			}
 			stmt.close();
 			c.close();
-
-			if (rs.next() == true)
-				System.out.println("An User with that ID already exists");
-			else
-				uploadNewAssist();
-
 			rs.close();
+			
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -802,21 +832,31 @@ public class AssistDialog extends JDialog {
 
 	}
 
-	void uploadNewAssist() {
-		// Add to DB
+	void uploadNewAssist() throws SQLException, ClassNotFoundException {
+		Connection c = null;
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		//String userdb = "pi2_amberlife";
+		//String pass = "rdysdhsks";
+
+		String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		String userdb = "dani";
+		String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
+		
 		String sql1 = "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)"
 				+ "VALUES(?,?,?,?,?,?,?)";
 		String sql2 = "INSERT INTO CLINICAL(IDUser, SSN) VALUES(?,?)";
 		String sql3 = "INSERT INTO Assistant(IDUser, Municipality) VALUES(?,?)";
 		String ID = idField.getText();
-		Connection c = null;
 		try {
-			c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+
 			PreparedStatement st1 = c.prepareStatement(sql1);
 			st1.setString(1, ID);
 			// Doubt this is the best for security, consider this only temporal
 			st1.setString(2, String.valueOf(passField.getPassword()));
-			st1.setString(3, "YES");
+			st1.setInt(3, 1);
 			st1.setString(4, nameField.getText());
 			st1.setString(5, surnameField.getText());
 			st1.setString(6, usernameField.getText());
@@ -840,26 +880,45 @@ public class AssistDialog extends JDialog {
 		}
 	}
 
-	void updateAssist(String id) throws SQLException {
+	void updateAssist(String id) throws SQLException, ClassNotFoundException {
 		System.out.println("Update Doctor launched");
 
-		Connection c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
-		String sql = "SELECT IDuser FROM Doctor where IDuser LIKE '" + idField.getText() + "'";
+		Connection c = null;
+		Class.forName("org.mariadb.jdbc.Driver");
+
+		//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+		//String userdb = "pi2_amberlife";
+		//String pass = "rdysdhsks";
+
+		String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+		String userdb = "dani";
+		String pass = "gaja";
+		c = DriverManager.getConnection(db, userdb, pass);
+
+		/*String sql = "SELECT IDuser FROM Assistant where IDuser LIKE '" + idField.getText() + "'";
 		Statement stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
-		stmt.close();
-		c.close();
+		stmt.close();*/
+		
+		String sql = "SELECT Username FROM User where IDuser LIKE '" + id + "'";
+		Statement stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		rs.next();
+	
+		if (idField.getText().equals(id) && usernameField.getText().equals(rs.getString("Username"))){ // IF we are not changing the ID or Username, update
+																							// it normally
+			Connection c2 = null;
+			Class.forName("org.mariadb.jdbc.Driver");
 
-		if (id == idField.getText()) { // IF we are not changing the ID, update
-										// it normally
-			Connection c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			c2 = DriverManager.getConnection(db, userdb, pass);
 			// Update code
 			String sql1 = "UPDATE User SET IDuser = ?, Password = ?, Active = ?, Name = ?,+"
 					+ " LastName = ?, Username=?, Email =?";
 			String sql2 = "Update CLINICAL Set IDUser = ?, SSN = ?";
 			String sql3 = "Update Assistant Set IDUser = ?, Municipality = ?";
 			String ID = idField.getText();
-			c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+	
+			c2 = DriverManager.getConnection(db, userdb, pass);
 			PreparedStatement st1 = c2.prepareStatement(sql1);
 			st1.setString(1, ID);
 			// Doubt this is the best for security, consider this only temporal
@@ -885,13 +944,14 @@ public class AssistDialog extends JDialog {
 			windowToRefresh.actionPerformed(new ActionEvent(this, 0, "USER_UPDATE"));
 		} else { // If the ID is changed, delete the table and instead create
 					// another one?
-			Connection c3 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+			Connection c3 = null;
+			Class.forName("org.mariadb.jdbc.Driver");
+			c3 = DriverManager.getConnection(db, userdb, pass);
 			Statement stmt3 = c3.createStatement();
 			// Delete the old one and create a new one with the new ID and data
 			stmt3.execute("DELETE FROM Assistant WHERE IDuser LIKE '" + id + "'");
-			stmt3.execute("DELETE FROM Clinical WHERE IDuser LIKE '" + id + "'");
+			stmt3.execute("DELETE FROM CLINICAL WHERE IDuser LIKE '" + id + "'");
 			stmt3.execute("DELETE FROM User WHERE IDuser LIKE '" + id + "'");
-
 			uploadNewAssist();
 
 			// UPDATE PATIENTS AND MESSAGES FOR NEW ID NOW
@@ -903,8 +963,11 @@ public class AssistDialog extends JDialog {
 			}
 			stmt3.close();
 			c3.close();
-		}
 
+		}
+		rs.close();
+		stmt.close();
+		c.close();
 	}
 
 	boolean checkBoxesFilled() {

@@ -130,12 +130,32 @@ public class NewMessageDialog extends JDialog {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				//UPLOAD MESSAGE TO DB GOES HERE
+				Connection c = null;
+				try {
+					Class.forName("org.mariadb.jdbc.Driver");
+				} catch (ClassNotFoundException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+
+				// String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+				// String userdb = "pi2_amberlife";
+				// String pass = "rdysdhsks";
+
+				String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
+				String userdb = "dani";
+				String pass = "gaja";
+				try {
+					c = DriverManager.getConnection(db, userdb, pass);
+				} catch (SQLException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 				
 				String sql = "INSERT INTO Message(IDuser, IDptt, Data, Date, Seen) VALUES(?,?,?,?,?)";
-				Connection c;
+				
 				try {
-					c = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+					c = DriverManager.getConnection(db, userdb, pass);
 					PreparedStatement st = c.prepareStatement(sql);
 					st.setString(1, IDuser);
 					st.setString(2, IDptt);

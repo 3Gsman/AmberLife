@@ -37,7 +37,7 @@ public class MainCtrl implements WindowListener{
     	LocalizationService.initialize();
 
         try {
-        	DBManagement.createDatabase();
+        	//DBManagement.createDatabase();
         	UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName()); 
             MainCtrl m = new MainCtrl();
 			LoginFr p = new LoginFr();
