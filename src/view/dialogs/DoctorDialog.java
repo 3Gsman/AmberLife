@@ -994,7 +994,7 @@ public class DoctorDialog extends JDialog {
 				String sql3	 = "Update  Doctor Set  MLN = ? WHERE IDuser LIKE '" + id + "'";	
 				String sql4 = "Update Telephone Set  Number = ? WHERE IDuser LIKE '" + id + "'";	
 				String ID = idField.getText();
-				c2 = DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE);
+				c2 = DriverManager.getConnection(db, userdb, pass);
 				PreparedStatement st1 = c2.prepareStatement(sql1);
 				//Doubt this is the best for security, consider this only temporal
 				st1.setString(1, String.valueOf(passField.getPassword()));
