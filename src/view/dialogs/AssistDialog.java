@@ -809,14 +809,16 @@ public class AssistDialog extends JDialog {
 			String pass = "gaja";
 			c = DriverManager.getConnection(db, userdb, pass);
 
-			String sql = "SELECT IDuser FROM User where IDuser LIKE '" + idField.getText() + "'";
+			String sql = "SELECT IDuser FROM User where IDuser LIKE '" + idField.getText() + "' OR Username LIKE '" + usernameField.getText() + "'";
 			Statement stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			
 
 			if (rs.next() == true){
-				System.out.println("An User with that ID already exists");
-			}else{
+				//MAKE THIS A WARNING DIALOG FFS
+				System.out.println("An User with that ID or Username already exists");
+			}
+			else{
 				uploadNewAssist();
 			}
 			stmt.close();
@@ -893,14 +895,18 @@ public class AssistDialog extends JDialog {
 		String pass = "gaja";
 		c = DriverManager.getConnection(db, userdb, pass);
 
-		String sql = "SELECT IDuser FROM Doctor where IDuser LIKE '" + idField.getText() + "'";
+		/*String sql = "SELECT IDuser FROM Assistant where IDuser LIKE '" + idField.getText() + "'";
 		Statement stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
-		stmt.close();
-		c.close();
-
-		if (id == idField.getText()) { // IF we are not changing the ID, update
-										// it normally
+		stmt.close();*/
+		
+		String sql = "SELECT Username FROM User where IDuser LIKE '" + id + "'";
+		Statement stmt = c.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		rs.next();
+	
+		if (id == idField.getText()|| rs.getString("Username") == usernameField.getText()) { // IF we are not changing the ID or Username, update
+																							// it normally
 			Connection c2 = null;
 			Class.forName("org.mariadb.jdbc.Driver");
 
@@ -943,11 +949,9 @@ public class AssistDialog extends JDialog {
 			c3 = DriverManager.getConnection(db, userdb, pass);
 			Statement stmt3 = c3.createStatement();
 			// Delete the old one and create a new one with the new ID and data
-			if(rs.next()){
 			stmt3.execute("DELETE FROM Assistant WHERE IDuser LIKE '" + id + "'");
-			stmt3.execute("DELETE FROM Clinical WHERE IDuser LIKE '" + id + "'");
+			stmt3.execute("DELETE FROM CLINICAL WHERE IDuser LIKE '" + id + "'");
 			stmt3.execute("DELETE FROM User WHERE IDuser LIKE '" + id + "'");
-			}
 			uploadNewAssist();
 
 			// UPDATE PATIENTS AND MESSAGES FOR NEW ID NOW
@@ -959,8 +963,11 @@ public class AssistDialog extends JDialog {
 			}
 			stmt3.close();
 			c3.close();
-		}
 
+		}
+		rs.close();
+		stmt.close();
+		c.close();
 	}
 
 	boolean checkBoxesFilled() {
