@@ -912,7 +912,7 @@ public class AssistDialog extends JDialog {
 
 			c2 = DriverManager.getConnection(db, userdb, pass);
 			// Update code
-			String sql1 = "UPDATE User SET IDuser = ?, Password = ?, Active = ?, Name = ?,+"
+			String sql1 = "UPDATE User SET IDuser = ?, Password = ?, Active = ?, Name = ?,"
 					+ " LastName = ?, Username=?, Email =?";
 			String sql2 = "Update CLINICAL Set IDUser = ?, SSN = ?";
 			String sql3 = "Update Assistant Set IDUser = ?, Municipality = ?";

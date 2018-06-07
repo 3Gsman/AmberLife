@@ -18,6 +18,7 @@ import model.ECG;
 import model.FileManagement;
 import view.assistant.AssistMeasureFr;
 import view.assistant.AssistPatientFr;
+import view.dialogs.ECGConfDialog;
 import view.dialogs.ExitDialog;
 import view.dialogs.FileChooserErrorDialog;
 import view.dialogs.NewMessageDialog;
@@ -77,6 +78,8 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 		System.out.println("Action received: ");
 		 if (e.getActionCommand().equals("MEASURE")){
 			 System.out.println(" Measure");
+			 
+			 ECGConfDialog a = new ECGConfDialog();
 			 
 			 JFileChooser chooser = new JFileChooser();
 			 FileNameExtensionFilter filter = new FileNameExtensionFilter(
