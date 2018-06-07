@@ -326,8 +326,11 @@ public class DBManagement {
 		rs.close();
 		stmt.close();
 		c.close();
-
-		return patients;
+		
+		Vector<Patient> sortedpatients = new Vector<Patient>();
+		sortedpatients = Utilities.sortPatientsByName(patients);
+		
+		return sortedpatients;
 	}
 
 	/**
