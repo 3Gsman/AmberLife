@@ -42,9 +42,10 @@ public class FullGraphPanel extends JPanel {
 	public double t;
 	public double frec;
 	public double frecsec;
-	public double firstsec;
+	//public double firstsec;
 	public double zoom = 3;
 	public double zoom2 = -1 * (zoom);
+	
 
 	public FullGraphPanel(ECG ecgData) {
 		super(new BorderLayout());
@@ -53,7 +54,7 @@ public class FullGraphPanel extends JPanel {
 		frec = ECGData.getFrequency();
 		frecsec = 1000 / frec;
 		t = (frecsec * ECGData.getData().size());
-		firstsec = 6 * ECGData.getFrequency();
+		//firstsec = 6 * ECGData.getFrequency();
 
 		XYDataset dataset = createDataset();
 		chart = createChart(dataset);
@@ -186,5 +187,7 @@ public class FullGraphPanel extends JPanel {
 	public GraphCtrl getController() {
 		return controller;
 	}
+	
+	
 
 }

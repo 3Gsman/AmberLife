@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
@@ -14,6 +16,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import com.panamahitek.ArduinoException;
+import com.panamahitek.PanamaHitek_Arduino;
+
+import jssc.SerialPortEvent;
+import jssc.SerialPortEventListener;
+import jssc.SerialPortException;
 
 public class ECGConfDialog extends JDialog implements ActionListener {
 
@@ -27,6 +36,8 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 	private JComboBox<Object> boxfrec;
 	private JComboBox<Object> boxtime;
 
+	PanamaHitek_Arduino ino = new PanamaHitek_Arduino();
+
 	public ECGConfDialog() {
 
 		frame = new JFrame("ECG Conf");
@@ -39,6 +50,16 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		frame.pack();
 		frame.setVisible(true);
+
+		try {
+			// Se inicia la comunicación con el Puerto Serie
+			ino.arduinoTX("COM6", 9600);
+		} catch (ArduinoException ex) {
+			// Logger.getLogger(JavaTX.class.getName()).log(Level.SEVERE, null,
+			// ex);
+			System.out.println("ERROR PUERTO ARDUINO");
+		}
+
 	}
 
 	private void addItems() {
@@ -55,7 +76,7 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 		boxfrec.setBorder(null);
 		boxfrec.setOpaque(false);
 
-		Object[] time = { "15", "30", "45", "60", "90","120" };
+		Object[] time = { "15", "30", "45", "60", "90", "120" };
 		boxtime = new JComboBox<Object>(time);
 		boxtime.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
 		boxtime.setBorder(null);
@@ -69,17 +90,34 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 
 		confirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				String datafrec = boxfrec.getSelectedItem().toString();
 				int frecint = Integer.parseInt(datafrec);
-				
+
 				String datatime = boxtime.getSelectedItem().toString();
 				int timeint = Integer.parseInt(datatime);
-				
-				//MANDAR ESTOS DATOS A ARDUINO
+
+				// MANDAR ESTOS DATOS A ARDUINO
 				System.out.println(frecint);
 				System.out.println(timeint);
-				
+
+				try {
+					ino.sendData(datafrec);
+				} catch (ArduinoException | SerialPortException ex) {
+					System.out.println("NO MANDA DATOS");
+				}
+
+				try {
+					if (ino.isMessageAvailable()) {
+						// Se imprime el mensaje recibido en la consola
+						System.out.println(ino.printMessage());
+					}
+				} catch (SerialPortException | ArduinoException ex) {
+					System.out.println("NO IMPRIME");
+					// Logger.getLogger(JavaRX.class.getName()).log(Level.SEVERE,
+					// null, ex);
+				}
+
 				frame.dispose();
 			}
 		});
@@ -95,7 +133,7 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
