@@ -992,7 +992,7 @@ public class DoctorDialog extends JDialog {
 			if(rs_check.next()) {
 				JOptionPane.showMessageDialog(MainCtrl.getMainFrame(), "That username is already in use");
 				dispose();
-			}else if(DBManagement.validateUser(nameField.getText(), surnameField.getText(), idField.getText(), emailField.getText())) {
+			}else if(!(DBManagement.validateUser(nameField.getText(), surnameField.getText(), idField.getText(), emailField.getText()))) {
 				System.out.println("Validation error for Doctor");
 				dispose();
 			}

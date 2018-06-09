@@ -37,6 +37,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import control.MainCtrl;
+import model.DBManagement;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -796,8 +797,13 @@ public class PatientDialog extends JDialog {
 			stmt.close();
 			c.close();
 
-			if (rs.next() == true)
+			if (rs.next() == true) {
 				System.out.println("A Patient with that ID already exists");
+				dispose();
+			}
+			else if(!(DBManagement.validatePatient(nameField.getText(),surnameField.getText(),idField.getText()))) {
+				
+			}
 			else
 				uploadNewPatient(doctorID);
 

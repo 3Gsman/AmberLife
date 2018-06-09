@@ -713,13 +713,32 @@ public class DBManagement {
 
 	}
 	
-	public static boolean validatePatient() {
+	public static boolean validatePatient(String name, String lastname, String id) {
 		boolean valid = true;
 		
 		
+		Pattern p = Pattern.compile("^[ A-Za-z]+$");
+		Matcher m = p.matcher(name);
+		valid = m.matches();
+	
+		if(!valid) {
+			JOptionPane.showMessageDialog(MainCtrl.getMainFrame(), "Please, use characters and spaces only in the name");
+		}
+		else {
 		
-		
-		
+		Matcher m2 = p.matcher(lastname);
+		valid = m2.matches();
+			if(!valid) JOptionPane.showMessageDialog(MainCtrl.getMainFrame(), "Please, use characters and spaces only in the surname");
+			else {
+				String id_numbers = id.substring(0, 7);
+				String id_letter = id.substring(8,8);
+				if(!(id_numbers.matches("[0-9]+") && id_letter.contains("[a-zA-Z]+") && id.length() == 9)) {
+					JOptionPane.showMessageDialog(MainCtrl.getMainFrame(), "ID format is invalid");
+					valid = false;
+				}
+			}
+		}
+			
 		return valid;
 	}
 	
