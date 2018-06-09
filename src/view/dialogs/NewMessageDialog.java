@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -28,6 +29,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.sql.Timestamp;
 
@@ -41,7 +43,8 @@ public class NewMessageDialog extends JDialog {
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public NewMessageDialog(ActionListener windowToRefresh, String fullname, String IDuser, String IDptt, String text) throws IOException {
+	public NewMessageDialog(JFrame f, ActionListener windowToRefresh, String fullname, String IDuser, String IDptt, String text) throws IOException {
+		super(f,Dialog.ModalityType.APPLICATION_MODAL);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 491, 349);
 		getContentPane().setLayout(new BorderLayout());

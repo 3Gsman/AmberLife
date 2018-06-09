@@ -36,6 +36,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import control.MainCtrl;
+import model.DBManagement;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -822,6 +823,11 @@ public class AssistDialog extends JDialog {
 				//MAKE THIS A WARNING DIALOG FFS
 				JOptionPane.showMessageDialog(MainCtrl.getMainFrame(), "An User with that ID or Username already exists");
 				System.out.println("An User with that ID or Username already exists");
+				dispose();
+			}
+			else if(DBManagement.validateUser(nameField.getText(), surnameField.getText(), idField.getText(), emailField.getText())) {
+				System.out.println("Validation error for Assistant");
+				dispose();
 			}
 			else{
 				uploadNewAssist();

@@ -37,6 +37,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import control.MainCtrl;
+import model.DBManagement;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -990,6 +991,9 @@ public class DoctorDialog extends JDialog {
 								"' AND NOT IDuser LIKE '" + id + "'");
 			if(rs_check.next()) {
 				JOptionPane.showMessageDialog(MainCtrl.getMainFrame(), "That username is already in use");
+				dispose();
+			}else if(DBManagement.validateUser(nameField.getText(), surnameField.getText(), idField.getText(), emailField.getText())) {
+				System.out.println("Validation error for Doctor");
 				dispose();
 			}
 			else {

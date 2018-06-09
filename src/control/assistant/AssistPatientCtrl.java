@@ -124,7 +124,7 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 			 System.out.println(" Reply");
 			 try {
 				MessagePanel mp = (MessagePanel) ((Component) e.getSource()).getParent();
-				NewMessageDialog nmd = new NewMessageDialog(this,patient.getName() + " " + patient.getLastname(), assistID, patientID,
+				NewMessageDialog nmd = new NewMessageDialog(MainCtrl.getMainFrame(),this,patient.getName() + " " + patient.getLastname(), assistID, patientID,
 						"From: " + mp.getUser().getName() + " " + mp.getUser().getLastname() + " on " + mp.getMessage().getTimestamp() + "\n"
 						+ "RE: " + mp.getMessage().getMessage() + "\n");
 	
@@ -135,7 +135,7 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 			
 		}else  if (e.getActionCommand().equals("NEWMESSAGE")){ 
 			try {
-				NewMessageDialog nmd = new NewMessageDialog(this,patient.getName()+ " " + patient.getLastname(),assistID, patientID,"");
+				NewMessageDialog nmd = new NewMessageDialog(MainCtrl.getMainFrame(),this,patient.getName()+ " " + patient.getLastname(),assistID, patientID,"");
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
