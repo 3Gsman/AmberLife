@@ -71,17 +71,16 @@ public class DoctorMeasureCtrl implements ActionListener{
 	public void actionPerformed(ActionEvent ev) {
 		System.out.println("Action received: " + ev.getActionCommand());
 		 if (ev.getActionCommand().equals("BACK")){
-			 MainCtrl.window.popBackStack();
+			 MainCtrl.popBackStack();
 		 }
 		 else if (ev.getActionCommand().equals("COMPARE")){
 			 try {
-			 	DoctorPatientCtrl dpc = ((DoctorPatientFr)MainCtrl.window.backstack.peek()).getController();
+			 	DoctorPatientCtrl dpc = ((DoctorPatientFr)MainCtrl.getMainFrame().backstack.peek()).getController();
 			 	ECGchooserFr ecgf = new ECGchooserFr(getClass().getResource("/resources/BG.png"));
 			 	ECGchooserCtrl ecgc = new ECGchooserCtrl(dpc, ecgf, e);;
 			 	ecgf.addController(ecgc);
 			 	ecgf.initialize();
-			 	MainCtrl.window.setContentPane(ecgf);
-			 	MainCtrl.window.setVisible(true);
+			 	MainCtrl.setPanel(ecgf);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

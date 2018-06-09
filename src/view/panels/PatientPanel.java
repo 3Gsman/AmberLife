@@ -1,6 +1,7 @@
 package view.panels;
 
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -164,7 +165,7 @@ public class PatientPanel extends JPanel {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					PatientDialog pd = new PatientDialog(MainCtrl.window,windowToRefresh, doctorID ,p.getId());
+					PatientDialog pd = new PatientDialog(MainCtrl.getMainFrame(),windowToRefresh, doctorID ,p.getId());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
@@ -62,6 +63,7 @@ public class AssistDialog extends JDialog {
 	 */
 	public AssistDialog(JFrame f, ActionListener windowToRefresh, String id)
 			throws IOException, ClassNotFoundException {
+		super(f,Dialog.ModalityType.APPLICATION_MODAL);
 		this.windowToRefresh = windowToRefresh;
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 468);
@@ -818,6 +820,7 @@ public class AssistDialog extends JDialog {
 
 			if (rs.next() == true){
 				//MAKE THIS A WARNING DIALOG FFS
+				JOptionPane.showMessageDialog(MainCtrl.getMainFrame(), "An User with that ID or Username already exists");
 				System.out.println("An User with that ID or Username already exists");
 			}
 			else{

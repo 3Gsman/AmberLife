@@ -27,7 +27,9 @@ public class MainFr extends JFrame{
 		panel.setSize(this.getSize());	
 		this.setContentPane(panel);
 		panel.setVisible(true);
+		this.getContentPane().validate();
 		this.repaint();
+		this.validate();
 	}
 	
 	public void toBackStack(JPanel panel) {

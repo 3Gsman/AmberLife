@@ -1,5 +1,6 @@
 package control.admin;
 
+import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -78,7 +79,7 @@ public class AdminCtrl implements ActionListener {
     		}
     	}
     	else if (e.getActionCommand().equals("BACK")){
-    		MainCtrl.window.popBackStack();	
+    		MainCtrl.popBackStack();	
     	}else if (e.getActionCommand().equals("NEWDOCTOR")) {
 			try {
 				newDoctor();
@@ -152,7 +153,7 @@ public class AdminCtrl implements ActionListener {
 	 */
 	public void newDoctor() throws ClassNotFoundException {
 		try {
-			 dd = new DoctorDialog(MainCtrl.window, this, null);
+			 dd = new DoctorDialog(MainCtrl.getMainFrame(), this, null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -169,7 +170,7 @@ public class AdminCtrl implements ActionListener {
 	 */
 	public void newAssist() throws ClassNotFoundException {
 		try {
-			ad = new AssistDialog(MainCtrl.window, this, null);
+			ad = new AssistDialog(MainCtrl.getMainFrame(), this, null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,6 +1,7 @@
 package control.doctor;
 
 import java.awt.Component;
+import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -58,8 +59,7 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 	 */
 	public void registerPatient() throws ClassNotFoundException {
 		try {
-			PatientDialog pd = new PatientDialog(MainCtrl.window,this,doctor.getId(),null);
-			
+			PatientDialog pd = new PatientDialog(MainCtrl.getMainFrame(),this,doctor.getId(),null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,7 +71,7 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 		df.initializeList();
 	    df.repaint();
 		lastTyped = df.getText();
-		MainCtrl.window.validate();
+		MainCtrl.validateMainFrame();
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 	public void actionPerformed(ActionEvent e) {
 		System.out.print("Action received: " + e.getActionCommand());
 		if (e.getActionCommand().equals("BACK")){ 
-			MainCtrl.window.popBackStack();
+			MainCtrl.popBackStack();
 			
 		}
 		else if (e.getActionCommand().equals("NEW")) {
@@ -144,10 +144,10 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 			df.setVisible(false);
 			DoctorPatientFr dpf = new DoctorPatientFr(getClass().getResource("/resources/BG.png"));
 			DoctorPatientCtrl dpc = new DoctorPatientCtrl(dpf,doctor,p.getPatient());
-	        MainCtrl.window.toBackStack(df);
+	        MainCtrl.toBackStack(df);
 	        dpf.addController(dpc);
 			dpf.initialize();
-		    MainCtrl.window.setContentPane(dpf);
+		    MainCtrl.setPanel(dpf);
 		}
 		catch(ClassCastException cce){
 			System.out.println("BAD CAST at DoctorCtrl");
@@ -213,10 +213,10 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 			df.setVisible(false);
 			DoctorPatientFr dpf = new DoctorPatientFr(getClass().getResource("/resources/BG.png"));
 			DoctorPatientCtrl dpc = new DoctorPatientCtrl(dpf,doctor, resultado);
-			MainCtrl.window.toBackStack(df);
+			MainCtrl.toBackStack(df);
 	        dpf.addController(dpc);
 			dpf.initialize();
-		    MainCtrl.window.setContentPane(dpf);
+		    MainCtrl.setPanel(dpf);
 			
 		}else {
 			Object frame = null;	//crea un objeto ventana
@@ -250,7 +250,7 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 	        df.repaint();
 		}
 		lastTyped = df.getText();
-		MainCtrl.window.validate();
+		MainCtrl.validateMainFrame();
 	}
 
 }

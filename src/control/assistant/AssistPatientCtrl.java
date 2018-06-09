@@ -100,10 +100,10 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 						   ecg = f.readECG(filename);
 					       AssistMeasureFr tef = new AssistMeasureFr(getClass().getResource("/resources/BG.png"));
 					       AssistMeasureCtrl tec = new AssistMeasureCtrl(tef,ecg);
-					       MainCtrl.window.toBackStack(patient);
+					       MainCtrl.toBackStack(patient);
 					       tef.addController(tec);
 					       tef.initialize();
-					       MainCtrl.window.setContentPane(tef);  		       
+					       MainCtrl.setPanel(tef);  		       
 					       System.out.println("Pantalla ECG");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
@@ -118,7 +118,7 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 
 		}else  if (e.getActionCommand().equals("BACK")){ 
 			System.out.println(" Back");
-			MainCtrl.window.popBackStack();
+			MainCtrl.popBackStack();
 			
 		}else  if (e.getActionCommand().equals("REPLY")){ 	
 			 System.out.println(" Reply");

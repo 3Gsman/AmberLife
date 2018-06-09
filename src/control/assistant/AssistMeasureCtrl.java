@@ -49,12 +49,12 @@ public class AssistMeasureCtrl implements ActionListener{
 		System.out.println("Action received: ");
 		 if (e.getActionCommand().equals("CANCEL")){
 			 System.out.println(" Cancel");
-			 MainCtrl.window.popBackStack();
+			 MainCtrl.popBackStack();
 		 }
 		 else if (e.getActionCommand().equals("CONFIRM")){
 			 //Saving Measures not implemented yet.
 			 System.out.println(" UNIMPLEMENTED");
-			 MainCtrl.window.popBackStack(); 
+			 MainCtrl.popBackStack(); 
 		 }
 		 else System.out.println("Invalid Action");
 	}

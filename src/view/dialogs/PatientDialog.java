@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
@@ -64,6 +65,7 @@ public class PatientDialog extends JDialog {
 	 */
 	public PatientDialog(MainFr f, ActionListener controller, String doctorID, String patientID)
 			throws IOException, ClassNotFoundException {
+		super(f,Dialog.ModalityType.APPLICATION_MODAL);
 		this.controller = controller;
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 468);

@@ -24,6 +24,7 @@ import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Vector;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;
@@ -66,6 +67,7 @@ public class DoctorDialog extends JDialog {
 	 * @throws ClassNotFoundException 
 	 */
 	public DoctorDialog(JFrame f, ActionListener windowToRefresh, String id) throws IOException, ClassNotFoundException {
+		super(f,Dialog.ModalityType.APPLICATION_MODAL);
 		this.windowToRefresh = windowToRefresh;
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 644, 468);
@@ -987,7 +989,7 @@ public class DoctorDialog extends JDialog {
 			ResultSet rs_check = check.executeQuery("SELECT Username From User WHERE Username LIKE '" + usernameField.getText() + 
 								"' AND NOT IDuser LIKE '" + id + "'");
 			if(rs_check.next()) {
-				JOptionPane.showMessageDialog(MainCtrl.window, "That username is already in use");
+				JOptionPane.showMessageDialog(MainCtrl.getMainFrame(), "That username is already in use");
 				dispose();
 			}
 			else {

@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Font;
 import java.awt.FontFormatException;
 
@@ -181,10 +182,10 @@ public class UserPanel extends JPanel {
 						ResultSet rs = stmt.executeQuery("select IDuser from Doctor where IDuser='" + id + "'");
 
 						if (rs.next() == false) {
-							AssistDialog ad = new AssistDialog(MainCtrl.window, windowToRefresh, id);
+							AssistDialog ad = new AssistDialog(MainCtrl.getMainFrame(), windowToRefresh, id);
 						}
 						else {
-							DoctorDialog dd = new DoctorDialog(MainCtrl.window, windowToRefresh, id);
+							DoctorDialog dd = new DoctorDialog(MainCtrl.getMainFrame(), windowToRefresh, id);
 						}
 						rs.close();
 						stmt.close();

@@ -77,9 +77,9 @@ public class LoginCtrl implements ActionListener, KeyListener {
     			vistaLogin = new LoginFr();
 				vistaLogin.addController(this);
 				vistaLogin.initialize();
-				MainCtrl.window.setContentPane(vistaLogin);
+				MainCtrl.setPanel(vistaLogin);
 				vistaLogin.setVisible(true);
-				MainCtrl.window.validate();
+				MainCtrl.getMainFrame().validate();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -177,14 +177,14 @@ public class LoginCtrl implements ActionListener, KeyListener {
 	 */
     public void openDoctor(String usuario) throws IOException, ClassNotFoundException, SQLException {
 
-    	MainCtrl.window.toBackStack(vistaLogin);	//Cierra la ventana de inicio
+    	MainCtrl.toBackStack(vistaLogin);	//Cierra la ventana de inicio
         DoctorFr vp = new DoctorFr(getClass().getResource("/resources/BG.png"));	//crea nueva ventana
         DoctorCtrl dc = new DoctorCtrl(usuario,vp);
         
         vp.addController(dc);
-        MainCtrl.window.setContentPane(vp);
+        MainCtrl.setPanel(vp);
         vp.initialize();
-        MainCtrl.window.setVisible(true);
+        MainCtrl.getMainFrame().setVisible(true);
         
     }
     
@@ -199,13 +199,13 @@ public class LoginCtrl implements ActionListener, KeyListener {
 	 */
     public void openAssistant(String usuario) throws IOException, ClassNotFoundException, SQLException {
 
-    	MainCtrl.window.toBackStack(vistaLogin);	
+    	MainCtrl.toBackStack(vistaLogin);	
         AssistFr vm = new AssistFr(getClass().getResource("/resources/BG.png"));
         AssistCtrl tc = new AssistCtrl(usuario, vm);
         vm.addController(tc);
         vm.initialize();
-        MainCtrl.window.setContentPane(vm);
-        MainCtrl.window.setVisible(true);
+        MainCtrl.setPanel(vm);
+        MainCtrl.getMainFrame().setVisible(true);
     }
     
 	/**
@@ -219,13 +219,13 @@ public class LoginCtrl implements ActionListener, KeyListener {
 	 */
     public void openAdmin(String usuario) throws IOException, ClassNotFoundException, SQLException {
 
-    	MainCtrl.window.toBackStack(vistaLogin);	
+    	MainCtrl.toBackStack(vistaLogin);	
         AdminFr vm = new AdminFr(getClass().getResource("/resources/BG.png"));	//crea nueva ventana
         AdminCtrl ac = new AdminCtrl(vm);
         vm.addController(ac);
         vm.initialize(true, ac.getDoctorList(),new Dimension(0,0));
-        MainCtrl.window.setContentPane(vm);
-        MainCtrl.window.setVisible(true);
+        MainCtrl.setPanel(vm);
+        MainCtrl.getMainFrame().setVisible(true);
         
         System.out.println("Opened the admin panel");
     }

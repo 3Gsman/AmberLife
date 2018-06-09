@@ -72,7 +72,7 @@ public class AssistCtrl implements ActionListener, KeyListener{
 				e1.printStackTrace();
 			}
 		 }else if (e.getActionCommand().equals("BACK")) {
-			 MainCtrl.window.popBackStack();
+			 MainCtrl.popBackStack();
 		 }else if (e.getActionCommand().equals("ID")) {
 			 if(!tf.getMode()) tf.switchbuttons();
 			 tf.repaint();
@@ -144,7 +144,7 @@ public class AssistCtrl implements ActionListener, KeyListener{
 					System.out.println("Assistant: " + getName());			
 					
 					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), 
-									resultado.getSsn(), messages, name);
+									resultado.getSsn(),  name);
 					
 				}else {
 					InvalidPatientDialog.noPatientFound();
@@ -159,15 +159,14 @@ public class AssistCtrl implements ActionListener, KeyListener{
 				if (resultado.getSsn() != "null") {
 	
 					//messages = id.readPatientMessages(resultado.getNumber());
-					
-					messages = DBManagement.readPatientMessages(resultado.getId());
+				
 					
 					
 					System.out.println("Patient found.\n");
 					System.out.println("Assistant: " + getName());			
 					
 					openPatientTecn(resultado.getName(),resultado.getLastname(),resultado.getId(), 
-									resultado.getSsn(), messages, name);
+									resultado.getSsn(), name);
 					
 				}else {
 					InvalidPatientDialog.noPatientFound();
@@ -194,10 +193,10 @@ public class AssistCtrl implements ActionListener, KeyListener{
 	public void openPatientTecn(String name, String lastname, String id, String ssn, String user) throws IOException, ClassNotFoundException, SQLException {
         AssistPatientFr vm = new AssistPatientFr(getClass().getResource("/resources/BG.png"));
         AssistPatientCtrl tc = new AssistPatientCtrl(vm,tecnico.getId(),id);
-        MainCtrl.window.toBackStack(tf);
+        MainCtrl.toBackStack(tf);
         vm.addController(tc);
         vm.initialize(name, lastname, id, ssn, user);
-        MainCtrl.window.setContentPane(vm);
+        MainCtrl.setPanel(vm);
     }
 
 	/**

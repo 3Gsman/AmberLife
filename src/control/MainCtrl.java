@@ -31,7 +31,7 @@ public class MainCtrl implements WindowListener{
 	 * @see LoginFr, LocalizationService
 	 */
 	
-	public static MainFr window = new MainFr();
+	private static MainFr window = new MainFr();
 	
     public static void main(String[] args) throws ClassNotFoundException {
     	LocalizationService.initialize();
@@ -54,6 +54,29 @@ public class MainCtrl implements WindowListener{
 		}
     }
 
+
+    public static void popBackStack() {
+    	window.popBackStack();
+    }
+    
+    public static void setPanel(JPanel panel) {
+
+    	window.setContentPane(panel);
+    }
+    
+    public static void toBackStack(JPanel panel) {
+    	window.toBackStack(panel);
+    }
+    
+    public static void validateMainFrame() {
+    	window.validate();
+    }
+    
+    public static MainFr getMainFrame() {
+    	return window;
+    }
+    
+    
 	@Override
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub

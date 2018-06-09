@@ -88,11 +88,11 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 			EcgPanel ecg = (EcgPanel) e.getSource();
 			DoctorMeasureFr dmf = new DoctorMeasureFr(getClass().getResource("/resources/BG.png"));
 			DoctorMeasureCtrl dmc = new DoctorMeasureCtrl(dmf,ecg.getECG());
-			MainCtrl.window.toBackStack(frame);
+			MainCtrl.toBackStack(frame);
 			frame.setVisible(false);
 			dmf.addController(dmc);
 			dmf.initialize();
-			MainCtrl.window.setContentPane(dmf);
+			MainCtrl.setPanel(dmf);
 			System.out.println("Selected ECG: " + ecg.getECG().getId());
 		}
 		catch(ClassCastException cce){
@@ -143,13 +143,13 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Action received: " + e.getActionCommand());
 		if (e.getActionCommand().equals("BACK")){ 
-			MainCtrl.window.popBackStack();
+			MainCtrl.popBackStack();
 		}
 		else if (e.getActionCommand().equals("ECGS")){ 
 			try {
 				frame.setModeECG();
 				frame.setVisible(true);
-				MainCtrl.window.validate();
+				MainCtrl.validateMainFrame();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -176,7 +176,7 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 			try {
 				frame.setModeMessages();
 				frame.setVisible(true);
-				MainCtrl.window.validate();
+				MainCtrl.validateMainFrame();
 			} catch (ClassNotFoundException | SQLException | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -209,8 +209,8 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 			frame.setVisible(false);
 			dmf.addController(dmc);
 			dmf.initialize();
-			MainCtrl.window.setContentPane(dmf);
-			MainCtrl.window.setVisible(true);
+			MainCtrl.setPanel(dmf);
+			MainCtrl.getMainFrame().setVisible(true);
 		}
 		catch(ClassCastException cce){
 			System.out.println("BAD CAST at DoctorPatientCtrl");
