@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import control.assistant.AssistPatientCtrl;
+import model.DBManagement;
 import model.LocalizationService;
 import model.Message;
 import model.User;
@@ -87,13 +88,13 @@ public class AssistPatientFr extends JPanelWithBackground {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public void initialize(String pname, String psurname, String id, String ssn, Vector<model.Message> messages, String user) throws IOException, ClassNotFoundException, SQLException {
-		this.messages = messages;
+	public void initialize(String pname, String psurname, String id, String ssn, String user) throws IOException, ClassNotFoundException, SQLException {
 		this.name = pname;
 		this.psurname = psurname;
 		this.id = id;
 		this.ssn = ssn;
 		this.user = user;
+		messages = DBManagement.readMessages(id);
 		
 		this.setBorder(new EmptyBorder(0, 0, 0, 0));
 		
@@ -409,6 +410,7 @@ public class AssistPatientFr extends JPanelWithBackground {
 
 	public void refreshMessages(JPanel jp) throws ClassNotFoundException, SQLException {
 		jp.removeAll();
+		messages = DBManagement.readMessages(id);
 		for(Message s : messages) {
 			try {
 				mp = new MessagePanel(controller, new User(s.getAuthorID(), s.getAuthorname(), s.getAuthorsurname()), s);
@@ -419,8 +421,8 @@ public class AssistPatientFr extends JPanelWithBackground {
 			}
 			
 		}
+		this.setVisible(true);
 		this.validate();
-		
 	}
 
 

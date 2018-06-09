@@ -191,12 +191,12 @@ public class AssistCtrl implements ActionListener, KeyListener{
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public void openPatientTecn(String name, String lastname, String id, String ssn, Vector<model.Message> messages, String user) throws IOException, ClassNotFoundException, SQLException {
+	public void openPatientTecn(String name, String lastname, String id, String ssn, String user) throws IOException, ClassNotFoundException, SQLException {
         AssistPatientFr vm = new AssistPatientFr(getClass().getResource("/resources/BG.png"));
         AssistPatientCtrl tc = new AssistPatientCtrl(vm,tecnico.getId(),id);
         MainCtrl.window.toBackStack(tf);
         vm.addController(tc);
-        vm.initialize(name, lastname, id, ssn, messages, user);
+        vm.initialize(name, lastname, id, ssn, user);
         MainCtrl.window.setContentPane(vm);
     }
 

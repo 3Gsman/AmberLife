@@ -106,7 +106,7 @@ public class AssistDialog extends JDialog {
 			getContentPane().add(panel, gbc_panel);
 			{
 				JLabel lblNewLabel_2;
-				if (id != null) {
+				if (id == null) {
 					lblNewLabel_2 = new JLabel("Introduce new assistant data");
 				} else {
 					lblNewLabel_2 = new JLabel("Editing assistant");
@@ -745,8 +745,10 @@ public class AssistDialog extends JDialog {
 			gbc_btnConfirm.gridy = 12;
 			getContentPane().add(btnConfirm, gbc_btnConfirm);
 		}
-		if (id != null)
+		if (id != null) {
 			initializeFields(id);
+			this.setTitle("Edit Assistant");
+		}
 		this.setVisible(true);
 	}
 
