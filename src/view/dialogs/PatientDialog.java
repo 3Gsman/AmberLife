@@ -108,6 +108,7 @@ public class PatientDialog extends JDialog {
 			getContentPane().add(panel, gbc_panel);
 			{
 				JLabel lblNewLabel_2 = new JLabel("Introduce new patient data");
+				if (patientID != null) lblNewLabel_2.setText("Editing Patient");
 				lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 				lblNewLabel_2.setForeground(Color.WHITE);
 				lblNewLabel_2.setFont(sf);
@@ -722,8 +723,10 @@ public class PatientDialog extends JDialog {
 			gbc_btnConfirm.gridy = 12;
 			getContentPane().add(btnConfirm, gbc_btnConfirm);
 		}
-		if (patientID != null)
+		if (patientID != null) {
 			initializeFields(patientID);
+			this.setTitle("New Patient");
+		}
 		this.setVisible(true);
 	}
 

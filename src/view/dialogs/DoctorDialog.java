@@ -45,6 +45,8 @@ public class DoctorDialog extends JDialog {
 	
 	private ActionListener windowToRefresh;
 	
+	private JLabel lblNewLabel_2;
+	
 	private JTextField nameField;
 	private JTextField surnameField;
 	private JPasswordField passField;
@@ -105,8 +107,8 @@ public class DoctorDialog extends JDialog {
 			gbc_panel.gridy = 0;
 			getContentPane().add(panel, gbc_panel);
 			{
-				JLabel lblNewLabel_2;
-				if(id != null) {
+				lblNewLabel_2 = new JLabel();
+				if(id == null) {
 					lblNewLabel_2 = new JLabel("Introduce new doctor data");
 				} else {lblNewLabel_2 = new JLabel("Editing doctor"); }
 				lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -803,6 +805,7 @@ public class DoctorDialog extends JDialog {
 		}
 		if(id != null) {
 			initializeFields(id);
+			this.setTitle("Edit Doctor");
 		}
 		
 		this.setVisible(true);
