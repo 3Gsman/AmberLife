@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import control.MainCtrl;
+import model.DBManagement;
 import model.LocalizationService;
 import model.Patient;
 import view.dialogs.AssistDialog;
@@ -196,18 +197,7 @@ public class PatientPanel extends JPanel {
 															"Warning",JOptionPane.YES_NO_OPTION);
 				if(confirm == JOptionPane.YES_OPTION){
 					try {
-						Connection c = null;
-
-						Class.forName("org.mariadb.jdbc.Driver");
-
-						//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-						//String userdb = "pi2_amberlife";
-						//String pass = "rdysdhsks";
-
-						String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-						String userdb = "dani";
-						String pass = "gaja";
-						c = DriverManager.getConnection(db, userdb, pass);
+						Connection c = DBManagement.getConnection();
 						
 						Statement stmt =  c.createStatement();
 						
@@ -221,9 +211,6 @@ public class PatientPanel extends JPanel {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 
-					} catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
 				} else System.out.println("Deletion Cancelled");
 		}

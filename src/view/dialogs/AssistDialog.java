@@ -758,17 +758,7 @@ public class AssistDialog extends JDialog {
 	void initializeFields(String id) throws ClassNotFoundException {
 		System.out.println("Initialize Fields");
 		try {
-			Connection c = null;
-			Class.forName("org.mariadb.jdbc.Driver");
-
-			//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-			//String userdb = "pi2_amberlife";
-			//String pass = "rdysdhsks";
-
-			String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-			String userdb = "dani";
-			String pass = "gaja";
-			c = DriverManager.getConnection(db, userdb, pass);
+			Connection c = DBManagement.getConnection();
 			Statement stmt = c.createStatement();
 
 			ResultSet rs = stmt.executeQuery("SELECT User.Name, User.LastName, User.Password, User.Username,"
@@ -802,17 +792,7 @@ public class AssistDialog extends JDialog {
 	void createNewAssist() throws ClassNotFoundException {
 		System.out.println("Creating new assistant");
 		try {
-			Connection c = null;
-			Class.forName("org.mariadb.jdbc.Driver");
-
-			//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-			//String userdb = "pi2_amberlife";
-			//String pass = "rdysdhsks";
-
-			String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-			String userdb = "dani";
-			String pass = "gaja";
-			c = DriverManager.getConnection(db, userdb, pass);
+			Connection c = DBManagement.getConnection();
 
 			String sql = "SELECT IDuser FROM User where IDuser LIKE '" + idField.getText() + "' OR Username LIKE '" + usernameField.getText() + "'";
 			Statement stmt = c.createStatement();
@@ -844,17 +824,7 @@ public class AssistDialog extends JDialog {
 	}
 
 	void uploadNewAssist() throws SQLException, ClassNotFoundException {
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		//String userdb = "pi2_amberlife";
-		//String pass = "rdysdhsks";
-
-		String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		String userdb = "dani";
-		String pass = "gaja";
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c = DBManagement.getConnection();
 		
 		String sql1 = "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)"
 				+ "VALUES(?,?,?,?,?,?,?)";
@@ -894,17 +864,7 @@ public class AssistDialog extends JDialog {
 	void updateAssist(String id) throws SQLException, ClassNotFoundException {
 		System.out.println("Update Doctor launched");
 
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		//String userdb = "pi2_amberlife";
-		//String pass = "rdysdhsks";
-
-		String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		String userdb = "dani";
-		String pass = "gaja";
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c = DBManagement.getConnection();
 
 		/*String sql = "SELECT IDuser FROM Assistant where IDuser LIKE '" + idField.getText() + "'";
 		Statement stmt = c.createStatement();
@@ -918,10 +878,8 @@ public class AssistDialog extends JDialog {
 	
 		if (idField.getText().equals(id) && usernameField.getText().equals(rs.getString("Username"))){ // IF we are not changing the ID or Username, update
 																							// it normally
-			Connection c2 = null;
-			Class.forName("org.mariadb.jdbc.Driver");
+			Connection c2 = DBManagement.getConnection();
 
-			c2 = DriverManager.getConnection(db, userdb, pass);
 			// Update code
 			String sql1 = "UPDATE User SET IDuser = ?, Password = ?, Active = ?, Name = ?,"
 					+ " LastName = ?, Username=?, Email =?";
@@ -929,7 +887,6 @@ public class AssistDialog extends JDialog {
 			String sql3 = "Update Assistant Set IDUser = ?, Municipality = ?";
 			String ID = idField.getText();
 	
-			c2 = DriverManager.getConnection(db, userdb, pass);
 			PreparedStatement st1 = c2.prepareStatement(sql1);
 			st1.setString(1, ID);
 			// Doubt this is the best for security, consider this only temporal
@@ -955,9 +912,7 @@ public class AssistDialog extends JDialog {
 			windowToRefresh.actionPerformed(new ActionEvent(this, 0, "USER_UPDATE"));
 		} else { // If the ID is changed, delete the table and instead create
 					// another one?
-			Connection c3 = null;
-			Class.forName("org.mariadb.jdbc.Driver");
-			c3 = DriverManager.getConnection(db, userdb, pass);
+			Connection c3 = DBManagement.getConnection();
 			Statement stmt3 = c3.createStatement();
 			// Delete the old one and create a new one with the new ID and data
 			stmt3.execute("DELETE FROM Assistant WHERE IDuser LIKE '" + id + "'");

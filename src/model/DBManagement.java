@@ -46,12 +46,10 @@ public class DBManagement {
 	public static String[] checkUser(String usuario, String Password) throws ClassNotFoundException, SQLException {
 		String iduser;
 		String user[] = new String[2];
-		Connection c = null;
+		Connection c =  DBManagement.getConnection();
 
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-
-			c = DriverManager.getConnection(db, userdb, pass);
+			
 			Statement stmt = null;
 			stmt = c.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT IDUser FROM User WHERE Username='" + usuario + "' AND Password='"
@@ -102,11 +100,7 @@ public class DBManagement {
 
 	public static Assistant readAssistant(String username) throws SQLException, ClassNotFoundException {
 
-		Connection c = null;
-
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -140,10 +134,7 @@ public class DBManagement {
 
 	public static Vector<Assistant> getAssistants() throws ClassNotFoundException, SQLException {
 		Vector<Assistant> v = new Vector<>();
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -175,10 +166,7 @@ public class DBManagement {
 
 	public static Vector<Message> readMessages(String patientID) throws ClassNotFoundException, SQLException {
 		Vector<Message> messages = new Vector<>();
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -217,10 +205,7 @@ public class DBManagement {
 
 	public static Vector<Doctor> getDoctors() throws SQLException, ClassNotFoundException {
 		Vector<Doctor> v = new Vector<>();
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -261,10 +246,7 @@ public class DBManagement {
 
 	public static ECG readECG(int IDecg) throws ClassNotFoundException, SQLException {
 
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c = DBManagement.getConnection();
 
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -303,11 +285,7 @@ public class DBManagement {
 	public static Vector<Patient> readPatients(String doctorID)
 			throws ClassNotFoundException, SQLException, IOException {
 
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		c = DriverManager.getConnection(db, userdb, pass);
-
+		Connection c = DBManagement.getConnection();
 		Statement stmt = null;
 		stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT IDptt FROM Patient WHERE Doctor LIKE '" + doctorID + "'");
@@ -351,10 +329,7 @@ public class DBManagement {
 
 	public static Doctor readDoctor(String username) throws SQLException, ClassNotFoundException {
 
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c = DBManagement.getConnection();
 
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -413,10 +388,7 @@ public class DBManagement {
 	 */
 
 	public static Patient checkId(String dni) throws SQLException, ClassNotFoundException {
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -458,10 +430,7 @@ public class DBManagement {
 	 */
 
 	public static Patient checkSsn(String ssn) throws SQLException, ClassNotFoundException {
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -504,10 +473,7 @@ public class DBManagement {
 
 	public static Patient readPatient(String IDptt) throws IOException, SQLException, ClassNotFoundException {
 
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -555,10 +521,7 @@ public class DBManagement {
 	public static Vector<ECG> ecgList(String IDptt) throws IOException, ClassNotFoundException, SQLException {
 
 		Vector<ECG> vector = new Vector<ECG>();
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c = DBManagement.getConnection();
 
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -604,17 +567,7 @@ public class DBManagement {
 
 		Vector<Message> messages = new Vector<>();
 
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		// String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		// String userdb = "pi2_amberlife";
-		// String pass = "rdysdhsks";
-
-		String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		String userdb = "dani";
-		String pass = "gaja";
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c = DBManagement.getConnection();
 
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -642,10 +595,7 @@ public class DBManagement {
 		String idPatient = null;
 		String idDoctor = null;
 
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -688,10 +638,7 @@ public class DBManagement {
 	}
 
 	public static Boolean checkDoctor(String dni) throws SQLException, ClassNotFoundException {
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c = DBManagement.getConnection();
 
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -775,101 +722,26 @@ public class DBManagement {
 		return valid;
 	}
 	
+	public static Connection getConnection() {
+		Connection c = null;
+		try {
+			
+			Class.forName("org.mariadb.jdbc.Driver");
 	
+			//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
+			//String userdb = "pi2_amberlife";
+			//String pass = "rdysdhsks";
+		
+			c = DriverManager.getConnection(db, userdb, pass);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return c;
+	}
 	
-	/*
-	 * // Reads an .sql file to create the database public static void
-	 * createDatabase() {
-	 * 
-	 * try { InputStream is = new
-	 * FileInputStream("src/resources/BDAmberLife.sql");
-	 * 
-	 * BufferedReader buf = new BufferedReader(new InputStreamReader(is));
-	 * 
-	 * String line = buf.readLine(); StringBuilder sb = new StringBuilder();
-	 * 
-	 * while (line != null) { sb.append(line); line = buf.readLine(); }
-	 * 
-	 * String fileAsString = sb.toString();
-	 * 
-	 * Connection conn = DriverManager.getConnection("jdbc:sqlite:" +
-	 * MainCtrl.DATABASE); Statement create = conn.createStatement();
-	 * create.execute(fileAsString);
-	 * 
-	 * } catch (FileNotFoundException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); } catch (IOException e) { // TODO Auto-generated
-	 * catch block e.printStackTrace(); } catch (SQLException e) { // TODO
-	 * Auto-generated catch block e.printStackTrace(); }
-	 * 
-	 * }
-	 * 
-	 * // Use to create DB and initialize initial values /* public static void
-	 * createDatabase() { try { Connection conn =
-	 * DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE );
-	 * Statement create = conn.createStatement(); create.
-	 * execute("CREATE TABLE 'User' ('IDuser' TEXT NOT NULL UNIQUE,'Password' TEXT NOT NULL,"
-	 * +"'Active' INTEGER NOT NULL, 'Name' TEXT NOT NULL, 'LastName' TEXT NOT NULL,"
-	 * +"'Username' TEXT NOT NULL UNIQUE, 'Email'TEXT NOT NULL, PRIMARY KEY('IDuser'));"
-	 * +"CREATE TABLE 'ADMIN' ('IDuser' TEXT NOT NULL, FOREIGN KEY('IDuser') REFERENCES "
-	 * + "'User'('IDuser'),PRIMARY KEY('IDuser'));"
-	 * +"CREATE TABLE 'CLINICAL' ('IDuser'	TEXT NOT NULL, 'SSN' INTEGER NOT NULL,"
-	 * +"FOREIGN KEY('IDuser') REFERENCES 'User'('IDuser'),PRIMARY KEY('IDuser'));"
-	 * +"CREATE TABLE 'Assistant' ('IDuser' TEXT NOT NULL, 'Municipality' TEXT NOT NULL,"
-	 * +
-	 * "FOREIGN KEY('IDuser') REFERENCES 'User'('IDuser'), PRIMARY KEY('IDuser'));"
-	 * +"CREATE TABLE 'Doctor'('IDuser'TEXT NOT NULL, 'MLN'INTEGER NOT NULL,"
-	 * +"FOREIGN KEY('IDuser') REFERENCES 'User'('IDuser'),PRIMARY KEY('IDuser'));"
-	 * +"CREATE TABLE 'Telephone' ('IDuser' TEXT NOT NULL,'Number' TEXT NOT NULL,"
-	 * +"PRIMARY KEY('IDuser','Number'), FOREIGN KEY('IDuser') REFERENCES 'Doctor'('IDuser'));"
-	 * +"CREATE TABLE 'Patient' ('IDptt' TEXT NOT NULL UNIQUE, 'Name' TEXT NOT NULL, 'LastName' TEXT NOT NULL,"
-	 * +"'Municipality' TEXT NOT NULL, 'Address' TEXT NOT NULL, 'Sex' TEXT NOT NULL,"
-	 * +"'Status'	TEXT NOT NULL, 'SSN' TEXT NOT NULL, 'Doctor' TEXT NOT NULL, PRIMARY KEY('IDptt'),"
-	 * +"FOREIGN KEY('Doctor') REFERENCES 'Doctor'('IDuser'));"
-	 * +"CREATE TABLE 'Message'('IDmsg' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
-	 * +"'IDuser'	TEXT NOT NULL, 'IDptt' TEXT NOT NULL, 'Data' TEXT NOT NULL,"
-	 * +"'Date' TEXT NOT NULL,'Seen' INTEGER NOT NULL, FOREIGN KEY('IDuser') REFERENCES 'CLINICAL'('IDuser'),"
-	 * +"FOREIGN KEY('IDptt') REFERENCES 'Patient'('IDptt'));"
-	 * +"CREATE TABLE 'ECG'('IDecg' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,"
-	 * +"'IDuser' TEXT NOT NULL, 'IDptt' TEXT NOT NULL, 'Frequency' INTEGER NOT NULL,"
-	 * +"'Data' BLOB NOT NULL, 'Date' TEXT NOT NULL, 'Seen' TEXT NOT NULL, 'Diagnostic' TEXT,"
-	 * +"FOREIGN KEY('IDuser') REFERENCES 'Assistant'('IDuser'), FOREIGN KEY('IDptt') REFERENCES 'Patient'('IDptt'));"
-	 * ); create.close(); conn.close(); } catch (SQLException e) { // TODO
-	 * Auto-generated catch block e.printStackTrace(); }
-	 * 
-	 * }
-	 */
-
-	/*
-	 * private static void populateDB() { Connection conn; try { conn =
-	 * DriverManager.getConnection("jdbc:sqlite:" + MainCtrl.DATABASE );
-	 * Statement create = conn.createStatement(); create.execute(
-	 * "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)"
-	 * +
-	 * "VALUES(56566443J,m1#M0ra13s@uem.es,1,Maria de la Luz,Morales Botello,?,?);"
-	 * 
-	 * 
-	 * );
-	 * 
-	 * 
-	 * /*Insert Cheatsheet:
-	 * 
-	 * "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)"
-	 * + "VALUES(?,?,?,?,?,?,?);"; "INSERT INTO ADMIN(IDuser) VALUES (?);";
-	 * "INSERT INTO CLINICAL(IDUser, SSN) VALUES(?,?);";
-	 * "INSERT INTO Doctor(IDUser, MLN) VALUES(?,?);";
-	 * "INSERT INTO Telephone(IDuser, Number) VALUES (?,?);";
-	 * "INSERT INTO Assistant(IDuser, Municipality VALUES (?,?);";
-	 * "INSERT INTO Patient(IDptt, Name, LastName, Municipality, Address, Sex, Status, SSN, Doctor)"
-	 * + "VALUES(?,?,?,?,?,?,?,?,?);";
-	 * "INSERT INTO Messages(IDuser, IDptt, Data, Date, Seen) VALUES (?,?,?,?,?);"
-	 * ;
-	 * "INSERT INTO ECG(IDuser, IDptt, Frequency, Data, Date, Seen, Diagnostic)"
-	 * + +"VALUES(?,?,?,?,?,?,?);";
-	 * 
-	 * 
-	 * } catch (SQLException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); }
-	 * 
-	 * }
-	 */
 }

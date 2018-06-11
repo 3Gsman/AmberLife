@@ -164,19 +164,7 @@ public class UserPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					try {
-						Connection c = null;
-
-						Class.forName("org.mariadb.jdbc.Driver");
-
-						//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-						//String userdb = "pi2_amberlife";
-						//String pass = "rdysdhsks";
-
-						String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-						String userdb = "dani";
-						String pass = "gaja";
-						
-						c = DriverManager.getConnection(db, userdb, pass);
+						Connection c =  DBManagement.getConnection();
 						
 						Statement stmt =  c.createStatement();
 						ResultSet rs = stmt.executeQuery("select IDuser from Doctor where IDuser='" + id + "'");
@@ -226,19 +214,7 @@ public class UserPanel extends JPanel {
 				if(confirm == JOptionPane.YES_OPTION){
 					try {
 						DBManagement.reassignPatients(id);
-						Connection c = null;
-
-						Class.forName("org.mariadb.jdbc.Driver");
-
-						//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-						//String userdb = "pi2_amberlife";
-						//String pass = "rdysdhsks";
-
-						String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-						String userdb = "dani";
-						String pass = "gaja";
-						c = DriverManager.getConnection(db, userdb, pass);
-						
+						Connection c = DBManagement.getConnection();
 						Statement stmt =  c.createStatement();
 						stmt.execute("UPDATE User SET Active = 0 WHERE IDuser LIKE '" + id + "'");
 						stmt.close();

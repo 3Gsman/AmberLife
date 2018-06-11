@@ -817,19 +817,7 @@ public class DoctorDialog extends JDialog {
 	void initializeFields(String id) throws ClassNotFoundException {
 		System.out.println("Initialize Fields");
 		try {
-			Connection c = null;
-			Class.forName("org.mariadb.jdbc.Driver");
-
-			// String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-			// String userdb = "pi2_amberlife";
-			// String pass = "rdysdhsks";
-
-			String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-			String userdb = "dani";
-			String pass = "gaja";
-			
-			c = DriverManager.getConnection(db, userdb, pass);
-			
+		Connection c =  DBManagement.getConnection();
 		Statement stmt =  c.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT User.Name, User.LastName, User.Password, User.Username," +
 				"User.Email, Doctor.MLN, CLINICAL.SSN FROM User, Doctor, CLINICAL " +
@@ -874,17 +862,7 @@ public class DoctorDialog extends JDialog {
 	void createNewDoctor() throws ClassNotFoundException {
 		System.out.println("Creating new doctor");
 		try {
-			Connection c = null;
-			Class.forName("org.mariadb.jdbc.Driver");
-
-			// String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-			// String userdb = "pi2_amberlife";
-			// String pass = "rdysdhsks";
-
-			String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-			String userdb = "dani";
-			String pass = "gaja";
-			c = DriverManager.getConnection(db, userdb, pass);
+			Connection c =  DBManagement.getConnection();
 			String sql = "SELECT IDuser FROM User WHERE IDuser = '" + idField.getText()+ "'";
 			Statement stmt =  c.createStatement();
 			ResultSet rs  = stmt.executeQuery(sql);
@@ -913,17 +891,7 @@ public class DoctorDialog extends JDialog {
 		
 
 		try {
-			Connection c = null;
-			Class.forName("org.mariadb.jdbc.Driver");
-
-			// String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-			// String userdb = "pi2_amberlife";
-			// String pass = "rdysdhsks";
-
-			String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-			String userdb = "dani";
-			String pass = "gaja";
-			c = DriverManager.getConnection(db, userdb, pass);
+			Connection c = DBManagement.getConnection();
 			PreparedStatement st1 = c.prepareStatement(sql1);
 			st1.setString(1, ID);
 			//Doubt this is the best for security, consider this only temporal
@@ -961,17 +929,7 @@ public class DoctorDialog extends JDialog {
 	void updateDoctor(String id) throws SQLException, ClassNotFoundException {
 		System.out.println("Update Doctor launched");
 		
-		Connection c = null;
-		Class.forName("org.mariadb.jdbc.Driver");
-
-		//String db = "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
-		//String userdb = "pi2_amberlife";
-		//String pass = "rdysdhsks";
-
-		String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-		String userdb = "dani";
-		String pass = "gaja";
-		c = DriverManager.getConnection(db, userdb, pass);
+		Connection c = DBManagement.getConnection();
 		
 		String sql = "SELECT IDuser, Username FROM User where IDuser LIKE '" + idField.getText() + "'";
 		Statement stmt =  c.createStatement();
@@ -981,10 +939,7 @@ public class DoctorDialog extends JDialog {
 		c.close();
 		
 		if(idField.getText().equals(id) && usernameField.getText().equals(rs.getString("Username"))) { //IF we are not changing the ID, update it normally
-			Connection c2 = null;
-			Class.forName("org.mariadb.jdbc.Driver");
-
-			c2 = DriverManager.getConnection(db, userdb, pass);
+			Connection c2 =  DBManagement.getConnection();
 			
 			Statement check = c2.createStatement();
 			ResultSet rs_check = check.executeQuery("SELECT Username From User WHERE Username LIKE '" + usernameField.getText() + 
@@ -1007,7 +962,6 @@ public class DoctorDialog extends JDialog {
 				String sql3	 = "Update  Doctor Set  MLN = ? WHERE IDuser LIKE '" + id + "'";	
 				String sql4 = "Update Telephone Set  Number = ? WHERE IDuser LIKE '" + id + "'";	
 				String ID = idField.getText();
-				c2 = DriverManager.getConnection(db, userdb, pass);
 				PreparedStatement st1 = c2.prepareStatement(sql1);
 				//Doubt this is the best for security, consider this only temporal
 				st1.setString(1, String.valueOf(passField.getPassword()));
@@ -1037,11 +991,7 @@ public class DoctorDialog extends JDialog {
 			}
 		}
 		else { //If the ID is changed, delete the table and instead create another one?
-			Connection c3 = null;
-			Class.forName("org.mariadb.jdbc.Driver");
-
-			c3 = DriverManager.getConnection(db, userdb, pass);	
-			
+			Connection c3 =  DBManagement.getConnection();
 			/*Statement check = c3.createStatement();
 			ResultSet rs_check = check.executeQuery("SELECT IDuser From User WHERE Username LIKE '" + usernameField.getText() + "'");
 			if(rs_check.next()) {
