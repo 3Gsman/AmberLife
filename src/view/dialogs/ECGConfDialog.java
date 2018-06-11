@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +24,7 @@ import com.panamahitek.PanamaHitek_Arduino;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
+import model.JavaRXTX_vFINAL;
 
 public class ECGConfDialog extends JDialog implements ActionListener {
 
@@ -37,6 +39,25 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 	private JComboBox<Object> boxtime;
 
 	PanamaHitek_Arduino ino = new PanamaHitek_Arduino();
+	
+	static Vector<Double> ecg = new Vector<Double>();
+
+	private SerialPortEventListener listener = new SerialPortEventListener() {
+		@Override
+		public void serialEvent(SerialPortEvent spe) {
+			try {
+				if (ino.isMessageAvailable()) {
+
+					// System.out.println(ino.printMessage());
+					ecg.add(Double.parseDouble(ino.printMessage()));
+
+				}
+			} catch (SerialPortException | ArduinoException ex) {
+				// Logger.getLogger(JavaRX.class.getName()).log(Level.SEVERE,
+				// null, ex);
+			}
+		}
+	};
 
 	public ECGConfDialog() {
 
@@ -45,20 +66,17 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 
 		panel.setLayout(new GridLayout(3, 2));
 
+		try {
+			ino.arduinoRXTX("COM3", 9600, listener);
+		} catch (ArduinoException ex) {
+			Logger.getLogger(JavaRXTX_vFINAL.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
 		addItems();
 
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		frame.pack();
 		frame.setVisible(true);
-
-		try {
-			// Se inicia la comunicación con el Puerto Serie
-			ino.arduinoTX("COM6", 9600);
-		} catch (ArduinoException ex) {
-			// Logger.getLogger(JavaTX.class.getName()).log(Level.SEVERE, null,
-			// ex);
-			System.out.println("ERROR PUERTO ARDUINO");
-		}
 
 	}
 
@@ -85,6 +103,16 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
+				
+				//ESTO NO VA AQUI VA EN PAUSA
+				
+				try {
+					ino.sendData("0");
+					System.out.println(ecg);
+				} catch (ArduinoException | SerialPortException ex) {
+					Logger.getLogger(JavaRXTX_vFINAL.class.getName()).log(Level.SEVERE, null, ex);
+				}
+
 			}
 		});
 
@@ -97,28 +125,21 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 				String datatime = boxtime.getSelectedItem().toString();
 				int timeint = Integer.parseInt(datatime);
 
+				try {
+					ino.sendData("2");
+
+				} catch (ArduinoException | SerialPortException ex) {
+					Logger.getLogger(JavaRXTX_vFINAL.class.getName()).log(Level.SEVERE, null, ex);
+				}
+
 				// MANDAR ESTOS DATOS A ARDUINO
 				System.out.println(frecint);
 				System.out.println(timeint);
+				
+				
+				
 
-				try {
-					ino.sendData(datafrec);
-				} catch (ArduinoException | SerialPortException ex) {
-					System.out.println("NO MANDA DATOS");
-				}
-
-				try {
-					if (ino.isMessageAvailable()) {
-						// Se imprime el mensaje recibido en la consola
-						System.out.println(ino.printMessage());
-					}
-				} catch (SerialPortException | ArduinoException ex) {
-					System.out.println("NO IMPRIME");
-					// Logger.getLogger(JavaRX.class.getName()).log(Level.SEVERE,
-					// null, ex);
-				}
-
-				frame.dispose();
+				//frame.dispose();
 			}
 		});
 
