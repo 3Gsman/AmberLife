@@ -99,7 +99,7 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 					try {
 						   ecg = f.readECG(filename);
 					       AssistMeasureFr tef = new AssistMeasureFr(getClass().getResource("/resources/BG.png"));
-					       AssistMeasureCtrl tec = new AssistMeasureCtrl(tef,ecg);
+					       AssistMeasureCtrl tec = new AssistMeasureCtrl(tef,ecg, assistID, patientID);
 					       MainCtrl.toBackStack(patient);
 					       tef.addController(tec);
 					       tef.initialize();

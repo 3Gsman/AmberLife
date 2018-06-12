@@ -11,6 +11,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -721,6 +724,31 @@ public class DBManagement {
 		
 		return valid;
 	}
+	
+	public static void confirmECG (ECG ecg, String assid, String pttid) throws SQLException {
+		Connection c =  DBManagement.getConnection();
+
+		Statement stmt = null;
+		stmt = c.createStatement();
+		
+		String data = ecg.getData().get(0).toString();
+		
+		for(int i = 1; i < ecg.getData().size(); i++) {
+			data = data + ";" + ecg.getData().get(i).toString();
+		}
+		
+		
+		Date date = new Date();
+		
+		
+		stmt.executeUpdate("INSERT INTO ECG(IDuser, IDptt, Frequency, Data, Date, Seen, Diagnostic)"
+				+ " VALUES('" + assid +"','" +pttid+"','"+ecg.getFrequency()+"','"+data+"',"
+				+"'"+date+"','0','" +ecg.getReport()+"')");
+		
+		stmt.close();
+		c.close();
+	}
+	
 	
 	public static Connection getConnection() {
 		Connection c = null;
