@@ -81,7 +81,7 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 			 
 			 ECGConfDialog a = new ECGConfDialog();
 			 
-			 JFileChooser chooser = new JFileChooser();
+			/* JFileChooser chooser = new JFileChooser();
 			 FileNameExtensionFilter filter = new FileNameExtensionFilter(
 				        "ECGs", "txt");
 			chooser.setFileFilter(filter);
@@ -113,7 +113,7 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 		       else {
 		    	   FileChooserErrorDialog.notECG();
 		       }
-		    }
+		    }*/
 			 
 
 		}else  if (e.getActionCommand().equals("BACK")){ 

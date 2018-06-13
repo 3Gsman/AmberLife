@@ -62,6 +62,8 @@ public class MainCtrl implements WindowListener{
     public static void setPanel(JPanel panel) {
 
     	window.setContentPane(panel);
+    	window.repaint(); 
+    	window.validate();
     }
     
     public static void toBackStack(JPanel panel) {
