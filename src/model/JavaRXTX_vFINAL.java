@@ -1,4 +1,4 @@
-package model;
+/*package model;
 
 import com.panamahitek.ArduinoException;
 import com.panamahitek.PanamaHitek_Arduino;
@@ -49,7 +49,7 @@ public class JavaRXTX_vFINAL extends javax.swing.JFrame {
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    /*private void initComponents() {
+    private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -106,7 +106,7 @@ public class JavaRXTX_vFINAL extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-*/
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             ino.sendData("2");
@@ -126,9 +126,9 @@ public class JavaRXTX_vFINAL extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /**
+    *//**
      * @param args the command line arguments
-     */
+     *//*
     public static void main(String args[]) {
          //Set the Nimbus look and feel 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -166,4 +166,4 @@ public class JavaRXTX_vFINAL extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabelOutput;
     // End of variables declaration//GEN-END:variables
-}
+}*/

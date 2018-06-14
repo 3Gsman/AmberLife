@@ -28,7 +28,7 @@ import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 import model.ECG;
-import model.JavaRXTX_vFINAL;
+//import model.JavaRXTX_vFINAL;
 import view.assistant.AssistMeasureFr;
 import view.assistant.AssistPatientFr;
 
@@ -74,12 +74,12 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 		frame = new JFrame("ECG Conf");
 		panel = new JPanel();
 
-		panel.setLayout(new GridLayout(3, 2));
+		panel.setLayout(new GridLayout(2, 2));
 
 		try {
 			ino.arduinoRXTX("COM6", 9600, listener);
 		} catch (ArduinoException ex) {
-			Logger.getLogger(JavaRXTX_vFINAL.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ECGConfDialog.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
 		addItems();
@@ -93,23 +93,25 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 	private void addItems() {
 
 		lfrec = new JLabel("Frecuency (Hz)", SwingConstants.CENTER);
-		ltime = new JLabel("Duratio (S)", SwingConstants.CENTER);
+		//ltime = new JLabel("Duratio (S)", SwingConstants.CENTER);
 
 		cancel = new JButton("End");
 		confirm = new JButton("Start");
+		confirm.setEnabled(true);
+		cancel.setEnabled(false);
 
 		Object[] frec = { "25", "50", "100", "150", "200", "250" };
 		boxfrec = new JComboBox<Object>(frec);
 		boxfrec.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
 		boxfrec.setBorder(null);
 		boxfrec.setOpaque(false);
-
+/*
 		Object[] time = { "15", "30", "45", "60", "90", "120" };
 		boxtime = new JComboBox<Object>(time);
 		boxtime.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
 		boxtime.setBorder(null);
 		boxtime.setOpaque(false);
-
+*/
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
@@ -120,11 +122,13 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 					ino.sendData("0");
 					System.out.println(ecg);
 				} catch (ArduinoException | SerialPortException ex) {
-					Logger.getLogger(JavaRXTX_vFINAL.class.getName()).log(Level.SEVERE, null, ex);
+					Logger.getLogger(ECGConfDialog.class.getName()).log(Level.SEVERE, null, ex);
 				}
 				
+				String datafrec = boxfrec.getSelectedItem().toString();
+				int frecint = Integer.parseInt(datafrec);
 				
-				ECG ecginfo = new ECG(1,200,ecg,"");
+				ECG ecginfo = new ECG(1,frecint,ecg,"");
 				
 				AssistMeasureFr tef = null;
 				try {
@@ -154,24 +158,25 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 
 				String datafrec = boxfrec.getSelectedItem().toString();
-				int frecint = Integer.parseInt(datafrec);
-
+				//int frecint = Integer.parseInt(datafrec);
+/*
 				String datatime = boxtime.getSelectedItem().toString();
 				int timeint = Integer.parseInt(datatime);
-
+*/
 				try {
 					ino.sendData(datafrec);
-					ino.sendData(datatime);
+					//ino.sendData(datatime);
 
 				} catch (ArduinoException | SerialPortException ex) {
-					Logger.getLogger(JavaRXTX_vFINAL.class.getName()).log(Level.SEVERE, null, ex);
+					Logger.getLogger(ECGConfDialog.class.getName()).log(Level.SEVERE, null, ex);
 				}
 
 				// MANDAR ESTOS DATOS A ARDUINO
-				System.out.println(frecint);
-				System.out.println(timeint);
+				System.out.println("Frecuencia elegida: " + datafrec);
+				//System.out.println(timeint);
 				
-				
+				confirm.setEnabled(false);
+				cancel.setEnabled(true);
 				
 
 				//frame.dispose();
@@ -179,9 +184,9 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 		});
 
 		panel.add(lfrec);
-		panel.add(ltime);
+		//panel.add(ltime);
 		panel.add(boxfrec);
-		panel.add(boxtime);
+		//panel.add(boxtime);
 		panel.add(cancel);
 		panel.add(confirm);
 	}
