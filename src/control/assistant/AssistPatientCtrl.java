@@ -1,6 +1,7 @@
 package control.assistant;
 
 import java.awt.Component;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -77,9 +78,10 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Action received: ");
 		 if (e.getActionCommand().equals("MEASURE")){
+			 
 			 System.out.println(" Measure");
 			 
-			 ECGConfDialog a = new ECGConfDialog();
+			 ECGConfDialog a = new ECGConfDialog(assistID,patientID,patient);
 			 
 			/* JFileChooser chooser = new JFileChooser();
 			 FileNameExtensionFilter filter = new FileNameExtensionFilter(

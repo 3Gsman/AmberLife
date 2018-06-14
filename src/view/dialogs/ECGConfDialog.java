@@ -34,19 +34,22 @@ import view.assistant.AssistPatientFr;
 
 public class ECGConfDialog extends JDialog implements ActionListener {
 	
+	private static final long serialVersionUID = 1L;
+	
 	JFrame frame;
 	JPanel panel;
 	
-	private AssistPatientFr patient;
-	private String assistID;
-	private String patientID;
+	//private AssistPatientFr patient;
+	String assistID;
+	String patientID;
+	AssistPatientFr patient;
 
 	private JLabel lfrec;
-	private JLabel ltime;
+	//private JLabel ltime;
 	private JButton cancel;
 	private JButton confirm;
 	private JComboBox<Object> boxfrec;
-	private JComboBox<Object> boxtime;
+	//private JComboBox<Object> boxtime;
 
 	PanamaHitek_Arduino ino = new PanamaHitek_Arduino();
 	
@@ -63,14 +66,18 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 
 				}
 			} catch (SerialPortException | ArduinoException ex) {
-				// Logger.getLogger(JavaRX.class.getName()).log(Level.SEVERE,
-				// null, ex);
+				//Logger.getLogger(ECGConfDialog.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 	};
 
-	public ECGConfDialog() {
+	public ECGConfDialog(String assistID, String patientID, AssistPatientFr patient) {
+		
+		this.assistID = assistID;
+		this.patientID = patientID;
+		this.patient = patient;
 
+		
 		frame = new JFrame("ECG Conf");
 		panel = new JPanel();
 
@@ -79,7 +86,7 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 		try {
 			ino.arduinoRXTX("COM6", 9600, listener);
 		} catch (ArduinoException ex) {
-			Logger.getLogger(ECGConfDialog.class.getName()).log(Level.SEVERE, null, ex);
+			//Logger.getLogger(ECGConfDialog.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
 		addItems();
@@ -105,6 +112,7 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 		boxfrec.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
 		boxfrec.setBorder(null);
 		boxfrec.setOpaque(false);
+		boxfrec.setEnabled(true);
 /*
 		Object[] time = { "15", "30", "45", "60", "90", "120" };
 		boxtime = new JComboBox<Object>(time);
@@ -122,7 +130,7 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 					ino.sendData("0");
 					System.out.println(ecg);
 				} catch (ArduinoException | SerialPortException ex) {
-					Logger.getLogger(ECGConfDialog.class.getName()).log(Level.SEVERE, null, ex);
+					//Logger.getLogger(ECGConfDialog.class.getName()).log(Level.SEVERE, null, ex);
 				}
 				
 				String datafrec = boxfrec.getSelectedItem().toString();
@@ -145,6 +153,7 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+			    MainCtrl.toBackStack(patient);
 			    MainCtrl.setPanel(tef); 
 			    
 			    
@@ -168,7 +177,7 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 					//ino.sendData(datatime);
 
 				} catch (ArduinoException | SerialPortException ex) {
-					Logger.getLogger(ECGConfDialog.class.getName()).log(Level.SEVERE, null, ex);
+					//Logger.getLogger(ECGConfDialog.class.getName()).log(Level.SEVERE, null, ex);
 				}
 
 				// MANDAR ESTOS DATOS A ARDUINO
@@ -176,7 +185,9 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 				//System.out.println(timeint);
 				
 				confirm.setEnabled(false);
+				boxfrec.setEnabled(false);
 				cancel.setEnabled(true);
+
 				
 
 				//frame.dispose();

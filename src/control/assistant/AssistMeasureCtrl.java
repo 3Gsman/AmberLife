@@ -69,7 +69,6 @@ public class AssistMeasureCtrl implements ActionListener{
 			 //Saving Measures not implemented yet.
 			 System.out.println(" CONFIRMED");
 			 
-
 			 try {
 				DBManagement.confirmECG(ecg, assistID, patientID);
 			} catch (SQLException e1) {
