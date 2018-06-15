@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 
 import control.MainCtrl;
 import model.DBManagement;
+import model.ECG;
 import view.panels.JPanelWithBackground;
 
 import java.awt.event.ActionListener;
@@ -46,7 +47,7 @@ public class EditDiagnosisDialog extends JDialog {
 	 * Create the dialog.
 	 * @throws IOException 
 	 */
-	public EditDiagnosisDialog(JFrame f, ActionListener windowToRefresh, String diagnosis, int ecgID) throws IOException {
+	public EditDiagnosisDialog(JFrame f, ActionListener windowToRefresh, ECG ecg) throws IOException {
 		super(f,Dialog.ModalityType.APPLICATION_MODAL);
 		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 491, 349);
@@ -101,7 +102,7 @@ public class EditDiagnosisDialog extends JDialog {
 		area.setWrapStyleWord(true);
 		area.setLineWrap(true);
 		area.setFont(new Font("Source Code Pro Medium",Font.PLAIN,14));
-		area.append(diagnosis);
+		area.append(ecg.getReport());
 		
 		GridBagConstraints gbc_text = new GridBagConstraints();
 		gbc_text.gridwidth = 14;
@@ -135,17 +136,15 @@ public class EditDiagnosisDialog extends JDialog {
 		JButton btnNewButton = new JButton("OK");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				Connection c =  DBManagement.getConnection();
-				
-				String sql = "UPDATE ECG SET Diagnostic = ? WHERE IDecg LIKE '" + ecgID + "'";
-				
 				try {
+					Connection c =  DBManagement.getConnection();
+					String sql = "UPDATE ECG SET Diagnostic = ? WHERE IDecg LIKE '" + ecg.getReport() + "'";
 					PreparedStatement st = c.prepareStatement(sql);
 					st.setString(1, area.getText());
 					st.executeUpdate();			
 					st.close();
 					c.close();
+					ecg.setReport(area.getText());
 					windowToRefresh.actionPerformed(new ActionEvent(this, 0, "DIAGNOSIS_UPDATE"));
 					dispose();
 				} catch (SQLException e1) {

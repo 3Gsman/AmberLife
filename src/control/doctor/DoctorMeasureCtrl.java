@@ -97,32 +97,16 @@ public class DoctorMeasureCtrl implements ActionListener{
 		 else if (ev.getActionCommand().equals("EDIT_DIAGNOSIS")){
 			 System.out.println("Edit diagnosis button");
 			 try {
-				EditDiagnosisDialog nmd = new EditDiagnosisDialog(MainCtrl.getMainFrame(),this,e.getReport(),e.getId());
+				EditDiagnosisDialog nmd = new EditDiagnosisDialog(MainCtrl.getMainFrame(),this,e);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 		 }
 		 else if (ev.getActionCommand().equals("DIAGNOSIS_UPDATE")){
-			 System.out.println("Diagnosis updated");
-			 
-			 try {
-				Connection c = DBManagement.getConnection();
-				Statement s = c.createStatement();
-				ResultSet rs = s.executeQuery("SELECT Diagnostic FROM ECG WHERE IDecg LIKE '" + e.getId() + "'");
-				
-				String text = "";
-				if (rs.next()) text += rs.getString(0);
-				
-				rs.close();
-				s.close();
-				c.close();
-				
-				fr.updateDiagnostic(text);
-			 } catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			 }
+			System.out.println("Diagnosis updated");		
+			fr.updateDiagnostic(e.getReport());
+	
 		 }
 		 else System.out.println("Invalid Action");
 	}
