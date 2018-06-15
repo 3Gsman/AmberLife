@@ -4,13 +4,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.Statement;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.JFrame;
 
 import control.MainCtrl;
+import model.DBManagement;
 import model.ECG;
 import view.panels.CompareGraphPanel;
+import view.dialogs.EditDiagnosisDialog;
 import view.dialogs.ExitDialog;
+import view.dialogs.NewMessageDialog;
 import view.doctor.DoctorMeasureFr;
 import view.doctor.DoctorPatientFr;
 import view.doctor.ECGchooserFr;
@@ -85,6 +93,36 @@ public class DoctorMeasureCtrl implements ActionListener{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+		 }
+		 else if (ev.getActionCommand().equals("EDIT_DIAGNOSIS")){
+			 System.out.println("Edit diagnosis button");
+			 try {
+				EditDiagnosisDialog nmd = new EditDiagnosisDialog(MainCtrl.getMainFrame(),this,e.getReport(),e.getId());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		 }
+		 else if (ev.getActionCommand().equals("DIAGNOSIS_UPDATE")){
+			 System.out.println("Diagnosis updated");
+			 
+			 try {
+				Connection c = DBManagement.getConnection();
+				Statement s = c.createStatement();
+				ResultSet rs = s.executeQuery("SELECT Diagnostic FROM ECG WHERE IDecg LIKE '" + e.getId() + "'");
+				
+				String text = "";
+				if (rs.next()) text += rs.getString(0);
+				
+				rs.close();
+				s.close();
+				c.close();
+				
+				fr.updateDiagnostic(text);
+			 } catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			 }
 		 }
 		 else System.out.println("Invalid Action");
 	}

@@ -36,12 +36,22 @@ import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class DoctorMeasureFr extends JPanelWithBackground {
+	
+	JTextArea text; //Diagnostic
+	
+	
+	public void updateDiagnostic(String text) {
+		this.text.setText(text);
+		this.repaint();
+		this.validate();
+	}
 
 	public DoctorMeasureFr(URL url) throws IOException {
 		super(url);
 		// TODO Auto-generated constructor stub
 	}
 
+	
 
 	DoctorMeasureCtrl controller;
 	
@@ -149,7 +159,7 @@ public class DoctorMeasureFr extends JPanelWithBackground {
 	
 				JPanel viewport = new JPanel();
 				viewport.setLayout(new BorderLayout());
-				JTextArea text = new JTextArea();
+				text = new JTextArea();
 				text.setLineWrap(true);
 				text.setWrapStyleWord(true);
 				text.setEditable(false);
