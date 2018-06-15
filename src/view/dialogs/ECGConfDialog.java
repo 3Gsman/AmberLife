@@ -42,6 +42,7 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 	//private AssistPatientFr patient;
 	String assistID;
 	String patientID;
+	String dataPort;
 	AssistPatientFr patient;
 
 	private JLabel lfrec;
@@ -71,11 +72,13 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 		}
 	};
 
-	public ECGConfDialog(String assistID, String patientID, AssistPatientFr patient) {
+	public ECGConfDialog(String assistID, String patientID, AssistPatientFr patient, String dataPort) {
 		
 		this.assistID = assistID;
 		this.patientID = patientID;
 		this.patient = patient;
+		this.dataPort = dataPort;
+		
 
 		
 		frame = new JFrame("ECG Conf");
@@ -83,8 +86,9 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 
 		panel.setLayout(new GridLayout(2, 2));
 
+		
 		try {
-			ino.arduinoRXTX("COM6", 9600, listener);
+			ino.arduinoRXTX(dataPort, 9600, listener);
 		} catch (ArduinoException ex) {
 			//Logger.getLogger(ECGConfDialog.class.getName()).log(Level.SEVERE, null, ex);
 		}

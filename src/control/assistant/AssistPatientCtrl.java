@@ -79,9 +79,11 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 		System.out.println("Action received: ");
 		 if (e.getActionCommand().equals("MEASURE")){
 			 
+			 String dataPort = AssistPatientFr.boxPort.getSelectedItem().toString();
+			 
 			 System.out.println(" Measure");
 			 
-			 ECGConfDialog a = new ECGConfDialog(assistID,patientID,patient);
+			 ECGConfDialog a = new ECGConfDialog(assistID,patientID,patient,dataPort);
 			 
 			/* JFileChooser chooser = new JFileChooser();
 			 FileNameExtensionFilter filter = new FileNameExtensionFilter(

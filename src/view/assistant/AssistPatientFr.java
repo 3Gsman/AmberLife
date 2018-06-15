@@ -18,6 +18,7 @@ import view.panels.MessagePanel;
 
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 
 import java.awt.GridBagLayout;
@@ -39,6 +40,8 @@ import java.util.Vector;
 
 @SuppressWarnings("serial")
 public class AssistPatientFr extends JPanelWithBackground {
+
+	public static JComboBox<Object> boxPort;
 
 	public AssistPatientFr(URL url) throws IOException {
 		super(url);
@@ -387,6 +390,26 @@ public class AssistPatientFr extends JPanelWithBackground {
 		gbc_panel_3.gridx = 1;
 		gbc_panel_3.gridy = 18;
 		this.add(panel_3, gbc_panel_3);
+		
+		
+		Object[] portop = { "COM3", "COM4", "COM5", "COM6" };
+		boxPort = new JComboBox<Object>(portop);
+		boxPort.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+		boxPort.setBorder(null);
+		boxPort.setOpaque(false);
+		sf = font.deriveFont(32f);
+		boxPort.setFont(sf);
+		boxPort.setForeground(new Color(0, 0, 0));
+		boxPort.setBackground(new Color(80, 77, 77, 255));
+		boxPort.setForeground(Color.WHITE);
+		GridBagConstraints gbc_boxPort = new GridBagConstraints();
+		gbc_boxPort.fill = GridBagConstraints.BOTH;
+		gbc_boxPort.gridwidth = 5;
+		gbc_boxPort.insets = new Insets(0, 0, 5, 5);
+		gbc_boxPort.gridx = 7;
+		gbc_boxPort.gridy = 18;
+		this.add(boxPort, gbc_boxPort);
+
 		
 		JButton btnMeasure = new JButton(LocalizationService.getWord("measure"));
 		btnMeasure.addActionListener(controller);
