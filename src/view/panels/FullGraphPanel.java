@@ -30,6 +30,7 @@ public class FullGraphPanel extends JPanel {
 	public JButton bzoomin;
 	public JButton bzoomout;
 	public JButton reset;
+	public JButton viewAll;
 	public JFreeChart chart;
 	int lastValue = initialValue;
 
@@ -69,9 +70,9 @@ public class FullGraphPanel extends JPanel {
 
 		JPanel dashboard = new JPanel();
 		GridBagLayout dashboard_gbl = new GridBagLayout();
-		dashboard_gbl.columnWidths = new int[] { 20, 120, 20, 20, 0, 0 };
+		dashboard_gbl.columnWidths = new int[] { 20, 20, 120, 20, 20, 0 };
 		dashboard_gbl.rowHeights = new int[] { 30 };
-		dashboard_gbl.columnWeights = new double[] { 0.1, 2.0, 0.1, 0.1, 0.0, 0.0, Double.MIN_VALUE };
+		dashboard_gbl.columnWeights = new double[] { 0.1, 0.1, 2.0, 0.1, 0.1, 0.0, Double.MIN_VALUE };
 		dashboard_gbl.rowWeights = new double[] { 0.25, Double.MIN_VALUE };
 		dashboard.setLayout(dashboard_gbl);
 
@@ -88,6 +89,9 @@ public class FullGraphPanel extends JPanel {
 		reset = new JButton("Reset");
 		reset.setActionCommand("reset");
 		//reset.addActionListener(controller);
+		
+		viewAll = new JButton("View all");
+		viewAll.setActionCommand("viewall");
 
 		slider = new JSlider(0, 100, 0);
 		//slider.addChangeListener(controller);
@@ -96,7 +100,7 @@ public class FullGraphPanel extends JPanel {
 		gbc_slider.gridwidth = 1;
 		gbc_slider.insets = new Insets(0, 0, 5, 5);
 		gbc_slider.fill = GridBagConstraints.BOTH;
-		gbc_slider.gridx = 1;
+		gbc_slider.gridx = 2;
 		gbc_slider.gridy = 0;
 		dashboard.add(slider, gbc_slider);
 
@@ -104,7 +108,7 @@ public class FullGraphPanel extends JPanel {
 		gbc_bzoomout.gridwidth = 1;
 		gbc_bzoomout.insets = new Insets(0, 0, 5, 5);
 		gbc_bzoomout.fill = GridBagConstraints.BOTH;
-		gbc_bzoomout.gridx = 2;
+		gbc_bzoomout.gridx = 3;
 		gbc_bzoomout.gridy = 0;
 		dashboard.add(bzoomout, gbc_bzoomout);
 
@@ -112,7 +116,7 @@ public class FullGraphPanel extends JPanel {
 		gbc_bzoomin.gridwidth = 1;
 		gbc_bzoomin.insets = new Insets(0, 0, 5, 5);
 		gbc_bzoomin.fill = GridBagConstraints.BOTH;
-		gbc_bzoomin.gridx = 3;
+		gbc_bzoomin.gridx = 4;
 		gbc_bzoomin.gridy = 0;
 		dashboard.add(bzoomin, gbc_bzoomin);
 
@@ -123,6 +127,14 @@ public class FullGraphPanel extends JPanel {
 		gbc_reset.gridx = 0;
 		gbc_reset.gridy = 0;
 		dashboard.add(reset, gbc_reset);
+		
+		GridBagConstraints gbc_viewAll = new GridBagConstraints();
+		gbc_viewAll.gridwidth = 1;
+		gbc_viewAll.insets = new Insets(0, 0, 5, 5);
+		gbc_viewAll.fill = GridBagConstraints.BOTH;
+		gbc_viewAll.gridx = 1;
+		gbc_viewAll.gridy = 0;
+		dashboard.add(viewAll, gbc_viewAll);
 
 		add(dashboard, BorderLayout.SOUTH);
 
@@ -179,6 +191,7 @@ public class FullGraphPanel extends JPanel {
 		bzoomin.addActionListener(controller);
 		bzoomout.addActionListener(controller);
 		reset.addActionListener(controller);
+		viewAll.addActionListener(controller);
 		addMouseWheelListener(controller);
 		slider.addChangeListener(controller);
 

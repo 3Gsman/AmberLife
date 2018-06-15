@@ -87,6 +87,17 @@ public class GraphCtrl implements ChangeListener, ActionListener, MouseWheelList
 			System.out.println("reset");
 		}
 		
+		if (e.getActionCommand().equals("viewall")) {
+
+			graph.zoom = 100;
+
+			graph.minimum = (graph.t / 100) * (graph.value + graph.zoom2);
+			graph.maximum = (graph.t / 100) * (graph.value + graph.zoom);
+			graph.chart.getXYPlot().getDomainAxis().setRange(graph.minimum, graph.maximum);
+			
+			System.out.println("reset");
+		}
+		
 	}
 	
 	/**
