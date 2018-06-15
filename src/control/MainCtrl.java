@@ -48,7 +48,6 @@ public class MainCtrl implements WindowListener{
 			window.initialize();
 			window.setContentPane(p);
 			window.setVisible(true);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

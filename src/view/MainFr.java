@@ -46,7 +46,7 @@ public class MainFr extends JFrame{
 	 * Create the application.
 	 */
 	public MainFr() {	
-		
+		//setUndecorated(true);
 	}
 	
 	
