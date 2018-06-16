@@ -31,7 +31,6 @@ import model.FileManagement;
 import model.LocalizationService;
 import model.Message;
 import model.User;
-import model.Utilities;
 import view.assistant.AssistPatientFr;
 import view.layouts.WrapLayout;
 import view.panels.AlphaContainer;
@@ -42,8 +41,7 @@ import view.panels.MessagePanel;
 @SuppressWarnings("serial")
 public class DoctorPatientFr extends JPanelWithBackground {
 	
-	private Font font;
-
+	
 
 	public DoctorPatientFr(URL url) throws IOException {
 		super(url);
@@ -53,7 +51,9 @@ public class DoctorPatientFr extends JPanelWithBackground {
 	public JPanel messagePanel = new JPanel(new BorderLayout());
 	public DoctorPatientCtrl controller;
 	private String mode = "ECGS";
-	
+	private Font font;
+	JButton ecg_mode;
+	JButton message_mode;
 	
 	public void addController(DoctorPatientCtrl a) {
 		this.controller = a;
@@ -114,7 +114,6 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			
 			Vector<Message> messages = DBManagement.readMessages(controller.getPatient().getId());
 			
-			
 			if(messages.equals(null)) {
 				JPanel jp = new JPanel();
 				jp.setLayout(new BorderLayout());
@@ -171,6 +170,19 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			this.repaint();
 			this.validate();
 			mode = "ECGS";
+			
+			ecg_mode.setContentAreaFilled(true);
+			ecg_mode.setBackground(new Color(255, 255, 255, 140));
+			ecg_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Data_black.png")));
+			ecg_mode.setOpaque(true);
+			message_mode.setContentAreaFilled(false);
+			message_mode.setOpaque(false);
+			message_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Alerts.png")));
+			
+			ecg_mode.repaint();
+			message_mode.repaint();
+			message_mode.validate();
+			ecg_mode.validate();
 		}
 	}
 	
@@ -182,6 +194,19 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			this.repaint();
 			this.validate();
 			mode = "MESSAGES";
+			
+			ecg_mode.setContentAreaFilled(false);
+			ecg_mode.setOpaque(false);
+			ecg_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Data.png")));
+			message_mode.setContentAreaFilled(true);
+			message_mode.setBackground(new Color(255, 255, 255, 140));
+			message_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Alerts_black.png")));
+			message_mode.setOpaque(true);
+			
+			ecg_mode.repaint();
+			message_mode.repaint();
+			message_mode.validate();
+			ecg_mode.validate();
 		}
 	}
 	
@@ -592,33 +617,34 @@ public class DoctorPatientFr extends JPanelWithBackground {
 		gbc_btnNewButton.gridy = 18;
 		this.add(btnNewButton, gbc_btnNewButton);
 		
-		JButton btnNewButton2 = new JButton("");
-		btnNewButton2.setBorderPainted(false);
-		btnNewButton2.setBorder(null);
-		btnNewButton2.setMargin(new Insets(0, 0, 0, 0));
-		btnNewButton2.setContentAreaFilled(false);
-		btnNewButton2.setActionCommand("MESSAGES");
-		btnNewButton2.addActionListener(controller);
-		btnNewButton2.setIcon(new ImageIcon(getClass().getResource("/resources/Alerts.png")));
+		message_mode = new JButton("");
+		message_mode.setBorderPainted(false);
+		message_mode.setBorder(null);
+		message_mode.setMargin(new Insets(0, 0, 0, 0));
+		message_mode.setContentAreaFilled(false);
+		message_mode.setActionCommand("MESSAGES");
+		message_mode.addActionListener(controller);
+		message_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Alerts.png")));
 		GridBagConstraints gbc_btnNewButton2 = new GridBagConstraints();
 		gbc_btnNewButton2.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton2.gridx = 1;
 		gbc_btnNewButton2.gridy = 18;
-		this.add(btnNewButton2, gbc_btnNewButton2);
+		this.add(new AlphaContainer(message_mode), gbc_btnNewButton2);
 		
-		JButton btnNewButton3 = new JButton("");
-		btnNewButton3.setBorderPainted(false);
-		btnNewButton3.setBorder(null);
-		btnNewButton3.setMargin(new Insets(0, 0, 0, 0));
-		btnNewButton3.setContentAreaFilled(false);
-		btnNewButton3.setActionCommand("ECGS");
-		btnNewButton3.addActionListener(controller);
-		btnNewButton3.setIcon(new ImageIcon(getClass().getResource("/resources/Data.png")));
+		ecg_mode = new JButton("");
+		ecg_mode.setBorderPainted(false);
+		ecg_mode.setBorder(null);
+		ecg_mode.setMargin(new Insets(0, 0, 0, 0));
+		ecg_mode.setActionCommand("ECGS");
+		ecg_mode.addActionListener(controller);
+		ecg_mode.setContentAreaFilled(false);
+		ecg_mode.setOpaque(false);
+		ecg_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Data_black.png")));
 		GridBagConstraints gbc_btnNewButton3 = new GridBagConstraints();
 		gbc_btnNewButton3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton3.gridx = 2;
 		gbc_btnNewButton3.gridy = 18;
-		this.add(btnNewButton3, gbc_btnNewButton3);
+		this.add(ecg_mode, gbc_btnNewButton3);
 		
 	}
 }

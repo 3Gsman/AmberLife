@@ -109,6 +109,8 @@ public class DBManagement {
 		stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT * FROM Assistant JOIN User ON Assistant.IDUser = User.IDUser"
 				+ " WHERE Username = '" + username + "'");
+		
+		
 		if (rs.next()) {
 			Assistant ass = new Assistant(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDuser"),
 					rs.getString("Municipality"), rs.getString("Username"));
@@ -569,7 +571,6 @@ public class DBManagement {
 	 * @throws IOException,
 	 *             ClassNotFoundException, SQLException
 	 */
-
 	public static Vector<Message> readPatientMessages(String idptt)
 			throws IOException, ClassNotFoundException, SQLException {
 

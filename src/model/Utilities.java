@@ -89,4 +89,32 @@ public class Utilities {
         Collections.swap(v,ini,i);
     	return i;	
 	}
+	
+    public static String findUsername(Vector<String> a, String username) {
+        if (a.size() == 0 || (a.get(0).compareTo(username) == 1) || (a.get(a.size()-1).compareTo(username) == -1)) {
+            return null;
+        } else {
+            return BusBinDV(a, 0, a.size() - 1, username);
+        }
+    }
+ 
+    private static String BusBinDV(Vector<String> a, int ini, int fin, String x) {
+        if (ini > fin) {
+            return null;
+        } else {
+            int k = (ini + fin) / 2;
+           
+            if (x.compareTo(a.get(k)) == 0) {
+                return a.get(k);
+            } else {
+                if (x.compareTo(a.get(k)) == -1) {
+                    return BusBinDV(a, ini, k - 1, x);
+                } else {
+                    return BusBinDV(a, k + 1, fin, x);
+                }
+            }
+        }
+    }
+	
+	
 }

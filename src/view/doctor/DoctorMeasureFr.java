@@ -38,7 +38,7 @@ import javax.swing.SwingConstants;
 public class DoctorMeasureFr extends JPanelWithBackground {
 	
 	JTextArea text; //Diagnostic
-	
+
 	
 	public void updateDiagnostic(String text) {
 		this.text.setText(text);
