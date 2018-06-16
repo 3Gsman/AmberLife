@@ -154,6 +154,8 @@ public class DBManagement {
 		stmt.close();
 		c.close();
 
+		Utilities.sortUser(v, 0, v.size()-1);
+		
 		return v;
 
 	}
@@ -194,6 +196,8 @@ public class DBManagement {
 		rs_message.close();
 		stmt.close();
 		c.close();
+		
+		Utilities.sortMessages(messages, 0, messages.size()-1);
 
 		return messages;
 	}
@@ -232,6 +236,8 @@ public class DBManagement {
 		rs.close();
 		stmt.close();
 		c.close();
+		
+		Utilities.sortUser(v, 0, v.size()-1);
 
 		return v;
 
@@ -312,10 +318,9 @@ public class DBManagement {
 		stmt.close();
 		c.close();
 		
-		Vector<Patient> sortedpatients = new Vector<Patient>();
-		sortedpatients = Utilities.sortPatientsByName(patients);
+		Utilities.sortPatients(patients, 0, patients.size()-1);
 		
-		return sortedpatients;
+		return patients;
 	}
 
 	/**
@@ -749,7 +754,11 @@ public class DBManagement {
 		c.close();
 	}
 	
-	
+	/**
+	 * Returns a Connection to the assigned DDBB
+	 * 
+	 * @return Connection
+	 */
 	public static Connection getConnection() {
 		Connection c = null;
 		try {

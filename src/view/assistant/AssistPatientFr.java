@@ -11,6 +11,7 @@ import model.DBManagement;
 import model.LocalizationService;
 import model.Message;
 import model.User;
+import model.Utilities;
 import view.layouts.WrapLayout;
 import view.panels.AlphaContainer;
 import view.panels.JPanelWithBackground;

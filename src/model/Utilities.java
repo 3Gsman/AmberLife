@@ -1,97 +1,92 @@
 package model;
 
+import java.util.Collections;
 import java.util.Vector;
 
 public class Utilities {
 	
-
-	public static Vector<Patient> sortPatientsByName(Vector<Patient> Patientlist) {
+	public static int sortUser(Vector<? extends User>v, int ini, int fin){
 		
-		if(Patientlist.isEmpty()) {
-			return Patientlist;
-		}
-		
-		return quickSortPatients(Patientlist, 0, Patientlist.size() - 1);
+		if(ini<fin){
+            int x = pivotUser(v,ini,fin);
+            return sortUser(v,ini,(int)x-1)+
+            		sortUser(v,(int)x+1,fin);
+        } else {
+            return 0;
+        }
 	}
 	
-	public static Vector<Patient> quickSortPatients(Vector<Patient> Patientlist, int ini, int end){
+	private static int pivotUser(Vector<? extends User>v, int ini, int fin){
 		
 		int i = ini;
-		int j = end;
-		Patient pivot = Patientlist.get(ini+(end-ini)/2);
-		
-		while(i <= j) {
-			while(Patientlist.get(i).getLastname().compareTo(pivot.getLastname()) < 0 && i < end && j > i) {
-				i++;
-				
-				//System.out.println(Patientlist.get(i).getLastname() + " "+i+" " + pivot.getLastname());
-			}
-			
-			while(Patientlist.get(j).getLastname().compareTo(pivot.getLastname()) > 0  && j > ini && j >= i) {
-				j--;
-				
-				//System.out.println(Patientlist.get(j).getLastname() + " "+j+" " + pivot.getLastname());
-			}
-		
-			if(i <= j) {
-				Patient temporal = new Patient(Patientlist.get(i).getSsn(), Patientlist.get(i).getName(),
-						Patientlist.get(i).getLastname(), Patientlist.get(i).getId());
-				
-				temporal.setAddress(Patientlist.get(i).getAddress());
-				temporal.setECGs(Patientlist.get(i).getECGs());
-				temporal.setGender(Patientlist.get(i).getGender());
-				temporal.setMunicipality(Patientlist.get(i).getMunicipality());
-				
-				Patientlist.get(i).setAddress(Patientlist.get(j).getAddress());
-				Patientlist.get(i).setECGs(Patientlist.get(j).getECGs());
-				Patientlist.get(i).setGender(Patientlist.get(j).getGender());
-				Patientlist.get(i).setId(Patientlist.get(j).getId());
-				Patientlist.get(i).setLastname(Patientlist.get(j).getLastname());
-				Patientlist.get(i).setMunicipality(Patientlist.get(j).getMunicipality());
-				Patientlist.get(i).setName(Patientlist.get(j).getName());
-				Patientlist.get(i).setSsn(Patientlist.get(j).getSsn());
-				
-				Patientlist.get(j).setAddress(temporal.getAddress());
-				Patientlist.get(j).setECGs(temporal.getECGs());
-				Patientlist.get(j).setGender(temporal.getGender());
-				Patientlist.get(j).setId(temporal.getId());
-				Patientlist.get(j).setLastname(temporal.getLastname());
-				Patientlist.get(j).setMunicipality(temporal.getMunicipality());
-				Patientlist.get(j).setName(temporal.getName());
-				Patientlist.get(j).setSsn(temporal.getSsn());
-				
-				i++;
-				j--;
-				
-				//System.out.println(ini +" "+ j +" " + i + " "+ end);
-			}
-			
-		}
-
-		//System.out.println(ini +" "+ j +" " + i + " "+ end);
-		
-		if( ini < j) {
-			quickSortPatients(Patientlist, ini, j);
-		}
-		if(i < end) {
-			quickSortPatients(Patientlist, i, end);
-		}
-		
-		
-		
-		return Patientlist;
-		
-		
+        String p = v.get(ini).getLastname() + " " + v.get(ini).getName();
+        for(int j=ini+1;j<=fin;++j){
+            if((v.get(j).getLastname() + " " + v.get(j).getName()).compareTo(p)  == -1){
+                i++;
+                if(i!=j){
+                	Collections.swap(v,i,j);
+                }
+            }
+        }
+        Collections.swap(v,ini,i);
+    	return i;	
 	}
 	
 	
-	public static void sortMessages(Vector<Message> v){
 
+	public static int sortPatients(Vector<Patient>v, int ini, int fin){
 		
-	}
-
-	public static void pivotMessages() {
-		
+		if(ini<fin){
+            int x = pivotPatients(v,ini,fin);
+            return sortPatients(v,ini,(int)x-1)+
+            		sortPatients(v,(int)x+1,fin);
+        } else {
+            return 0;
+        }
 	}
 	
+	private static int pivotPatients(Vector<Patient>v, int ini, int fin){
+		
+		int i = ini;
+        String p = v.get(ini).getLastname() + " " + v.get(ini).getName();
+        for(int j=ini+1;j<=fin;++j){
+            if((v.get(j).getLastname() + " " + v.get(j).getName()).compareTo(p)  == -1){
+                i++;
+                if(i!=j){
+                	Collections.swap(v,i,j);
+                }
+            }
+        }
+        Collections.swap(v,ini,i);
+    	return i;	
+	}
+	
+	
+	public static int sortMessages(Vector<Message> v, int ini, int fin){
+		  
+		if(ini<fin){
+	            int x = pivotMessages(v,ini,fin);
+	            return sortMessages(v,ini,(int)x-1)+
+	            		sortMessages(v,(int)x+1,fin);
+	        } else {
+	            return 0;
+	        }
+		
+	}
+
+	private static int pivotMessages(Vector<Message> v, int ini, int fin) {
+		
+		int i = ini;
+        String p = v.get(ini).getTimestamp();
+        for(int j=ini+1;j<=fin;++j){
+            if(v.get(j).getTimestamp().compareTo(p)  == -1){
+                i++;
+                if(i!=j){
+                	Collections.swap(v,i,j);
+                }
+            }
+        }
+        Collections.swap(v,ini,i);
+    	return i;	
+	}
 }

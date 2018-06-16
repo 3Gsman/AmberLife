@@ -31,6 +31,7 @@ import model.FileManagement;
 import model.LocalizationService;
 import model.Message;
 import model.User;
+import model.Utilities;
 import view.assistant.AssistPatientFr;
 import view.layouts.WrapLayout;
 import view.panels.AlphaContainer;
@@ -112,6 +113,7 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			
 			
 			Vector<Message> messages = DBManagement.readMessages(controller.getPatient().getId());
+			
 			
 			if(messages.equals(null)) {
 				JPanel jp = new JPanel();
