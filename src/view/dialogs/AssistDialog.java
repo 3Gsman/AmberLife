@@ -717,6 +717,8 @@ public class AssistDialog extends JDialog {
 
 						JOptionPane.showMessageDialog(f, "The password doesn't match", "Error",
 								JOptionPane.ERROR_MESSAGE);
+					}else if(isInteger(ssnField.getText()) != true){
+						JOptionPane.showMessageDialog(f, "SSN must be a number", "Error", JOptionPane.ERROR_MESSAGE);
 					} else {
 						try {
 							if (id == null)
@@ -934,6 +936,19 @@ public class AssistDialog extends JDialog {
 		rs.close();
 		stmt.close();
 		c.close();
+	}
+	
+	boolean isInteger(String ssn) {
+		boolean check = false;
+		
+		try {
+			Integer.parseInt(ssn);
+			check = true;
+		}catch(NumberFormatException ex) {
+			
+		}
+		
+		return check;
 	}
 
 	boolean checkBoxesFilled() {

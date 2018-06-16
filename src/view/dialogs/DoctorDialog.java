@@ -777,7 +777,9 @@ public class DoctorDialog extends JDialog {
 						JOptionPane.showMessageDialog(f, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
 					else if(!(Arrays.equals(passField.getPassword(), confirmField.getPassword()))) 
 						JOptionPane.showMessageDialog(f, "The password doesn't match", "Error", JOptionPane.ERROR_MESSAGE);
-					else {
+					else if(isInteger(ssnField.getText()) != true){
+						JOptionPane.showMessageDialog(f, "SSN must be a number", "Error", JOptionPane.ERROR_MESSAGE);
+					}else {
 						try {
 							if (id == null) createNewDoctor();
 							else updateDoctor(id);
@@ -1025,6 +1027,19 @@ public class DoctorDialog extends JDialog {
 				|| confirmField.getPassword().toString().isEmpty()	|| idField.getText().isEmpty() 
 				|| ssnField.getText().isEmpty() || usernameField.getText().isEmpty() || emailField.getText().isEmpty()  
 				|| mlnField.getText().isEmpty() || phoneField.getText().isEmpty();
+	}
+	
+	boolean isInteger(String ssn) {
+		boolean check = false;
+		
+		try {
+			Integer.parseInt(ssn);
+			check = true;
+		}catch(NumberFormatException ex) {
+			
+		}
+		
+		return check;
 	}
 
 }
