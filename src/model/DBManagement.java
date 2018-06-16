@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -52,36 +53,58 @@ public class DBManagement {
 		Connection c =  DBManagement.getConnection();
 
 		try {
-			
 			Statement stmt = null;
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT IDUser FROM User WHERE Username='" + usuario + "' AND Password='"
-					+ Password + "' AND Active != 0");
-
-			if (rs.next() == false) {
-				user[0] = "false";
-			} else {
-				user[0] = "true";
-
-				iduser = rs.getString("IDUser");
-
-				rs = stmt.executeQuery("SELECT IDUser FROM CLINICAL WHERE IDuser='" + iduser + "'");
-
-				if (rs.next() == false) {
-					user[1] = "admin";
+			ResultSet rs = stmt.executeQuery("SELECT Username FROM User");/* WHERE Username='" + usuario + "' AND Password='"
+					+ Password + "' AND Active != 0"*/
+			
+			//Añadimos aqui la algoritmia, "forzandolo" en vez de hacer la query en SQL, para comprobar si el usuario existe
+		
+			Vector<String> usernames =new Vector<String>();
+			while(rs.next()) {
+				usernames.add(rs.getString("Username"));
+			}
+			
+			String id = Utilities.findUsername(usernames, usuario);
+			System.out.println(id);
+			rs.close();
+			stmt.close();
+			
+			if(id.equals("")) 
+				JOptionPane.showMessageDialog(MainCtrl.getMainFrame(), "User doesn't exist.", 
+							"Error", JOptionPane.ERROR_MESSAGE);
+			else {
+				Statement stmt_2 = c.createStatement();
+				ResultSet rs_2 = stmt_2.executeQuery("SELECT * FROM User WHERE Username='" + usuario + 
+						"' AND Password='" +  Password + "' AND Active != 0");
+				
+				if (rs_2.next() == false) {
+					user[0] = "false";
+					JOptionPane.showMessageDialog(MainCtrl.getMainFrame(), "Incorrect Password.", "Error", JOptionPane.ERROR_MESSAGE);	//sale una ventana de diálogo para alertar de un error
 				} else {
-
-					rs = stmt.executeQuery("SELECT IDUser FROM Doctor WHERE iduser='" + iduser + "'");
-
-					if (rs.next() == false) {
-						user[1] = "tecnico";
+					user[0] = "true";
+	
+					iduser = rs_2.getString("IDUser");
+	
+					rs_2 = stmt_2.executeQuery("SELECT IDUser FROM CLINICAL WHERE IDuser='" + iduser + "'");
+	
+					if (rs_2.next() == false) {
+						user[1] = "admin";
 					} else {
-						user[1] = "medico";
+	
+						rs_2 = stmt_2.executeQuery("SELECT IDUser FROM Doctor WHERE iduser='" + iduser + "'");
+	
+						if (rs_2.next() == false) {
+							user[1] = "tecnico";
+						} else {
+							user[1] = "medico";
+						}
 					}
 				}
+				stmt_2.close();
+				rs_2.close();
 			}
 
-			rs.close();
 			stmt.close();
 			c.close();
 		} catch (java.sql.SQLException sqle) {

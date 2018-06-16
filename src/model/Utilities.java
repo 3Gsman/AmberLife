@@ -21,7 +21,7 @@ public class Utilities {
 		int i = ini;
         String p = v.get(ini).getLastname() + " " + v.get(ini).getName();
         for(int j=ini+1;j<=fin;++j){
-            if((v.get(j).getLastname() + " " + v.get(j).getName()).compareTo(p)  == -1){
+            if((v.get(j).getLastname() + " " + v.get(j).getName()).compareTo(p)  < 0){
                 i++;
                 if(i!=j){
                 	Collections.swap(v,i,j);
@@ -50,7 +50,7 @@ public class Utilities {
 		int i = ini;
         String p = v.get(ini).getLastname() + " " + v.get(ini).getName();
         for(int j=ini+1;j<=fin;++j){
-            if((v.get(j).getLastname() + " " + v.get(j).getName()).compareTo(p)  == -1){
+            if((v.get(j).getLastname() + " " + v.get(j).getName()).compareTo(p) < 0){
                 i++;
                 if(i!=j){
                 	Collections.swap(v,i,j);
@@ -79,7 +79,7 @@ public class Utilities {
 		int i = ini;
         String p = v.get(ini).getTimestamp();
         for(int j=ini+1;j<=fin;++j){
-            if(v.get(j).getTimestamp().compareTo(p)  == -1){
+            if(v.get(j).getTimestamp().compareTo(p) > 0){
                 i++;
                 if(i!=j){
                 	Collections.swap(v,i,j);
@@ -91,8 +91,8 @@ public class Utilities {
 	}
 	
     public static String findUsername(Vector<String> a, String username) {
-        if (a.size() == 0 || (a.get(0).compareTo(username) == 1) || (a.get(a.size()-1).compareTo(username) == -1)) {
-            return null;
+        if (a.size() == 0) {
+            return "";
         } else {
             return BusBinDV(a, 0, a.size() - 1, username);
         }
@@ -100,14 +100,17 @@ public class Utilities {
  
     private static String BusBinDV(Vector<String> a, int ini, int fin, String x) {
         if (ini > fin) {
-            return null;
+            return "";
         } else {
+        	System.out.println("Comprobando desde " + ini + " hasta " + fin);
             int k = (ini + fin) / 2;
-           
-            if (x.compareTo(a.get(k)) == 0) {
+            System.out.println(x);
+            System.out.println(a.get(k));
+            if (x.equals(a.get(k))) {     	
                 return a.get(k);
             } else {
-                if (x.compareTo(a.get(k)) == -1) {
+            	System.out.println(x.compareTo(a.get(k)));
+                if (x.compareTo(a.get(k)) < 0) {
                     return BusBinDV(a, ini, k - 1, x);
                 } else {
                     return BusBinDV(a, k + 1, fin, x);

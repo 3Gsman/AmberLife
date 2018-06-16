@@ -158,8 +158,7 @@ public class LoginCtrl implements ActionListener, KeyListener {
                         JOptionPane.showMessageDialog((Component) frame, "Unknown user Type.", "Error", JOptionPane.ERROR_MESSAGE);	//sale una ventana de diálogo para alertar de un error
                 }
             } else {	//si el resultado de la comparación es falso
-                Object frame = null;	//crea un objeto ventana
-                JOptionPane.showMessageDialog((Component) frame, "User or password doesn't match.", "Error", JOptionPane.ERROR_MESSAGE);	//sale una ventana de diálogo para alertar de un error
+                Object frame = null;	//crea un objeto ventana   
             }
         } catch (IOException e1) {
             e1.printStackTrace();	//imprime el registro de la pila donde se dio la excepción
