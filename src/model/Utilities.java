@@ -63,8 +63,6 @@ public class Utilities {
 				i++;
 				j--;
 				
-				
-				
 				//System.out.println(ini +" "+ j +" " + i + " "+ end);
 			}
 			
@@ -85,5 +83,15 @@ public class Utilities {
 		
 		
 	}
+	
+	
+	public static void sortMessages(Vector<Message> v){
 
+		
+	}
+
+	public static void pivotMessages() {
+		
+	}
+	
 }
