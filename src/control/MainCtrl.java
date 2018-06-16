@@ -54,7 +54,7 @@ public class MainCtrl implements WindowListener,MouseMotionListener {
 			
 		    p.addController(pc);
 		    p.initialize();
-		    window.setUndecorated(true);
+		    //window.setUndecorated(true);
 			window.addController(m);
 			//window.addMouseListener(frameDragListener);
 			//window.addMouseMotionListener(frameDragListener);

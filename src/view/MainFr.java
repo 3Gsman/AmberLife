@@ -105,9 +105,12 @@ public class MainFr extends JFrame{
 		
 		this.getContentPane().add(mainView, BorderLayout.CENTER);
 		
+		JPanel menu = new JPanel();
+		menu.setLayout(new BorderLayout());
+		menu.setBackground(new Color(242, 137, 118));
+		
 		JPanel menubar = new JPanel();
 		menubar.setLayout(new FlowLayout(FlowLayout.LEFT));
-		menubar.setBackground(new Color(242, 137, 118));
 		
 		JLabel icon = new JLabel();
 		icon.setIcon(new ImageIcon(getClass().getResource("/resources/Heart_icon.png")));
@@ -115,7 +118,12 @@ public class MainFr extends JFrame{
 		
 		JLabel bar = new JLabel("AmberLife");
 		bar.setForeground(Color.black);
-		bar.addMouseListener(new MouseAdapter() {
+		menubar.add(bar);
+		
+		/*JPanel dummy = new JPanel(); //Only used for the mouse listener
+		dummy.setOpaque(false);
+		
+		dummy.addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
                 System.exit(0);
             }
@@ -140,9 +148,10 @@ public class MainFr extends JFrame{
                 setLocation(getLocation().x + me.getX() - pX,
                         getLocation().y + me.getY() - pY);
             }
-        });
-		menubar.add(bar);
-		this.getContentPane().add(menubar, BorderLayout.PAGE_START );
+        });*/
+        
+		//menu.add(menubar,BorderLayout.WEST);
+		//this.getContentPane().add(menu, BorderLayout.PAGE_START );
 		
 		
 	}
