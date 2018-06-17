@@ -58,6 +58,7 @@ public class LoginCtrl implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent e) {
     	System.out.print("Action received: " + e.getActionCommand());
     	if (e.getActionCommand().equals("LOGIN")){
+    		MainCtrl.startLoading();
     		try {
 				aceptarVentana();
 			} catch (ClassNotFoundException e1) {
@@ -175,6 +176,7 @@ public class LoginCtrl implements ActionListener, KeyListener {
 	 */
     public void openDoctor(String usuario) throws IOException, ClassNotFoundException, SQLException {
 
+    	
     	MainCtrl.toBackStack(vistaLogin);	//Cierra la ventana de inicio
         DoctorFr vp = new DoctorFr(getClass().getResource("/resources/BG.png"));	//crea nueva ventana
         DoctorCtrl dc = new DoctorCtrl(usuario,vp);

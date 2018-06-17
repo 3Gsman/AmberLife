@@ -48,6 +48,7 @@ public class DBManagement {
 	// private static String pass = "rdysdhsks";
 
 	public static String[] checkUser(String usuario, String Password) throws ClassNotFoundException, SQLException {
+		MainCtrl.startLoading();
 		String iduser;
 		String user[] = new String[2];
 		Connection c =  DBManagement.getConnection();
@@ -110,6 +111,7 @@ public class DBManagement {
 		} catch (java.sql.SQLException sqle) {
 			System.out.println("Error: " + sqle);
 		}
+		MainCtrl.stopLoading();
 		return user;
 	}
 
@@ -125,7 +127,7 @@ public class DBManagement {
 	 */
 
 	public static Assistant readAssistant(String username) throws SQLException, ClassNotFoundException {
-
+		MainCtrl.startLoading();
 		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
@@ -147,7 +149,7 @@ public class DBManagement {
 			c.close();
 
 			Assistant ass = new Assistant(null, null, null, null, null);
-
+			MainCtrl.stopLoading();
 			return ass;
 		}
 	}
@@ -161,6 +163,7 @@ public class DBManagement {
 	 */
 
 	public static Vector<Assistant> getAssistants() throws ClassNotFoundException, SQLException {
+		MainCtrl.startLoading();
 		Vector<Assistant> v = new Vector<>();
 		Connection c =  DBManagement.getConnection();
 
@@ -181,6 +184,7 @@ public class DBManagement {
 
 		Utilities.sortUser(v, 0, v.size()-1);
 		
+		MainCtrl.stopLoading();
 		return v;
 
 	}
@@ -195,6 +199,7 @@ public class DBManagement {
 	 */
 
 	public static Vector<Message> readMessages(String patientID) throws ClassNotFoundException, SQLException {
+		MainCtrl.startLoading();
 		Vector<Message> messages = new Vector<>();
 		Connection c =  DBManagement.getConnection();
 
@@ -224,6 +229,7 @@ public class DBManagement {
 		
 		Utilities.sortMessages(messages, 0, messages.size()-1);
 
+		MainCtrl.stopLoading();
 		return messages;
 	}
 
@@ -236,6 +242,7 @@ public class DBManagement {
 	 */
 
 	public static Vector<Doctor> getDoctors() throws SQLException, ClassNotFoundException {
+		MainCtrl.startLoading();
 		Vector<Doctor> v = new Vector<>();
 		Connection c =  DBManagement.getConnection();
 
@@ -264,6 +271,7 @@ public class DBManagement {
 		
 		Utilities.sortUser(v, 0, v.size()-1);
 
+		MainCtrl.stopLoading();
 		return v;
 
 	}
@@ -279,7 +287,7 @@ public class DBManagement {
 	 */
 
 	public static ECG readECG(int IDecg) throws ClassNotFoundException, SQLException {
-
+		MainCtrl.startLoading();
 		Connection c = DBManagement.getConnection();
 
 		Statement stmt = null;
@@ -303,6 +311,7 @@ public class DBManagement {
 		stmt.close();
 		c.close();
 
+		MainCtrl.stopLoading();
 		return ecg;
 
 	}
@@ -319,6 +328,7 @@ public class DBManagement {
 	public static Vector<Patient> readPatients(String doctorID)
 			throws ClassNotFoundException, SQLException, IOException {
 
+		MainCtrl.startLoading();
 		Connection c = DBManagement.getConnection();
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -345,6 +355,7 @@ public class DBManagement {
 		
 		Utilities.sortPatients(patients, 0, patients.size()-1);
 		
+		MainCtrl.stopLoading();
 		return patients;
 	}
 
@@ -361,7 +372,7 @@ public class DBManagement {
 	 */
 
 	public static Doctor readDoctor(String username) throws SQLException, ClassNotFoundException {
-
+		MainCtrl.startLoading();
 		Connection c = DBManagement.getConnection();
 
 		Statement stmt = null;
@@ -400,9 +411,11 @@ public class DBManagement {
 			rs_tlph.close();
 			stmt3.close();
 			c.close();
+			MainCtrl.stopLoading();
 			return d;
 		} else {
 			Doctor d = new Doctor(null, null, null, null);
+			MainCtrl.stopLoading();
 			return d;
 		}
 	}
@@ -421,6 +434,7 @@ public class DBManagement {
 	 */
 
 	public static Patient checkId(String dni) throws SQLException, ClassNotFoundException {
+		MainCtrl.startLoading();
 		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
@@ -445,6 +459,7 @@ public class DBManagement {
 		stmt.close();
 		c.close();
 
+		MainCtrl.stopLoading();
 		return pt;
 
 	}
@@ -463,6 +478,7 @@ public class DBManagement {
 	 */
 
 	public static Patient checkSsn(String ssn) throws SQLException, ClassNotFoundException {
+		MainCtrl.startLoading();
 		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
@@ -488,6 +504,7 @@ public class DBManagement {
 		stmt.close();
 		c.close();
 
+		MainCtrl.stopLoading();
 		return pt;
 
 	}
@@ -505,7 +522,8 @@ public class DBManagement {
 	 */
 
 	public static Patient readPatient(String IDptt) throws IOException, SQLException, ClassNotFoundException {
-
+		
+		MainCtrl.startLoading();
 		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
@@ -532,12 +550,14 @@ public class DBManagement {
 			stmt.close();
 			c.close();
 
+			MainCtrl.stopLoading();
 			return p;
 		} else {
 			rs.close();
 			stmt.close();
 			c.close();
 
+			MainCtrl.stopLoading();
 			return p;
 		}
 	}
@@ -553,6 +573,7 @@ public class DBManagement {
 
 	public static Vector<ECG> ecgList(String IDptt) throws IOException, ClassNotFoundException, SQLException {
 
+		MainCtrl.startLoading();
 		Vector<ECG> vector = new Vector<ECG>();
 		Connection c = DBManagement.getConnection();
 
@@ -583,7 +604,7 @@ public class DBManagement {
 		c.close();
 		
 		Utilities.sortECG(vector, 0, vector.size()-1);
-
+		MainCtrl.stopLoading();
 		return vector;
 	}
 
@@ -599,6 +620,7 @@ public class DBManagement {
 	public static Vector<Message> readPatientMessages(String idptt)
 			throws IOException, ClassNotFoundException, SQLException {
 
+		MainCtrl.startLoading();
 		Vector<Message> messages = new Vector<>();
 
 		Connection c = DBManagement.getConnection();
@@ -620,6 +642,7 @@ public class DBManagement {
 		stmt.close();
 		c.close();
 
+		MainCtrl.stopLoading();
 		return messages;
 
 	}
@@ -629,6 +652,7 @@ public class DBManagement {
 		String idPatient = null;
 		String idDoctor = null;
 
+		MainCtrl.startLoading();
 		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
@@ -668,10 +692,12 @@ public class DBManagement {
 		rd.close();
 		stmt.close();
 		c.close();
+		MainCtrl.stopLoading();
 
 	}
 
 	public static Boolean checkDoctor(String dni) throws SQLException, ClassNotFoundException {
+		MainCtrl.startLoading();
 		Connection c = DBManagement.getConnection();
 
 		Statement stmt = null;
@@ -690,11 +716,13 @@ public class DBManagement {
 		stmt.close();
 		c.close();
 
+		MainCtrl.stopLoading();
 		return isdoctor;
 
 	}
 	
 	public static boolean validatePatient(String name, String lastname, String id) {
+		MainCtrl.startLoading();
 		boolean valid = true;
 		
 		
@@ -719,14 +747,14 @@ public class DBManagement {
 				}
 			}
 		}
-			
+		MainCtrl.stopLoading();
 		return valid;
 	}
 	
 	public static boolean validateUser(String name, String lastname, String id, String email) {
 		boolean valid = true;
 		
-		
+		MainCtrl.startLoading();
 		Pattern p = Pattern.compile("^[ A-Za-z]+$");
 		Matcher m = p.matcher(name);
 		valid = m.matches();
@@ -752,11 +780,12 @@ public class DBManagement {
 			}
 			
 		}
-		
+		MainCtrl.stopLoading();
 		return valid;
 	}
 	
 	public static void confirmECG (ECG ecg, String assid, String pttid) throws SQLException {
+		MainCtrl.startLoading();
 		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
@@ -778,10 +807,12 @@ public class DBManagement {
 		
 		stmt.close();
 		c.close();
+		MainCtrl.stopLoading();
 	}
 	
 	
 	public static String getAssistECG(ECG e) throws SQLException{
+		MainCtrl.startLoading();
 		String assistECG = null;
 		String name = null;
 		String lastName = null;
@@ -807,6 +838,7 @@ public class DBManagement {
 		stmt.close();
 		c.close();
 		
+		MainCtrl.stopLoading();
 		return assistECG;
 	}
 	
@@ -816,6 +848,7 @@ public class DBManagement {
 	 * @return Connection
 	 */
 	public static Connection getConnection() {
+		MainCtrl.startLoading();
 		Connection c = null;
 		try {
 			
@@ -836,6 +869,7 @@ public class DBManagement {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		MainCtrl.stopLoading();
 		return c;
 	}
 	
