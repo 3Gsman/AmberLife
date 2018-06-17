@@ -161,7 +161,7 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 
 		bEnd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				
 
 				try {
 					ino.sendData("0");
@@ -175,8 +175,11 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 				int frecint = Integer.parseInt(datafrec);
 
 				ECG ecginfo = new ECG(1, frecint, ecg, "", "");
+				
 
 				AssistMeasureFr tef = null;
+				if(ecg.size()>0) {
+					dispose();
 				try {
 					tef = new AssistMeasureFr(getClass().getResource("/resources/BG.png"));
 				} catch (IOException e2) {
@@ -196,6 +199,12 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 
 				System.out.println("Pantalla ECG");
 
+			}else {
+				bStart.setEnabled(false);
+				bEnd.setEnabled(false);
+				linfo.setText("Conection COM failure");
+				
+			}
 			}
 		});
 		bEnd.setForeground(Color.WHITE);
@@ -366,7 +375,7 @@ public class ECGConfDialog extends JDialog implements ActionListener {
  * SIMULADOR ANTIGUO
  * 
  * void setup() { // Declaramos que utilizaremos el pin 13 como salida
- * pinMode(13, OUTPUT); //Iniciamos la comunicación con el puerto serie
+ * pinMode(13, OUTPUT); //Iniciamos la comunicaciï¿½n con el puerto serie
  * Serial.begin(9600);
  * 
  * 
@@ -374,7 +383,7 @@ public class ECGConfDialog extends JDialog implements ActionListener {
  * 
  * float output;
  * 
- * void loop() { //En caso que haya información en el Serial Port, se entra en
+ * void loop() { //En caso que haya informaciï¿½n en el Serial Port, se entra en
  * esta estructura
  * 
  * 

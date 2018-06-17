@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -41,7 +42,10 @@ public class MainCtrl implements WindowListener,MouseMotionListener {
 	
 	private static MainFr window = new MainFr();
 	
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws ClassNotFoundException, IOException {
+    	
+    	DBManagement.getDBData();
+    	
     	LocalizationService.initialize();
         try {
         	//DBManagement.createDatabase();
