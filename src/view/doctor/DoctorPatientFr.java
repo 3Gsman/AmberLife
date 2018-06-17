@@ -171,12 +171,12 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			this.validate();
 			mode = "ECGS";
 			
-			ecg_mode.setContentAreaFilled(true);
-			ecg_mode.setBackground(new Color(255, 255, 255, 140));
+			/*ecg_mode.setContentAreaFilled(true);
+			ecg_mode.setBackground(new Color(255, 255, 255, 140));*/
 			ecg_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Data_black.png")));
-			ecg_mode.setOpaque(true);
+			/*ecg_mode.setOpaque(true);
 			message_mode.setContentAreaFilled(false);
-			message_mode.setOpaque(false);
+			message_mode.setOpaque(false);*/
 			message_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Alerts.png")));
 			
 			ecg_mode.repaint();
@@ -195,13 +195,14 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			this.validate();
 			mode = "MESSAGES";
 			
-			ecg_mode.setContentAreaFilled(false);
-			ecg_mode.setOpaque(false);
+			/*ecg_mode.setContentAreaFilled(false);
+			ecg_mode.setOpaque(false);*/
 			ecg_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Data.png")));
-			message_mode.setContentAreaFilled(true);
+			/*message_mode.setContentAreaFilled(true);
 			message_mode.setBackground(new Color(255, 255, 255, 140));
+			message_mode.setOpaque(true);*/
 			message_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Alerts_black.png")));
-			message_mode.setOpaque(true);
+			
 			
 			ecg_mode.repaint();
 			message_mode.repaint();
@@ -603,19 +604,29 @@ public class DoctorPatientFr extends JPanelWithBackground {
 		this.add(messagePanel, gbc_panel_2);
 		
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setBorderPainted(false);
-		btnNewButton.setBorder(null);
-		btnNewButton.setMargin(new Insets(0, 0, 0, 0));
-		btnNewButton.setContentAreaFilled(false);
-		btnNewButton.setActionCommand("BACK");
-		btnNewButton.addActionListener(controller);
-		btnNewButton.setIcon(new ImageIcon(getClass().getResource("/resources/Backbutton.png")));
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		JPanel buttonContainer = new JPanel(new FlowLayout());
+		buttonContainer.setOpaque(false);
+		buttonContainer.setBackground(new Color(255,255,255,140));
+		GridBagConstraints gbc_buttonContainer = new GridBagConstraints();
+		gbc_buttonContainer.fill = GridBagConstraints.BOTH;
+		gbc_buttonContainer.gridx = 0;
+		gbc_buttonContainer.gridy = 18;
+		gbc_buttonContainer.gridwidth = 3;
+		
+		JButton backbutton = new JButton("");
+		backbutton.setBorderPainted(false);
+		backbutton.setBorder(null);
+		backbutton.setMargin(new Insets(0, 0, 0, 0));
+		backbutton.setContentAreaFilled(false);
+		backbutton.setActionCommand("BACK");
+		backbutton.addActionListener(controller);
+		backbutton.setIcon(new ImageIcon(getClass().getResource("/resources/Backbutton.png")));
+		/*GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton.gridx = 0;
 		gbc_btnNewButton.gridy = 18;
-		this.add(btnNewButton, gbc_btnNewButton);
+		this.add(backbutton, gbc_btnNewButton);*/
+		buttonContainer.add(backbutton);
 		
 		message_mode = new JButton("");
 		message_mode.setBorderPainted(false);
@@ -625,11 +636,12 @@ public class DoctorPatientFr extends JPanelWithBackground {
 		message_mode.setActionCommand("MESSAGES");
 		message_mode.addActionListener(controller);
 		message_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Alerts.png")));
-		GridBagConstraints gbc_btnNewButton2 = new GridBagConstraints();
+		/*GridBagConstraints gbc_btnNewButton2 = new GridBagConstraints();
 		gbc_btnNewButton2.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton2.gridx = 1;
 		gbc_btnNewButton2.gridy = 18;
-		this.add(new AlphaContainer(message_mode), gbc_btnNewButton2);
+		this.add(new AlphaContainer(message_mode), gbc_btnNewButton2);*/
+		buttonContainer.add(message_mode);
 		
 		ecg_mode = new JButton("");
 		ecg_mode.setBorderPainted(false);
@@ -640,11 +652,13 @@ public class DoctorPatientFr extends JPanelWithBackground {
 		ecg_mode.setContentAreaFilled(false);
 		ecg_mode.setOpaque(false);
 		ecg_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Data_black.png")));
-		GridBagConstraints gbc_btnNewButton3 = new GridBagConstraints();
+		/*GridBagConstraints gbc_btnNewButton3 = new GridBagConstraints();
 		gbc_btnNewButton3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton3.gridx = 2;
 		gbc_btnNewButton3.gridy = 18;
-		this.add(ecg_mode, gbc_btnNewButton3);
+		this.add(ecg_mode, gbc_btnNewButton3);*/
+		buttonContainer.add(ecg_mode);
+		this.add(new AlphaContainer(buttonContainer), gbc_buttonContainer);
 		
 	}
 }
