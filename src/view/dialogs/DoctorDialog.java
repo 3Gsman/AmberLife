@@ -959,7 +959,7 @@ public class DoctorDialog extends JDialog {
 				rs_check.close();
 				//Update code
 				String sql1 = "UPDATE User SET Password = ?, Name = ?,"
-						+ " LastName = ?, Username=?, Email =? WHERE IDuser LIKE '" + id + "'";	
+						+ " LastName = ?, Email =? WHERE IDuser LIKE '" + id + "'";	
 				String sql2	 = "Update CLINICAL Set SSN = ? WHERE IDuser LIKE '" + id + "'";	
 				String sql3	 = "Update  Doctor Set  MLN = ? WHERE IDuser LIKE '" + id + "'";	
 				String sql4 = "Update Telephone Set  Number = ? WHERE IDuser LIKE '" + id + "'";	
@@ -969,8 +969,7 @@ public class DoctorDialog extends JDialog {
 				st1.setString(1, String.valueOf(passField.getPassword()));
 				st1.setString(2, nameField.getText());
 				st1.setString(3, surnameField.getText());
-				st1.setString(4, usernameField.getText());
-				st1.setString(5, emailField.getText());
+				st1.setString(4, emailField.getText());
 				st1.executeUpdate();			
 				st1.close();
 				PreparedStatement st2 = c2.prepareStatement(sql2);
