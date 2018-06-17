@@ -154,6 +154,9 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 
@@ -186,11 +189,12 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 	 * showing the Patient's information in detail.
 	 *
 	 * @throws	IOException
+	 * @throws SQLException 
 	 * @see		Patient, DoctorPatientFr, DoctorPatientCtrl
 	 * @deprecated
 	 */
 	//DEPRECATED FUNCTION
-	public void searchPatient() throws IOException {
+	public void searchPatient() throws IOException, SQLException {
 		String dni = df.getID();
 		FileManagement id = new FileManagement();
 		boolean found= false;

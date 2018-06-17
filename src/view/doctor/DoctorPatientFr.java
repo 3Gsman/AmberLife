@@ -139,7 +139,7 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			return jp2;
 	}
 	
-	private JPanel initializeECG() throws IOException {
+	private JPanel initializeECG() throws IOException, SQLException {
 			JPanel jp = new JPanel();
 			JScrollPane sp = new JScrollPane();
 			sp.setBackground( new Color(0, 0, 0, 0) );
@@ -162,7 +162,7 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			return jp;
 	}
 	
-	public void setModeECG() throws IOException {
+	public void setModeECG() throws IOException, SQLException {
 		if(mode != "ECGS") {
 			//this.getthis().remove(messagePanel);
 			messagePanel.removeAll();
@@ -221,7 +221,7 @@ public class DoctorPatientFr extends JPanelWithBackground {
 		}
 	}
 	
-	public void loadECGPanel(Vector<ECG> v, JPanel viewport) {		
+	public void loadECGPanel(Vector<ECG> v, JPanel viewport) throws SQLException {		
 		if(v!= null) {
 			for(ECG e : v)
 				try {
@@ -244,8 +244,9 @@ public class DoctorPatientFr extends JPanelWithBackground {
 	/**
 	 * Initialize the frame.
 	 * @throws IOException 
+	 * @throws SQLException 
 	 */
-	public void initialize() throws IOException {
+	public void initialize() throws IOException, SQLException {
 	
 		this.setBorder(new EmptyBorder(0, 0, 0, 0));
 		GridBagLayout gbl_this = new GridBagLayout();

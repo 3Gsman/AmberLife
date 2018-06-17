@@ -778,6 +778,36 @@ public class DBManagement {
 		c.close();
 	}
 	
+	
+	public static String getAssistECG(ECG e) throws SQLException{
+		String assistECG = null;
+		String name = null;
+		String lastName = null;
+		
+		int id = e.getId();
+		
+		Connection c = DBManagement.getConnection();
+
+		Statement stmt = null;
+		stmt = c.createStatement();
+
+		ResultSet rs_ms = stmt.executeQuery("Select User.Name, User.LastName from User join ECG on User.IDuser = ECG.IDuser where ECG.IDecg = " + id + ";");
+		
+
+		while (rs_ms.next()) {
+			name = rs_ms.getString("Name");
+			lastName = rs_ms.getString("LastName");
+		}
+		
+		assistECG = name +" "+ lastName;
+		 
+		rs_ms.close();
+		stmt.close();
+		c.close();
+		
+		return assistECG;
+	}
+	
 	/**
 	 * Returns a Connection to the assigned DDBB
 	 * 
@@ -798,6 +828,8 @@ public class DBManagement {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Component f = null;
+			JOptionPane.showMessageDialog(f, "Failed to connect to server", "Error", JOptionPane.ERROR_MESSAGE);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
