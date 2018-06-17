@@ -432,7 +432,7 @@ public class AssistPatientFr extends JPanelWithBackground {
 
 
 
-	public void refreshMessages(JPanel jp) throws ClassNotFoundException, SQLException {
+	public void refreshMessages(JPanel jp) throws ClassNotFoundException, SQLException, IOException {
 		jp.removeAll();
 		messages = DBManagement.readMessages(id);
 		for(Message s : messages) {

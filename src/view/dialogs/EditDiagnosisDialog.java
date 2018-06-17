@@ -150,6 +150,9 @@ public class EditDiagnosisDialog extends JDialog {
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 				
 				System.out.println("New Message confirmed");

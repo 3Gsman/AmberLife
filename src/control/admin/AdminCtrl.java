@@ -105,6 +105,9 @@ public class AdminCtrl implements ActionListener {
 				} catch (ClassNotFoundException | SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}else {
 				try {
@@ -115,6 +118,9 @@ public class AdminCtrl implements ActionListener {
     				af.setVisible(true);
     				af.validate();
 				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}

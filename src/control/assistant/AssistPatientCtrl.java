@@ -154,6 +154,9 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 			} catch (ClassNotFoundException | SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}else System.out.println("Invalid Action");{
 		
