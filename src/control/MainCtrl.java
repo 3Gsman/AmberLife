@@ -66,9 +66,6 @@ public class MainCtrl implements WindowListener,MouseMotionListener {
 			setPanel(p);
 			window.setVisible(true);
 			
-			startLoading();
-			Thread.sleep(3000);
-			stopLoading();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
