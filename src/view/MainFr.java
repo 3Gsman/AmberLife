@@ -15,17 +15,21 @@ import java.util.Stack;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import control.MainCtrl;
+import view.panels.LoadingPanel;
 
 
 public class MainFr extends JFrame{
 
 	MainCtrl controller;
 	JPanel mainView = new JPanel();
-	int pY,pX;
+	LoadingPanel loadingScreen = new LoadingPanel();
+	//int pY,pX;
+
 	
 	public static Stack<JPanel> backstack = new Stack<>();
 	
@@ -35,7 +39,7 @@ public class MainFr extends JFrame{
 		this.getContentPane().remove(mainView);
 		this.mainView = panel;
 		mainView.setVisible(true);
-		this.getContentPane().add(mainView, BorderLayout.CENTER);
+		this.getContentPane().add(mainView, 1);
 		this.getContentPane().validate();
 		this.repaint();
 		this.validate();
@@ -50,12 +54,16 @@ public class MainFr extends JFrame{
 		this.getContentPane().remove(mainView);
 		mainView = panel;
 		mainView.setVisible(true);
-		this.getContentPane().add(mainView, BorderLayout.CENTER);
+		this.getContentPane().add(mainView, 1);
 		this.getContentPane().validate();
 		this.getContentPane().repaint();
 		this.repaint();
 		this.validate();
 		
+	}
+	
+	public JPanel getMainView() {
+		return mainView;
 	}
 	
 	
@@ -82,6 +90,7 @@ public class MainFr extends JFrame{
 		
 		this.setBackground(new Color(204, 0, 0));
 		this.setBounds(100, 100, 798, 913);
+		this.setContentPane(new JLayeredPane());
 		this.getContentPane().setLayout(new BorderLayout());
 		this.setTitle("AmberLife");
 		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
@@ -103,7 +112,7 @@ public class MainFr extends JFrame{
 			e.printStackTrace();
 		}
 		
-		this.getContentPane().add(mainView, BorderLayout.CENTER);
+		this.getContentPane().add(mainView, 1);
 		
 		JPanel menu = new JPanel();
 		menu.setLayout(new BorderLayout());
@@ -119,6 +128,10 @@ public class MainFr extends JFrame{
 		JLabel bar = new JLabel("AmberLife");
 		bar.setForeground(Color.black);
 		menubar.add(bar);
+		
+
+		
+
 		
 		/*JPanel dummy = new JPanel(); //Only used for the mouse listener
 		dummy.setOpaque(false);
@@ -153,6 +166,20 @@ public class MainFr extends JFrame{
 		//menu.add(menubar,BorderLayout.WEST);
 		//this.getContentPane().add(menu, BorderLayout.PAGE_START );
 		
+	}
+	
+	public void startLoading() {
+		this.getContentPane().add(loadingScreen, 0);
+		loadingScreen.setVisible(true);
+		Thread t = new Thread(loadingScreen);
+		t.start();
 		
 	}
+	
+	public void stopLoading() {
+		loadingScreen.setVisible(false);
+		this.getContentPane().remove(loadingScreen);
+		this.validate();
+	}
+	
 }

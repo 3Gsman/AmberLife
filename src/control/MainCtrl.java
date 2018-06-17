@@ -1,5 +1,6 @@
 package control;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -29,6 +30,7 @@ public class MainCtrl implements WindowListener,MouseMotionListener {
 	
 	public static String DATABASE = "src/resources/BDAmberLife.db";
 	int pX, pY;
+	//public static boolean waiting = false;
 	
 	/**
 	 * Creates an initial LoginFr and a controller for it, initializes services, and starts the program.
@@ -63,6 +65,11 @@ public class MainCtrl implements WindowListener,MouseMotionListener {
 			window.setLocationRelativeTo(null);
 			setPanel(p);
 			window.setVisible(true);
+			
+			startLoading();
+			Thread.sleep(3000);
+			stopLoading();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -173,6 +180,16 @@ public class MainCtrl implements WindowListener,MouseMotionListener {
 	public void mouseMoved(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public static void startLoading() {
+	
+		window.startLoading();
+		
+	}
+	
+	public static void stopLoading() {
+		window.stopLoading();
 	}
 	
 	
