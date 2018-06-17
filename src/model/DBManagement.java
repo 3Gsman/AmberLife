@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,9 +39,21 @@ public class DBManagement {
 	 *             SQLException
 	 */
 
-	private static String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-	private static String userdb = "dani";
-	private static String pass = "gaja";
+	private static String db;
+	private static String userdb;
+	private static String pass;
+	
+	public static void getDBData() throws IOException{
+		Properties prop = new Properties();
+		String fileName = "src/resources/config/database.config";
+		InputStream is = new FileInputStream(fileName);
+		prop.load(is);
+
+	
+		db = "jdbc:mariadb://" + prop.getProperty("ip")+":"+prop.getProperty("port")+"/"+prop.getProperty("name");
+		userdb = prop.getProperty("user");
+		pass = prop.getProperty("pass");
+	}
 
 	// private static String db =
 	// "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
