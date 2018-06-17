@@ -1,0 +1,8 @@
+EL siguiente codigo es un simulador de un electrocardiograma para poder realizar
+pruebas con la aplicacion de AmberLife en caso de no disponer del sensor.
+
+Lo unico necesario será ejecutar este codigo en un arduino y tenerlo conectado con
+el ordenador.
+
+Desde la apliacacion de AmberLife se podrá elegir la frecuencia con la cual recivir
+los datos ya precargados de un ECG real para su visualizacion.
