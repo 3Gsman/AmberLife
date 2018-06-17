@@ -2,7 +2,6 @@ package control.assistant;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.sql.SQLException;
 
 import control.MainCtrl;
@@ -73,9 +72,6 @@ public class AssistMeasureCtrl implements ActionListener{
 			 try {
 				DBManagement.confirmECG(ecg, assistID, patientID);
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}

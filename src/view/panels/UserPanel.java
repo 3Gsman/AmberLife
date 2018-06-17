@@ -226,9 +226,6 @@ public class UserPanel extends JPanel {
 					} catch (ClassNotFoundException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
 					}
 				} else System.out.println("Deletion Cancelled");
 		}

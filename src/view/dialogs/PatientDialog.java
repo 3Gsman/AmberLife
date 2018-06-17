@@ -708,9 +708,6 @@ public class PatientDialog extends JDialog {
 						} catch (ClassNotFoundException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
 						}
 					}
 				}
@@ -736,7 +733,7 @@ public class PatientDialog extends JDialog {
 		this.setVisible(true);
 	}
 
-	void initializeFields(String id) throws ClassNotFoundException, IOException {
+	void initializeFields(String id) throws ClassNotFoundException {
 		System.out.println("Initialize Fields");
 		try {
 			Connection c =  DBManagement.getConnection();
@@ -769,7 +766,7 @@ public class PatientDialog extends JDialog {
 		}
 	}
 
-	void createNewPatient(String doctorID) throws ClassNotFoundException, IOException {
+	void createNewPatient(String doctorID) throws ClassNotFoundException {
 		System.out.println("Creating new patient");
 		try {
 			Connection c =  DBManagement.getConnection();
@@ -826,7 +823,7 @@ public class PatientDialog extends JDialog {
 		}
 	}
 
-	void updatePatient(String id, String docID) throws SQLException, ClassNotFoundException, IOException {
+	void updatePatient(String id, String docID) throws SQLException, ClassNotFoundException {
 		System.out.println("Update Doctor launched");
 
 		Connection c = DBManagement.getConnection();

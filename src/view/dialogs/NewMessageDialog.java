@@ -134,13 +134,7 @@ public class NewMessageDialog extends JDialog {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Connection c = null;
-				try {
-					c = DBManagement.getConnection();
-				} catch (IOException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
+				Connection c =  DBManagement.getConnection();
 				
 				String sql = "INSERT INTO Message(IDuser, IDptt, Data, Date, Seen) VALUES(?,?,?,?,?)";
 				

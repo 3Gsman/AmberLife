@@ -732,9 +732,6 @@ public class AssistDialog extends JDialog {
 						} catch (ClassNotFoundException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
 						}
 					}
 				}
@@ -760,7 +757,7 @@ public class AssistDialog extends JDialog {
 		this.setVisible(true);
 	}
 
-	void initializeFields(String id) throws ClassNotFoundException, IOException {
+	void initializeFields(String id) throws ClassNotFoundException {
 		System.out.println("Initialize Fields");
 		try {
 			Connection c = DBManagement.getConnection();
@@ -794,7 +791,7 @@ public class AssistDialog extends JDialog {
 		}
 	}
 
-	void createNewAssist() throws ClassNotFoundException, IOException {
+	void createNewAssist() throws ClassNotFoundException {
 		System.out.println("Creating new assistant");
 		try {
 			Connection c = DBManagement.getConnection();
@@ -828,7 +825,7 @@ public class AssistDialog extends JDialog {
 
 	}
 
-	void uploadNewAssist() throws SQLException, ClassNotFoundException, IOException {
+	void uploadNewAssist() throws SQLException, ClassNotFoundException {
 		Connection c = DBManagement.getConnection();
 		
 		String sql1 = "INSERT INTO User(IDuser, Password, Active, Name, LastName, Username, Email)"
@@ -866,7 +863,7 @@ public class AssistDialog extends JDialog {
 		}
 	}
 
-	void updateAssist(String id) throws SQLException, ClassNotFoundException, IOException {
+	void updateAssist(String id) throws SQLException, ClassNotFoundException {
 		System.out.println("Update Doctor launched");
 
 		Connection c = DBManagement.getConnection();
