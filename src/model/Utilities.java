@@ -61,6 +61,33 @@ public class Utilities {
     	return i;	
 	}
 	
+	public static int sortECG(Vector<ECG> v, int ini, int fin){
+		  
+		if(ini<fin){
+	            int x = pivotECG(v,ini,fin);
+	            return sortECG(v,ini,(int)x-1)+
+	            		sortECG(v,(int)x+1,fin);
+	        } else {
+	            return 0;
+	        }
+		
+	}
+
+	private static int pivotECG(Vector<ECG> v, int ini, int fin) {
+		
+		int i = ini;
+        String p = v.get(ini).getDate();
+        for(int j=ini+1;j<=fin;++j){
+            if(v.get(j).getDate().compareTo(p) > 0){
+                i++;
+                if(i!=j){
+                	Collections.swap(v,i,j);
+                }
+            }
+        }
+        Collections.swap(v,ini,i);
+    	return i;	
+	}
 	
 	public static int sortMessages(Vector<Message> v, int ini, int fin){
 		  

@@ -27,7 +27,6 @@ import javax.swing.border.EmptyBorder;
 import control.doctor.DoctorPatientCtrl;
 import model.DBManagement;
 import model.ECG;
-import model.FileManagement;
 import model.LocalizationService;
 import model.Message;
 import model.User;
@@ -109,9 +108,7 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			new_msg.add(btnNewButton2);
 			
 			//controller.getPatient().getID()
-			
-			
-			
+		
 			Vector<Message> messages = DBManagement.readMessages(controller.getPatient().getId());
 			
 			if(messages.equals(null)) {

@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 
 import control.GraphCtrl;
 import model.ECG;
-import model.FileManagement;
 
 public class CompareGraphPanel extends JPanel{
 
@@ -18,7 +17,6 @@ public class CompareGraphPanel extends JPanel{
 	ECG ECGData2;
 
 	private static final long serialVersionUID = 1L;
-	FileManagement fichero;
 
 
 	public CompareGraphPanel(ECG ecgData,ECG ecgData2) {

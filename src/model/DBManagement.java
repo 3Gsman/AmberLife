@@ -286,7 +286,7 @@ public class DBManagement {
 		stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery("select * from ECG where ECG.IDecg ='" + IDecg + "'");
 
-		ECG ecg = new ECG(IDecg,rs.getInt("Frequency"), new Vector<Double>(),rs.getString("Diagnostic"));
+		ECG ecg = new ECG(IDecg,rs.getInt("Frequency"), new Vector<Double>(),rs.getString("Diagnostic"),rs.getString("Date"));
 		Vector<Double> num = new Vector<>();
 
 		rs.getString("Data");
@@ -561,7 +561,7 @@ public class DBManagement {
 		ResultSet rs = stmt.executeQuery("select * from ECG where ECG.IDptt ='" + IDptt + "'");
 
 		while (rs.next()) {
-			ECG ecg = new ECG(rs.getInt("IDecg"),rs.getInt("Frequency"),new Vector<Double>(),rs.getString("Diagnostic"));
+			ECG ecg = new ECG(rs.getInt("IDecg"),rs.getInt("Frequency"),new Vector<Double>(),rs.getString("Diagnostic"),rs.getString("Date"));
 			Vector<Double> num = new Vector<>();
 
 
@@ -581,6 +581,8 @@ public class DBManagement {
 		rs.close();
 		stmt.close();
 		c.close();
+		
+		Utilities.sortECG(vector, 0, vector.size()-1);
 
 		return vector;
 	}

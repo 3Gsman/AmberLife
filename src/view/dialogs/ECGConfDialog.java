@@ -174,7 +174,7 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 				String datafrec = boxfrec.getSelectedItem().toString();
 				int frecint = Integer.parseInt(datafrec);
 
-				ECG ecginfo = new ECG(1, frecint, ecg, "");
+				ECG ecginfo = new ECG(1, frecint, ecg, "", "");
 
 				AssistMeasureFr tef = null;
 				try {

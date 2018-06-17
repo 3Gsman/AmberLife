@@ -7,13 +7,11 @@ import java.awt.event.MouseWheelListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import model.ECG;
-import model.FileManagement;
 import view.panels.FullGraphPanel;
 
 public class GraphCtrl implements ChangeListener, ActionListener, MouseWheelListener {
 	
 	private ECG ECGData;
-	private FileManagement fichero;
 	private FullGraphPanel graph;
 
 	/**

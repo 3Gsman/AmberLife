@@ -14,14 +14,12 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import model.ECG;
-import model.FileManagement;
 import control.GraphCtrl;
 
 public class FullGraphPanel extends JPanel {
 
 	GraphCtrl controller;
 	ECG ECGData;
-	FileManagement fichero;
 
 	private static final long serialVersionUID = 1L;
 

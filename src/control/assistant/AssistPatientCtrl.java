@@ -16,7 +16,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import control.MainCtrl;
 import model.ECG;
-import model.FileManagement;
 import view.assistant.AssistMeasureFr;
 import view.assistant.AssistPatientFr;
 import view.dialogs.ECGConfDialog;

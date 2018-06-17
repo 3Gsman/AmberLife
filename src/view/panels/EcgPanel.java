@@ -69,7 +69,7 @@ public class EcgPanel extends JPanel {
 			flowLayout_2.setAlignment(FlowLayout.LEADING);
 			panel.add(panel_2);
 			
-			JLabel lblNewLabel = new JLabel(LocalizationService.getWord("name"));
+			JLabel lblNewLabel = new JLabel("Date");
 			lblNewLabel.setForeground(Color.WHITE);
 			sf = font.deriveFont(Font.PLAIN, 22f);
 			lblNewLabel.setFont(sf);
@@ -83,7 +83,7 @@ public class EcgPanel extends JPanel {
 			panel.add(label_1);
 			
 			//Aqui se escribe la ID del ECG en el panel
-			JLabel label_4 = new JLabel(String.valueOf(e.getId()));
+			JLabel label_4 = new JLabel(String.valueOf(e.getDate()));
 			label_4.setVerticalAlignment(SwingConstants.BOTTOM);
 			label_4.setForeground(grey);
 			label_4.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));

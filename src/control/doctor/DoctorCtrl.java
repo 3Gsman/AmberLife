@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 import control.MainCtrl;
 import model.DBManagement;
 import model.Doctor;
-import model.FileManagement;
 import model.Patient;
 import view.dialogs.PatientDialog;
 import view.doctor.DoctorFr;
@@ -183,54 +182,6 @@ public class DoctorCtrl implements ActionListener, MouseListener, KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
-
-	/**
-	 * Searches for a patient by ID, depending on the active mode, and if it's found, creates a new DoctorPatientFr,
-	 * showing the Patient's information in detail.
-	 *
-	 * @throws	IOException
-	 * @throws SQLException 
-	 * @see		Patient, DoctorPatientFr, DoctorPatientCtrl
-	 * @deprecated
-	 */
-	//DEPRECATED FUNCTION
-	public void searchPatient() throws IOException, SQLException {
-		String dni = df.getID();
-		FileManagement id = new FileManagement();
-		boolean found= false;
-		
-		Patient resultado = id.checkId(dni);
-		Patient p = null;
-		
-		for(int i = 0; i<doctor.getPatientlist().size(); i++) {
-			if(resultado.getId().equals(doctor.getPatientlist().get(i).getId())) {
-				found = true;
-				p = doctor.getPatientlist().get(i);
-				
-			}
-		}
-		resultado = p;
-		
-		if(found == true) {
-			System.out.println("Patient found.\n");		
-			
-			df.setVisible(false);
-			DoctorPatientFr dpf = new DoctorPatientFr(getClass().getResource("/resources/BG.png"));
-			DoctorPatientCtrl dpc = new DoctorPatientCtrl(dpf,doctor, resultado);
-			MainCtrl.toBackStack(df);
-	        dpf.addController(dpc);
-			dpf.initialize();
-		    MainCtrl.setPanel(dpf);
-			
-		}else {
-			Object frame = null;	//crea un objeto ventana
-            //sale una ventana de diálogo para alertar de un error
-            JOptionPane.showMessageDialog((Component) frame, "Patient not found.", "Error", JOptionPane.ERROR_MESSAGE);	
-
-		}
-	}
-
-
 
 	/**
 	 * Repaints the list of patients when the doctor types in the searchbar, to make sure only relevant patients are displayed.
