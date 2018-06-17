@@ -83,7 +83,12 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 			 
 			 System.out.println(" Measure");
 			 
-			 ECGConfDialog a = new ECGConfDialog(assistID,patientID,patient,dataPort);
+			 try {
+				ECGConfDialog a = new ECGConfDialog(assistID,patientID,patient,dataPort);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			 
 			/* JFileChooser chooser = new JFileChooser();
 			 FileNameExtensionFilter filter = new FileNameExtensionFilter(

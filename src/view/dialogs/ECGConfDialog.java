@@ -1,23 +1,38 @@
 package view.dialogs;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.ComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import com.panamahitek.ArduinoException;
 import com.panamahitek.PanamaHitek_Arduino;
@@ -27,17 +42,18 @@ import control.assistant.AssistMeasureCtrl;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
+import model.DBManagement;
 import model.ECG;
 //import model.JavaRXTX_vFINAL;
 import view.assistant.AssistMeasureFr;
 import view.assistant.AssistPatientFr;
+import view.panels.JPanelWithBackground;
 
 public class ECGConfDialog extends JDialog implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
 	
-	JFrame frame;
-	JPanel panel;
+	private final JPanel contentPanel = new JPanelWithBackground(getClass().getResource("/resources/BG.png"));
 	
 	//private AssistPatientFr patient;
 	String assistID;
@@ -47,8 +63,8 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 
 	private JLabel lfrec;
 	//private JLabel ltime;
-	private JButton cancel;
-	private JButton confirm;
+	private JButton cancel = new JButton("Cancel");
+	private JButton confirm = new JButton("Confirm");
 	private JComboBox<Object> boxfrec;
 	//private JComboBox<Object> boxtime;
 
@@ -72,19 +88,14 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 		}
 	};
 
-	public ECGConfDialog(String assistID, String patientID, AssistPatientFr patient, String dataPort) {
-		
+	public ECGConfDialog(String assistID, String patientID, AssistPatientFr patient, String dataPort) throws IOException {
+		super(MainCtrl.getMainFrame(),Dialog.ModalityType.APPLICATION_MODAL);
 		this.assistID = assistID;
 		this.patientID = patientID;
 		this.patient = patient;
 		this.dataPort = dataPort;
-		
 
-		
-		frame = new JFrame("ECG Conf");
-		panel = new JPanel();
-
-		panel.setLayout(new GridLayout(2, 2));
+		//panel.setLayout(new GridLayout(2, 2));
 
 		
 		try {
@@ -95,38 +106,66 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 
 		addItems();
 
-		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		frame.pack();
-		frame.setVisible(true);
-
+		//frame.getContentPane().add(panel, BorderLayout.CENTER);
+		contentPanel.validate();
+		contentPanel.setVisible(true);
+		this.setVisible(true);
 	}
 
-	private void addItems() {
-
-		lfrec = new JLabel("Frecuency (Hz)", SwingConstants.CENTER);
-		//ltime = new JLabel("Duratio (S)", SwingConstants.CENTER);
-
-		cancel = new JButton("End");
-		confirm = new JButton("Start");
-		confirm.setEnabled(true);
-		cancel.setEnabled(false);
-
-		Object[] frec = { "25", "50", "100", "150", "200", "250" };
-		boxfrec = new JComboBox<Object>(frec);
-		boxfrec.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-		boxfrec.setBorder(null);
-		boxfrec.setOpaque(false);
-		boxfrec.setEnabled(true);
-/*
-		Object[] time = { "15", "30", "45", "60", "90", "120" };
-		boxtime = new JComboBox<Object>(time);
-		boxtime.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
-		boxtime.setBorder(null);
-		boxtime.setOpaque(false);
-*/
+	private void addItems() throws IOException {
+		this.setTitle("New ECG Properties");
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 491, 349);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		GridBagLayout gbl_contentPanel = new GridBagLayout();
+		gbl_contentPanel.columnWidths = new int[]{15, 0, 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 120, 15, 0};
+		gbl_contentPanel.rowHeights = new int[]{40, 15, 30, 0, 40, 0, 0, 0, 0, 60, 0};
+		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPanel.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		contentPanel.setLayout(gbl_contentPanel);
+		ImageIcon img = new ImageIcon(getClass().getResource("/resources/Logo.png"));
+		this.setIconImage(img.getImage());
+		Dimension d = new Dimension(400, 300);
+		this.setSize(d);
+		this.setResizable(false);
+			
+		java.io.InputStream is = getClass().getResourceAsStream("/resources/Prime.otf");
+		Font font = new Font("Verdana", Font.PLAIN, 28); //Default font;
+		Font sf = font; // will use sf to change the style;
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT, is);
+			sf = font;
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		sf = font.deriveFont(28f);
+		{
+			JPanel panel = new JPanel();
+			panel.setOpaque(false);
+			FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+			flowLayout.setAlignment(FlowLayout.LEFT);
+			GridBagConstraints gbc_panel = new GridBagConstraints();
+			gbc_panel.gridwidth = 14;
+			gbc_panel.insets = new Insets(0, 0, 5, 5);
+			gbc_panel.fill = GridBagConstraints.BOTH;
+			gbc_panel.gridx = 1;
+			gbc_panel.gridy = 0;
+			contentPanel.add(panel, gbc_panel);
+				
+			JLabel lblNewLabel = new JLabel("Select ECG Properties");
+			lblNewLabel.setForeground(Color.WHITE);
+			lblNewLabel.setFont(sf);
+			panel.add(lblNewLabel);
+		}
+		
+			
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				dispose();
 				
 				//ESTO NO VA AQUI VA EN PAUSA
 				
@@ -166,7 +205,18 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 
 			}
 		});
-
+		cancel.setForeground(Color.WHITE);
+		cancel.setFont(sf);
+		cancel.setBackground(Color.DARK_GRAY);
+		cancel.setBorder(null);
+		cancel.setEnabled(false);
+		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
+		gbc_btnCancel.fill = GridBagConstraints.BOTH;
+		gbc_btnCancel.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCancel.gridx = 3;
+		gbc_btnCancel.gridy = 9;
+		contentPanel.add(cancel, gbc_btnCancel);
+		
 		confirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -192,22 +242,49 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 				boxfrec.setEnabled(false);
 				cancel.setEnabled(true);
 
-				
-
 				//frame.dispose();
 			}
 		});
-
-		panel.add(lfrec);
-		//panel.add(ltime);
-		panel.add(boxfrec);
-		//panel.add(boxtime);
-		panel.add(cancel);
-		panel.add(confirm);
+		confirm.setForeground(Color.WHITE);
+		confirm.setFont(sf);
+		confirm.setBackground(Color.DARK_GRAY);
+		confirm.setBorder(null);
+		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
+		gbc_btnNewButton.gridx = 14;
+		gbc_btnNewButton.gridy = 9;
+		contentPanel.add(confirm, gbc_btnNewButton);
+		
+		lfrec = new JLabel("Frecuency (Hz)", SwingConstants.CENTER);
+		lfrec.setFont(sf);
+		lfrec.setForeground(Color.WHITE);
+		lfrec.setHorizontalAlignment(SwingConstants.LEADING);
+		GridBagConstraints gbc_lfrec = new GridBagConstraints();
+		gbc_lfrec.insets = new Insets(0, 0, 0, 5);
+		gbc_lfrec.fill = GridBagConstraints.BOTH;
+		gbc_lfrec.gridx = 1;
+		gbc_lfrec.gridy = 2;
+		gbc_lfrec.gridwidth = 8;
+		contentPanel.add(lfrec, gbc_lfrec);
+		
+		Object[] frec = { "25", "50", "100", "150", "200", "250" };
+		boxfrec = new JComboBox<Object>(frec);
+		boxfrec.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
+		boxfrec.setBorder(null);
+		boxfrec.setOpaque(false);
+		boxfrec.setEnabled(true);
+		GridBagConstraints gbc_boxfrec = new GridBagConstraints();
+		gbc_boxfrec.insets = new Insets(0, 0, 0, 5);
+		gbc_boxfrec.fill = GridBagConstraints.BOTH;
+		gbc_boxfrec.gridx = 1;
+		gbc_boxfrec.gridy = 4;
+		gbc_boxfrec.gridwidth = 13;
+		contentPanel.add(boxfrec, gbc_boxfrec);
+		
+		
+		
 	}
-	
-	
-	
 	
 	
 	@Override
