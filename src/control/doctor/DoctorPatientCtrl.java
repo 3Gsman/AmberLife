@@ -153,6 +153,9 @@ public class DoctorPatientCtrl implements ActionListener, MouseListener {
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}else  if (e.getActionCommand().equals("REPLY")){ 	
 			 try {

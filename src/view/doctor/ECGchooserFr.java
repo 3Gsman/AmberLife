@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -33,7 +34,7 @@ public class ECGchooserFr extends JPanelWithBackground {
 	}
 	
 	
-	public void initialize() throws IOException {
+	public void initialize() throws IOException, SQLException {
 
 		/*Dimension d = new Dimension(1200, 800);
 		this.setMinimumSize(d);
@@ -60,7 +61,7 @@ public class ECGchooserFr extends JPanelWithBackground {
 		this.setVisible(true);
 	}
 	
-	public void loadECGPanel(Vector<ECG> v, JPanel viewport) {		
+	public void loadECGPanel(Vector<ECG> v, JPanel viewport) throws SQLException {		
 		
 		for(ECG e : v)
 			try {
