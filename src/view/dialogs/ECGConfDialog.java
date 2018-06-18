@@ -222,6 +222,8 @@ public class ECGConfDialog extends JDialog implements ActionListener {
 		bStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				ecg.removeAllElements();
+				
 				linfo.setText("Measurement in process");
 				
 				String datafrec = boxfrec.getSelectedItem().toString();
