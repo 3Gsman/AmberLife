@@ -11,31 +11,47 @@ import javax.swing.border.EmptyBorder;
 import control.GraphCtrl;
 import control.doctor.DoctorMeasureCtrl;
 import model.LocalizationService;
+import view.TextPrompt;
 import view.panels.AlphaContainer;
 import view.panels.FullGraphPanel;
 import view.panels.JPanelWithBackground;
 
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.image.ImageObserver;
 import java.io.IOException;
 import java.net.URL;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class DoctorMeasureFr extends JPanelWithBackground {
+	
+	JTextArea text; //Diagnostic
+
+	
+	public void updateDiagnostic(String text) {
+		this.text.setText(text);
+		this.repaint();
+		this.validate();
+	}
 
 	public DoctorMeasureFr(URL url) throws IOException {
 		super(url);
 		// TODO Auto-generated constructor stub
 	}
 
+	
 
 	DoctorMeasureCtrl controller;
 	
@@ -81,7 +97,7 @@ public class DoctorMeasureFr extends JPanelWithBackground {
 		this.add(new AlphaContainer(panel), gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{30, 20, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 20, 20, 30, 0};
-		gbl_panel.rowHeights = new int[]{30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 50, 30, 0};
+		gbl_panel.rowHeights = new int[]{30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 50, 30, 0};
 		gbl_panel.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 1.0, 0.0, 0.5, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
@@ -122,36 +138,77 @@ public class DoctorMeasureFr extends JPanelWithBackground {
 			gbc_information.gridy = 10;
 			
 			//Set Left Panel
-			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-			scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-			scrollPane.getVerticalScrollBar().setUnitIncrement(18);
+			{
+			JPanel lp = new JPanel();
+			lp.setOpaque(false);
+			lp.setLayout(new BorderLayout());
+			
 			GridBagConstraints gbc_sp1 = new GridBagConstraints();
 			gbc_sp1.gridwidth = 1;
+			gbc_sp1.gridheight = 1;
 			gbc_sp1.fill = GridBagConstraints.BOTH;
 			gbc_sp1.gridx = 0;
 			gbc_sp1.gridy = 0;
-
-			JPanel viewport = new JPanel();
-			viewport.setLayout(new BorderLayout());
-			JTextArea text = new JTextArea();
-			String report = controller.getECG().getReport();
-			text.setLineWrap(true);
-			if(report != "") {
-				text.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 18));		
-				text.setText(report);
-			}
-			else {
-				text.setFont(new Font("Source Code Pro Medium", Font.ITALIC, 18));
-				text.setForeground(new Color(140,140,140,255));
-				text.setText("No report to show.");
-			}
-			text.setEditable(false);
 			
-			viewport.add(text, BorderLayout.CENTER);
-			
-			scrollPane.setViewportView(viewport);
-			information.add(scrollPane,gbc_sp1);
+				{//Set Diagnose Panel Begin
+				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+				scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+				scrollPane.getVerticalScrollBar().setUnitIncrement(18);
+				
+	
+				JPanel viewport = new JPanel();
+				viewport.setLayout(new BorderLayout());
+				text = new JTextArea();
+				text.setLineWrap(true);
+				text.setWrapStyleWord(true);
+				text.setEditable(false);
+				TextPrompt tp = new TextPrompt("No report to show.", text);
+				tp.setVerticalTextPosition(SwingConstants.TOP);
+				tp.setHorizontalTextPosition(SwingConstants.CENTER);
+				tp.setForeground(new Color(140,140,140,255));
+				sf = font.deriveFont(16f);
+				tp.setFont(sf);
+				String report = controller.getECG().getReport();
+				if(!report.equals("")) {
+					text.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 18));		
+					text.setText(report);
+				}
+				/*else {
+					text.setFont(new Font("Source Code Pro Medium", Font.ITALIC, 18));
+					text.setForeground(new Color(140,140,140,255));
+					text.setText("No report to show.");
+				}*/
+				
+				viewport.add(text, BorderLayout.CENTER);
+				
+				scrollPane.setViewportView(viewport);
+				lp.add(scrollPane,BorderLayout.CENTER);
+				}//Set Diagnose Panel End
+				
+				{//Set Edit Button Panel and button Begin
+					
+				JPanel edit_panel = new JPanel();
+				edit_panel.setLayout(new FlowLayout(FlowLayout.LEADING));
+				edit_panel.setOpaque(false);
+				edit_panel.setBackground(Color.white);
+				JButton btnEdit = new JButton("");
+				btnEdit.setBorderPainted(false);
+				btnEdit.setBorder(null);
+				btnEdit.setMargin(new Insets(0, 0, 0, 0));
+				btnEdit.setContentAreaFilled(false);
+				btnEdit.setActionCommand("EDIT_DIAGNOSIS");
+				btnEdit.addActionListener(controller);
+				ImageIcon icon = new ImageIcon(getClass().getResource("/resources/penicon_small.png"));
+				btnEdit.setHorizontalTextPosition(SwingConstants.TRAILING);
+				btnEdit.setIcon(icon);
+				btnEdit.setPreferredSize(new Dimension(24,24));
+				edit_panel.add(btnEdit);
+				lp.add(btnEdit,BorderLayout.PAGE_END);
+				}//Set Edit Button Panel and button End
+				
+			information.add(lp,gbc_sp1);
+			}//Set Left Panel End
 			
 			//Set Right Panel
 			JScrollPane scrollPane2 = new JScrollPane();

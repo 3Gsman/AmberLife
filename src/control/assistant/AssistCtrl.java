@@ -16,7 +16,6 @@ import control.MainCtrl;
 import view.assistant.AssistFr;
 import view.assistant.AssistPatientFr;
 import view.dialogs.InvalidPatientDialog;
-import model.FileManagement;
 import model.Message;
 import model.Patient;
 import model.Assistant;

@@ -2,8 +2,10 @@ package control.assistant;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import control.MainCtrl;
+import model.DBManagement;
 import model.ECG;
 import view.admin.AdminFr;
 import view.assistant.AssistMeasureFr;
@@ -11,7 +13,9 @@ import view.assistant.AssistMeasureFr;
 public class AssistMeasureCtrl implements ActionListener{
 	
 	private AssistMeasureFr fr;
-	private ECG e;
+	private ECG ecg;
+	private String assistID;
+	private String patientID;
 	
 	/**
 	 * Class constructor, sets the related frame and the ECG measure that will be displayed on it.
@@ -20,9 +24,11 @@ public class AssistMeasureCtrl implements ActionListener{
 	 * @param  e	ECG to be displayed in the related frame	
 	 * @see    AssistMeasureFr, ECG
 	 */
-	public AssistMeasureCtrl(AssistMeasureFr thiscatwontshutthehellup, ECG e) {
+	public AssistMeasureCtrl(AssistMeasureFr thiscatwontshutthehellup, ECG e, String assistID, String patientID) {
 		this.fr = thiscatwontshutthehellup;
-		this.e = e;
+		this.ecg = e;
+		this.assistID = assistID;
+		this.patientID = patientID;
 	}
 	
 	/**
@@ -32,7 +38,15 @@ public class AssistMeasureCtrl implements ActionListener{
 	 * @see         ECG
 	 */
 	public ECG getECG() {
-		return e;
+		return ecg;
+	}
+	
+	public String getAssistID() {
+		return assistID;
+	}
+	
+	public String getPatientID() {
+		return patientID;
 	}
 
 	/**
@@ -53,7 +67,14 @@ public class AssistMeasureCtrl implements ActionListener{
 		 }
 		 else if (e.getActionCommand().equals("CONFIRM")){
 			 //Saving Measures not implemented yet.
-			 System.out.println(" UNIMPLEMENTED");
+			 System.out.println(" CONFIRMED");
+			 
+			 try {
+				DBManagement.confirmECG(ecg, assistID, patientID);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			 MainCtrl.popBackStack(); 
 		 }
 		 else System.out.println("Invalid Action");

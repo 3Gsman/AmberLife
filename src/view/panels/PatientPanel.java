@@ -121,7 +121,7 @@ public class PatientPanel extends JPanel {
 		label_1.setBackground(grey);
 		panel.add(label_1);
 		
-		JLabel lblJohnDoe = new JLabel(p.getName() + " " + p.getLastname());
+		JLabel lblJohnDoe = new JLabel(p.getLastname()+ " ," + p.getName());
 		lblJohnDoe.setForeground(grey);
 		lblJohnDoe.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
 		lblJohnDoe.setBackground(grey);

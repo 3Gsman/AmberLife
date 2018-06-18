@@ -7,13 +7,11 @@ import java.awt.event.MouseWheelListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import model.ECG;
-import model.FileManagement;
 import view.panels.FullGraphPanel;
 
 public class GraphCtrl implements ChangeListener, ActionListener, MouseWheelListener {
 	
 	private ECG ECGData;
-	private FileManagement fichero;
 	private FullGraphPanel graph;
 
 	/**
@@ -79,6 +77,17 @@ public class GraphCtrl implements ChangeListener, ActionListener, MouseWheelList
 		if (e.getActionCommand().equals("reset")) {
 
 			graph.zoom = 3;
+
+			graph.minimum = (graph.t / 100) * (graph.value + graph.zoom2);
+			graph.maximum = (graph.t / 100) * (graph.value + graph.zoom);
+			graph.chart.getXYPlot().getDomainAxis().setRange(graph.minimum, graph.maximum);
+			
+			System.out.println("reset");
+		}
+		
+		if (e.getActionCommand().equals("viewall")) {
+
+			graph.zoom = 100;
 
 			graph.minimum = (graph.t / 100) * (graph.value + graph.zoom2);
 			graph.maximum = (graph.t / 100) * (graph.value + graph.zoom);

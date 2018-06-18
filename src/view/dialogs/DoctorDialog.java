@@ -777,7 +777,9 @@ public class DoctorDialog extends JDialog {
 						JOptionPane.showMessageDialog(f, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
 					else if(!(Arrays.equals(passField.getPassword(), confirmField.getPassword()))) 
 						JOptionPane.showMessageDialog(f, "The password doesn't match", "Error", JOptionPane.ERROR_MESSAGE);
-					else {
+					else if(isInteger(ssnField.getText()) != true){
+						JOptionPane.showMessageDialog(f, "SSN must be a number", "Error", JOptionPane.ERROR_MESSAGE);
+					}else {
 						try {
 							if (id == null) createNewDoctor();
 							else updateDoctor(id);
@@ -957,7 +959,7 @@ public class DoctorDialog extends JDialog {
 				rs_check.close();
 				//Update code
 				String sql1 = "UPDATE User SET Password = ?, Name = ?,"
-						+ " LastName = ?, Username=?, Email =? WHERE IDuser LIKE '" + id + "'";	
+						+ " LastName = ?, Email =? WHERE IDuser LIKE '" + id + "'";	
 				String sql2	 = "Update CLINICAL Set SSN = ? WHERE IDuser LIKE '" + id + "'";	
 				String sql3	 = "Update  Doctor Set  MLN = ? WHERE IDuser LIKE '" + id + "'";	
 				String sql4 = "Update Telephone Set  Number = ? WHERE IDuser LIKE '" + id + "'";	
@@ -967,8 +969,7 @@ public class DoctorDialog extends JDialog {
 				st1.setString(1, String.valueOf(passField.getPassword()));
 				st1.setString(2, nameField.getText());
 				st1.setString(3, surnameField.getText());
-				st1.setString(4, usernameField.getText());
-				st1.setString(5, emailField.getText());
+				st1.setString(4, emailField.getText());
 				st1.executeUpdate();			
 				st1.close();
 				PreparedStatement st2 = c2.prepareStatement(sql2);
@@ -1025,6 +1026,19 @@ public class DoctorDialog extends JDialog {
 				|| confirmField.getPassword().toString().isEmpty()	|| idField.getText().isEmpty() 
 				|| ssnField.getText().isEmpty() || usernameField.getText().isEmpty() || emailField.getText().isEmpty()  
 				|| mlnField.getText().isEmpty() || phoneField.getText().isEmpty();
+	}
+	
+	boolean isInteger(String ssn) {
+		boolean check = false;
+		
+		try {
+			Integer.parseInt(ssn);
+			check = true;
+		}catch(NumberFormatException ex) {
+			
+		}
+		
+		return check;
 	}
 
 }

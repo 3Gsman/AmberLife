@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Component;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,6 +12,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,9 +39,21 @@ public class DBManagement {
 	 *             SQLException
 	 */
 
-	private static String db = "jdbc:mariadb://51.15.70.19:3306/proyecto2";
-	private static String userdb = "dani";
-	private static String pass = "gaja";
+	private static String db;
+	private static String userdb;
+	private static String pass;
+	
+	public static void getDBData() throws IOException{
+		Properties prop = new Properties();
+		String fileName = "src/resources/config/database.config";
+		InputStream is = new FileInputStream(fileName);
+		prop.load(is);
+
+	
+		db = "jdbc:mariadb://" + prop.getProperty("ip")+":"+prop.getProperty("port")+"/"+prop.getProperty("name");
+		userdb = prop.getProperty("user");
+		pass = prop.getProperty("pass");
+	}
 
 	// private static String db =
 	// "jdbc:mariadb://esp.uem.es:3306/pi2_bd_amberlife";
@@ -44,46 +61,70 @@ public class DBManagement {
 	// private static String pass = "rdysdhsks";
 
 	public static String[] checkUser(String usuario, String Password) throws ClassNotFoundException, SQLException {
+		MainCtrl.startLoading();
 		String iduser;
 		String user[] = new String[2];
 		Connection c =  DBManagement.getConnection();
 
 		try {
-			
 			Statement stmt = null;
 			stmt = c.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT IDUser FROM User WHERE Username='" + usuario + "' AND Password='"
-					+ Password + "' AND Active != 0");
-
-			if (rs.next() == false) {
-				user[0] = "false";
-			} else {
-				user[0] = "true";
-
-				iduser = rs.getString("IDUser");
-
-				rs = stmt.executeQuery("SELECT IDUser FROM CLINICAL WHERE IDuser='" + iduser + "'");
-
-				if (rs.next() == false) {
-					user[1] = "admin";
+			ResultSet rs = stmt.executeQuery("SELECT Username FROM User");/* WHERE Username='" + usuario + "' AND Password='"
+					+ Password + "' AND Active != 0"*/
+			
+			//Añadimos aqui la algoritmia, "forzandolo" en vez de hacer la query en SQL, para comprobar si el usuario existe
+		
+			Vector<String> usernames =new Vector<String>();
+			while(rs.next()) {
+				usernames.add(rs.getString("Username"));
+			}
+			
+			String id = Utilities.findUsername(usernames, usuario);
+			System.out.println(id);
+			rs.close();
+			stmt.close();
+			
+			if(id.equals("")) 
+				JOptionPane.showMessageDialog(MainCtrl.getMainFrame(), "User doesn't exist.", 
+							"Error", JOptionPane.ERROR_MESSAGE);
+			else {
+				Statement stmt_2 = c.createStatement();
+				ResultSet rs_2 = stmt_2.executeQuery("SELECT * FROM User WHERE Username='" + usuario + 
+						"' AND Password='" +  Password + "' AND Active != 0");
+				
+				if (rs_2.next() == false) {
+					user[0] = "false";
+					JOptionPane.showMessageDialog(MainCtrl.getMainFrame(), "Incorrect Password.", "Error", JOptionPane.ERROR_MESSAGE);	//sale una ventana de diálogo para alertar de un error
 				} else {
-
-					rs = stmt.executeQuery("SELECT IDUser FROM Doctor WHERE iduser='" + iduser + "'");
-
-					if (rs.next() == false) {
-						user[1] = "tecnico";
+					user[0] = "true";
+	
+					iduser = rs_2.getString("IDUser");
+	
+					rs_2 = stmt_2.executeQuery("SELECT IDUser FROM CLINICAL WHERE IDuser='" + iduser + "'");
+	
+					if (rs_2.next() == false) {
+						user[1] = "admin";
 					} else {
-						user[1] = "medico";
+	
+						rs_2 = stmt_2.executeQuery("SELECT IDUser FROM Doctor WHERE iduser='" + iduser + "'");
+	
+						if (rs_2.next() == false) {
+							user[1] = "tecnico";
+						} else {
+							user[1] = "medico";
+						}
 					}
 				}
+				stmt_2.close();
+				rs_2.close();
 			}
 
-			rs.close();
 			stmt.close();
 			c.close();
 		} catch (java.sql.SQLException sqle) {
 			System.out.println("Error: " + sqle);
 		}
+		MainCtrl.stopLoading();
 		return user;
 	}
 
@@ -99,13 +140,15 @@ public class DBManagement {
 	 */
 
 	public static Assistant readAssistant(String username) throws SQLException, ClassNotFoundException {
-
+		MainCtrl.startLoading();
 		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
 		stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT * FROM Assistant JOIN User ON Assistant.IDUser = User.IDUser"
 				+ " WHERE Username = '" + username + "'");
+		
+		
 		if (rs.next()) {
 			Assistant ass = new Assistant(rs.getString("Name"), rs.getString("LastName"), rs.getString("IDuser"),
 					rs.getString("Municipality"), rs.getString("Username"));
@@ -119,7 +162,7 @@ public class DBManagement {
 			c.close();
 
 			Assistant ass = new Assistant(null, null, null, null, null);
-
+			MainCtrl.stopLoading();
 			return ass;
 		}
 	}
@@ -133,6 +176,7 @@ public class DBManagement {
 	 */
 
 	public static Vector<Assistant> getAssistants() throws ClassNotFoundException, SQLException {
+		MainCtrl.startLoading();
 		Vector<Assistant> v = new Vector<>();
 		Connection c =  DBManagement.getConnection();
 
@@ -151,6 +195,9 @@ public class DBManagement {
 		stmt.close();
 		c.close();
 
+		Utilities.sortUser(v, 0, v.size()-1);
+		
+		MainCtrl.stopLoading();
 		return v;
 
 	}
@@ -165,6 +212,7 @@ public class DBManagement {
 	 */
 
 	public static Vector<Message> readMessages(String patientID) throws ClassNotFoundException, SQLException {
+		MainCtrl.startLoading();
 		Vector<Message> messages = new Vector<>();
 		Connection c =  DBManagement.getConnection();
 
@@ -191,7 +239,10 @@ public class DBManagement {
 		rs_message.close();
 		stmt.close();
 		c.close();
+		
+		Utilities.sortMessages(messages, 0, messages.size()-1);
 
+		MainCtrl.stopLoading();
 		return messages;
 	}
 
@@ -204,6 +255,7 @@ public class DBManagement {
 	 */
 
 	public static Vector<Doctor> getDoctors() throws SQLException, ClassNotFoundException {
+		MainCtrl.startLoading();
 		Vector<Doctor> v = new Vector<>();
 		Connection c =  DBManagement.getConnection();
 
@@ -229,7 +281,10 @@ public class DBManagement {
 		rs.close();
 		stmt.close();
 		c.close();
+		
+		Utilities.sortUser(v, 0, v.size()-1);
 
+		MainCtrl.stopLoading();
 		return v;
 
 	}
@@ -245,14 +300,14 @@ public class DBManagement {
 	 */
 
 	public static ECG readECG(int IDecg) throws ClassNotFoundException, SQLException {
-
+		MainCtrl.startLoading();
 		Connection c = DBManagement.getConnection();
 
 		Statement stmt = null;
 		stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery("select * from ECG where ECG.IDecg ='" + IDecg + "'");
 
-		ECG ecg = new ECG(IDecg,rs.getInt("Frequency"), new Vector<Double>(),rs.getString("Diagnostic"));
+		ECG ecg = new ECG(IDecg,rs.getInt("Frequency"), new Vector<Double>(),rs.getString("Diagnostic"),rs.getString("Date"));
 		Vector<Double> num = new Vector<>();
 
 		rs.getString("Data");
@@ -269,6 +324,7 @@ public class DBManagement {
 		stmt.close();
 		c.close();
 
+		MainCtrl.stopLoading();
 		return ecg;
 
 	}
@@ -285,6 +341,7 @@ public class DBManagement {
 	public static Vector<Patient> readPatients(String doctorID)
 			throws ClassNotFoundException, SQLException, IOException {
 
+		MainCtrl.startLoading();
 		Connection c = DBManagement.getConnection();
 		Statement stmt = null;
 		stmt = c.createStatement();
@@ -309,10 +366,10 @@ public class DBManagement {
 		stmt.close();
 		c.close();
 		
-		Vector<Patient> sortedpatients = new Vector<Patient>();
-		sortedpatients = Utilities.sortPatientsByName(patients);
+		Utilities.sortPatients(patients, 0, patients.size()-1);
 		
-		return sortedpatients;
+		MainCtrl.stopLoading();
+		return patients;
 	}
 
 	/**
@@ -328,7 +385,7 @@ public class DBManagement {
 	 */
 
 	public static Doctor readDoctor(String username) throws SQLException, ClassNotFoundException {
-
+		MainCtrl.startLoading();
 		Connection c = DBManagement.getConnection();
 
 		Statement stmt = null;
@@ -367,9 +424,11 @@ public class DBManagement {
 			rs_tlph.close();
 			stmt3.close();
 			c.close();
+			MainCtrl.stopLoading();
 			return d;
 		} else {
 			Doctor d = new Doctor(null, null, null, null);
+			MainCtrl.stopLoading();
 			return d;
 		}
 	}
@@ -388,6 +447,7 @@ public class DBManagement {
 	 */
 
 	public static Patient checkId(String dni) throws SQLException, ClassNotFoundException {
+		MainCtrl.startLoading();
 		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
@@ -412,6 +472,7 @@ public class DBManagement {
 		stmt.close();
 		c.close();
 
+		MainCtrl.stopLoading();
 		return pt;
 
 	}
@@ -430,6 +491,7 @@ public class DBManagement {
 	 */
 
 	public static Patient checkSsn(String ssn) throws SQLException, ClassNotFoundException {
+		MainCtrl.startLoading();
 		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
@@ -455,6 +517,7 @@ public class DBManagement {
 		stmt.close();
 		c.close();
 
+		MainCtrl.stopLoading();
 		return pt;
 
 	}
@@ -472,7 +535,8 @@ public class DBManagement {
 	 */
 
 	public static Patient readPatient(String IDptt) throws IOException, SQLException, ClassNotFoundException {
-
+		
+		MainCtrl.startLoading();
 		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
@@ -499,12 +563,14 @@ public class DBManagement {
 			stmt.close();
 			c.close();
 
+			MainCtrl.stopLoading();
 			return p;
 		} else {
 			rs.close();
 			stmt.close();
 			c.close();
 
+			MainCtrl.stopLoading();
 			return p;
 		}
 	}
@@ -520,6 +586,7 @@ public class DBManagement {
 
 	public static Vector<ECG> ecgList(String IDptt) throws IOException, ClassNotFoundException, SQLException {
 
+		MainCtrl.startLoading();
 		Vector<ECG> vector = new Vector<ECG>();
 		Connection c = DBManagement.getConnection();
 
@@ -528,7 +595,7 @@ public class DBManagement {
 		ResultSet rs = stmt.executeQuery("select * from ECG where ECG.IDptt ='" + IDptt + "'");
 
 		while (rs.next()) {
-			ECG ecg = new ECG(rs.getInt("IDecg"),rs.getInt("Frequency"),new Vector<Double>(),rs.getString("Diagnostic"));
+			ECG ecg = new ECG(rs.getInt("IDecg"),rs.getInt("Frequency"),new Vector<Double>(),rs.getString("Diagnostic"),rs.getString("Date"));
 			Vector<Double> num = new Vector<>();
 
 
@@ -548,7 +615,9 @@ public class DBManagement {
 		rs.close();
 		stmt.close();
 		c.close();
-
+		
+		Utilities.sortECG(vector, 0, vector.size()-1);
+		MainCtrl.stopLoading();
 		return vector;
 	}
 
@@ -561,10 +630,10 @@ public class DBManagement {
 	 * @throws IOException,
 	 *             ClassNotFoundException, SQLException
 	 */
-
 	public static Vector<Message> readPatientMessages(String idptt)
 			throws IOException, ClassNotFoundException, SQLException {
 
+		MainCtrl.startLoading();
 		Vector<Message> messages = new Vector<>();
 
 		Connection c = DBManagement.getConnection();
@@ -586,6 +655,7 @@ public class DBManagement {
 		stmt.close();
 		c.close();
 
+		MainCtrl.stopLoading();
 		return messages;
 
 	}
@@ -595,6 +665,7 @@ public class DBManagement {
 		String idPatient = null;
 		String idDoctor = null;
 
+		MainCtrl.startLoading();
 		Connection c =  DBManagement.getConnection();
 
 		Statement stmt = null;
@@ -634,10 +705,12 @@ public class DBManagement {
 		rd.close();
 		stmt.close();
 		c.close();
+		MainCtrl.stopLoading();
 
 	}
 
 	public static Boolean checkDoctor(String dni) throws SQLException, ClassNotFoundException {
+		MainCtrl.startLoading();
 		Connection c = DBManagement.getConnection();
 
 		Statement stmt = null;
@@ -656,11 +729,13 @@ public class DBManagement {
 		stmt.close();
 		c.close();
 
+		MainCtrl.stopLoading();
 		return isdoctor;
 
 	}
 	
 	public static boolean validatePatient(String name, String lastname, String id) {
+		MainCtrl.startLoading();
 		boolean valid = true;
 		
 		
@@ -685,14 +760,14 @@ public class DBManagement {
 				}
 			}
 		}
-			
+		MainCtrl.stopLoading();
 		return valid;
 	}
 	
 	public static boolean validateUser(String name, String lastname, String id, String email) {
 		boolean valid = true;
 		
-		
+		MainCtrl.startLoading();
 		Pattern p = Pattern.compile("^[ A-Za-z]+$");
 		Matcher m = p.matcher(name);
 		valid = m.matches();
@@ -718,11 +793,75 @@ public class DBManagement {
 			}
 			
 		}
-		
+		MainCtrl.stopLoading();
 		return valid;
 	}
 	
+	public static void confirmECG (ECG ecg, String assid, String pttid) throws SQLException {
+		MainCtrl.startLoading();
+		Connection c =  DBManagement.getConnection();
+
+		Statement stmt = null;
+		stmt = c.createStatement();
+		
+		String data = ecg.getData().get(0).toString();
+		
+		for(int i = 1; i < ecg.getData().size(); i++) {
+			data = data + ";" + ecg.getData().get(i).toString();
+		}
+		
+		
+		Date date = new Date();
+		
+		
+		stmt.executeUpdate("INSERT INTO ECG(IDuser, IDptt, Frequency, Data, Date, Seen, Diagnostic)"
+				+ " VALUES('" + assid +"','" +pttid+"','"+ecg.getFrequency()+"','"+data+"',"
+				+"'"+date+"','0','" +ecg.getReport()+"')");
+		
+		stmt.close();
+		c.close();
+		MainCtrl.stopLoading();
+	}
+	
+	
+	public static String getAssistECG(ECG e) throws SQLException{
+		MainCtrl.startLoading();
+		String assistECG = null;
+		String name = null;
+		String lastName = null;
+		
+		int id = e.getId();
+		
+		Connection c = DBManagement.getConnection();
+
+		Statement stmt = null;
+		stmt = c.createStatement();
+
+		ResultSet rs_ms = stmt.executeQuery("Select User.Name, User.LastName from User join ECG on User.IDuser = ECG.IDuser where ECG.IDecg = " + id + ";");
+		
+
+		while (rs_ms.next()) {
+			name = rs_ms.getString("Name");
+			lastName = rs_ms.getString("LastName");
+		}
+		
+		assistECG = name +" "+ lastName;
+		 
+		rs_ms.close();
+		stmt.close();
+		c.close();
+		
+		MainCtrl.stopLoading();
+		return assistECG;
+	}
+	
+	/**
+	 * Returns a Connection to the assigned DDBB
+	 * 
+	 * @return Connection
+	 */
 	public static Connection getConnection() {
+		MainCtrl.startLoading();
 		Connection c = null;
 		try {
 			
@@ -737,10 +876,13 @@ public class DBManagement {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Component f = null;
+			JOptionPane.showMessageDialog(f, "Failed to connect to server", "Error", JOptionPane.ERROR_MESSAGE);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		MainCtrl.stopLoading();
 		return c;
 	}
 	

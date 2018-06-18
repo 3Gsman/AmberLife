@@ -6,7 +6,6 @@
 package control;
 
 import model.DBManagement;
-import model.FileManagement;
 import model.LocalizationService;
 import view.*;
 import view.admin.AdminFr;
@@ -59,6 +58,7 @@ public class LoginCtrl implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent e) {
     	System.out.print("Action received: " + e.getActionCommand());
     	if (e.getActionCommand().equals("LOGIN")){
+    		MainCtrl.startLoading();
     		try {
 				aceptarVentana();
 			} catch (ClassNotFoundException e1) {
@@ -158,8 +158,7 @@ public class LoginCtrl implements ActionListener, KeyListener {
                         JOptionPane.showMessageDialog((Component) frame, "Unknown user Type.", "Error", JOptionPane.ERROR_MESSAGE);	//sale una ventana de diálogo para alertar de un error
                 }
             } else {	//si el resultado de la comparación es falso
-                Object frame = null;	//crea un objeto ventana
-                JOptionPane.showMessageDialog((Component) frame, "User or password doesn't match.", "Error", JOptionPane.ERROR_MESSAGE);	//sale una ventana de diálogo para alertar de un error
+                Object frame = null;	//crea un objeto ventana   
             }
         } catch (IOException e1) {
             e1.printStackTrace();	//imprime el registro de la pila donde se dio la excepción
@@ -177,6 +176,7 @@ public class LoginCtrl implements ActionListener, KeyListener {
 	 */
     public void openDoctor(String usuario) throws IOException, ClassNotFoundException, SQLException {
 
+    	
     	MainCtrl.toBackStack(vistaLogin);	//Cierra la ventana de inicio
         DoctorFr vp = new DoctorFr(getClass().getResource("/resources/BG.png"));	//crea nueva ventana
         DoctorCtrl dc = new DoctorCtrl(usuario,vp);

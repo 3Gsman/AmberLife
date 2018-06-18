@@ -27,7 +27,6 @@ import javax.swing.border.EmptyBorder;
 import control.doctor.DoctorPatientCtrl;
 import model.DBManagement;
 import model.ECG;
-import model.FileManagement;
 import model.LocalizationService;
 import model.Message;
 import model.User;
@@ -41,8 +40,7 @@ import view.panels.MessagePanel;
 @SuppressWarnings("serial")
 public class DoctorPatientFr extends JPanelWithBackground {
 	
-	private Font font;
-
+	
 
 	public DoctorPatientFr(URL url) throws IOException {
 		super(url);
@@ -52,7 +50,9 @@ public class DoctorPatientFr extends JPanelWithBackground {
 	public JPanel messagePanel = new JPanel(new BorderLayout());
 	public DoctorPatientCtrl controller;
 	private String mode = "ECGS";
-	
+	private Font font;
+	JButton ecg_mode;
+	JButton message_mode;
 	
 	public void addController(DoctorPatientCtrl a) {
 		this.controller = a;
@@ -108,9 +108,7 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			new_msg.add(btnNewButton2);
 			
 			//controller.getPatient().getID()
-			
-			
-			
+		
 			Vector<Message> messages = DBManagement.readMessages(controller.getPatient().getId());
 			
 			if(messages.equals(null)) {
@@ -138,7 +136,7 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			return jp2;
 	}
 	
-	private JPanel initializeECG() throws IOException {
+	private JPanel initializeECG() throws IOException, SQLException {
 			JPanel jp = new JPanel();
 			JScrollPane sp = new JScrollPane();
 			sp.setBackground( new Color(0, 0, 0, 0) );
@@ -161,7 +159,7 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			return jp;
 	}
 	
-	public void setModeECG() throws IOException {
+	public void setModeECG() throws IOException, SQLException {
 		if(mode != "ECGS") {
 			//this.getthis().remove(messagePanel);
 			messagePanel.removeAll();
@@ -169,6 +167,19 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			this.repaint();
 			this.validate();
 			mode = "ECGS";
+			
+			/*ecg_mode.setContentAreaFilled(true);
+			ecg_mode.setBackground(new Color(255, 255, 255, 140));*/
+			ecg_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Data_black.png")));
+			/*ecg_mode.setOpaque(true);
+			message_mode.setContentAreaFilled(false);
+			message_mode.setOpaque(false);*/
+			message_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Alerts.png")));
+			
+			ecg_mode.repaint();
+			message_mode.repaint();
+			message_mode.validate();
+			ecg_mode.validate();
 		}
 	}
 	
@@ -180,6 +191,20 @@ public class DoctorPatientFr extends JPanelWithBackground {
 			this.repaint();
 			this.validate();
 			mode = "MESSAGES";
+			
+			/*ecg_mode.setContentAreaFilled(false);
+			ecg_mode.setOpaque(false);*/
+			ecg_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Data.png")));
+			/*message_mode.setContentAreaFilled(true);
+			message_mode.setBackground(new Color(255, 255, 255, 140));
+			message_mode.setOpaque(true);*/
+			message_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Alerts_black.png")));
+			
+			
+			ecg_mode.repaint();
+			message_mode.repaint();
+			message_mode.validate();
+			ecg_mode.validate();
 		}
 	}
 	
@@ -193,7 +218,7 @@ public class DoctorPatientFr extends JPanelWithBackground {
 		}
 	}
 	
-	public void loadECGPanel(Vector<ECG> v, JPanel viewport) {		
+	public void loadECGPanel(Vector<ECG> v, JPanel viewport) throws SQLException {		
 		if(v!= null) {
 			for(ECG e : v)
 				try {
@@ -216,8 +241,9 @@ public class DoctorPatientFr extends JPanelWithBackground {
 	/**
 	 * Initialize the frame.
 	 * @throws IOException 
+	 * @throws SQLException 
 	 */
-	public void initialize() throws IOException {
+	public void initialize() throws IOException, SQLException {
 	
 		this.setBorder(new EmptyBorder(0, 0, 0, 0));
 		GridBagLayout gbl_this = new GridBagLayout();
@@ -576,47 +602,61 @@ public class DoctorPatientFr extends JPanelWithBackground {
 		this.add(messagePanel, gbc_panel_2);
 		
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setBorderPainted(false);
-		btnNewButton.setBorder(null);
-		btnNewButton.setMargin(new Insets(0, 0, 0, 0));
-		btnNewButton.setContentAreaFilled(false);
-		btnNewButton.setActionCommand("BACK");
-		btnNewButton.addActionListener(controller);
-		btnNewButton.setIcon(new ImageIcon(getClass().getResource("/resources/Backbutton.png")));
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
+		JPanel buttonContainer = new JPanel(new FlowLayout());
+		buttonContainer.setOpaque(false);
+		buttonContainer.setBackground(new Color(255,255,255,140));
+		GridBagConstraints gbc_buttonContainer = new GridBagConstraints();
+		gbc_buttonContainer.fill = GridBagConstraints.BOTH;
+		gbc_buttonContainer.gridx = 0;
+		gbc_buttonContainer.gridy = 18;
+		gbc_buttonContainer.gridwidth = 3;
+		
+		JButton backbutton = new JButton("");
+		backbutton.setBorderPainted(false);
+		backbutton.setBorder(null);
+		backbutton.setMargin(new Insets(0, 0, 0, 0));
+		backbutton.setContentAreaFilled(false);
+		backbutton.setActionCommand("BACK");
+		backbutton.addActionListener(controller);
+		backbutton.setIcon(new ImageIcon(getClass().getResource("/resources/Backbutton.png")));
+		/*GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton.gridx = 0;
 		gbc_btnNewButton.gridy = 18;
-		this.add(btnNewButton, gbc_btnNewButton);
+		this.add(backbutton, gbc_btnNewButton);*/
+		buttonContainer.add(backbutton);
 		
-		JButton btnNewButton2 = new JButton("");
-		btnNewButton2.setBorderPainted(false);
-		btnNewButton2.setBorder(null);
-		btnNewButton2.setMargin(new Insets(0, 0, 0, 0));
-		btnNewButton2.setContentAreaFilled(false);
-		btnNewButton2.setActionCommand("MESSAGES");
-		btnNewButton2.addActionListener(controller);
-		btnNewButton2.setIcon(new ImageIcon(getClass().getResource("/resources/Alerts.png")));
-		GridBagConstraints gbc_btnNewButton2 = new GridBagConstraints();
+		message_mode = new JButton("");
+		message_mode.setBorderPainted(false);
+		message_mode.setBorder(null);
+		message_mode.setMargin(new Insets(0, 0, 0, 0));
+		message_mode.setContentAreaFilled(false);
+		message_mode.setActionCommand("MESSAGES");
+		message_mode.addActionListener(controller);
+		message_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Alerts.png")));
+		/*GridBagConstraints gbc_btnNewButton2 = new GridBagConstraints();
 		gbc_btnNewButton2.fill = GridBagConstraints.BOTH;
 		gbc_btnNewButton2.gridx = 1;
 		gbc_btnNewButton2.gridy = 18;
-		this.add(btnNewButton2, gbc_btnNewButton2);
+		this.add(new AlphaContainer(message_mode), gbc_btnNewButton2);*/
+		buttonContainer.add(message_mode);
 		
-		JButton btnNewButton3 = new JButton("");
-		btnNewButton3.setBorderPainted(false);
-		btnNewButton3.setBorder(null);
-		btnNewButton3.setMargin(new Insets(0, 0, 0, 0));
-		btnNewButton3.setContentAreaFilled(false);
-		btnNewButton3.setActionCommand("ECGS");
-		btnNewButton3.addActionListener(controller);
-		btnNewButton3.setIcon(new ImageIcon(getClass().getResource("/resources/Data.png")));
-		GridBagConstraints gbc_btnNewButton3 = new GridBagConstraints();
+		ecg_mode = new JButton("");
+		ecg_mode.setBorderPainted(false);
+		ecg_mode.setBorder(null);
+		ecg_mode.setMargin(new Insets(0, 0, 0, 0));
+		ecg_mode.setActionCommand("ECGS");
+		ecg_mode.addActionListener(controller);
+		ecg_mode.setContentAreaFilled(false);
+		ecg_mode.setOpaque(false);
+		ecg_mode.setIcon(new ImageIcon(getClass().getResource("/resources/Data_black.png")));
+		/*GridBagConstraints gbc_btnNewButton3 = new GridBagConstraints();
 		gbc_btnNewButton3.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton3.gridx = 2;
 		gbc_btnNewButton3.gridy = 18;
-		this.add(btnNewButton3, gbc_btnNewButton3);
+		this.add(ecg_mode, gbc_btnNewButton3);*/
+		buttonContainer.add(ecg_mode);
+		this.add(new AlphaContainer(buttonContainer), gbc_buttonContainer);
 		
 	}
 }

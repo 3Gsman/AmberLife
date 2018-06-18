@@ -717,6 +717,8 @@ public class AssistDialog extends JDialog {
 
 						JOptionPane.showMessageDialog(f, "The password doesn't match", "Error",
 								JOptionPane.ERROR_MESSAGE);
+					}else if(isInteger(ssnField.getText()) != true){
+						JOptionPane.showMessageDialog(f, "SSN must be a number", "Error", JOptionPane.ERROR_MESSAGE);
 					} else {
 						try {
 							if (id == null)
@@ -881,34 +883,32 @@ public class AssistDialog extends JDialog {
 			Connection c2 = DBManagement.getConnection();
 
 			// Update code
-			String sql1 = "UPDATE User SET IDuser = ?, Password = ?, Active = ?, Name = ?,"
-					+ " LastName = ?, Username=?, Email =?";
-			String sql2 = "Update CLINICAL Set IDUser = ?, SSN = ?";
-			String sql3 = "Update Assistant Set IDUser = ?, Municipality = ?";
+			String sql1 = "UPDATE User SET Password = ?, Active = ?, Name = ?,"
+					+ " LastName = ?, Email = ? WHERE IDUser LIKE '" + id + "'";
+			String sql2 = "Update CLINICAL Set SSN = ? WHERE IDUser LIKE '" + id + "'";
+			String sql3 = "Update Assistant Set Municipality = ? WHERE IDUser LIKE '" + id + "'";
 			String ID = idField.getText();
 	
-			PreparedStatement st1 = c2.prepareStatement(sql1);
-			st1.setString(1, ID);
-			// Doubt this is the best for security, consider this only temporal
-			st1.setString(2, String.valueOf(passField.getPassword()));
-			st1.setInt(3, 1);
-			st1.setString(4, nameField.getText());
-			st1.setString(5, surnameField.getText());
-			st1.setString(6, usernameField.getText());
-			st1.setString(7, emailField.getText());
-			st1.executeUpdate();
-			st1.close();
-			PreparedStatement st2 = c2.prepareStatement(sql2);
-			st2.setString(1, ID);
-			st2.setString(2, ssnField.getText());
-			st2.executeUpdate();
-			st2.close();
 			PreparedStatement st3 = c2.prepareStatement(sql3);
-			st3.setString(1, ID);
-			st3.setString(2, cityField.getText());
+			st3.setString(1, cityField.getText());
 			st3.executeUpdate();
 			st3.close();
+			PreparedStatement st2 = c2.prepareStatement(sql2);
+			st2.setString(1, ssnField.getText());
+			st2.executeUpdate();
+			st2.close();
+			PreparedStatement st1 = c2.prepareStatement(sql1);	
+			// Doubt this is the best for security, consider this only temporal
+			st1.setString(1, String.valueOf(passField.getPassword()));
+			st1.setInt(2, 1);
+			st1.setString(3, nameField.getText());
+			st1.setString(4, surnameField.getText());
+			st1.setString(5, emailField.getText());
+			st1.executeUpdate();
+			st1.close();
+			
 			c2.close();
+			
 			windowToRefresh.actionPerformed(new ActionEvent(this, 0, "USER_UPDATE"));
 		} else { // If the ID is changed, delete the table and instead create
 					// another one?
@@ -934,6 +934,19 @@ public class AssistDialog extends JDialog {
 		rs.close();
 		stmt.close();
 		c.close();
+	}
+	
+	boolean isInteger(String ssn) {
+		boolean check = false;
+		
+		try {
+			Integer.parseInt(ssn);
+			check = true;
+		}catch(NumberFormatException ex) {
+			
+		}
+		
+		return check;
 	}
 
 	boolean checkBoxesFilled() {

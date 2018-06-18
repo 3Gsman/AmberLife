@@ -779,6 +779,8 @@ public class PatientDialog extends JDialog {
 			if (rs.next() == true) {
 				JOptionPane.showMessageDialog(MainCtrl.getMainFrame(), "A patient with that ID or Username already exists");
 				System.out.println("A Patient with that ID already exists");
+				JOptionPane.showMessageDialog(MainCtrl.getMainFrame(), "A Patient with that ID already exists.", 
+							"Error", JOptionPane.ERROR_MESSAGE);
 				dispose();
 			}
 			else if(!(DBManagement.validatePatient(nameField.getText(),surnameField.getText(),idField.getText()))) {

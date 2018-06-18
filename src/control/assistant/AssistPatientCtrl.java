@@ -1,6 +1,7 @@
 package control.assistant;
 
 import java.awt.Component;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -15,7 +16,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import control.MainCtrl;
 import model.ECG;
-import model.FileManagement;
 import view.assistant.AssistMeasureFr;
 import view.assistant.AssistPatientFr;
 import view.dialogs.ECGConfDialog;
@@ -77,11 +77,19 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Action received: ");
 		 if (e.getActionCommand().equals("MEASURE")){
+			 
+			 String dataPort = AssistPatientFr.boxPort.getSelectedItem().toString();
+			 
 			 System.out.println(" Measure");
 			 
-			 ECGConfDialog a = new ECGConfDialog();
+			 try {
+				ECGConfDialog a = new ECGConfDialog(assistID,patientID,patient,dataPort);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			 
-			 JFileChooser chooser = new JFileChooser();
+			/* JFileChooser chooser = new JFileChooser();
 			 FileNameExtensionFilter filter = new FileNameExtensionFilter(
 				        "ECGs", "txt");
 			chooser.setFileFilter(filter);
@@ -99,7 +107,7 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 					try {
 						   ecg = f.readECG(filename);
 					       AssistMeasureFr tef = new AssistMeasureFr(getClass().getResource("/resources/BG.png"));
-					       AssistMeasureCtrl tec = new AssistMeasureCtrl(tef,ecg);
+					       AssistMeasureCtrl tec = new AssistMeasureCtrl(tef,ecg, assistID, patientID);
 					       MainCtrl.toBackStack(patient);
 					       tef.addController(tec);
 					       tef.initialize();
@@ -113,7 +121,7 @@ public class AssistPatientCtrl  implements ActionListener, KeyListener{
 		       else {
 		    	   FileChooserErrorDialog.notECG();
 		       }
-		    }
+		    }*/
 			 
 
 		}else  if (e.getActionCommand().equals("BACK")){ 

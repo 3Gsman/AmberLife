@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import control.MainCtrl;
-import model.FileManagement;
 import model.Doctor;
 import model.Assistant;
 import model.DBManagement;

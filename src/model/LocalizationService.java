@@ -120,7 +120,7 @@ public  class LocalizationService {
 		spanish.put("cancel", "CANCELAR");
 		galician.put("cancel", "CANCELAR");
 		
-		english.put("confirm", "COMFIRM");
+		english.put("confirm", "CONFIRM");
 		spanish.put("confirm", "CONFIRMAR");
 		galician.put("confirm", "CONFIRMAR");
 		

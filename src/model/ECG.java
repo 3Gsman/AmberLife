@@ -7,6 +7,7 @@ public class ECG {
 	private int frequency;
 	private Vector<Double> data;
 	private String report;
+	private String date;
 	
 	/**
 	 * Class constructor. Sets the name of the file,  the frequency, and the report.
@@ -15,24 +16,13 @@ public class ECG {
 	 * @param f		number of measures per second
 	 * @param r		message attached to the ECG
 	 */		
-	public ECG(int id, int frequency, Vector<Double> data, String report) {
+	public ECG(int id, int frequency, Vector<Double> data, String report, String date) {
 		this.setId(id);
 		this.frequency = frequency;
 		this.data = data;
 		this.report = report;
+		this.date = date;
 	}
-	
-	/**
-	 * Class constructor. Sets the name of the file and the frequency.
-	 * 
-	 * @param n		name of the ECG file
-	 * @param f		number of measures per second
-	 */
-	/*public ECG(String n, int f) {
-		name = n;
-		frequency = f;
-		report = "";
-	}*/
 
 	/**
 	 * Getter for the frequency attribute.
@@ -94,6 +84,14 @@ public class ECG {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 	
 }

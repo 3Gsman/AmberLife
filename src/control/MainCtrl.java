@@ -1,7 +1,14 @@
 package control;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,14 +22,16 @@ import javax.swing.UIManager;
 
 import model.DBManagement;
 import model.LocalizationService;
+import view.ComponentResizer;
 import view.LoginFr;
 import view.MainFr;
 import view.dialogs.ExitDialog;
 
-public class MainCtrl implements WindowListener{
+public class MainCtrl implements WindowListener,MouseMotionListener {
 	
 	public static String DATABASE = "src/resources/BDAmberLife.db";
-	
+	int pX, pY;
+	//public static boolean waiting = false;
 	
 	/**
 	 * Creates an initial LoginFr and a controller for it, initializes services, and starts the program.
@@ -33,22 +42,35 @@ public class MainCtrl implements WindowListener{
 	
 	private static MainFr window = new MainFr();
 	
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws ClassNotFoundException, IOException {
+    	
+    	DBManagement.getDBData();
+    	
     	LocalizationService.initialize();
-
         try {
         	//DBManagement.createDatabase();
         	UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName()); 
             MainCtrl m = new MainCtrl();
 			LoginFr p = new LoginFr();
 			LoginCtrl pc = new LoginCtrl(p);
+			//FrameDragListener frameDragListener = new FrameDragListener(window);
+			ComponentResizer cr = new ComponentResizer();
+			cr.registerComponent(window);
+			cr.setSnapSize(new Dimension(5, 5));
+			
 		    p.addController(pc);
 		    p.initialize();
+		    //window.setUndecorated(true);
 			window.addController(m);
+			//window.addMouseListener(frameDragListener);
+			//window.addMouseMotionListener(frameDragListener);
+			
 			window.initialize();
-			window.setContentPane(p);
+			window.setLocationRelativeTo(null);
+			setPanel(p);
 			window.setVisible(true);
-
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -61,7 +83,9 @@ public class MainCtrl implements WindowListener{
     
     public static void setPanel(JPanel panel) {
 
-    	window.setContentPane(panel);
+    	window.switchView(panel);
+    	window.repaint(); 
+    	window.validate();
     }
     
     public static void toBackStack(JPanel panel) {
@@ -118,7 +142,58 @@ public class MainCtrl implements WindowListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+	
+	public static class FrameDragListener extends MouseAdapter {
+
+	    private final JFrame frame;
+	    private Point mouseDownCompCoords = null;
+
+	    public FrameDragListener(JFrame frame) {
+	        this.frame = frame;
+	    }
+
+	    public void mouseReleased(MouseEvent e) {
+	        mouseDownCompCoords = null;
+	    }
+
+	    public void mousePressed(MouseEvent e) {
+	        mouseDownCompCoords = e.getPoint();
+	    }
+
+	    public void mouseDragged(MouseEvent e) {
+	        Point currCoords = e.getLocationOnScreen();
+	        frame.setLocation(currCoords.x - mouseDownCompCoords.x, currCoords.y - mouseDownCompCoords.y);
+	    }
+	}//FrameDragListener
 
 
 
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void startLoading() {
+	
+		window.startLoading();
+		
+	}
+	
+	public static void stopLoading() {
+		window.stopLoading();
+	}
+	
+	
 }
+
+

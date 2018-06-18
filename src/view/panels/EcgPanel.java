@@ -8,10 +8,13 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import javax.swing.SwingConstants;
+
+import model.DBManagement;
 import model.ECG;
 import model.LocalizationService;
 import java.awt.FlowLayout;
@@ -26,7 +29,7 @@ public class EcgPanel extends JPanel {
 		}
 		
 		
-		public  EcgPanel(ECG e, MouseListener con) throws IOException {
+		public  EcgPanel(ECG e, MouseListener con) throws IOException, SQLException {
 			this.e=e;
 			GridBagLayout gridBagLayout = new GridBagLayout();
 			gridBagLayout.columnWidths = new int[]{10, 60, 180, 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 60, 180, 10, 0, 0};
@@ -66,7 +69,7 @@ public class EcgPanel extends JPanel {
 			flowLayout_2.setAlignment(FlowLayout.LEADING);
 			panel.add(panel_2);
 			
-			JLabel lblNewLabel = new JLabel(LocalizationService.getWord("name"));
+			JLabel lblNewLabel = new JLabel("Date");
 			lblNewLabel.setForeground(Color.WHITE);
 			sf = font.deriveFont(Font.PLAIN, 22f);
 			lblNewLabel.setFont(sf);
@@ -80,7 +83,7 @@ public class EcgPanel extends JPanel {
 			panel.add(label_1);
 			
 			//Aqui se escribe la ID del ECG en el panel
-			JLabel label_4 = new JLabel(String.valueOf(e.getId()));
+			JLabel label_4 = new JLabel(String.valueOf(e.getDate()));
 			label_4.setVerticalAlignment(SwingConstants.BOTTOM);
 			label_4.setForeground(grey);
 			label_4.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
@@ -114,7 +117,7 @@ public class EcgPanel extends JPanel {
 			label_2.setBackground(grey);
 			panel_1.add(label_2);
 			
-			JLabel lblms = new JLabel(e.getFrequency() + " ms");
+			JLabel lblms = new JLabel(e.getFrequency() + " Hz");
 			lblms.setVerticalAlignment(SwingConstants.BOTTOM);
 			lblms.setForeground(grey);
 			lblms.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 22));
@@ -148,7 +151,8 @@ public class EcgPanel extends JPanel {
 			label_3.setBackground(grey);
 			panel_4.add(label_3);
 			
-			JLabel lblJohnDoe_1 = new JLabel("unknown");
+			String assistECG = DBManagement.getAssistECG(e);
+			JLabel lblJohnDoe_1 = new JLabel(assistECG);
 			lblJohnDoe_1.setToolTipText("");
 			lblJohnDoe_1.setVerticalAlignment(SwingConstants.BOTTOM);
 			lblJohnDoe_1.setForeground(grey);
