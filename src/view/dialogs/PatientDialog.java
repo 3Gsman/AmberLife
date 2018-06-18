@@ -777,6 +777,7 @@ public class PatientDialog extends JDialog {
 			c.close();
 
 			if (rs.next() == true) {
+				JOptionPane.showMessageDialog(MainCtrl.getMainFrame(), "A patient with that ID or Username already exists");
 				System.out.println("A Patient with that ID already exists");
 				dispose();
 			}
