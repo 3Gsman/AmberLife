@@ -393,7 +393,7 @@ public class AssistPatientFr extends JPanelWithBackground {
 		this.add(panel_3, gbc_panel_3);
 		
 		
-		Object[] portop = { "COM3", "COM4", "COM5", "COM6" };
+		Object[] portop = { "COM3", "COM4", "COM5", "COM6", "COM7", "COM8" };
 		boxPort = new JComboBox<Object>(portop);
 		boxPort.setFont(new Font("Source Code Pro Medium", Font.PLAIN, 16));
 		boxPort.setBorder(null);
